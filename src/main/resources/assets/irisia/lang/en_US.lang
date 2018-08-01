@@ -1,0 +1,53 @@
+tile.mushroomEnderMushroom.name=Ender Mushroom
+tile.decorationEnderBlock.name=Ender Block
+tile.glassElasticFern.name=Elastic Fern
+tile.flowerCorrosiveFlower.name=Corrosive Flower
+tile.flowerToxicFlower.name=Toxic Flower
+tile.flowerWoodenRootFlower.name=Wooden Root Flower
+tile.flowerWoodenRootBlock.name=Wooden Root
+tile.flowerWisdomFlower.name=Wisdom Flower
+tile.flowerfrostyLotus.name=Frosty Lotus
+tile.flowerChargeLotus.name=Charge Lotus
+tile.flowerEmberDaisy.name=Ember Daisy
+tile.treeIronyWoodBlock.name=Irony Wood Block
+tile.treeIronyWoodLeave.name=Irony Wood Leave
+tile.treeIronyWoodSapling.name=Irony Wood Sapling
+tile.treeWisdomWood.name=Wisdom Wood
+tile.treeWisdomLeave.name=Wisdom Wood Leave
+tile.treeEclipseWood.name=Eclipse Wood
+tile.treeEclipseLeave.name=Eclipse Wood Leave
+
+tile.decorationCorrosedBlock.name=Corrosed Block
+tile.decorationLoessBlock.name=Loess
+
+tile.oreMithril.name=Mithril Ore
+tile.oreAdamantium.name=Adamantium Ore
+
+tile.expSmokerBlock.name=Experimental: Smoker Block
+
+item.functionalSummonner.name=Summonner
+item.functionalSmokingBomb.name=Smoking Bomb
+item.functionalBandage.name=Bandage
+item.functionalStoneOfCorona.name=Stone Of Corona
+
+item.materialChargePetal.name=Charge Petal
+item.materialMithrilIngot.name=Mithril Ingot
+item.materialAdamantiumIngot.name=Adamantium Ingot
+item.materialShardOfLove.name=Shard Of Love
+item.materialBezoar.name=Bezoar
+item.materialBatWing.name=BatWing
+item.materialEctoplasm.name=Ectoplasm
+item.materialTortoiseShell.name=Tortoise Shell
+item.materialGoldenFragment.name=Golden Fragment
+item.materialCrystalFragment.name=Crystal Fragment
+item.materialMagicCrystal.name=Magic Crystal
+item.materialMagicPowder.name=Magic Powder
+item.materialMagicPowder.des=
+
+
+
+
+
+
+
+
