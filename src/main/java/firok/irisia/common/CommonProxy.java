@@ -1,20 +1,7 @@
 package firok.irisia.common;
 
-import firok.irisia.achievement.PageIrisia;
-import firok.irisia.block.BlockLoader;
-import firok.irisia.command.CommandLoader;
-import firok.irisia.crafting.CraftingLoader;
-import firok.irisia.creativetab.CreativeTabsLoader;
-import firok.irisia.enchantment.EnchantmentLoader;
-import firok.irisia.entity.EntityLoader;
-import firok.irisia.fluid.FluidLoader;
-import firok.irisia.inventory.GuiElementLoader;
-import firok.irisia.item.ItemLoader;
-import firok.irisia.mod.tc.research.*;
-import firok.irisia.potion.PotionLoader;
-import firok.irisia.world.dim.*;
-import net.minecraftforge.common.AchievementPage;
 import cpw.mods.fml.common.event.*;
+import firok.irisia.item.*;
 
 public class CommonProxy
 {
@@ -23,11 +10,29 @@ public class CommonProxy
     	System.out.println("Ahh, finally, you come here, adventurer!");
 	    System.out.println("Here is the new world of Thaumic!");
 
-	    // class.forName("");
 
+	    // class.forName("");
+//        try
+//        {
+//            Class.forName("firok.irisia.DamageSources");
+//            Class.forName("firok.irisia.item.Materials");
+//
+//            Class.forName("firok.irisia.block.Decorations");
+//            Class.forName("firok.irisia.block.HerbsAndMushroom");
+//            Class.forName("firok.irisia.block.OresAndMetal");
+//
+//            Class.forName("firok.irisia.item.Equipments");
+//            Class.forName("firok.irisia.item.RawMaterials");
+//        }
+//        catch(ClassNotFoundException cnfe)
+//        {
+//            cnfe.printStackTrace();
+//            FMLLog.log(Level.FATAL,"一些重要的类无法加载");
+//            throw new RuntimeException(cnfe);
+//        }
 //    	new ConfigLoader(event);
-//    	new CreativeTabsLoader(event);
-//    	new ItemLoader(event);
+    	IrisiaCreativeTabs.load(event);
+    	new ItemLoader(event);
 //    	new FluidLoader(event);
 //    	new BlockLoader(event);
 //

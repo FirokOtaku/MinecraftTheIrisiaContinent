@@ -12,7 +12,7 @@ public class HerbsAndMushroom
 	public final static Herb MoonGrass;
 	public final static Herb SpicyRoot;
 
-	public final static Mushroom DarkMushroom;
+	public final static Mushroom ShadowMushroom;
 
 	static
 	{
@@ -20,7 +20,7 @@ public class HerbsAndMushroom
 		MoonGrass=new Herb();
 		SpicyRoot=new Herb();
 
-		DarkMushroom=(Mushroom) (new Mushroom())
+		ShadowMushroom =(Mushroom) (new Mushroom())
 				.setHardness(0.0F)
 				.setStepSound(Block.soundTypeGrass)
 				.setLightLevel(0.125F);

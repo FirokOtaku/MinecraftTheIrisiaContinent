@@ -23,7 +23,7 @@ public class BlockLoader
     public BlockLoader(FMLPreInitializationEvent event)
     {
         // register(grassBlock, "grass_block", unlocalizedName);
-    	//register(CreativeTabsLoader.irisiaBlock,mushroomEnderMushroom,"mushroom_ender_mushroom","mushroomEnderMushroom");
+    	//register(IrisiaCreativeTabs.irisiaBlock,mushroomEnderMushroom,"mushroom_ender_mushroom","mushroomEnderMushroom");
 	    register(CreativeTabs.tabBlock,OresAndMetal.OreMithril,"oreMithril","ore_mithril");
 	    register(CreativeTabs.tabBlock,OresAndMetal.OreAdamantium,"oreAdamantium","ore_adamantium");
 	    register(CreativeTabs.tabBlock,OresAndMetal.OreFlumetal,"oreFlumetal","ore_flumetal");

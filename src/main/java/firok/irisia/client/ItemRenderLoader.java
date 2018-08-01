@@ -8,6 +8,6 @@ public class ItemRenderLoader
     public ItemRenderLoader()
     {
         ItemLoader.registerRenders();
-        BlockLoader.registerRenders();
+        // BlockLoader.registerRenders();
     }
 }

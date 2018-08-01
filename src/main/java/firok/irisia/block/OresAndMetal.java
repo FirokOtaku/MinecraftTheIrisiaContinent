@@ -1,18 +1,14 @@
 package firok.irisia.block;
 
-import firok.irisia.creativetab.CreativeTabsLoader;
 import firok.irisia.item.RawMaterials;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCompressed;
 import net.minecraft.block.BlockOre;
 import net.minecraft.block.material.MapColor;
-import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 
 import java.util.Random;
 

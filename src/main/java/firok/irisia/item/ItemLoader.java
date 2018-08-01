@@ -2,20 +2,17 @@ package firok.irisia.item;
 
 import javax.annotation.Nullable;
 
-import firok.irisia.Util;
+import firok.irisia.common.IrisiaCreativeTabs;
 import firok.irisia.mod.tc.Reg;
-import firok.irisia.mod.tc.Reg.*;
-import firok.irisia.creativetab.CreativeTabsLoader;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.ModAPIManager;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import java.util.*;
+import firok.irisia.item.Equipments.EquipmentSet;
 
 
 @SuppressWarnings({"unused","deprecation"})
@@ -38,15 +35,26 @@ public class ItemLoader
 	// public static Item functionalRandomTicker=new FunctionalRandomTicker();
 
 	// public static Item bucketMud=new BucketMud();
-	
-    public static void registerItems()
+	public static Item i1=Equipments.BoneSet.Amulet;
+	public static Item i2=Equipments.BoneSet.Sword;
+	public static Item i3=Equipments.BoneSet.Axe;
+	public static Item i4=Equipments.BoneSet.Pickaxe;
+	public static Item i5=Equipments.BoneSet.Hoe;
+
+
+	public static void registerItems()
     {
     	// 注册的时候 使用静态成员+物品id
         // register(tokenMoneyLow, "token_money_low");
         // register(itemRecipe,"recipe");
-        // register(CreativeTabsLoader.irisia,functionalRandomTicker,"functional_random_ticker","functionalRandomTicker");
+        // register(IrisiaCreativeTabs.irisia,functionalRandomTicker,"functional_random_ticker","functionalRandomTicker");
 
-        // register(CreativeTabsLoader.irisia,bucketMud,"bucket_mud","bucketMud");
+        // register(IrisiaCreativeTabs.irisia,bucketMud,"bucket_mud","bucketMud");
+	    register(IrisiaCreativeTabs.irisiaEqui,i1,"i1","i1");
+	    register(IrisiaCreativeTabs.irisiaEqui,i2,"i2","i2");
+	    register(IrisiaCreativeTabs.irisiaEqui,i3,"i3","i3");
+	    register(IrisiaCreativeTabs.irisiaEqui,i4,"i4","i4");
+	    register(IrisiaCreativeTabs.irisiaEqui,i5,"i5","i5");
     }
     @SideOnly(Side.CLIENT)
     public static void registerRenders()
@@ -56,7 +64,11 @@ public class ItemLoader
     	// registerRender(functionalRandomTicker);
 
     }
-    
+
+    private static void register(@Nullable CreativeTabs tab,EquipmentSet set,String name,String unlocalizedName)
+    {
+    	;
+    }
     
 	private static void register(@Nullable CreativeTabs tab,Item item, String name,String unlocalizedName)
     {

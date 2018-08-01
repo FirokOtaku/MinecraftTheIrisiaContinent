@@ -21,9 +21,9 @@ acceptedMinecraftVersions = "1.10.2",
 dependencies="after:Thaumcraft")
 public class Irisia
 {
-    public static final String MODID = "irisia";
+    public static final String MODID = "Irisia";
     public static final String NAME = "The Irisia Continent";
-    public static final String VERSION = "0.13.0";
+    public static final String VERSION = "0.12.3";
     
     public static Random rand=new Random();
 
