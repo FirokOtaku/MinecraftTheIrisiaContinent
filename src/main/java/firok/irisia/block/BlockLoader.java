@@ -2,6 +2,7 @@ package firok.irisia.block;
 
 import javax.annotation.Nullable;
 
+import firok.irisia.common.IrisiaCreativeTabs;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemBlock;
@@ -24,14 +25,25 @@ public class BlockLoader
     {
         // register(grassBlock, "grass_block", unlocalizedName);
     	//register(IrisiaCreativeTabs.irisiaBlock,mushroomEnderMushroom,"mushroom_ender_mushroom","mushroomEnderMushroom");
-	    register(CreativeTabs.tabBlock,OresAndMetal.OreMithril,"oreMithril","ore_mithril");
-	    register(CreativeTabs.tabBlock,OresAndMetal.OreAdamantium,"oreAdamantium","ore_adamantium");
-	    register(CreativeTabs.tabBlock,OresAndMetal.OreFlumetal,"oreFlumetal","ore_flumetal");
+	    register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.OreMithril,"oreMithril","ore_mithril");
+	    register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.OreAdamantium,"oreAdamantium","ore_adamantium");
+	    register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.OreFlumetal,"oreFlumetal","ore_flumetal");
+	    register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.OreElfStone,"oreElfStone","ore_elfstone");
 
-	    register(CreativeTabs.tabBlock,OresAndMetal.BlockMithril,"blockMithril","block_mithril");
-	    register(CreativeTabs.tabBlock,OresAndMetal.BlockAdamantium,"blockAdamantium","block_damantium");
-	    register(CreativeTabs.tabBlock,OresAndMetal.BlockFlumetal,"blockFlumetal","block_flumetal");
-	    register(CreativeTabs.tabBlock,OresAndMetal.BlockSolita,"blockSolita","block_solita");
+	    register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.BlockMithril,"blockMithril","block_mithril");
+	    register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.BlockAdamantium,"blockAdamantium","block_damantium");
+	    register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.BlockFlumetal,"blockFlumetal","block_flumetal");
+	    register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.BlockSolita,"blockSolita","block_solita");
+	    register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.BlockMogiga,"blockMogiga","block_mogiga");
+	    register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.BlockDwartSteel,"blockDwartSteel","block_dwartsteel");
+	    register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.BlockElfStone,"blockElfStone","block_elfstone");
+
+
+	    register(IrisiaCreativeTabs.irisiaBlock, HerbsAndMushroom.DeathGrass,"blockDeathGrass","block_death_grass");
+	    register(IrisiaCreativeTabs.irisiaBlock, HerbsAndMushroom.MoonGrass,"blockMoonGrass","block_moon_grass");
+	    register(IrisiaCreativeTabs.irisiaBlock, HerbsAndMushroom.SpicyRoot,"blockSpicyRoot","block_spicy_root");
+	    register(IrisiaCreativeTabs.irisiaBlock, HerbsAndMushroom.ShadowMushroom,"blockShadowMushroom","block_shadow_mushroom");
+
     }
 
     private static void register(@Nullable CreativeTabs tab,Block block, String unlocalizedName,String textureName)

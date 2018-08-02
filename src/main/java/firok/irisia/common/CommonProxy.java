@@ -1,40 +1,34 @@
 package firok.irisia.common;
 
 import cpw.mods.fml.common.event.*;
+import firok.irisia.Irisia;
+import firok.irisia.block.BlockLoader;
 import firok.irisia.item.*;
+import org.apache.logging.log4j.Level;
 
 public class CommonProxy
 {
     public void preInit(FMLPreInitializationEvent event)
     {
-    	System.out.println("Ahh, finally, you come here, adventurer!");
+    	System.out.println("Ahh, finally, you come here!");
 	    System.out.println("Here is the new world of Thaumic!");
 
+	    if(Irisia.IN_DEV)
+	    {
+		    event.getModLog().log(Level.WARN,
+				    "Warning：You are using an in-dev-version mod which is just used for testing.\n" +
+						    "Any contents in this mod could be unstable and they will not be guaranteed.\n" +
+						    "DO NOT use this mod in formal gaming");
+	    	event.getModLog().log(Level.WARN,
+				    "警告：你正在使用一份开发版mod，此版本mod仅用于调试之用。\n" +
+				    "此版本中出现的任何内容都不会得到保证，请勿将本版本mod用于正式游玩。");
+	    }
 
-	    // class.forName("");
-//        try
-//        {
-//            Class.forName("firok.irisia.DamageSources");
-//            Class.forName("firok.irisia.item.Materials");
-//
-//            Class.forName("firok.irisia.block.Decorations");
-//            Class.forName("firok.irisia.block.HerbsAndMushroom");
-//            Class.forName("firok.irisia.block.OresAndMetal");
-//
-//            Class.forName("firok.irisia.item.Equipments");
-//            Class.forName("firok.irisia.item.RawMaterials");
-//        }
-//        catch(ClassNotFoundException cnfe)
-//        {
-//            cnfe.printStackTrace();
-//            FMLLog.log(Level.FATAL,"一些重要的类无法加载");
-//            throw new RuntimeException(cnfe);
-//        }
 //    	new ConfigLoader(event);
     	IrisiaCreativeTabs.load(event);
     	new ItemLoader(event);
 //    	new FluidLoader(event);
-//    	new BlockLoader(event);
+    	new BlockLoader(event);
 //
 //    	// TODO
 //    	AchievementPage.registerAchievementPage(new PageIrisia());

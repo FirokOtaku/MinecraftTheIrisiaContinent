@@ -1,0 +1,10 @@
+/*
+.gradle/*
+.idea/*
+build/*
+eclipse/*
+gradle/*
+out/*
+
+!src
+!.gitignore

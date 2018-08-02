@@ -18,38 +18,58 @@ public class Equipments
 	public final static EquipmentSet SpectreSet;
 	public final static EquipmentSet DwartSteelSet;
 	public final static EquipmentSet LifeWoodSet;
+	public final static EquipmentSet SolitaSet;
+	public final static EquipmentSet MogigaSet;
 
 	static
 	{
-		BoneSet=new EquipmentSet(Materials.BoneArmor,Materials.BoneTool);
-		MithrilSet=new EquipmentSet(Materials.MithrilArmor,Materials.MithrilTool);
-		AdamantiumSet=new EquipmentSet(Materials.AdamantiumArmor,Materials.AdamantiumTool);
-		FlumetalSet=new EquipmentSet(Materials.FlumetalArmor,Materials.FlumetalTool);
-		SpectreSet=new EquipmentSet(Materials.SpectreArmor,Materials.SpectreTool);
-		DwartSteelSet=new EquipmentSet(Materials.DwartSteelArmor,Materials.DwartSteelTool);
-		LifeWoodSet=new EquipmentSet(Materials.LifeWoodArmor,Materials.LifeWoodTool);
+		BoneSet=new EquipmentSet("bone",Materials.BoneArmor,Materials.BoneTool);
+		MithrilSet=new EquipmentSet("mithril",Materials.MithrilArmor,Materials.MithrilTool);
+		AdamantiumSet=new EquipmentSet("adamantium",Materials.AdamantiumArmor,Materials.AdamantiumTool);
+		FlumetalSet=new EquipmentSet("flumetal",Materials.FlumetalArmor,Materials.FlumetalTool);
+		SpectreSet=new EquipmentSet("spectre",Materials.SpectreArmor,Materials.SpectreTool);
+		DwartSteelSet=new EquipmentSet("dwartsteel",Materials.DwartSteelArmor,Materials.DwartSteelTool);
+		LifeWoodSet=new EquipmentSet("lifewood",Materials.LifeWoodArmor,Materials.LifeWoodTool);
+		SolitaSet=new EquipmentSet("solita",Materials.SolitaArmor,Materials.SolitaTool);
+		MogigaSet=new EquipmentSet("mogiga",Materials.MogigaArmor,Materials.MogigaTool);
 	}
 	/** Stores the armor type: 0 is helmet, 1 is plate, 2 is legs and 3 is boots */
 
 	public static class EquipmentSet
 	{
+		public boolean hasSword;
 		public final ItemSword Sword;
+		public boolean hasPickaxe;
 		public final ItemPickaxe Pickaxe;
+		public boolean hasAxe;
 		public final ItemAxe Axe;
+		public boolean hasSpade;
 		public final ItemSpade Spade;
+		public boolean hasHoe;
 		public final ItemHoe Hoe;
 
+		public boolean hasHelmet;
 		public final ItemArmor Helmet;
+		public boolean hasChestplate;
 		public final ItemArmor Chestplate;
+		public boolean hasLeggings;
 		public final ItemArmor Leggings;
+		public boolean hasBoots;
 		public final ItemArmor Boots;
 
+		public boolean hasRing;
 		public final Ring Ring;
+		public boolean hasAmulet;
 		public final Amulet Amulet;
+		public boolean hasBelt;
 		public final Belt Belt;
 
-		public EquipmentSet(ItemArmor.ArmorMaterial am, Item.ToolMaterial tm)
+		public final String materialName;
+
+		public EquipmentSet(String mn,ItemArmor.ArmorMaterial am, Item.ToolMaterial tm)
 		{
+			materialName=mn;
+
 			Sword=new ItemSword(tm);
 			Pickaxe=new ItemPickaxe(tm){};
 			Axe=new ItemAxe(tm){};
@@ -148,4 +168,5 @@ public class Equipments
 			return BaubleType.BELT;
 		}
 	}
+
 }

@@ -10,7 +10,6 @@ public class IrisiaCreativeTabs
 {
 	public static CreativeTabs irisia;
 	public static CreativeTabs irisiaEqui;
-	public static CreativeTabs irisiaTool;
 	public static CreativeTabs irisiaMaterial;
 	public static CreativeTabs irisiaBlock;
 	public static CreativeTabs irisiaTC;
@@ -32,13 +31,6 @@ public class IrisiaCreativeTabs
 			}
 		};
 		irisiaBlock = new CreativeTabs("irisiaBlock"){
-			@Override
-			public Item getTabIconItem()
-			{
-				return Items.stone_axe;
-			}
-		};
-		irisiaTool = new CreativeTabs("irisiaTool"){
 			@Override
 			public Item getTabIconItem()
 			{

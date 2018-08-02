@@ -2,6 +2,7 @@ package firok.irisia.item;
 
 import javax.annotation.Nullable;
 
+import firok.irisia.Irisia;
 import firok.irisia.common.IrisiaCreativeTabs;
 import firok.irisia.mod.tc.Reg;
 import net.minecraft.creativetab.CreativeTabs;
@@ -35,12 +36,6 @@ public class ItemLoader
 	// public static Item functionalRandomTicker=new FunctionalRandomTicker();
 
 	// public static Item bucketMud=new BucketMud();
-	public static Item i1=Equipments.BoneSet.Amulet;
-	public static Item i2=Equipments.BoneSet.Sword;
-	public static Item i3=Equipments.BoneSet.Axe;
-	public static Item i4=Equipments.BoneSet.Pickaxe;
-	public static Item i5=Equipments.BoneSet.Hoe;
-
 
 	public static void registerItems()
     {
@@ -50,11 +45,20 @@ public class ItemLoader
         // register(IrisiaCreativeTabs.irisia,functionalRandomTicker,"functional_random_ticker","functionalRandomTicker");
 
         // register(IrisiaCreativeTabs.irisia,bucketMud,"bucket_mud","bucketMud");
-	    register(IrisiaCreativeTabs.irisiaEqui,i1,"i1","i1");
-	    register(IrisiaCreativeTabs.irisiaEqui,i2,"i2","i2");
-	    register(IrisiaCreativeTabs.irisiaEqui,i3,"i3","i3");
-	    register(IrisiaCreativeTabs.irisiaEqui,i4,"i4","i4");
-	    register(IrisiaCreativeTabs.irisiaEqui,i5,"i5","i5");
+	    register(IrisiaCreativeTabs.irisiaEqui,Equipments.AdamantiumSet);
+	    register(IrisiaCreativeTabs.irisiaEqui,Equipments.MithrilSet);
+	    register(IrisiaCreativeTabs.irisiaEqui,Equipments.BoneSet);
+	    register(IrisiaCreativeTabs.irisiaEqui,Equipments.SpectreSet);
+	    register(IrisiaCreativeTabs.irisiaEqui,Equipments.SolitaSet);
+	    register(IrisiaCreativeTabs.irisiaEqui,Equipments.MogigaSet);
+	    register(IrisiaCreativeTabs.irisiaEqui,Equipments.DwartSteelSet);
+	    register(IrisiaCreativeTabs.irisiaEqui,Equipments.LifeWoodSet);
+	    register(IrisiaCreativeTabs.irisiaEqui,Equipments.FlumetalSet);
+
+	    register(IrisiaCreativeTabs.irisiaTC,Wands.LifeWoodSet);
+	    register(IrisiaCreativeTabs.irisiaTC,Wands.SpectreSet);
+
+	    register(IrisiaCreativeTabs.irisiaMaterial,RawMaterials.Bezoar,Irisia.transName("material","bezoar"));
     }
     @SideOnly(Side.CLIENT)
     public static void registerRenders()
@@ -62,16 +66,45 @@ public class ItemLoader
     	// registerRender(tokenMoneyLow);
     	// registerRender(itemRecipe);
     	// registerRender(functionalRandomTicker);
-
     }
 
-    private static void register(@Nullable CreativeTabs tab,EquipmentSet set,String name,String unlocalizedName)
+    private static void register(@Nullable CreativeTabs tab,Item item,Irisia.NameObject nb)
     {
-    	;
+    	register(tab,item,nb.textureName,nb.unlocalizedName);
+    }
+    private static void register(@Nullable CreativeTabs tab,EquipmentSet set)
+    {
+    	if(set==null) // 检查要注册的套装是不是空的
+    		return;
+
+    	String fuName=Irisia.getFirstUpper(set.materialName);
+    	register(tab,set.Sword,"sword_"+set.materialName, fuName+"Sword");
+    	register(tab,set.Pickaxe,"pickaxe_"+set.materialName, fuName+"Pickaxe");
+    	register(tab,set.Axe,"axe_"+set.materialName, fuName+"Axe");
+    	register(tab,set.Spade,"spade_"+set.materialName, fuName+"Spade");
+    	register(tab,set.Hoe,"hoe_"+set.materialName, fuName+"Hoe");
+    	register(tab,set.Helmet,"helmet_"+set.materialName, fuName+"Helmet");
+    	register(tab,set.Chestplate,"chestplate_"+set.materialName, fuName+"Chestplate");
+    	register(tab,set.Leggings,"leggings_"+set.materialName, fuName+"Leggings");
+    	register(tab,set.Boots,"boots_"+set.materialName, fuName+"Boots");
+    	register(tab,set.Amulet,"amulet_"+set.materialName, fuName+"Amulet");
+    	register(tab,set.Belt,"belt_"+set.materialName, fuName+"Belt");
+    	register(tab,set.Ring,"ring_"+set.materialName, fuName+"Ring");
+    }
+    private static void register(@Nullable CreativeTabs tab,Wands.WandSet set)
+    {
+    	if(set==null)
+    		return;
+	    String fuName=Irisia.getFirstUpper(set.materialName);
+    	register(tab,set.Cap,"cap_"+set.materialName,fuName+"Cap");
+    	register(tab,set.Rod,"rod_"+set.materialName,fuName+"Rod");
     }
     
 	private static void register(@Nullable CreativeTabs tab,Item item, String name,String unlocalizedName)
     {
+    	if(item==null || name==null || unlocalizedName==null) // 检查要注册的物品是不是空的
+    		return;
+
 	    item.setUnlocalizedName(unlocalizedName);
         GameRegistry.registerItem(item,name);
         if(tab!=null)
