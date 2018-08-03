@@ -13,7 +13,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import java.util.*;
-import firok.irisia.item.Equipments.EquipmentSet;
+import firok.irisia.item.EquipmentSets.EquipmentSet;
 
 
 @SuppressWarnings({"unused","deprecation"})
@@ -45,15 +45,15 @@ public class ItemLoader
         // register(IrisiaCreativeTabs.irisia,functionalRandomTicker,"functional_random_ticker","functionalRandomTicker");
 
         // register(IrisiaCreativeTabs.irisia,bucketMud,"bucket_mud","bucketMud");
-	    register(IrisiaCreativeTabs.irisiaEqui,Equipments.AdamantiumSet);
-	    register(IrisiaCreativeTabs.irisiaEqui,Equipments.MithrilSet);
-	    register(IrisiaCreativeTabs.irisiaEqui,Equipments.BoneSet);
-	    register(IrisiaCreativeTabs.irisiaEqui,Equipments.SpectreSet);
-	    register(IrisiaCreativeTabs.irisiaEqui,Equipments.SolitaSet);
-	    register(IrisiaCreativeTabs.irisiaEqui,Equipments.MogigaSet);
-	    register(IrisiaCreativeTabs.irisiaEqui,Equipments.DwartSteelSet);
-	    register(IrisiaCreativeTabs.irisiaEqui,Equipments.LifeWoodSet);
-	    register(IrisiaCreativeTabs.irisiaEqui,Equipments.FlumetalSet);
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.AdamantiumSet);
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.MithrilSet);
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.BoneSet);
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.SpectreSet);
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.SolitaSet);
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.MogigaSet);
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.DwartSteelSet);
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.LifeWoodSet);
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.FlumetalSet);
 
 	    register(IrisiaCreativeTabs.irisiaTC,Wands.LifeWoodSet);
 	    register(IrisiaCreativeTabs.irisiaTC,Wands.SpectreSet);
@@ -61,6 +61,8 @@ public class ItemLoader
 	    register(IrisiaCreativeTabs.irisiaMaterial,RawMaterials.Bezoar,Irisia.transName("material","bezoar"));
 
 	    register(IrisiaCreativeTabs.irisiaFood,Foods.VilligerFood,"villiger_food","VilligerFood");
+
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniques.FortuneRing,"ring_fortune","FortuneRing");
     }
     @SideOnly(Side.CLIENT)
     public static void registerRenders()
@@ -80,15 +82,19 @@ public class ItemLoader
     		return;
 
     	String fuName=Irisia.getFirstUpper(set.materialName);
+
     	register(tab,set.Sword,"sword_"+set.materialName, fuName+"Sword");
+
     	register(tab,set.Pickaxe,"pickaxe_"+set.materialName, fuName+"Pickaxe");
     	register(tab,set.Axe,"axe_"+set.materialName, fuName+"Axe");
     	register(tab,set.Spade,"spade_"+set.materialName, fuName+"Spade");
     	register(tab,set.Hoe,"hoe_"+set.materialName, fuName+"Hoe");
+
     	register(tab,set.Helmet,"helmet_"+set.materialName, fuName+"Helmet");
     	register(tab,set.Chestplate,"chestplate_"+set.materialName, fuName+"Chestplate");
     	register(tab,set.Leggings,"leggings_"+set.materialName, fuName+"Leggings");
     	register(tab,set.Boots,"boots_"+set.materialName, fuName+"Boots");
+
     	register(tab,set.Amulet,"amulet_"+set.materialName, fuName+"Amulet");
     	register(tab,set.Belt,"belt_"+set.materialName, fuName+"Belt");
     	register(tab,set.Ring,"ring_"+set.materialName, fuName+"Ring");
@@ -97,6 +103,7 @@ public class ItemLoader
     {
     	if(set==null)
     		return;
+
 	    String fuName=Irisia.getFirstUpper(set.materialName);
     	register(tab,set.Cap,"cap_"+set.materialName,fuName+"Cap");
     	register(tab,set.Rod,"rod_"+set.materialName,fuName+"Rod");

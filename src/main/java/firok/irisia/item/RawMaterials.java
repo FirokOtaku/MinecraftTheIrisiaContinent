@@ -21,6 +21,8 @@ public class RawMaterials
 	public final static InformationItem TortoiseShell; // 龟壳
 	public final static InformationItem BoneShard; // 碎骨
 	public final static InformationItem CasinosBadge; // 赌场徽章
+	public final static InformationItem UnicornHorn; // 独角兽角
+	public final static InformationItem UnicornBlood; // 独角兽血
 
 	// ores and metals
 	public final static InformationItem ElfStone;
@@ -53,6 +55,8 @@ public class RawMaterials
 		TortoiseShell = new InformationItem();
 		BoneShard = new InformationItem();
 		CasinosBadge = new InformationItem();
+		UnicornHorn=new InformationItem();
+		UnicornBlood =new InformationItem();
 
 		ElfStone= new InformationItem();
 		FlumetalIngot= new InformationItem();

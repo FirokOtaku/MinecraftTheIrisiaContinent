@@ -69,18 +69,4 @@ public class Foods
 			return UseDuration;
 		}
 	}
-
-	/*public ItemFood(int p_i45339_1_, float p_i45339_2_, boolean p_i45339_3_)
-    {
-        this.itemUseDuration = 32;
-        this.healAmount = p_i45339_1_;
-        this.isWolfsFavoriteMeat = p_i45339_3_;
-        this.saturationModifier = p_i45339_2_;
-        this.setCreativeTab(CreativeTabs.tabFood);
-    }
-
-    public ItemFood(int p_i45340_1_, boolean p_i45340_2_)
-    {
-        this(p_i45340_1_, 0.6F, p_i45340_2_);
-    }*/
 }

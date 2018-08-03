@@ -9,7 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
 import net.minecraft.world.World;
 
-public class Equipments
+public class EquipmentSets
 {
 	public final static EquipmentSet BoneSet;
 	public final static EquipmentSet MithrilSet;
@@ -37,54 +37,92 @@ public class Equipments
 
 	public static class EquipmentSet
 	{
-		public boolean hasSword;
+		public final ItemArmor.ArmorMaterial armorMaterial;
+		public final Item.ToolMaterial toolMaterial;
+
+		public final boolean hasWeapon;
 		public final ItemSword Sword;
-		public boolean hasPickaxe;
+
+		public final boolean hasTools;
 		public final ItemPickaxe Pickaxe;
-		public boolean hasAxe;
 		public final ItemAxe Axe;
-		public boolean hasSpade;
 		public final ItemSpade Spade;
-		public boolean hasHoe;
 		public final ItemHoe Hoe;
 
-		public boolean hasHelmet;
+		public final boolean hasArmor;
 		public final ItemArmor Helmet;
-		public boolean hasChestplate;
 		public final ItemArmor Chestplate;
-		public boolean hasLeggings;
 		public final ItemArmor Leggings;
-		public boolean hasBoots;
 		public final ItemArmor Boots;
 
-		public boolean hasRing;
+		public final boolean hasBaubles;
 		public final Ring Ring;
-		public boolean hasAmulet;
 		public final Amulet Amulet;
-		public boolean hasBelt;
 		public final Belt Belt;
 
 		public final String materialName;
 
 		public EquipmentSet(String mn,ItemArmor.ArmorMaterial am, Item.ToolMaterial tm)
 		{
+			this(mn,am,tm,true,true,true,true);
+		}
+		public EquipmentSet(String mn,ItemArmor.ArmorMaterial am, Item.ToolMaterial tm,boolean hasW,boolean hasT,boolean hasA,boolean hasB)
+		{
 			materialName=mn;
+			armorMaterial=am;
+			toolMaterial=tm;
 
-			Sword=new ItemSword(tm);
-			Pickaxe=new ItemPickaxe(tm){};
-			Axe=new ItemAxe(tm){};
-			Spade=new ItemSpade(tm);
-			Hoe=new ItemHoe(tm);
+			if(hasWeapon=hasW)
+				Sword=new ItemSword(tm);
+			else
+				Sword=null;
 
-			Helmet=new ItemArmor(am, am.ordinal(), 0);
-			Chestplate=new ItemArmor(am, am.ordinal(), 0);
-			Leggings=new ItemArmor(am, am.ordinal(), 0);
-			Boots=new ItemArmor(am, am.ordinal(), 0);
-			Ring=new Ring();
-			Amulet=new Amulet();
-			Belt=new Belt();
+			if(hasTools=hasT)
+			{
+				Pickaxe=new ItemPickaxe(tm){};
+				Axe=new ItemAxe(tm){};
+				Spade=new ItemSpade(tm);
+				Hoe=new ItemHoe(tm);
+			}
+			else
+			{
+				Pickaxe=null;
+				Axe=null;
+				Spade=null;
+				Hoe=null;
+			}
+
+			if(hasArmor=hasA)
+			{
+				Helmet=new ItemArmor(am, am.ordinal(), 0);
+				Chestplate=new ItemArmor(am, am.ordinal(), 0);
+				Leggings=new ItemArmor(am, am.ordinal(), 0);
+				Boots=new ItemArmor(am, am.ordinal(), 0);
+			}
+			else
+			{
+				Helmet=null;
+				Chestplate=null;
+				Leggings=null;
+				Boots=null;
+			}
+
+			if(hasBaubles=hasB)
+			{
+				Ring=new Ring();
+				Amulet=new Amulet();
+				Belt=new Belt();
+			}
+			else
+			{
+				Ring=null;
+				Amulet=null;
+				Belt=null;
+			}
 		}
 	}
+
+
 	private static abstract class ItemBauble extends Item implements IBauble
 	{
 		@Override
@@ -170,3 +208,18 @@ public class Equipments
 	}
 
 }
+/*public void onUpdate(ItemStack stack, World world, Entity entity, int p_77663_4_, boolean p_77663_5_) {
+        super.onUpdate(stack, world, entity, p_77663_4_, p_77663_5_);
+        if (!world.isRemote && stack.isItemDamaged() && entity.ticksExisted % 20 == 0 && entity instanceof EntityLivingBase) {
+            stack.damageItem(-1, (EntityLivingBase)entity);
+        }
+
+    }
+
+    public void onArmorTick(World world, EntityPlayer player, ItemStack armor) {
+        super.onArmorTick(world, player, armor);
+        if (!world.isRemote && armor.getItemDamage() > 0 && player.ticksExisted % 20 == 0) {
+            armor.damageItem(-1, player);
+        }
+
+    }*/

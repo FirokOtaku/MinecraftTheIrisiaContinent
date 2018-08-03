@@ -44,7 +44,7 @@ public class CommonProxy
 //    	new CraftingLoader();
 //    	new EnchantmentLoader();
 //
-//    	new EventLoader();
+    	new EventLoader();
 //
 //    	// TODO
 //    	//
