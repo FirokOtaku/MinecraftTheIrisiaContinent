@@ -1,3 +1,9 @@
+0.12.7
+添加自动修复装备套装
+add auto-repairing equipment set
+将生命木套装里除了饰品以外的装备替换为自动修复装备
+replace equipments in Lifewood-set with auto-repairing-version
+
 0.12.6
 加入独角兽角、独角兽血物品
 add Unicorn Horn, Unicorn Blood items

@@ -52,8 +52,22 @@ public class ItemLoader
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.SolitaSet);
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.MogigaSet);
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.DwartSteelSet);
-	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.LifeWoodSet);
+	    // register(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.LifeWoodSet); // 已经转移
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.FlumetalSet);
+	    // 注册生命木套装
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentAutoRepair.LifewoodSword,"sword_lifewood","LifewoodSword");
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentAutoRepair.LifewoodHelmet,"helmet_lifewood","LifewoodHelmet");
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentAutoRepair.LifewoodChestplate,"chestplate_lifewood","LifewoodChestplate");
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentAutoRepair.LifewoodLeggings,"leggings_lifewood","LifewoodLeggings");
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentAutoRepair.LifewoodBoots,"boots_lifewood","LifewoodBoots");
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentAutoRepair.LifewoodAxe,"axe_lifewood","LifewoodAxe");
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentAutoRepair.LifewoodPickaxe,"pickaxe_lifewood","LifewoodPickaxe");
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentAutoRepair.LifewoodHoe,"hoe_lifewood","LifewoodHoe");
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentAutoRepair.LifewoodSpade,"spade_lifewood","LifewoodSpade");
+
+
+
+
 
 	    register(IrisiaCreativeTabs.irisiaTC,Wands.LifeWoodSet);
 	    register(IrisiaCreativeTabs.irisiaTC,Wands.SpectreSet);
@@ -62,7 +76,7 @@ public class ItemLoader
 
 	    register(IrisiaCreativeTabs.irisiaFood,Foods.VilligerFood,"villiger_food","VilligerFood");
 
-	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniques.FortuneRing,"ring_fortune","FortuneRing");
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueRings.FortuneRing,"ring_fortune","FortuneRing");
     }
     @SideOnly(Side.CLIENT)
     public static void registerRenders()

@@ -11,11 +11,14 @@ import net.minecraft.item.*;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 
-public class EquipmentUniques
+public class EquipmentUniqueRings
 {
+	// baubles
 	public static EquipmentSets.Ring PhaseRing; // 月相戒指
 	public static EquipmentSets.Ring TwilightRing; // 暮光戒指
 	public static EquipmentSets.Ring FortuneRing; // 幸运戒指
+
+	//
 
 	static
 	{

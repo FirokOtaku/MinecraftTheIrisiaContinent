@@ -17,7 +17,7 @@ public class EquipmentSets
 	public final static EquipmentSet FlumetalSet;
 	public final static EquipmentSet SpectreSet;
 	public final static EquipmentSet DwartSteelSet;
-	public final static EquipmentSet LifeWoodSet;
+	public final static EquipmentSet LifeWoodSet; // 已经转移
 	public final static EquipmentSet SolitaSet;
 	public final static EquipmentSet MogigaSet;
 
@@ -29,7 +29,7 @@ public class EquipmentSets
 		FlumetalSet=new EquipmentSet("flumetal",Materials.FlumetalArmor,Materials.FlumetalTool);
 		SpectreSet=new EquipmentSet("spectre",Materials.SpectreArmor,Materials.SpectreTool);
 		DwartSteelSet=new EquipmentSet("dwartsteel",Materials.DwartSteelArmor,Materials.DwartSteelTool);
-		LifeWoodSet=new EquipmentSet("lifewood",Materials.LifeWoodArmor,Materials.LifeWoodTool);
+		LifeWoodSet=new EquipmentSet("lifewood",Materials.LifeWoodArmor,Materials.LifeWoodTool,false,false,false,true); // 转移到 EquipmentAutoRepair
 		SolitaSet=new EquipmentSet("solita",Materials.SolitaArmor,Materials.SolitaTool);
 		MogigaSet=new EquipmentSet("mogiga",Materials.MogigaArmor,Materials.MogigaTool);
 	}
@@ -123,7 +123,7 @@ public class EquipmentSets
 	}
 
 
-	private static abstract class ItemBauble extends Item implements IBauble
+	public static abstract class ItemBauble extends Item implements IBauble
 	{
 		@Override
 		public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
