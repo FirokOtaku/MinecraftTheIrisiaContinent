@@ -31,6 +31,7 @@ public class Wands
 	{
 		LifeWoodSet=new WandSet("lifewood",150,10,20,20);
 		SpectreSet=new WandSet("spectre",200,15,30,30);
+
 	}
 	public static class WandSet
 	{

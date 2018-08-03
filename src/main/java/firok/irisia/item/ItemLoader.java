@@ -59,6 +59,8 @@ public class ItemLoader
 	    register(IrisiaCreativeTabs.irisiaTC,Wands.SpectreSet);
 
 	    register(IrisiaCreativeTabs.irisiaMaterial,RawMaterials.Bezoar,Irisia.transName("material","bezoar"));
+
+	    register(IrisiaCreativeTabs.irisiaFood,Foods.VilligerFood,"villiger_food","VilligerFood");
     }
     @SideOnly(Side.CLIENT)
     public static void registerRenders()

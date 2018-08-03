@@ -1,0 +1,29 @@
+0.12.0
+添加若干基础合成材料
+add some raw materials
+
+0.12.1
+添加黄土、被腐蚀方块
+add Loess, CorrosedBlock blocks
+添加死亡草、月光草、辛辣根、阴影菇方块
+add DeathGrass, MoonGrass, SpicyRoot, ShadowMushroom blocks
+
+0.12.2
+添加骨、怨灵、秘银、精金、流铁、生命木、矮人褐钢的材质和对应装备套装
+add Bone, Spectre, Mithril, Adamantium, Flumetal, LifeWood, DwartSteel tool/armor materials and their equipment-sets
+
+0.12.3
+重构创造模式物品栏的加载方式
+rewrite the way of creative tabs' loading
+添加装备套装加载方式
+add registry of equipments sets
+
+0.12.4
+加入怨灵、生命木法杖套装
+add Spectre, LifeWood wand-sets
+
+0.12.5
+重写原材料物品的提示信息显示接口
+rewrite the interface of tooltips of raw-material-items
+加入带提示信息的食物类
+add class of foods with interface of tooltips

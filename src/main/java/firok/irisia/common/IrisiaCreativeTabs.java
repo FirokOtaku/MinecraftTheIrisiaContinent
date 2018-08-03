@@ -2,9 +2,11 @@ package firok.irisia.common;
 
 import firok.irisia.item.ItemLoader;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import net.minecraft.item.ItemBlock;
 
 public class IrisiaCreativeTabs
 {
@@ -12,6 +14,7 @@ public class IrisiaCreativeTabs
 	public static CreativeTabs irisiaEqui;
 	public static CreativeTabs irisiaMaterial;
 	public static CreativeTabs irisiaBlock;
+	public static CreativeTabs irisiaFood;
 	public static CreativeTabs irisiaTC;
 
 	public static void load(FMLPreInitializationEvent event)
@@ -20,35 +23,42 @@ public class IrisiaCreativeTabs
 			@Override
 			public Item getTabIconItem()
 			{
-				return Items.stone_axe;
+				return Items.diamond;
 			}
 		};
 		irisiaMaterial = new CreativeTabs("irisiaMaterial"){
 			@Override
 			public Item getTabIconItem()
 			{
-				return Items.stone_axe;
+				return Items.bone;
 			}
 		};
 		irisiaBlock = new CreativeTabs("irisiaBlock"){
 			@Override
 			public Item getTabIconItem()
 			{
-				return Items.stone_axe;
+				return ItemBlock.getItemFromBlock(Blocks.stone);
+			}
+		};
+		irisiaFood = new CreativeTabs("irisiaFood"){
+			@Override
+			public Item getTabIconItem()
+			{
+				return Items.apple;
 			}
 		};
 		irisiaEqui = new CreativeTabs("irisiaEqui"){
 			@Override
 			public Item getTabIconItem()
 			{
-				return Items.stone_axe;
+				return Items.iron_chestplate;
 			}
 		};
 		irisiaTC = new CreativeTabs("irisiaTC"){
 			@Override
 			public Item getTabIconItem()
 			{
-				return Items.stone_axe;
+				return Items.book;
 			}
 		};
 	}
