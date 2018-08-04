@@ -23,7 +23,7 @@ public class Irisia
 {
     public static final String MODID = "Irisia";
     public static final String NAME = "The Irisia Continent";
-    public static final String VERSION = "0.12.6";
+    public static final String VERSION = "0.12.8";
     public static final boolean IN_DEV=true;
     
     public static Random rand=new Random();
@@ -79,7 +79,6 @@ public class Irisia
         StringBuffer sbtn=new StringBuffer();
 
         String lowerType=type.toLowerCase();
-        String fuType=getFirstUpper(lowerType);
 
         String[] lowerTags=new String[tags.length];
         String[] fuTags=new String[tags.length];
@@ -89,7 +88,7 @@ public class Irisia
             fuTags[i]=getFirstUpper(lowerTags[i]);
         }
 
-        sbunn.append(fuType);
+        sbunn.append(lowerType);
         for(String fuTag:fuTags)
         {
             sbunn.append(fuTag);

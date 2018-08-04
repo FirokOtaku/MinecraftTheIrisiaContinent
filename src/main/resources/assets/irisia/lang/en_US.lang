@@ -35,6 +35,7 @@ item.materialMithrilIngot.name=Mithril Ingot
 item.materialAdamantiumIngot.name=Adamantium Ingot
 item.materialShardOfLove.name=Shard Of Love
 item.materialBezoar.name=Bezoar
+item.materialBezoar.tooltip=Bezoar is a kind of basic raw material,\nWhich dropped by cow
 item.materialBatWing.name=BatWing
 item.materialEctoplasm.name=Ectoplasm
 item.materialTortoiseShell.name=Tortoise Shell

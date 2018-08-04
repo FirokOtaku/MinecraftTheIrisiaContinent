@@ -13,6 +13,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import java.util.*;
+import firok.irisia.item.*;
 import firok.irisia.item.EquipmentSets.EquipmentSet;
 
 
@@ -76,7 +77,8 @@ public class ItemLoader
 
 	    register(IrisiaCreativeTabs.irisiaFood,Foods.VilligerFood,"villiger_food","VilligerFood");
 
-	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueRings.FortuneRing,"ring_fortune","FortuneRing");
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.FortuneRing,"ring_fortune","FortuneRing");
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.PhotosynthesisAmulet,"ring_photosynthesis","PhotosynthesisAmulet");
     }
     @SideOnly(Side.CLIENT)
     public static void registerRenders()

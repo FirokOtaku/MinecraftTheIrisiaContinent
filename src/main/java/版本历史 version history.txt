@@ -1,3 +1,15 @@
+0.12.8
+添加褐麦、矮人面粉物品
+add BrownWheat, DwartFloor items
+添加硬面包、矮人面包、精灵面包、冰软糖食物
+add HardBread, DwartBread, ElfBread, IcyGummyJelly foods
+添加光合护身符
+add PhotosynthesisAmulet bauble
+为食物类加入药水列表接口
+add interface of potion effects to class of food
+重写原材料提示信息添加方式
+rewrite the way of adding tooltips to raw material items
+
 0.12.7
 添加自动修复装备套装
 add auto-repairing equipment set

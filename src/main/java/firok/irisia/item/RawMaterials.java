@@ -5,6 +5,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
@@ -23,6 +24,10 @@ public class RawMaterials
 	public final static InformationItem CasinosBadge; // 赌场徽章
 	public final static InformationItem UnicornHorn; // 独角兽角
 	public final static InformationItem UnicornBlood; // 独角兽血
+
+	// food material
+	public final static InformationItem BrownWheat; // 褐麦
+	public final static InformationItem DwartFlour; // 矮人面粉
 
 	// ores and metals
 	public final static InformationItem ElfStone;
@@ -58,6 +63,9 @@ public class RawMaterials
 		UnicornHorn=new InformationItem();
 		UnicornBlood =new InformationItem();
 
+		BrownWheat=new InformationItem();
+		DwartFlour=new InformationItem();
+
 		ElfStone= new InformationItem();
 		FlumetalIngot= new InformationItem();
 		SolitaIngot= new InformationItem();
@@ -76,27 +84,33 @@ public class RawMaterials
 
 	public static class InformationItem extends Item
 	{
-		public final String[] lines;
-		public InformationItem(String[] l)
-		{
-			super();
-			if(l!=null && l.length>0)
-				lines=l.clone();
-			else
-				lines=new String[0];
-
-		}
+		private String[] lines;
 		public InformationItem()
 		{
-			this(null);
+			lines=null;
 		}
 		@Override
 		@SideOnly(Side.CLIENT)
-		public void addInformation(ItemStack p_77624_1_, EntityPlayer p_77624_2_, List p_77624_3_, boolean p_77624_4_)
+		public void addInformation(ItemStack stack, EntityPlayer player, List info, boolean p_77624_4_)
 		{
+			if(lines==null)
+			{
+				String key=this.getUnlocalizedName()+".tooltip";
+				String linesGet=StatCollector.translateToLocal(key);
+				if(linesGet.equals(key))
+				{
+					lines=new String[0];
+				}
+				else
+				{
+					lines=linesGet.split("\\n");
+				}
+				System.out.println("key:"+key+" linesGet:"+linesGet+" lines.len:"+lines.length);
+			}
+
 			for(String line:lines)
 			{
-				p_77624_3_.add(line);
+				info.add(line);
 			}
 		}
 	}
