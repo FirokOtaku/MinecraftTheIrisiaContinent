@@ -1,3 +1,11 @@
+0.12.9
+添加附魔类
+add class of CustomEnchantment
+添加秘法碑类
+add class of ArcaneStela
+添加矿工指环、守卫者指环饰品
+add Miners'Ring, Guardians'Ring bauble
+
 0.12.8
 添加褐麦、矮人面粉物品
 add BrownWheat, DwartFloor items

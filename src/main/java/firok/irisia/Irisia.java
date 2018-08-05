@@ -17,13 +17,13 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 modid = Irisia.MODID,
 name = Irisia.NAME,
 version = Irisia.VERSION,
-acceptedMinecraftVersions = "1.10.2",
+acceptedMinecraftVersions = "1.7.10",
 dependencies="after:Thaumcraft")
 public class Irisia
 {
     public static final String MODID = "Irisia";
     public static final String NAME = "The Irisia Continent";
-    public static final String VERSION = "0.12.8";
+    public static final String VERSION = "0.12.9";
     public static final boolean IN_DEV=true;
     
     public static Random rand=new Random();

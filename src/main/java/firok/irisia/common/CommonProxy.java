@@ -3,8 +3,11 @@ package firok.irisia.common;
 import cpw.mods.fml.common.event.*;
 import firok.irisia.Irisia;
 import firok.irisia.block.BlockLoader;
+import firok.irisia.enchantment.EnchantmentLoader;
 import firok.irisia.item.*;
 import org.apache.logging.log4j.Level;
+import thaumcraft.api.research.ResearchItem;
+import thaumcraft.api.research.ResearchPage;
 
 public class CommonProxy
 {
@@ -42,7 +45,7 @@ public class CommonProxy
     public void init(FMLInitializationEvent event)
     {
 //    	new CraftingLoader();
-//    	new EnchantmentLoader();
+    	new EnchantmentLoader();
 //
     	new EventLoader();
 //
@@ -50,8 +53,10 @@ public class CommonProxy
 //    	//
 //    	new firok.irisia.mod.tc.aspect.AspectLoader();
 //    	new firok.irisia.mod.tc.research.CateLoader();
-//
+		firok.irisia.common.TcContent.init();
 //    	new GuiElementLoader();
+
+
     }
 
     public void postInit(FMLPostInitializationEvent event)

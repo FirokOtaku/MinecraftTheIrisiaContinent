@@ -53,6 +53,14 @@ public class ConfigLoader
     public static int idEnchantmentCulling=65;
     
     public static int idEnchantmentTearing=66;
+
+    public static int idEnchantmentInscriptionCapacity=-1;
+
+    public static int idEnchantmentShadowy=68;
+
+    public static int idEnchantmentEnderGuarding=69;
+
+    public static int idEnchantmentMagicProtection=70;
     
     // Item // 物品相关
     public static int itemStoneOfCoronaExplosionRadius=20;
