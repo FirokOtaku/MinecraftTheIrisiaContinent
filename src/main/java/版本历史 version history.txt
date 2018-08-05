@@ -1,3 +1,9 @@
+0.12.10
+添加秘法碑-迅捷、秘法碑-急迫、秘法碑-抗性、秘法碑-轻盈
+add StelaSpeed, StelaDigSpeed, StelaResistance, StelaJump
+添加失效的符文护盾指环、遗失的书页物品
+add InvalidRunicRing, LostPage items
+
 0.12.9
 添加附魔类
 add class of CustomEnchantment

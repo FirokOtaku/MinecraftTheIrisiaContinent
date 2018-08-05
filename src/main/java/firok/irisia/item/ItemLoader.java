@@ -75,6 +75,7 @@ public class ItemLoader
 
 	    register(IrisiaCreativeTabs.irisiaMaterial,RawMaterials.Bezoar,Irisia.transName("material","bezoar"));
 
+
 	    register(IrisiaCreativeTabs.irisiaFood,Foods.VilligerFood,"villiger_food","VilligerFood");
 
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.FortuneRing,"ring_fortune","FortuneRing");

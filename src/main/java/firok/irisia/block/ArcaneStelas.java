@@ -1,26 +1,11 @@
 package firok.irisia.block;
 
-import cpw.mods.fml.common.registry.GameData;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.*;
-import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.particle.EffectRenderer;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.entity.boss.EntityDragon;
-import net.minecraft.entity.boss.EntityWither;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -32,12 +17,16 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class ArcaneStelas
 {
-	public final static ArcaneStela a1;
-	public final static ArcaneStela a2;
+	public final static ArcaneStela StelaSpeed;
+	public final static ArcaneStela StelaJump;
+	public final static ArcaneStela StelaDigSpeed;
+	public final static ArcaneStela StelaResistance;
 	static
 	{
-		a1=new ArcaneStela(Potion.moveSpeed);
-		a2=new ArcaneStela(Potion.jump);
+		StelaSpeed =new ArcaneStela(Potion.moveSpeed);
+		StelaJump =new ArcaneStela(Potion.jump);
+		StelaDigSpeed=new ArcaneStela(Potion.digSpeed);
+		StelaResistance=new ArcaneStela(Potion.resistance);
 	}
 	public static class ArcaneStela extends Block
 	{

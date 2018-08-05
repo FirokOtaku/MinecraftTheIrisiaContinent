@@ -44,9 +44,10 @@ public class BlockLoader
 	    register(IrisiaCreativeTabs.irisiaBlock, HerbsAndMushroom.SpicyRoot,"blockSpicyRoot","block_spicy_root");
 	    register(IrisiaCreativeTabs.irisiaBlock, HerbsAndMushroom.ShadowMushroom,"blockShadowMushroom","block_shadow_mushroom");
 
-	    register(IrisiaCreativeTabs.irisiaBlock, ArcaneStelas.a1,"a1","a1");
-	    register(IrisiaCreativeTabs.irisiaBlock, ArcaneStelas.a2,"a2","a2");
-
+	    register(IrisiaCreativeTabs.irisiaBlock, ArcaneStelas.StelaSpeed,"blockStelaSpeed","block_stela_speed");
+	    register(IrisiaCreativeTabs.irisiaBlock, ArcaneStelas.StelaJump,"blockStelaJump","block_stela_jump");
+	    register(IrisiaCreativeTabs.irisiaBlock, ArcaneStelas.StelaResistance,"blockResistance","block_stela_resistance");
+	    register(IrisiaCreativeTabs.irisiaBlock, ArcaneStelas.StelaDigSpeed,"blockDigSpeed","block_stela_digspeed");
     }
 
     private static void register(@Nullable CreativeTabs tab,Block block, String unlocalizedName,String textureName)

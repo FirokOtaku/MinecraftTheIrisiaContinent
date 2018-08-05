@@ -38,6 +38,10 @@ public class RawMaterials
 	public final static InformationItem MithrilIngot;
 	public final static InformationItem AdamantiumIngot;
 
+	// plot
+	public final static InformationItem InvalidRunicRing; // 失效的符文护盾指环
+	public final static InformationItem LostPage; // 遗失的书页
+
 	// thaumic
 	public final static InformationItem GoldenSilk;
 	public final static InformationItem DiamondSilk;
@@ -73,6 +77,9 @@ public class RawMaterials
 		DwartSteelIngot=new InformationItem();
 		MithrilIngot=new InformationItem();
 		AdamantiumIngot=new InformationItem();
+
+		InvalidRunicRing=new InformationItem();
+		LostPage=new InformationItem();
 
 		GoldenSilk = new InformationItem();
 		DiamondSilk = new InformationItem();
