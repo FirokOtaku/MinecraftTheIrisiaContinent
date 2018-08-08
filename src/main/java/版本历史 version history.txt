@@ -1,6 +1,10 @@
+0.12.11
+加入清明指环、癫狂指环、茁壮指环饰品
+add ThrivingRing, InsaneRing, LucidRing baubles
+
 0.12.10
-添加秘法碑-迅捷、秘法碑-急迫、秘法碑-抗性、秘法碑-轻盈
-add StelaSpeed, StelaDigSpeed, StelaResistance, StelaJump
+添加秘法碑-迅捷、秘法碑-急迫、秘法碑-抗性、秘法碑-轻盈方块
+add StelaSpeed, StelaDigSpeed, StelaResistance, StelaJump blocks
 添加失效的符文护盾指环、遗失的书页物品
 add InvalidRunicRing, LostPage items
 

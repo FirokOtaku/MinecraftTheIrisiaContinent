@@ -80,6 +80,9 @@ public class ItemLoader
 
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.FortuneRing,"ring_fortune","FortuneRing");
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.MinersRing,"ring_miner","MinersRing");
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.ThrivingRing,"ring_thriving","ThrivingRing");
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.InsaneRing,"ring_insane","InsaneRing");
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.LucidRing,"ring_lucid","LucidRing");
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.PhotosynthesisAmulet,"ring_photosynthesis","PhotosynthesisAmulet");
     }
     @SideOnly(Side.CLIENT)
@@ -133,7 +136,7 @@ public class ItemLoader
     		return;
 
 	    item.setUnlocalizedName(unlocalizedName);
-        GameRegistry.registerItem(item,name);
+        GameRegistry.registerItem(item,name,Irisia.MODID);
         if(tab!=null)
         	item.setCreativeTab(tab);
         item.setUnlocalizedName(unlocalizedName);
