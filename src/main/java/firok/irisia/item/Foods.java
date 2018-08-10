@@ -10,6 +10,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.Timer;
 import net.minecraft.world.World;
+import thaumcraft.common.Thaumcraft;
 
 import java.util.List;
 
@@ -25,6 +26,11 @@ public class Foods
 	public final static InformationItemFood DwartBread; // 矮人面包
 	public final static InformationItemFood ElfBread; // 精灵面包
 
+	public final static InformationItemFood PotionMpLesser; // 蓝药
+	public final static InformationItemFood PotionMp;
+	public final static InformationItemFood PotionMpGreater;
+	public final static InformationItemFood PotionMpSuper;
+
 	static
 	{
 		VilligerFood=new InformationItemFood();
@@ -36,6 +42,20 @@ public class Foods
 		HuckTeaLeaf=new InformationItemFood();
 		Breadfruit=new InformationItemFood();
 		ElfBean=new InformationItemFood();
+
+		PotionMpLesser=new InformationItemFood()
+		{
+			@Override
+			protected void onFoodEaten(ItemStack itemStack, World world, EntityPlayer player)
+			{
+				super.onFoodEaten(itemStack,world,player);
+				if(world.isRemote)
+					return;
+			}
+		};
+		PotionMp=new InformationItemFood();
+		PotionMpGreater=new InformationItemFood();
+		PotionMpSuper=new InformationItemFood();
 	}
 
 

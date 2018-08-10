@@ -3,19 +3,13 @@ package firok.irisia.item;
 import baubles.api.BaubleType;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumRarity;
 import net.minecraft.item.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.config.ConfigItems;
 
 public class EquipmentAutoRepair
@@ -29,6 +23,12 @@ public class EquipmentAutoRepair
 	public final static AutoRepairAxe LifewoodAxe;
 	public final static AutoRepairHoe LifewoodHoe;
 	public final static AutoRepairSpade LifewoodSpade;
+
+	public final static AutoRepairArmor SlimeHelmet;
+	public final static AutoRepairArmor SlimeChestplate;
+	public final static AutoRepairArmor SlimeLeggings;
+	public final static AutoRepairArmor SlimeBoots;
+
 	static
 	{
 		LifewoodSword=new AutoRepairSword(Materials.LifeWoodTool,1,40);
@@ -40,6 +40,11 @@ public class EquipmentAutoRepair
 		LifewoodAxe=new AutoRepairAxe(Materials.LifeWoodTool,1,40);
 		LifewoodHoe=new AutoRepairHoe(Materials.LifeWoodTool,1,40);
 		LifewoodSpade=new AutoRepairSpade(Materials.LifeWoodTool,1,40);
+
+		SlimeHelmet=new SlimeArmor(Materials.SlimeArmor,0,2,40,1,40);
+		SlimeChestplate=new SlimeArmor(Materials.SlimeArmor,1,2,40,2,40);
+		SlimeLeggings=new SlimeArmor(Materials.SlimeArmor,2,2,40,1,40);
+		SlimeBoots=new SlimeArmor(Materials.SlimeArmor,3,2,40,1,40);
 	}
 
 	public static class AutoRepairArmor extends ItemArmor
@@ -209,6 +214,26 @@ public class EquipmentAutoRepair
 		}
 	}
 
+	// 史莱姆盔甲
+	public static class SlimeArmor extends AutoRepairArmor
+	{
+		public final int heal;
+		public final int healInterval;
+		public SlimeArmor(ItemArmor.ArmorMaterial material,int type,int rs,int ri,int h,int hi)
+		{
+			super(material,type,rs,ri);
+			this.heal =h;
+			this.healInterval=hi;
+		}
+
+		@Override
+		public void onArmorTick(World world, EntityPlayer player, ItemStack armor) {
+			super.onArmorTick(world, player, armor);
+			if (!world.isRemote && player.ticksExisted % healInterval == 0) {
+				player.heal(heal);
+			}
+		}
+	}
 
 	// 饰品好像不会损坏 暂时没什么用
 	public static abstract class AutoRepairBauble extends EquipmentSets.ItemBauble

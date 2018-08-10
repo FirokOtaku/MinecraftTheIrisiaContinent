@@ -1,3 +1,11 @@
+0.12.13
+加入史莱姆材质和对应盔甲套装
+add Slime armor material and its armor-set
+
+0.12.12
+加入魔力药水食物
+add PotionMp foods
+
 0.12.11
 加入清明指环、癫狂指环、茁壮指环饰品
 add ThrivingRing, InsaneRing, LucidRing baubles

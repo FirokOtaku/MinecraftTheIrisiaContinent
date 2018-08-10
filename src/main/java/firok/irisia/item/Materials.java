@@ -48,6 +48,11 @@ public class Materials
 			EnumHelper.addArmorMaterial(Irisia.MODID+":SOLITA",
 					8, new int[]{ 2, 6, 4, 2 }, 15);
 
+	public static final ItemArmor.ArmorMaterial SlimeArmor =
+			EnumHelper.addArmorMaterial(Irisia.MODID+":SOLITA",
+					8, new int[]{ 2, 6, 4, 2 }, 15);
+
+
 	public static final Item.ToolMaterial BoneTool =
 			EnumHelper.addToolMaterial(Irisia.MODID+":BONE",
 					3, 16, 16.0F, 0.0F, 10);

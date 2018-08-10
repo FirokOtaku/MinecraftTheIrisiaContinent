@@ -24,6 +24,7 @@ public class RawMaterials
 	public final static InformationItem CasinosBadge; // 赌场徽章
 	public final static InformationItem UnicornHorn; // 独角兽角
 	public final static InformationItem UnicornBlood; // 独角兽血
+	public final static InformationItem SlimeCore; // 史莱姆核
 
 	// food material
 	public final static InformationItem BrownWheat; // 褐麦
@@ -37,6 +38,7 @@ public class RawMaterials
 	public final static InformationItem DwartSteelIngot;
 	public final static InformationItem MithrilIngot;
 	public final static InformationItem AdamantiumIngot;
+	public final static InformationItem SlimeIngot;
 
 	// plot
 	public final static InformationItem InvalidRunicRing; // 失效的符文护盾指环
@@ -66,6 +68,7 @@ public class RawMaterials
 		CasinosBadge = new InformationItem();
 		UnicornHorn=new InformationItem();
 		UnicornBlood =new InformationItem();
+		SlimeCore=new InformationItem();
 
 		BrownWheat=new InformationItem();
 		DwartFlour=new InformationItem();
@@ -77,6 +80,7 @@ public class RawMaterials
 		DwartSteelIngot=new InformationItem();
 		MithrilIngot=new InformationItem();
 		AdamantiumIngot=new InformationItem();
+		SlimeIngot=new InformationItem();
 
 		InvalidRunicRing=new InformationItem();
 		LostPage=new InformationItem();

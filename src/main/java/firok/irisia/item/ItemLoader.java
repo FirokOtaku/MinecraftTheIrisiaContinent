@@ -6,6 +6,7 @@ import firok.irisia.Irisia;
 import firok.irisia.common.IrisiaCreativeTabs;
 import firok.irisia.mod.tc.Reg;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -65,7 +66,11 @@ public class ItemLoader
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentAutoRepair.LifewoodPickaxe,"pickaxe_lifewood","LifewoodPickaxe");
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentAutoRepair.LifewoodHoe,"hoe_lifewood","LifewoodHoe");
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentAutoRepair.LifewoodSpade,"spade_lifewood","LifewoodSpade");
-
+	    // 注册史莱姆套装
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentAutoRepair.SlimeHelmet,"helmet_slime","SlimeHelmet");
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentAutoRepair.SlimeChestplate,"chestplate_slime","SlimeChestplate");
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentAutoRepair.SlimeLeggings,"leggings_slime","SlimeLeggings");
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentAutoRepair.SlimeBoots,"boots_slime","SlimeBoots");
 
 
 
