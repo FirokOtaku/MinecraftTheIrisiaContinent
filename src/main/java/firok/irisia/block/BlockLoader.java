@@ -4,6 +4,7 @@ import javax.annotation.Nullable;
 
 import firok.irisia.common.IrisiaCreativeTabs;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockSlab;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemBlock;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -48,6 +49,10 @@ public class BlockLoader
 	    register(IrisiaCreativeTabs.irisiaBlock, ArcaneStelas.StelaJump,"blockStelaJump","block_stela_jump");
 	    register(IrisiaCreativeTabs.irisiaBlock, ArcaneStelas.StelaResistance,"blockResistance","block_stela_resistance");
 	    register(IrisiaCreativeTabs.irisiaBlock, ArcaneStelas.StelaDigSpeed,"blockDigSpeed","block_stela_digspeed");
+
+
+		register(IrisiaCreativeTabs.irisiaBlock,PavingStones.Shake,"blockPavingStoneShake","block_paving_stone_shake");
+	    register(IrisiaCreativeTabs.irisiaBlock,PavingStones.Flame,"blockPavingStoneFlame","block_paving_stone_flame");
     }
 
     private static void register(@Nullable CreativeTabs tab,Block block, String unlocalizedName,String textureName)
@@ -71,11 +76,17 @@ public class BlockLoader
 //        ModelResourceLocation model = new ModelResourceLocation(block.getRegistryName(), "inventory");
 //        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, model);
     }
-    
-    private static void register(Block block, ItemBlock itemBlock, String name)
-    {
-//        GameRegistry.registerBlock(block.setRegistryName(name), (Class<? extends ItemBlock>) null);
-//        GameRegistry.registerItem(itemBlock.setRegistryName(name));
-//        GameData.getBlockItemMap().put(block, itemBlock);
-    }
+
+	private static void registerMyBlock(Block block, Class<? extends ItemBlock> pickup, BlockSlab singleSlab, BlockSlab doubleSlab, boolean isDouble) {
+		GameRegistry.registerBlock(block, pickup, block.getUnlocalizedName(), singleSlab, doubleSlab, isDouble);
+	}
+
+	private static void registerMyBlock(Block block, Class<? extends ItemBlock> pickup, Block blockAgain, String[] names) {
+		GameRegistry.registerBlock(block, pickup, block.getUnlocalizedName(), blockAgain, names);
+	}
+
+	private static void registerMyBlock(Block block, Class<? extends ItemBlock> pickup)
+	{
+		GameRegistry.registerBlock(block, pickup, block.getUnlocalizedName());
+	}
 }

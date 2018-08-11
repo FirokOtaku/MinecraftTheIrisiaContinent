@@ -3,6 +3,7 @@ package firok.irisia.common;
 import cpw.mods.fml.common.event.*;
 import firok.irisia.Irisia;
 import firok.irisia.block.BlockLoader;
+import firok.irisia.command.CommandLoader;
 import firok.irisia.enchantment.EnchantmentLoader;
 import firok.irisia.item.*;
 import org.apache.logging.log4j.Level;
@@ -66,6 +67,6 @@ public class CommonProxy
     
     public void serverStarting(FMLServerStartingEvent event)
     {
-//    	new CommandLoader(event);
+    	new CommandLoader(event);
     }
 }
