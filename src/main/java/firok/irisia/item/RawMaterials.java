@@ -47,6 +47,8 @@ public class RawMaterials
 	// thaumic
 	public final static InformationItem GoldenSilk;
 	public final static InformationItem DiamondSilk;
+	public final static InformationItem MultiCoreBrain; // 多核脑
+
 
 	// irisia !
 	public final static InformationItem AncientThaumicNote; // 古代神秘使笔记
@@ -72,6 +74,7 @@ public class RawMaterials
 
 		BrownWheat=new InformationItem();
 		DwartFlour=new InformationItem();
+		MultiCoreBrain=new InformationItem();
 
 		ElfStone= new InformationItem();
 		FlumetalIngot= new InformationItem();

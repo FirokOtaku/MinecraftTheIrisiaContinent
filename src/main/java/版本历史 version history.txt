@@ -1,3 +1,9 @@
+0.12.15
+加入多核脑物品
+add MutilCoreBrain item
+加入法杖核心类
+add class of wand focus
+
 0.12.14
 加入烈焰铺路石、震荡铺路石方块
 add PavingStoneFlame, PavingStoneShake blocks

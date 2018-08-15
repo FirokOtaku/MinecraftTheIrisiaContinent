@@ -36,6 +36,11 @@ public class EquipmentUniqueBaubles
 	public static EquipmentSets.Ring ScarletRing; // 猩红指环
 	public final static EquipmentSets.Ring LucidRing; // 清明指环
 
+	public static EquipmentSets.Belt DwartBelt; // 矮人腰带
+	public static EquipmentSets.Ring KingRing; // 人王指环
+	public static EquipmentSets.Ring ElfRing; // 精灵指环
+	public static EquipmentSets.Amulet TeethAmulet; // 兽牙项链
+
 
 	// amulets
 	public final static EquipmentSets.Amulet PhotosynthesisAmulet; // 光合护身符
