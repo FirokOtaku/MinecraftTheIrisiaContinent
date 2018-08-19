@@ -1,3 +1,7 @@
+0.12.16
+加入神秘时代研究页面
+add research page in Thaumonomicon
+
 0.12.15
 加入多核脑物品
 add MutilCoreBrain item

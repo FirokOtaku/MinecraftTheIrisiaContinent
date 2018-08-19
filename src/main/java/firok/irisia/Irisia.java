@@ -11,6 +11,9 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
 
 
 @Mod(
@@ -23,9 +26,9 @@ public class Irisia
 {
     public static final String MODID = "Irisia";
     public static final String NAME = "The Irisia Continent";
-    public static final String VERSION = "0.12.15";
+    public static final String VERSION = "0.12.16";
     public static final boolean IN_DEV=true;
-    
+
     public static Random rand=new Random();
 
     @Instance(Irisia.MODID)
@@ -63,11 +66,8 @@ public class Irisia
 
     public static void main(String... args)
     {
-        NameObject nb1=transName("ore","mithrill");
-        NameObject nb2=transName("item","mithrill","ingot");
-
-        System.out.println(nb1);
-        System.out.println(nb2);
+//        ResourceLocation rsl=new ResourceLocation("irisia:textures/pic.png");
+//        System.out.println(rsl.getResourcePath());Render.bindEntityTexture
     }
     public static NameObject transName(String type,String... tags)
     {
