@@ -1,3 +1,11 @@
+0.12.17
+加入混合糖果物品
+add MixedSweet food
+加入指令用来测试混合糖果
+add command for testing MixedSweet
+加入开发用log接口
+add interface of logging for development
+
 0.12.16
 加入神秘时代研究页面
 add research page in Thaumonomicon

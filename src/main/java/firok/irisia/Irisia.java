@@ -13,6 +13,8 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ResourceLocation;
 
 
@@ -26,7 +28,7 @@ public class Irisia
 {
     public static final String MODID = "Irisia";
     public static final String NAME = "The Irisia Continent";
-    public static final String VERSION = "0.12.16";
+    public static final String VERSION = "0.12.17";
     public static final boolean IN_DEV=true;
 
     public static Random rand=new Random();
@@ -133,5 +135,25 @@ public class Irisia
         char[] cs=str.toCharArray();
         cs[0]-=32;
         return String.valueOf(cs);
+    }
+
+
+    public static void log(Object str, EntityPlayer player)
+    {
+        if(!IN_DEV && player.worldObj.isRemote)
+            return;
+
+        player.addChatComponentMessage(new ChatComponentText(str.toString()));
+    }
+    public static void log(Object[] strs,EntityPlayer player)
+    {
+        for(Object str:strs)
+        {
+            log(str,player);
+        }
+    }
+    public static void log(Exception e,EntityPlayer player)
+    {
+        log(e.getStackTrace(),player);
     }
 }

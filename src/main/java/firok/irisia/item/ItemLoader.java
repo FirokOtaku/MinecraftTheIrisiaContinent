@@ -6,7 +6,6 @@ import firok.irisia.Irisia;
 import firok.irisia.common.IrisiaCreativeTabs;
 import firok.irisia.mod.tc.Reg;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -14,7 +13,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import java.util.*;
-import firok.irisia.item.*;
+
 import firok.irisia.item.EquipmentSets.EquipmentSet;
 
 
@@ -89,6 +88,9 @@ public class ItemLoader
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.InsaneRing,"ring_insane","InsaneRing");
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.LucidRing,"ring_lucid","LucidRing");
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.PhotosynthesisAmulet,"ring_photosynthesis","PhotosynthesisAmulet");
+
+
+	    register(IrisiaCreativeTabs.irisiaFood,Foods.MixedSweet,"test_juice","MixedSweet");
     }
     @SideOnly(Side.CLIENT)
     public static void registerRenders()

@@ -2,17 +2,19 @@ package firok.irisia.item;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import firok.irisia.Irisia;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.Timer;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import thaumcraft.common.Thaumcraft;
 
 import java.util.List;
+import java.util.Random;
 
 public class Foods
 {
@@ -30,6 +32,8 @@ public class Foods
 	public final static InformationItemFood PotionMp;
 	public final static InformationItemFood PotionMpGreater;
 	public final static InformationItemFood PotionMpSuper;
+
+	public final static InformationItemFood MixedSweet;
 
 	static
 	{
@@ -56,6 +60,8 @@ public class Foods
 		PotionMp=new InformationItemFood();
 		PotionMpGreater=new InformationItemFood();
 		PotionMpSuper=new InformationItemFood();
+
+		MixedSweet =new Juices();
 	}
 
 
@@ -158,6 +164,217 @@ public class Foods
 		public int getMaxItemUseDuration(ItemStack p_77626_1_)
 		{
 			return UseDuration;
+		}
+	}
+
+	public static class Berries extends InformationItemFood
+	{
+		public Berries()
+		{
+			super(28,1,0,false);
+		}
+	}
+	public static class Juices extends InformationItemFood
+	{
+		public Juices()
+		{
+			super(28,2,0,false,true);
+		}
+
+		/*
+		树果
+		http://wiki.52poke.com/wiki/%E6%A0%91%E6%9E%9C
+
+		poke 方块
+		http://wiki.52poke.com/wiki/%E5%AE%9D%E5%8F%AF%E6%96%B9%E5%9D%97
+
+		tag:
+			exp: int 经验
+			expl: int 经验等级
+
+			tastes: byte[] 口味
+
+			pids: int[] 药水id
+			pts: int[] 药水持续tick
+			prs: float[] 药水出现几率
+
+			mps: int[] 恢复的魔力量
+			mpl: int 安全承载魔力量
+		*/
+		@Override
+		protected void onFoodEaten(ItemStack itemStack, World world, EntityPlayer player)
+		{
+			super.onFoodEaten(itemStack,world,player);
+
+			if(world.isRemote)
+				return;
+
+			try
+			{
+				NBTTagCompound nbt=new NBTTagCompound();
+				itemStack.writeToNBT(nbt);
+
+				NBTTagCompound tag=(NBTTagCompound)nbt.getTag("tag");
+				if(tag==null) return;
+
+				Random rand=world.rand;
+
+
+				int exp=tag.getInteger("exp");
+				int expl=tag.getInteger("expl");
+				int[] mps=tag.getIntArray("mps"); mps= mps.length==6?mps:new int[6];
+				int mpl=tag.getInteger("mpl");
+
+				// 增加经验
+				player.addExperience(exp);
+				player.addExperienceLevel(expl);
+				// 恢复魔力
+				float totalMpDebuff=0;
+				for(int mp:mps)
+				{
+					if(mp>mpl)
+						totalMpDebuff+=0.2;
+				}
+
+
+				byte[] tastes=tag.getByteArray("tastes"); tastes= tastes.length==5? tastes: new byte[5];
+
+				float totalDebuffRate=0-tag.getFloat("antiD");
+				float totalPoisonRate=0-tag.getFloat("antiP");
+				// 计算debuff几率
+				for(byte taste : tastes)
+				{
+					if(taste==3)
+					{
+						totalDebuffRate+=0.1;
+					}
+					else if(taste==4)
+					{
+						totalDebuffRate+=0.15;
+						totalPoisonRate+=0.1;
+					}
+					else if(taste>=5)
+					{
+						totalDebuffRate+=0.25;
+						totalPoisonRate+=0.2;
+					}
+				}
+				// 增加debuff
+				if(rand.nextFloat()<totalDebuffRate)
+				{
+					player.addPotionEffect(new PotionEffect(Potion.confusion.id,200,0));
+					player.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id,100,0));
+				}
+				// 中毒
+				if(rand.nextFloat()<totalPoisonRate)
+				{
+					player.addPotionEffect(new PotionEffect(Potion.poison.id,200,0));
+				}
+
+				int[] pids=tag.getIntArray("pids");
+				int[] pts=tag.getIntArray("pts");
+				int[] pls=tag.getIntArray("pls");
+				int[] prs=tag.getIntArray("prs");
+				if(pids.length!=pts.length || pts.length!=prs.length || prs.length!=pls.length) // 检查合法性
+					return;
+
+				// 增加额外药水效果
+				for(int i=0;i<pids.length;i++)
+				{
+					if(rand.nextFloat()<prs[i])
+					{
+						try
+						{
+							player.addPotionEffect(new PotionEffect(pids[i],pts[i],pls[i]));
+						}
+						catch (Exception e)
+						{
+							;
+						}
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+				Irisia.log(e.getStackTrace(),player);
+			}
+		}
+
+		@Override
+		@SideOnly(Side.CLIENT)
+		public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean flag)
+		{
+			super.addInformation(itemStack,player,list,flag);
+
+			try
+			{
+				NBTTagCompound nbt=new NBTTagCompound();
+				itemStack.writeToNBT(nbt);
+
+				NBTTagCompound tag=(NBTTagCompound)nbt.getTag("tag");
+				if(tag==null) return;
+
+
+				int exp=tag.getInteger("exp");
+				int expl=tag.getInteger("expl");
+				int[] mps=tag.getIntArray("mps"); mps= mps.length==6?mps:new int[6];
+				int mpl=tag.getInteger("mpl");
+
+				// 增加经验
+				list.add("Exp : "+exp);
+				list.add("ExpL : "+expl);
+				// 恢复魔力
+				;
+
+
+				byte[] tastes=tag.getByteArray("tastes"); tastes= tastes.length==5? tastes: new byte[5];
+				if(tastes[0]>0) list.add(toLevel(tastes[0])+"甜");
+				if(tastes[1]>0) list.add(toLevel(tastes[1])+"酸");
+				if(tastes[2]>0) list.add(toLevel(tastes[2])+"苦");
+				if(tastes[3]>0) list.add(toLevel(tastes[3])+"涩");
+				if(tastes[4]>0) list.add(toLevel(tastes[4])+"辣");
+
+
+				float totalDebuffRate=tag.getFloat("antiD");
+				float totalPoisonRate=tag.getFloat("antiP");
+
+				list.add("异常状态抗性 : "+totalDebuffRate*100+"%");
+				list.add("毒抗性 : "+totalPoisonRate*100+"%");
+
+
+				int[] pids=tag.getIntArray("pids");
+				int[] pts=tag.getIntArray("pts");
+				int[] pls=tag.getIntArray("pls");
+				int[] prs=tag.getIntArray("prs");
+				if(pids.length!=pts.length || pts.length!=prs.length || prs.length!=pls.length) // 检查合法性
+					return;
+
+				// 增加额外药水效果
+				for(int i=0;i<pids.length;i++)
+				{
+					list.add("Lv."+pls[i]+" "+StatCollector.translateToLocal(Potion.potionTypes[pids[i]].getName()) +" - "+pts[i]/20+"s "+prs[i]+"%");
+				}
+			}
+			catch (Exception e)
+			{
+				;
+			}
+		}
+		private String toLevel(byte level)
+		{
+			if(level<=0)
+				return "";
+			if(level==1)
+				return "略";
+			if(level==2)
+				return "";
+			if(level==3)
+				return "非常";
+			if(level==4)
+				return "极";
+			else
+				return "过";
 		}
 	}
 }
