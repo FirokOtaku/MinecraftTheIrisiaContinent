@@ -149,9 +149,6 @@ public class CommandLoader
 				    tag.setFloat("antiD",0.2f);
 				    tag.setFloat("antiP",0.35f);
 
-
-
-
 				    nbt.setTag("tag",tag);
 
 				    held.readFromNBT(nbt);

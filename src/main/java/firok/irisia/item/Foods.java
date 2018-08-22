@@ -13,6 +13,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 
@@ -33,7 +34,8 @@ public class Foods
 	public final static InformationItemFood PotionMpGreater;
 	public final static InformationItemFood PotionMpSuper;
 
-	public final static InformationItemFood MixedSweet;
+	public final static Berry BerryNull;
+	public final static MixedSweet MixedSweet;
 
 	static
 	{
@@ -61,7 +63,8 @@ public class Foods
 		PotionMpGreater=new InformationItemFood();
 		PotionMpSuper=new InformationItemFood();
 
-		MixedSweet =new Juices();
+		BerryNull=new Berry();
+		MixedSweet =new MixedSweet();
 	}
 
 
@@ -167,16 +170,72 @@ public class Foods
 		}
 	}
 
-	public static class Berries extends InformationItemFood
+	public static class Berry extends InformationItemFood
 	{
-		public Berries()
+		public final int[] tastes;
+		public final int antiD;
+		public final int antiP;
+		public final int exp;
+		public final int expl;
+		public final int[] mps;
+		public final int mpl;
+		public final int[] pids; // 实例化之后 不要往这里面写数据
+		public final int[] pts;
+		public final int[] pls;
+		public final int[] prs;
+
+		private final int[] nullArray=new int[0];
+
+
+		public Berry(int[] taste,int antiD,int antiP,
+		             int exp,int expl,
+		             int[] mps,int mpl,
+		             int[] pids,int[] pts,int[] pls,int[] prs)
 		{
 			super(28,1,0,false);
+			tastes= taste==null||taste.length!=5?new int[]{0,0,0,0,0}:taste.clone();
+			this.antiD=antiD;
+			this.antiP=antiP;
+			this.exp=exp;
+			this.expl=expl;
+			this.mps=mps==null||mps.length!=6?new int[]{0,0,0,0,0,0}:mps.clone();
+			this.mpl=mpl;
+
+			if(pids==null||pts==null||pls==null||prs==null||pids.length!=pts.length||pts.length!=pls.length||pls.length!=prs.length)
+			{
+				this.pids=nullArray;
+				this.pts=nullArray;
+				this.pls=nullArray;
+				this.prs=nullArray;
+			}
+			else
+			{
+				this.pids=pids.clone();
+				this.pts=pts.clone();
+				this.pls=pls.clone();
+				this.prs=prs.clone();
+			}
+		}
+		public Berry(int[] taste,int antiD,int antiP,int exp,int expl)
+		{
+			this(taste,antiD,antiP,exp,expl,null,0,null,null,null,null);
+		}
+		public Berry(int[] taste,int[] pids,int[] pts,int[] pls,int[] prs)
+		{
+			this(taste,0,0,0,0,null,0,pids,pts,pls,prs);
+		}
+		public Berry(int[] tastes)
+		{
+			this(tastes,0,0,0,0,null,0,null,null,null,null);
+		}
+		public Berry()
+		{
+			this(null,0,0,0,0,null,0,null,null,null,null);
 		}
 	}
-	public static class Juices extends InformationItemFood
+	public static class MixedSweet extends InformationItemFood
 	{
-		public Juices()
+		public MixedSweet()
 		{
 			super(28,2,0,false,true);
 		}
