@@ -90,7 +90,8 @@ public class ItemLoader
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.PhotosynthesisAmulet,"ring_photosynthesis","PhotosynthesisAmulet");
 
 
-	    register(IrisiaCreativeTabs.irisiaFood,Foods.MixedSweet,"test_juice","MixedSweet");
+	    register(IrisiaCreativeTabs.irisiaFood,Foods.MixedSweet,"mixed_sweet","MixedSweet");
+	    register(IrisiaCreativeTabs.irisiaFood,Foods.BerryNull,"berry_null","NullBerry");
     }
     @SideOnly(Side.CLIENT)
     public static void registerRenders()

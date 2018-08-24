@@ -5,7 +5,9 @@ import firok.irisia.Irisia;
 import firok.irisia.block.BlockLoader;
 import firok.irisia.command.CommandLoader;
 import firok.irisia.enchantment.EnchantmentLoader;
+import firok.irisia.inventory.GuiElementLoader;
 import firok.irisia.item.*;
+import firok.irisia.tileentity.TileEntityLoader;
 import org.apache.logging.log4j.Level;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.api.research.ResearchPage;
@@ -41,6 +43,7 @@ public class CommonProxy
 //    	new PotionLoader(event);
 //
 //        new EntityLoader();
+	    new TileEntityLoader(event);
     }
 
     public void init(FMLInitializationEvent event)
@@ -55,7 +58,7 @@ public class CommonProxy
 //    	new firok.irisia.mod.tc.aspect.AspectLoader();
 //    	new firok.irisia.mod.tc.research.CateLoader();
 		firok.irisia.common.TcContent.init();
-//    	new GuiElementLoader();
+    	new GuiElementLoader();
 
 
     }

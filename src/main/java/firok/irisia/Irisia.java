@@ -28,7 +28,7 @@ public class Irisia
 {
     public static final String MODID = "Irisia";
     public static final String NAME = "The Irisia Continent";
-    public static final String VERSION = "0.12.18";
+    public static final String VERSION = "0.12.19";
     public static final boolean IN_DEV=true;
 
     public static Random rand=new Random();
@@ -155,5 +155,19 @@ public class Irisia
     public static void log(Exception e,EntityPlayer player)
     {
         log(e.getStackTrace(),player);
+    }
+    public static void log(String str)
+    {
+        if(IN_DEV)
+        {
+            System.out.println(str);
+        }
+    }
+    public static void log(Exception e)
+    {
+        if(IN_DEV)
+        {
+            e.printStackTrace();
+        }
     }
 }

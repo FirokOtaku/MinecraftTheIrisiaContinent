@@ -298,8 +298,8 @@ public class Foods
 
 				byte[] tastes=tag.getByteArray("tastes"); tastes= tastes.length==5? tastes: new byte[5];
 
-				float totalDebuffRate=0-tag.getFloat("antiD");
-				float totalPoisonRate=0-tag.getFloat("antiP");
+				int totalDebuffRate=0-tag.getInteger("antiD");
+				int totalPoisonRate=0-tag.getInteger("antiP");
 				// 计算debuff几率
 				for(byte taste : tastes)
 				{

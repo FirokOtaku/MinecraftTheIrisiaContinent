@@ -53,6 +53,8 @@ public class BlockLoader
 
 		register(IrisiaCreativeTabs.irisiaBlock,PavingStones.Shake,"blockPavingStoneShake","block_paving_stone_shake");
 	    register(IrisiaCreativeTabs.irisiaBlock,PavingStones.Flame,"blockPavingStoneFlame","block_paving_stone_flame");
+
+	    register(IrisiaCreativeTabs.irisiaBlock,MachineBlocks.BerryMixer,"machineBerryMixer","machine_berry_mixer");
     }
 
     private static void register(@Nullable CreativeTabs tab,Block block, String unlocalizedName,String textureName)
