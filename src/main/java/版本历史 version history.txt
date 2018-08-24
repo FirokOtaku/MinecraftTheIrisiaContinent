@@ -1,3 +1,11 @@
+0.12.20
+加入状态效果加载器
+add PotionLoader
+加入状态效果-发情
+add PotionLove
+加入指令用来测试状态效果
+add command for tesing PotionEffect
+
 0.12.19
 加入树果混合器方块和方块实体
 add BerryMixer block and tile entity

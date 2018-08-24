@@ -7,6 +7,7 @@ import firok.irisia.command.CommandLoader;
 import firok.irisia.enchantment.EnchantmentLoader;
 import firok.irisia.inventory.GuiElementLoader;
 import firok.irisia.item.*;
+import firok.irisia.potion.PotionLoader;
 import firok.irisia.tileentity.TileEntityLoader;
 import org.apache.logging.log4j.Level;
 import thaumcraft.api.research.ResearchItem;
@@ -40,7 +41,7 @@ public class CommonProxy
 //    	AchievementPage.registerAchievementPage(new PageIrisia());
 //
 //    	new OreDictionaryLoader(event);
-//    	new PotionLoader(event);
+    	new PotionLoader(event);
 //
 //        new EntityLoader();
 	    new TileEntityLoader(event);

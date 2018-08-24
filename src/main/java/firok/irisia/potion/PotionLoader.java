@@ -1,10 +1,12 @@
 package firok.irisia.potion;
 
 import firok.irisia.Irisia;
-import firok.irisia.common.ConfigLoader;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import org.apache.logging.log4j.Logger;
+import thaumcraft.common.Thaumcraft;
+import thaumcraft.common.lib.utils.Utils;
 
 public class PotionLoader
 {
@@ -13,7 +15,6 @@ public class PotionLoader
 	
 	
     // public static Potion potionFallProtection;
-	
 //	public static Potion wise			=new Wise();
 //	public static Potion folly			=new Folly();
 //	public static Potion spaceUnstable	=new SpaceUnstable();
@@ -31,26 +32,46 @@ public class PotionLoader
 
     public PotionLoader(FMLPreInitializationEvent event)
     {
-        // potionFallProtection = new PotionFallProtection();
-//    	registerPotion(ConfigLoader.idPotionWise,"wise",wise);
-//    	registerPotion(ConfigLoader.idPotionFool,"folly",folly);
-//    	registerPotion(ConfigLoader.idPotionSpaceUnstable,"space_unstable",spaceUnstable);
-//    	registerPotion(ConfigLoader.idPotionIndomitable,"indomitable",indomitable);
-//    	registerPotion(ConfigLoader.idPotionAvarice,"avarice",avarice);
-//    	registerPotion(ConfigLoader.idPotionThresholded,"thresholded",thresholded);
-//    	registerPotion(ConfigLoader.idPotionMilitaristic,"militaristic",militaristic);
-//    	registerPotion(ConfigLoader.idPotionPainbound,"painbound",painbound);
-//    	registerPotion(ConfigLoader.idPotionLifecursed,"lifecurse",lifecursed);
-//    	registerPotion(ConfigLoader.idPotionLifeblessed,"lifeblessed",lifeblessed);
-//    	registerPotion(ConfigLoader.idPotionTeared,"teared",teared);
-//    	registerPotion(ConfigLoader.idPotionLove,"love",love);
-//    	registerPotion(ConfigLoader.idElectrostatic,"electrostatic",electrostatic);
+        Logger log=event.getModLog();
+        int customPotions = 10;
+        int potionOffset = Potion.potionTypes.length;
+        int start = 0;
+        log.info("自定义药水种类 : " + potionOffset);
+
+        if (potionOffset < 128 - customPotions) {
+            log.info("扩张药水列表长度至 : " + (potionOffset + customPotions));
+            Potion[] potionTypes = new Potion[potionOffset + customPotions];
+            System.arraycopy(Potion.potionTypes, 0, potionTypes, 0, potionOffset);
+            Utils.setPrivateFinalValue((Class)Potion.class, (Object)null, potionTypes, new String[]{"potionTypes", "field_76425_a", "a"});
+            start = potionOffset++ - 1;
+        } else {
+            start = -1;
+        }
+
+
+        // love
+        if ((start= getNextPotionId(start)) >= 0) {
+            int potionLoveID = start;
+            Potions.love = new Potions.Love(potionLoveID);
+            log.info("Initializing PotionLove with id " + start);
+        }
     }
-    
-    private void registerPotion(int potionIdIn,String potionNameIn,Potion potionIn)
+    private static int getNextPotionId(int start)
     {
-    	// Potion.REGISTRY.register(1, new ResourceLocation("speed"), (new Potion(false, 8171462)).setPotionName("effect.moveSpeed").setIconIndex(0, 0).registerPotionAttributeModifier(SharedMonsterAttributes.MOVEMENT_SPEED, "91AEAA56-376B-4498-935B-2F7F68070635", 0.20000000298023224D, 2).setBeneficial());
-//    	Potion.REGISTRY.register(potionIdIn,new ResourceLocation(Irisia.MODID+":"+potionNameIn), potionIn);
-//    	potionIn.setPotionName(potionNameIn);
+        if (Potion.potionTypes != null && start > 0 && start < Potion.potionTypes.length && Potion.potionTypes[start] == null)
+        {
+            return start;
+        }
+        else
+        {
+            ++start;
+            if (start < 128) {
+                start = getNextPotionId(start);
+            } else {
+                start = -1;
+            }
+
+            return start;
+        }
     }
 }
