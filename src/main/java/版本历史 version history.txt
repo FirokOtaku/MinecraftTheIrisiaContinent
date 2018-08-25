@@ -5,6 +5,8 @@ change the way of loading enchantments
 add EnderGuarding enchantment
 添加状态效果-寒冷、状态效果-空间不稳定
 add PotionCold, PotionSpaceUnstable potion effects
+添加玉衡-无限之剑
+add AliothTheInfinity sword
 
 0.12.21
 添加附魔-淘汰
