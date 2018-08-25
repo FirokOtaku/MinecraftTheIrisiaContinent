@@ -4,6 +4,7 @@ import net.minecraft.util.DamageSource;
 
 public class DamageSources
 {
+
 	public final static DamageSource LightningDamege
 	=new DamageSource("lightningDamage")
 	.setDamageBypassesArmor()
@@ -20,7 +21,7 @@ public class DamageSources
 	.setDamageIsAbsolute();
 	
 	public final static DamageSource ElectrostaticDamage
-	=new DamageSource("painboundDamage")
+	=new DamageSource("electrostaticDamage")
 	.setDamageBypassesArmor()
 	.setDamageIsAbsolute();
 }
