@@ -4,21 +4,48 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import thaumcraft.api.damagesource.DamageSourceThaumcraft;
 import thaumcraft.api.entities.ITaintedMob;
 
 import java.awt.*;
+import java.util.List;
+
+import static firok.irisia.DamageSources.ElectrostaticDamage;
 
 public class Potions
 {
-	public static Potion love;
-	public static class Love extends Potion
+	// common potion
+	public static Potion Love;
+	public static Potion Electrostatic;
+	public static Potion Cold;
+	public static Potion SpaceUnstable;
+	// event potion
+	public static Potion Wise;
+	public static Potion Folly;
+	public static Potion MagicAmplificative;
+	public static Potion MagicResistance;
+	public static Potion Thresholded;
+	// unimplemented potion
+
+	public static Potion Indomitable;
+	public static Potion Avarice;
+
+	public static Potion Militaristic;
+	public static Potion Painbound;
+	public static Potion Lifecursed;
+	public static Potion Lifeblessed;
+	public static Potion Teared;
+	public static Potion Happy;
+
+	public static class PotionLove extends Potion
 	{
-		public Love(int id)
+		public PotionLove(int id)
 		{
 			super(id,false,Color.red.getRGB());
-
+			this.setPotionName("irisia.potion.love");
 		}
 		@Override
 		public void performEffect(EntityLivingBase target, int par2) {
@@ -36,7 +63,157 @@ public class Potions
 			return tick%20==0;
 		}
 	}
-	public static class CustomPotion extends Potion
+	public static class PotionElectrostatic extends Potion
+	{
+		public PotionElectrostatic(int id)
+		{
+			super(id,false,Color.blue.getRGB());
+			this.setPotionName("irisia.potion.electrostatic");
+		}
+		@Override
+		public void performEffect(EntityLivingBase target, int level) {
+			World world=target.worldObj;
+			if(world.isRemote)
+				return;
+
+			double x=target.posX,y=target.posY,z=target.posZ;
+			int radius=level*2;
+			List entities=world.getEntitiesWithinAABBExcludingEntity(target,
+					AxisAlignedBB.getBoundingBox
+					(x-3+radius,y-3+radius,z-3+radius,
+					x+3+radius,y+3+radius,z+3+radius));
+
+			for(Object obj:entities)
+			{
+				if(obj instanceof EntityLivingBase && world.rand.nextFloat()>level*0.1)
+				{
+					EntityLivingBase enlb=(EntityLivingBase)obj;
+					enlb.attackEntityFrom(ElectrostaticDamage,level);
+				}
+			}
+		}
+		@Override
+		public boolean isReady(int tick, int par2)
+		{
+			return tick%40==0;
+		}
+	}
+	public static class PotionCold extends Potion
+	{
+		public PotionCold(int id)
+		{
+			super(id,false,Color.blue.getRGB());
+			this.setPotionName("irisia.potion.cold");
+		}
+		@Override
+		public void performEffect(EntityLivingBase target, int level) {
+			World world=target.worldObj;
+			if(world.isRemote)
+				return;
+
+			double x=target.posX,y=target.posY,z=target.posZ;
+			int radius=level*2;
+			List entities=world.getEntitiesWithinAABBExcludingEntity(target,
+					AxisAlignedBB.getBoundingBox
+							(x-3+radius,y-3+radius,z-3+radius,
+									x+3+radius,y+3+radius,z+3+radius));
+
+			for(Object obj:entities)
+			{
+				if(obj instanceof EntityLivingBase && world.rand.nextFloat()>0.2+level*0.2)
+				{
+					EntityLivingBase enlb=(EntityLivingBase)obj;
+					enlb.addPotionEffect(new PotionEffect(Potion.moveSpeed.id,40,level));
+				}
+			}
+		}
+		@Override
+		public boolean isReady(int tick, int par2)
+		{
+			return tick%20==0;
+		}
+	}
+	public static class PotionSpaceUnstable extends Potion
+	{
+		public PotionSpaceUnstable(int id)
+		{
+			super(id,false,Color.blue.getRGB());
+			this.setPotionName("irisia.potion.space_unstable");
+		}
+		@Override
+		public void performEffect(EntityLivingBase target, int level) {
+			World world=target.worldObj;
+			if(world.isRemote)
+				return;
+
+			firok.irisia.ability.CauseTeleportation.teleportEntityRandomly(target,level*5);
+		}
+		@Override
+		public boolean isReady(int tick, int par2)
+		{
+			return tick%40==0;
+		}
+	}
+	public static class PotionFolly extends EventPotion
+	{
+		public PotionFolly(int id)
+		{
+			super(id,false,Color.red.getRGB());
+			this.setPotionName("irisia.potion.folly");
+		}
+	}
+	public static class PotionWise extends EventPotion
+	{
+		public PotionWise(int id)
+		{
+			super(id,false,Color.cyan.getRGB());
+			this.setPotionName("irisia.potion.wise");
+		}
+	}
+	public static class PotionMagicAmplificative extends EventPotion
+	{
+		public PotionMagicAmplificative(int id)
+		{
+			super(id,false,Color.GREEN.getRGB());
+			this.setPotionName("irisia.potion.magic_amplificative");
+		}
+	}
+	public static class PotionMagicResistance extends EventPotion
+	{
+		public PotionMagicResistance(int id)
+		{
+			super(id,false,Color.GREEN.getRGB());
+			this.setPotionName("irisia.potion.magic_resistance");
+		}
+	}
+	public static class PotionThresholded extends EventPotion
+	{
+		public PotionThresholded(int id)
+		{
+			super(id,false,Color.YELLOW.getRGB());
+			this.setPotionName("irisia.potion.thresholded");
+		}
+	}
+
+
+
+	public abstract static class EventPotion extends Potion // 这种状态效果是靠event驱动的
+	{
+		protected EventPotion(int id,boolean isBad,int rgb)
+		{
+			super(id,isBad,rgb);
+		}
+		@Override
+		public void performEffect(EntityLivingBase target, int par2) {
+			;
+		}
+		@Override
+		public boolean isReady(int tick, int par2)
+		{
+			return false;
+		}
+	}
+	public abstract static class CustomPotion extends Potion
 	{
 		public CustomPotion(int id,boolean isBad,int color)
 		{

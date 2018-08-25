@@ -90,4 +90,8 @@ public class Materials
 					3, 16, 16.0F, 0.0F, 10);
 
 
+	// 独有材料
+	public static final Item.ToolMaterial Alioth =
+			EnumHelper.addToolMaterial(Irisia.MODID+":ALIOTH",
+					5,3200,32F,10,20);
 }

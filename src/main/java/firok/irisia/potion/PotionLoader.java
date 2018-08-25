@@ -5,7 +5,6 @@ import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
-import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.lib.utils.Utils;
 
 public class PotionLoader
@@ -26,7 +25,7 @@ public class PotionLoader
 //	public static Potion lifecursed		=new Lifecursed();
 //	public static Potion lifeblessed	=new Lifeblessed();
 //	public static Potion teared			=new Teared();
-//	public static Potion love			=new Love();
+//	public static Potion Love			=new PotionLove();
 //	public static Potion electrostatic	=new Electrostatic();
 	
 
@@ -48,12 +47,46 @@ public class PotionLoader
             start = -1;
         }
 
-
-        // love
+        // Love
         if ((start= getNextPotionId(start)) >= 0) {
-            int potionLoveID = start;
-            Potions.love = new Potions.Love(potionLoveID);
+            Potions.Love = new Potions.PotionLove(start);
             log.info("Initializing PotionLove with id " + start);
+        }
+        // Cold
+        if ((start= getNextPotionId(start)) >= 0) {
+            Potions.Cold = new Potions.PotionCold(start);
+            log.info("Initializing PotionCold with id " + start);
+        }
+        // Space Unstable
+        if ((start= getNextPotionId(start)) >= 0) {
+            Potions.SpaceUnstable = new Potions.PotionSpaceUnstable(start);
+            log.info("Initializing PotionSpaceUnstable with id " + start);
+        }
+
+        // Wise
+        if ((start= getNextPotionId(start)) >= 0) {
+            Potions.Wise = new Potions.PotionWise(start);
+            log.info("Initializing PotionWise with id " + start);
+        }
+        // Folly
+        if ((start= getNextPotionId(start)) >= 0) {
+            Potions.Folly = new Potions.PotionFolly(start);
+            log.info("Initializing PotionFolly with id " + start);
+        }
+        // Magic Amplificative
+        if ((start= getNextPotionId(start)) >= 0) {
+            Potions.MagicAmplificative = new Potions.PotionMagicAmplificative(start);
+            log.info("Initializing PotionMagicAmplificative with id " + start);
+        }
+        // Magic Resistance
+        if ((start= getNextPotionId(start)) >= 0) {
+            Potions.MagicResistance = new Potions.PotionMagicResistance(start);
+            log.info("Initializing PotionMagicResistance with id " + start);
+        }
+        // Thresholded
+        if ((start= getNextPotionId(start)) >= 0) {
+            Potions.Thresholded = new Potions.PotionThresholded(start);
+            log.info("Initializing PotionThresholded with id " + start);
         }
     }
     private static int getNextPotionId(int start)

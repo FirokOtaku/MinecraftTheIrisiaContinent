@@ -70,7 +70,8 @@ public class ItemLoader
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentAutoRepair.SlimeChestplate,"chestplate_slime","SlimeChestplate");
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentAutoRepair.SlimeLeggings,"leggings_slime","SlimeLeggings");
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentAutoRepair.SlimeBoots,"boots_slime","SlimeBoots");
-
+	    // 北斗;
+	    register(IrisiaCreativeTabs.irisiaEqui,WainItems.AliothTheInfinity,"wain_alioth","WainAlioth");
 
 
 

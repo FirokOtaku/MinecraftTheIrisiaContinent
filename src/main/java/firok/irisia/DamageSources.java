@@ -24,4 +24,9 @@ public class DamageSources
 	=new DamageSource("electrostaticDamage")
 	.setDamageBypassesArmor()
 	.setDamageIsAbsolute();
+
+	public final static DamageSource AliothDamage // 玉衡 独有
+			=new DamageSource("aliothDamage")
+			.setDamageBypassesArmor()
+			.setDamageIsAbsolute();
 }

@@ -10,8 +10,6 @@ import firok.irisia.item.*;
 import firok.irisia.potion.PotionLoader;
 import firok.irisia.tileentity.TileEntityLoader;
 import org.apache.logging.log4j.Level;
-import thaumcraft.api.research.ResearchItem;
-import thaumcraft.api.research.ResearchPage;
 
 public class CommonProxy
 {
@@ -50,7 +48,7 @@ public class CommonProxy
     public void init(FMLInitializationEvent event)
     {
 //    	new CraftingLoader();
-    	new EnchantmentLoader();
+	    EnchantmentLoader.info();
 //
     	new EventLoader();
 //

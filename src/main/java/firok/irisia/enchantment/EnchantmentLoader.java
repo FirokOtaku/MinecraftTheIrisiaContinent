@@ -9,13 +9,14 @@ import net.minecraft.util.DamageSource;
 
 public class EnchantmentLoader
 {
-	public static CustomEnchantment Culling;
+	private static int countCustomEnchantment=0;
+	public final static CustomEnchantment Culling;
+	public final static CustomEnchantment EnderGuarding;
 	public static CustomEnchantment tearing;
 	public static CustomEnchantment inscriptionCapacity;
 	public static CustomEnchantment shadowy;
 	public static CustomEnchantment magicProtection;
 
-	public static CustomEnchantment enderGuarding;
 
 	public static CustomEnchantment Test;
 
@@ -37,6 +38,9 @@ public class EnchantmentLoader
 		    @Override
 		    public void func_151368_a(EntityLivingBase en1, Entity en2, int level)
 		    {
+		    	if(en1.worldObj.isRemote)
+		    		return;
+
 			    if(en2 instanceof EntityLivingBase)
 			    {
 			    	EntityLivingBase enlb=(EntityLivingBase)en2;
@@ -49,10 +53,29 @@ public class EnchantmentLoader
 			    }
 		    }
 	    };
+	    // 末影守护
+	    EnderGuarding=new CustomEnchantment(EnumEnchantmentType.armor,"EnderGuarding",162,10,
+			    0,3,
+			    1,100)
+	    {
+		    // func_151368_b=onUserHurt
+		    // en1被攻击的玩家 en2攻击者
+		    @Override
+		    public void func_151367_b(EntityLivingBase en1, Entity en2, int level)
+		    {
+		    	if(en1.worldObj.isRemote)
+		    		return;
+
+			    if(en1.getDistanceSqToEntity(en2)<=10+level*5)
+			    {
+				    firok.irisia.ability.CauseTeleportation.teleportEntityRandomly(en2,10+level*5);
+			    }
+		    }
+	    };
 
     }
 
-    public static class CustomEnchantment extends Enchantment
+	public static class CustomEnchantment extends Enchantment
     {
     	public final int minLevel, maxLevel,maxEL,minEL;
 
@@ -75,6 +98,9 @@ public class EnchantmentLoader
 	    	maxLevel=maxEnchantmentLevel;
 	    	minEL=minEnchantability;
 	    	maxEL=maxEnchantability;
+
+	    	System.out.println("Enchantment : "+name+", id :"+id);
+		    countCustomEnchantment++;
 	    }
 	    @Override
 	    public int getMinLevel()
@@ -91,6 +117,7 @@ public class EnchantmentLoader
 	    /**
 	     * Returns the minimal value of enchantability needed on the enchantment level passed.
 	     */
+	    @Override
 	    public int getMinEnchantability(int p_77321_1_)
 	    {
 		    return 1 + p_77321_1_ * 10;
@@ -99,6 +126,7 @@ public class EnchantmentLoader
 	    /**
 	     * Returns the maximum value of enchantability nedded on the enchantment level passed.
 	     */
+	    @Override
 	    public int getMaxEnchantability(int p_77317_1_)
 	    {
 		    return this.getMinEnchantability(p_77317_1_) + 5;
@@ -107,6 +135,7 @@ public class EnchantmentLoader
 	    /**
 	     * Calculates de damage protection of the enchantment based on level and damage source passed.
 	     */
+	    @Override
 	    public int calcModifierDamage(int p_77318_1_, DamageSource p_77318_2_)
 	    {
 		    return 0;
@@ -115,11 +144,13 @@ public class EnchantmentLoader
 	    /**
 	     * Determines if the enchantment passed can be applyied together with this enchantment.
 	     */
+	    @Override
 	    public boolean canApplyTogether(Enchantment p_77326_1_)
 	    {
 		    return this != p_77326_1_;
 	    }
 
+	    @Override
 	    public boolean canApply(ItemStack p_92089_1_)
 	    {
 		    return this.type.canEnchantItem(p_92089_1_.getItem());
@@ -127,17 +158,20 @@ public class EnchantmentLoader
 
 	    // func_151368_a=onEntityDamaged
 	    // en1攻击别人的玩家 en2被攻击的对象
+	    @Override
 	    public void func_151368_a(EntityLivingBase en1, Entity en2, int level)
 	    {
 		    System.out.println("Test :"+en1.toString()+" en2 :"+en2.toString()+" level :"+level);
 	    }
 	    // func_151368_b=onUserHurt
 		// en1被攻击的玩家 en2攻击者
+	    @Override
 	    public void func_151367_b(EntityLivingBase en1, Entity en2, int level)
 	    {
 		    System.out.println("Test :"+en1.toString()+" en2 :"+en2.toString()+" level :"+level);
 	    }
 	    // func_152376_a=calcDamageByCreature
+	    @Override
 	    public float func_152376_a(int level, EnumCreatureAttribute attr)
 	    {
 	    	System.out.println("level :"+level+" attr :"+attr.toString());
@@ -150,6 +184,7 @@ public class EnchantmentLoader
 	     * @param stack
 	     * @return
 	     */
+	    @Override
 	    public boolean canApplyAtEnchantingTable(ItemStack stack)
 	    {
 		    return canApply(stack);
@@ -159,10 +194,15 @@ public class EnchantmentLoader
 	     * Is this enchantment allowed to be enchanted on books via Enchantment Table
 	     * @return false to disable the vanilla feature
 	     */
+	    @Override
 	    public boolean isAllowedOnBooks()
 	    {
 		    return true;
 	    }
-
     }
+
+	public static void info()
+	{
+		System.out.println("Total count of enchantments : "+countCustomEnchantment);
+	}
 }
