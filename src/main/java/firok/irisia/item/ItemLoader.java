@@ -6,6 +6,7 @@ import firok.irisia.Irisia;
 import firok.irisia.common.IrisiaCreativeTabs;
 import firok.irisia.mod.tc.Reg;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -15,6 +16,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 import java.util.*;
 
 import firok.irisia.item.EquipmentSets.EquipmentSet;
+import net.minecraft.item.ItemStack;
+import thaumcraft.api.wands.WandRod;
 
 
 @SuppressWarnings({"unused","deprecation"})
@@ -73,8 +76,7 @@ public class ItemLoader
 	    // 北斗;
 	    register(IrisiaCreativeTabs.irisiaEqui,WainItems.AliothTheInfinity,"wain_alioth","WainAlioth");
 
-
-
+	    // 法杖套装
 	    register(IrisiaCreativeTabs.irisiaTC,Wands.LifeWoodSet);
 	    register(IrisiaCreativeTabs.irisiaTC,Wands.SpectreSet);
 
@@ -135,8 +137,9 @@ public class ItemLoader
     		return;
 
 	    String fuName=Irisia.getFirstUpper(set.materialName);
-    	register(tab,set.Cap,"cap_"+set.materialName,fuName+"Cap");
-    	register(tab,set.Rod,"rod_"+set.materialName,fuName+"Rod");
+	    Irisia.log(new StringBuffer().append("注册法术套装 : ").append(fuName));
+    	register(tab,set.Cap,"cap_"+set.materialName,fuName+"ItemCap");
+    	register(tab,set.Rod,"rod_"+set.materialName,fuName+"ItemRod");
     }
     
 	private static void register(@Nullable CreativeTabs tab,Item item, String name,String unlocalizedName)
@@ -152,10 +155,10 @@ public class ItemLoader
         
         items.add(item);
         
-        if(Loader.isModLoaded("Thaumcraft"))
-        	registerTcContent(item);
-        if(Loader.isModLoaded("Tinkers' Contruct"))
-        	registerTicContent(item);
+//        if(Loader.isModLoaded("Thaumcraft"))
+//        	registerTcContent(item);
+//        if(Loader.isModLoaded("Tinkers' Contruct"))
+//        	registerTicContent(item);
     }
     @SideOnly(Side.CLIENT)
     private static void registerRender(Item item)

@@ -1,3 +1,9 @@
+0.12.23
+重构法杖部件实现方式
+rewrite the way of implementing of parts of wand-set
+法杖部件现在可以用于合成法杖
+parts of wand-sets now can be used to craft wands
+
 0.12.22
 改变附魔加载方式
 change the way of loading enchantments
