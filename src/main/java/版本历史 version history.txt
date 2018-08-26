@@ -1,3 +1,9 @@
+0.12.24
+增加杖芯类新的构造方法
+add new constructor methods to Rod class
+加入灵气杖芯
+add NodeRod item
+
 0.12.23
 重构法杖部件实现方式
 rewrite the way of implementing of parts of wand-set

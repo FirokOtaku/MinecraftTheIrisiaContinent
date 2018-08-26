@@ -79,6 +79,7 @@ public class ItemLoader
 	    // 法杖套装
 	    register(IrisiaCreativeTabs.irisiaTC,Wands.LifeWoodSet);
 	    register(IrisiaCreativeTabs.irisiaTC,Wands.SpectreSet);
+	    register(IrisiaCreativeTabs.irisiaTC,Wands.ItemNodeRod,"rod_node","NodeRod");
 
 	    register(IrisiaCreativeTabs.irisiaMaterial,RawMaterials.Bezoar,Irisia.transName("material","bezoar"));
 

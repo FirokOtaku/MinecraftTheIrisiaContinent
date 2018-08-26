@@ -3,17 +3,20 @@ package firok.irisia.item;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.ResourceLocation;
 import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.wands.IWandRodOnUpdate;
 import thaumcraft.api.wands.WandCap;
 import thaumcraft.api.wands.WandRod;
-import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.items.wands.*;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,10 +24,42 @@ public class Wands
 {
 	public final static WandSet LifeWoodSet;
 	public final static WandSet SpectreSet;
+	public final static Item ItemNodeRod;
+	public final static Rod NodeRod;
 	static
 	{
 		LifeWoodSet=new WandSet("lifewood",150,10,20,20);
 		SpectreSet=new WandSet("spectre",200,15,30,30);
+
+		// String mn,int capacity,ItemStack itemStackRod,int craftCost,
+		// IWandRodOnUpdate onUpdate, boolean needResearch, @Nullable String researchNeeded
+		// FIXME 这里的itemstack以后要换成对的
+		ItemNodeRod=new ItemRod();
+		NodeRod =new Rod("node", 60, new ItemStack(ItemNodeRod), 50,
+				new IWandRodOnUpdate()
+				{
+					final Aspect[] aspects=new Aspect[]
+							{Aspect.FIRE, Aspect.WATER, Aspect.AIR,
+							Aspect.EARTH, Aspect.ORDER, Aspect.ENTROPY};
+					@Override
+					public void onUpdate(ItemStack itemstack, EntityPlayer player)
+					{
+						if(player.worldObj.isRemote)
+							return;
+
+						if(player.ticksExisted%60==0)
+							for(Aspect as:aspects)
+							{
+								if(((ItemWandCasting)itemstack.getItem())
+										.getVis(itemstack, as) <
+										((ItemWandCasting)itemstack.getItem()).getMaxVis(itemstack))
+								((ItemWandCasting)itemstack.getItem()).addVis(itemstack, as, 1, true);
+
+							}
+					}
+				},
+		false,null);
+
 	}
 	public static class WandSet
 	{
@@ -48,13 +83,25 @@ public class Wands
 	{
 		private boolean needResearch;
 		private String researchNeeded;
-		public Rod(String mn,int discount,ItemStack itemStackRod,int craftCost)
+		public Rod(String mn,int capacity,ItemStack itemStackRod,int craftCost)
 		{
-			this(mn,discount,itemStackRod,craftCost,false,null);
+			this(mn,capacity,itemStackRod,craftCost,false,null);
 		}
-		public Rod(String mn, int discount, ItemStack itemStackRod, int craftCost, boolean needResearch, @Nullable String researchNeeded)
+		public Rod(String mn, int capacity, ItemStack itemStackRod, int craftCost, boolean needResearch, @Nullable String researchNeeded)
 		{
-			super(mn,discount,itemStackRod,craftCost);
+			super(mn,capacity,itemStackRod,craftCost);
+			this.needResearch=needResearch;
+			this.researchNeeded=researchNeeded;
+		}
+		public Rod(String mn,int capacity,ItemStack itemStackRod,int craftCost,IWandRodOnUpdate onUpdate)
+		{
+			super(mn,capacity,itemStackRod,craftCost,onUpdate);
+			this.needResearch=false;
+			this.researchNeeded=null;
+		}
+		public Rod(String mn,int capacity,ItemStack itemStackRod,int craftCost,IWandRodOnUpdate onUpdate, boolean needResearch, @Nullable String researchNeeded)
+		{
+			super(mn,capacity,itemStackRod,craftCost,onUpdate);
 			this.needResearch=needResearch;
 			this.researchNeeded=researchNeeded;
 		}
