@@ -1,17 +1,21 @@
 package firok.irisia.item;
 
 import baubles.api.BaubleType;
+import baubles.api.BaublesApi;
 import baubles.api.IBauble;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.items.ItemRing;
 import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.common.eventhandler.Event;
+import firok.irisia.ability.CauseTeleportation;
 import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.*;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ChatComponentText;
@@ -35,15 +39,13 @@ public class EquipmentUniqueBaubles
 	public final static EquipmentSets.Ring InsaneRing; // 癫狂指环
 	public static EquipmentSets.Ring ScarletRing; // 猩红指环
 	public final static EquipmentSets.Ring LucidRing; // 清明指环
+	public final static EquipmentSets.Ring LoveRing; // 爱情指环
 
 	public static EquipmentSets.Belt DwartBelt; // 矮人腰带
 	public static EquipmentSets.Ring KingRing; // 人王指环
 	public static EquipmentSets.Ring ElfRing; // 精灵指环
 	public static EquipmentSets.Amulet TeethAmulet; // 兽牙项链
 
-
-	// amulets
-	public final static EquipmentSets.Amulet PhotosynthesisAmulet; // 光合护身符
 
 	static
 	{
@@ -185,6 +187,84 @@ public class EquipmentUniqueBaubles
 			}
 		}; // 清明指环
 
+		// love ring
+		LoveRing=new AbilityRing()
+		{
+			@Override
+			public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player1)
+			{
+				if(world.isRemote)
+					return itemStack;
+
+				if(player1.isSneaking()) // 两边都是潜行才有效
+				{
+					EntityPlayer player2=world.getClosestPlayerToEntity(player1,5);
+					if(player2==null) return itemStack;
+
+					ItemStack player2held=player2.getHeldItem();
+					if(player2.isSneaking()
+							&& player2held!=null
+							&& player2held.getItem()==LoveRing)
+					{
+						NBTTagCompound tag1=itemStack.hasTagCompound()?itemStack.getTagCompound():new NBTTagCompound();
+						NBTTagCompound tag2=player2held.hasTagCompound()?player2held.getTagCompound():new NBTTagCompound();
+
+						tag1.setString("target",player2.getCommandSenderName());
+						tag2.setString("target",player1.getCommandSenderName());
+						itemStack.setTagCompound(tag1);
+						player2held.setTagCompound(tag2);
+
+						player1.addChatComponentMessage(new ChatComponentText(
+								new StringBuffer("你已经与")
+										.append(player2.getCommandSenderName())
+										.append("结下契约")
+										.toString()
+						));
+						player2.addChatComponentMessage(new ChatComponentText(
+								new StringBuffer("你已经与")
+										.append(player1.getCommandSenderName())
+										.append("结下契约")
+										.toString()
+						));
+					}
+				}
+
+				return itemStack;
+			}
+			@Override
+			public void doAbility(ItemStack itemStack, EntityPlayer player)
+			{
+				if(player.worldObj.isRemote)
+					return;
+
+				NBTTagCompound tag=itemStack.hasTagCompound()?itemStack.getTagCompound():new NBTTagCompound();
+				if(tag.hasKey("target"))
+				{
+					String player2name=tag.getString("target");
+					EntityPlayer player2=player.worldObj.getPlayerEntityByName(player2name);
+					if(player2!=null)
+					{
+						IInventory inv=BaublesApi.getBaubles(player2);
+						if(inv==null)
+							return;
+
+						for(int i=0;i<inv.getSizeInventory();i++)
+						{
+							ItemStack player2itemStack=inv.getStackInSlot(i);
+							if(player2itemStack==null || player2itemStack.getItem()!=LoveRing)
+								continue;
+
+							NBTTagCompound tag2=player2itemStack.hasTagCompound()?player2itemStack.getTagCompound():new NBTTagCompound();
+							if(tag2.hasKey("target") && tag2.getString("target").equals(player.getCommandSenderName()))
+							{
+								CauseTeleportation.teleportEntity(player,player2,false,false);
+							}
+						}
+					}
+				}
+			}
+		}; // 爱情指环
+
 
 		PhotosynthesisAmulet=new EquipmentSets.Amulet()
 		{
@@ -201,6 +281,19 @@ public class EquipmentUniqueBaubles
 			}
 		};
 
+	}
+
+
+	// amulets
+	public final static EquipmentSets.Amulet PhotosynthesisAmulet; // 光合护身符
+
+	public static interface IBaubleAbility
+	{
+		public void doAbility(ItemStack itemStack,EntityPlayer player);
+	}
+	public static abstract class AbilityRing extends EquipmentSets.Ring implements IBaubleAbility
+	{
+		;
 	}
 
 	public static boolean applyBonemeal( World world, int x, int y, int z, EntityPlayer player)

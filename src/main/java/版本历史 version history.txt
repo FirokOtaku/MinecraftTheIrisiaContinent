@@ -1,3 +1,19 @@
+0.12.25
+增加传送功能接口
+add interface of teleportion
+加入爱情指环饰品
+add LoveRing baubles
+加入附魔-击飞、附魔-暗影
+add Flown enchantment
+加入扭蛋系统
+add Gashapon system
+加入扭蛋物品
+add Gashapon item
+重构指令实现方式
+rewrite the way of implementing of commands
+加入指令用于测试扭蛋系统
+add command for testing Gashapon system
+
 0.12.24
 增加杖芯类新的构造方法
 add new constructor methods to Rod class

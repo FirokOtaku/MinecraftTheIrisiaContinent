@@ -60,4 +60,16 @@ public class CauseTeleportation {
 //			e.printStackTrace();
 //		}
 	}
+
+	public static void teleportEntity(Entity en1,Entity en2,boolean spawnParticle,boolean playSound)
+	{
+		if(en1.worldObj.isRemote)
+			return;
+
+		en1.setPosition(en2.posX,en2.posY,en2.posZ);
+	}
+	public static void teleportEntity(Entity en1,Entity en2)
+	{
+		teleportEntity(en1,en2,true,true);
+	}
 }

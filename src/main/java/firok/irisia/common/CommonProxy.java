@@ -59,7 +59,7 @@ public class CommonProxy
 		firok.irisia.common.TcContent.init();
     	new GuiElementLoader();
 
-
+	    GashaponManager.init();
     }
 
     public void postInit(FMLPostInitializationEvent event)

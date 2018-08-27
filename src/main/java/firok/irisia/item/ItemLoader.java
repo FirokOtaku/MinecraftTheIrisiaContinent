@@ -83,19 +83,21 @@ public class ItemLoader
 
 	    register(IrisiaCreativeTabs.irisiaMaterial,RawMaterials.Bezoar,Irisia.transName("material","bezoar"));
 
-
+	    // 食物
 	    register(IrisiaCreativeTabs.irisiaFood,Foods.VilligerFood,"villiger_food","VilligerFood");
+	    register(IrisiaCreativeTabs.irisiaFood,Foods.MixedSweet,"mixed_sweet","MixedSweet");
+	    register(IrisiaCreativeTabs.irisiaFood,Foods.BerryNull,"berry_null","NullBerry");
 
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.FortuneRing,"ring_fortune","FortuneRing");
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.MinersRing,"ring_miner","MinersRing");
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.ThrivingRing,"ring_thriving","ThrivingRing");
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.InsaneRing,"ring_insane","InsaneRing");
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.LucidRing,"ring_lucid","LucidRing");
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.LoveRing,"ring_love","LoveRing");
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.PhotosynthesisAmulet,"ring_photosynthesis","PhotosynthesisAmulet");
 
-
-	    register(IrisiaCreativeTabs.irisiaFood,Foods.MixedSweet,"mixed_sweet","MixedSweet");
-	    register(IrisiaCreativeTabs.irisiaFood,Foods.BerryNull,"berry_null","NullBerry");
+	    // 消耗品
+	    register(IrisiaCreativeTabs.irisia,Consumables.Gashapon,"cons_gashapon","Gashapon");
     }
     @SideOnly(Side.CLIENT)
     public static void registerRenders()

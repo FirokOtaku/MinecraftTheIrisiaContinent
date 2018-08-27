@@ -4,7 +4,11 @@ import net.minecraft.enchantment.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
 
 public class EnchantmentLoader
@@ -12,9 +16,10 @@ public class EnchantmentLoader
 	private static int countCustomEnchantment=0;
 	public final static CustomEnchantment Culling;
 	public final static CustomEnchantment EnderGuarding;
+	public final static CustomEnchantment Flown;
+	public final static CustomEnchantment Shadowy;
 	public static CustomEnchantment tearing;
 	public static CustomEnchantment inscriptionCapacity;
-	public static CustomEnchantment shadowy;
 	public static CustomEnchantment magicProtection;
 
 
@@ -72,7 +77,39 @@ public class EnchantmentLoader
 			    }
 		    }
 	    };
+	    // 击飞
+	    Flown=new CustomEnchantment(EnumEnchantmentType.weapon,"Flown",163,10,
+			    0,3,
+			    1,100)
+	    {
+		    // func_151368_a=onEntityDamaged
+		    // en1攻击别人的玩家 en2被攻击的对象
+		    @Override
+		    public void func_151368_a(EntityLivingBase en1, Entity en2, int level)
+		    {
+		    	if(en1.worldObj.isRemote)
+		    		return;
 
+			    en2.motionY+=0.6+level*0.4;
+		    }
+	    };
+	    // 暗影
+	    Shadowy=new CustomEnchantment(EnumEnchantmentType.armor,"Shadowy",164,10,
+			    0,3,
+			    1,100)
+	    {
+		    // func_151368_b=onUserHurt
+		    // en1被攻击的玩家 en2攻击者
+		    @Override
+		    public void func_151367_b(EntityLivingBase en1, Entity en2, int level)
+		    {
+			    if(en1.worldObj.isRemote || !(en2 instanceof EntityLivingBase))
+				    return;
+
+			    EntityLivingBase enlb=(EntityLivingBase)en2;
+			    enlb.addPotionEffect(new PotionEffect(Potion.blindness.id,80,0));
+		    }
+	    };
     }
 
 	public static class CustomEnchantment extends Enchantment
