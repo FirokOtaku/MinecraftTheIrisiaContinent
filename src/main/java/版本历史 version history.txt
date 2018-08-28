@@ -1,3 +1,11 @@
+0.12.26
+增加法杖套装类新的构造方法
+add new constructor methods to WandSet class
+加入精金、秘银、魔伽金属、索利塔金属法杖套装
+add Adamantium, Mithril, Mogiga, Solita wand-sets
+加入投掷武器物品
+add ThrowableWeapons item
+
 0.12.25
 增加传送功能接口
 add interface of teleportion

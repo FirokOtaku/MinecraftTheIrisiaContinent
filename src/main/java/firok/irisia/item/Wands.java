@@ -24,12 +24,31 @@ public class Wands
 {
 	public final static WandSet LifeWoodSet;
 	public final static WandSet SpectreSet;
+
+	public final static WandSet AdamantiumSet;
+	public final static WandSet MithrilSet;
+
+	public final static WandSet SolitaSet;
+	public final static WandSet MogigaSet;
+
 	public final static Item ItemNodeRod;
 	public final static Rod NodeRod;
 	static
 	{
 		LifeWoodSet=new WandSet("lifewood",150,10,20,20);
 		SpectreSet=new WandSet("spectre",200,15,30,30);
+		//String mn,int capacity,float discount,
+		//		               List<Aspect> specials,float discountSpecial,
+		//		               int craftCostRod,int craftCostCap,IWandRodOnUpdate onUpdate
+		// TODO 这里以后可以优化
+		AdamantiumSet=new WandSet("adamantium",150,1f,
+				new ArrayList<Aspect>(),1f,100,100);
+		MithrilSet=new WandSet("mithril",150,1f,
+				new ArrayList<Aspect>(),1f,100,100);
+		SolitaSet=new WandSet("solita",150,1f,
+				new ArrayList<Aspect>(),1f,100,100);
+		MogigaSet=new WandSet("mogiga",150,1f,
+				new ArrayList<Aspect>(),1f,100,100);
 
 		// String mn,int capacity,ItemStack itemStackRod,int craftCost,
 		// IWandRodOnUpdate onUpdate, boolean needResearch, @Nullable String researchNeeded
@@ -68,16 +87,32 @@ public class Wands
 		public final String materialName;
 		public final WandRod wandRod;
 		public final WandCap wandCap;
-		public WandSet(String mn,int capacity,int discount,int craftCostRod,int craftCostCap)
+		public WandSet(String mn,int capacity,float discount,int craftCostRod,int craftCostCap)
+		{
+			this(mn,capacity,discount,new ArrayList<Aspect>(),1F,craftCostRod,craftCostCap);
+		}
+		public WandSet(String mn,int capacity,float discount,
+		               List<Aspect> specials,float discountSpecial,
+		               int craftCostRod,int craftCostCap)
+		{
+			this(mn,capacity,discount,specials,discountSpecial,craftCostRod,craftCostCap,null);
+		}
+		public WandSet(String mn,int capacity,float discount,
+		               List<Aspect> specials,float discountSpecial,
+		               int craftCostRod,int craftCostCap,IWandRodOnUpdate onUpdate)
 		{
 			materialName=mn;
 			Rod=new ItemRod();
 			Cap=new ItemCap();
 
-			wandRod=new Rod(mn,capacity, new ItemStack(Rod),craftCostRod);
-			wandCap=new Cap(mn,discount, new LinkedList<Aspect>(), 0.3F,
-					new ItemStack(Cap), 10);
+			wandRod=onUpdate==null?
+					new Rod(mn,capacity, new ItemStack(Rod),craftCostRod):
+					new Rod(mn,capacity, new ItemStack(Rod),craftCostRod,onUpdate);
+
+			wandCap=new Cap(mn,discount, specials, discountSpecial,
+					new ItemStack(Cap), craftCostCap);
 		}
+
 	}
 	public static class Rod extends WandRod
 	{
@@ -147,7 +182,6 @@ public class Wands
 		public ItemCap()
 		{
 			super();
-
 			this.setHasSubtypes(false);
 		}
 		@SideOnly(Side.CLIENT)

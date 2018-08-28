@@ -80,6 +80,10 @@ public class ItemLoader
 	    register(IrisiaCreativeTabs.irisiaTC,Wands.LifeWoodSet);
 	    register(IrisiaCreativeTabs.irisiaTC,Wands.SpectreSet);
 	    register(IrisiaCreativeTabs.irisiaTC,Wands.ItemNodeRod,"rod_node","NodeRod");
+	    register(IrisiaCreativeTabs.irisiaTC,Wands.AdamantiumSet);
+	    register(IrisiaCreativeTabs.irisiaTC,Wands.MithrilSet);
+	    register(IrisiaCreativeTabs.irisiaTC,Wands.SolitaSet);
+	    register(IrisiaCreativeTabs.irisiaTC,Wands.MogigaSet);
 
 	    register(IrisiaCreativeTabs.irisiaMaterial,RawMaterials.Bezoar,Irisia.transName("material","bezoar"));
 
@@ -98,6 +102,8 @@ public class ItemLoader
 
 	    // 消耗品
 	    register(IrisiaCreativeTabs.irisia,Consumables.Gashapon,"cons_gashapon","Gashapon");
+
+	    register(IrisiaCreativeTabs.irisia,ConsumableWeapons.ThrowableWeapons,"consw_tws","ThrowableWeapons");
     }
     @SideOnly(Side.CLIENT)
     public static void registerRenders()
