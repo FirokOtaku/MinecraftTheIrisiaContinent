@@ -17,13 +17,17 @@ public class EntityLoader
 //		registerEntity(101,TotemBase.class,"TotemBase",64,1,true);
 //
 //		registerEntity(301,WarpSeer.class,"WarpSeer",32,5,true);
+		registerEntity(100,Throwables.EntityStone.class,"entity_stone",
+				64,10,true);
 	}
 	
 	private static void registerEntity(int id,Class<? extends Entity> entityClass, String name, int trackingRange,
             int updateFrequency, boolean sendsVelocityUpdates)
     {
 		// registerEntity(Entity.class,nameOfEntity,idOfEntity,mod.class,trackingRange,updateFrequency,sendsVelocityUpdates
-        EntityRegistry.registerModEntity(entityClass, name, id, Irisia.instance, trackingRange, updateFrequency,
+        EntityRegistry.registerModEntity(entityClass, name, id, Irisia.instance,
+		        trackingRange,
+		        updateFrequency,
                 sendsVelocityUpdates);
     }
 	

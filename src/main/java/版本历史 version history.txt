@@ -1,3 +1,7 @@
+0.12.27
+加入投掷物-石头实体
+add EntityStone projectile entity
+
 0.12.26
 增加法杖套装类新的构造方法
 add new constructor methods to WandSet class
