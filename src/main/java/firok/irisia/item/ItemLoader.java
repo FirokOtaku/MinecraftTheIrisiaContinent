@@ -56,6 +56,7 @@ public class ItemLoader
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.SolitaSet);
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.MogigaSet);
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.DwartSteelSet);
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.WindRangerSet);
 	    // register(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.LifeWoodSet); // 已经转移
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.FlumetalSet);
 	    // 注册生命木套装
@@ -73,7 +74,7 @@ public class ItemLoader
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentAutoRepair.SlimeChestplate,"chestplate_slime","SlimeChestplate");
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentAutoRepair.SlimeLeggings,"leggings_slime","SlimeLeggings");
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentAutoRepair.SlimeBoots,"boots_slime","SlimeBoots");
-	    // 北斗;
+	    // 北斗
 	    register(IrisiaCreativeTabs.irisiaEqui,WainItems.AliothTheInfinity,"wain_alioth","WainAlioth");
 
 	    // 法杖套装
@@ -99,6 +100,8 @@ public class ItemLoader
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.LucidRing,"ring_lucid","LucidRing");
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.LoveRing,"ring_love","LoveRing");
 	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.PhotosynthesisAmulet,"ring_photosynthesis","PhotosynthesisAmulet");
+	    register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.DwartTravellerBelt,"belt_dwart_traveller","DwartTravellerBelt");
+
 
 	    // 消耗品
 	    register(IrisiaCreativeTabs.irisia,Consumables.Gashapon,"cons_gashapon","Gashapon");
@@ -116,6 +119,18 @@ public class ItemLoader
     private static void register(@Nullable CreativeTabs tab,Item item,Irisia.NameObject nb)
     {
     	register(tab,item,nb.textureName,nb.unlocalizedName);
+    }
+    private static void register(@Nullable CreativeTabs tab, EquipmentSets.ArmorSet set)
+    {
+    	if(set==null)
+    		return;
+
+    	String fuName=Irisia.getFirstUpper(set.materialName);
+
+	    register(tab,set.Helmet,"helmet_"+set.materialName, fuName+"Helmet");
+	    register(tab,set.Chestplate,"chestplate_"+set.materialName, fuName+"Chestplate");
+	    register(tab,set.Leggings,"leggings_"+set.materialName, fuName+"Leggings");
+	    register(tab,set.Boots,"boots_"+set.materialName, fuName+"Boots");
     }
     private static void register(@Nullable CreativeTabs tab,EquipmentSet set)
     {

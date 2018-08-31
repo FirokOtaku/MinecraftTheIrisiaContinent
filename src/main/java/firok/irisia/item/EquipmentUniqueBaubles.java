@@ -7,11 +7,15 @@ import baubles.common.container.InventoryBaubles;
 import baubles.common.items.ItemRing;
 import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.common.eventhandler.Event;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import firok.irisia.Irisia;
 import firok.irisia.ability.CauseTeleportation;
 import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.*;
@@ -25,6 +29,8 @@ import net.minecraftforge.event.entity.player.BonemealEvent;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.lib.research.PlayerKnowledge;
+
+import java.util.List;
 
 public class EquipmentUniqueBaubles
 {
@@ -40,6 +46,10 @@ public class EquipmentUniqueBaubles
 	public static EquipmentSets.Ring ScarletRing; // 猩红指环
 	public final static EquipmentSets.Ring LucidRing; // 清明指环
 	public final static EquipmentSets.Ring LoveRing; // 爱情指环
+
+	public final static EquipmentSets.Belt DwartTravellerBelt; // 矮人旅行者腰带
+	public static EquipmentSets.Amulet SpeAmulet; // 诅咒之护符
+	public static EquipmentSets.Amulet CoreAmulet; // 遥控护符
 
 	public static EquipmentSets.Belt DwartBelt; // 矮人腰带
 	public static EquipmentSets.Ring KingRing; // 人王指环
@@ -281,6 +291,103 @@ public class EquipmentUniqueBaubles
 			}
 		};
 
+		DwartTravellerBelt=new AbilityBelt() // FIXME 重新加载游戏之后会消失
+		{
+			public final String[] slotKeys=new String[]
+					{"slot0","slot1","slot2",
+					"slot3","slot4","slot5",
+					"slot6","slot7","slot8"};
+			public ItemStack[] getStacksFromNBT(NBTTagCompound nbt)
+			{
+				ItemStack[] ret=new ItemStack[9];
+				if(nbt==null)
+					return ret;
+				byte i=0;
+				for(String slotKey:slotKeys)
+				{
+					if(!nbt.hasKey(slotKey))
+						ret[i]=null;
+					else
+						try
+						{
+							ret[i]=ItemStack.loadItemStackFromNBT(nbt.getCompoundTag(slotKey));
+						}
+						catch (Exception e)
+						{
+							ret[i]=null;
+						}
+					i++;
+				}
+				return ret;
+			}
+			public NBTTagCompound getNBTFromStacks(ItemStack[] stacks)
+			{
+				NBTTagCompound ret=new NBTTagCompound();
+				for(int i=0;i<9;i++)
+				{
+					if(stacks[i]==null)
+						;
+					else
+					{
+						NBTTagCompound slotNbt=new NBTTagCompound();
+						stacks[i].writeToNBT(slotNbt);
+						ret.setTag(slotKeys[i],slotNbt);
+					}
+				}
+				return ret;
+			}
+			@Override
+			public void doAbility(ItemStack isBelt, EntityPlayer player)
+			{
+				if(player.worldObj.isRemote)
+					return;
+				NBTTagCompound tag=isBelt.hasTagCompound()?isBelt.getTagCompound():new NBTTagCompound();
+				NBTTagCompound tagNew=new NBTTagCompound();
+				InventoryPlayer inventory=player.inventory;
+				for(int i=0;i<9;i++)
+				{
+					String slotKey=slotKeys[i];
+					try
+					{
+						ItemStack is_inInv=inventory.getStackInSlot(i);
+						ItemStack is_inBelt=tag.hasKey(slotKey)?
+								ItemStack.loadItemStackFromNBT(tag.getCompoundTag(slotKey)):null;
+						Irisia.log(is_inInv==null?"null inv":is_inInv.toString(),player);
+						Irisia.log(is_inBelt==null?"null belt":is_inBelt.toString(),player);
+						if(is_inInv!=null)
+						{
+							NBTTagCompound itemSlotInv=new NBTTagCompound();
+							is_inInv.writeToNBT(itemSlotInv);
+							tagNew.setTag(slotKey,itemSlotInv);
+						}
+						inventory.setInventorySlotContents(i,is_inBelt);
+					}
+					catch (Exception e)
+					{
+						if(Irisia.IN_DEV)
+							Irisia.log(e,player);
+					}
+				}
+				isBelt.setTagCompound(tagNew);
+			}
+
+			@Override
+			@SideOnly(Side.CLIENT)
+			public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean p_77624_4_)
+			{
+				NBTTagCompound tag=itemStack.hasTagCompound()?itemStack.getTagCompound():new NBTTagCompound();
+				for(String slotKey:slotKeys)
+				{
+					if(tag.hasKey(slotKey))
+					{
+						info.add(slotKey);
+						info.add(ItemStack.loadItemStackFromNBT((NBTTagCompound)
+								tag.getTag(slotKey)).toString());
+					}
+				}
+			}
+		}; // 矮人旅行者腰带
+
 	}
 
 
@@ -295,6 +402,15 @@ public class EquipmentUniqueBaubles
 	{
 		;
 	}
+	public static abstract class AbilityBelt extends EquipmentSets.Belt implements IBaubleAbility
+	{
+		;
+	}
+	public static abstract class AbilityAmulet extends EquipmentSets.Amulet implements IBaubleAbility
+	{
+		;
+	}
+
 
 	public static boolean applyBonemeal( World world, int x, int y, int z, EntityPlayer player)
 	{

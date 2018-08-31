@@ -1,3 +1,9 @@
+0.12.28
+加入指令用于测试饰品技能
+add command for testing abilities of baubles
+加入矮人旅行者腰带饰品
+add DwartTravellerBelt bauble
+
 0.12.27
 加入投掷物-石头实体
 add EntityStone projectile entity
