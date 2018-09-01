@@ -1,3 +1,7 @@
+0.12.30
+修改注册物品的方式
+rewrite the way of registering items
+
 0.12.29
 加入效果护甲套装类
 add EffectArmorSet class
