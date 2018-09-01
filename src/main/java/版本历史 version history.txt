@@ -1,6 +1,14 @@
 0.12.30
 修改注册物品的方式
 rewrite the way of registering items
+加入铜币、银币、金币、Irisia币、
+一摞铜币、一摞银币、一摞金币、一摞Irisia币、
+VIP卡铜卡、VIP卡银卡、VIP卡金卡、VIP卡钻石卡物品
+add CopperCoin, SilverCoin, GoldCoin, CopperCoin, IrisiaCoin,
+CopperCoinPile, SilverCoinPile, GoldCoinPile, IrisiaCoinPile
+VIPCardCopper, VIPCardSilver, VIPCardGold, VIPCardDiamond items
+现在已经添加的原材料物品会注册到游戏了
+now raw-material items added will be registered
 
 0.12.29
 加入效果护甲套装类
