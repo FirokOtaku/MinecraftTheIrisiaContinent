@@ -1,3 +1,17 @@
+0.12.29
+加入效果护甲套装类
+add EffectArmorSet class
+加入风行护甲套装
+add WindRangerSet equipment set
+加入套装效果事件监听器
+add event listener of EffectArmorSet
+加入状态效果-发情、状态效果-静电、状态效果-睿智、状态效果-愚钝、
+状态效果-法力增幅、状态效果-魔法抗性、状态效果-阈化、状态效果-虚无
+add PotionLove, PotionElectrostatic, PotionWise, PotionFolly,
+PotionMagicAmplificative, PotionMagicResistance, PotionThresholded, PotionEthereal potion effects
+加入伤害接口
+add interface of CauseDamage
+
 0.12.28
 加入指令用于测试饰品技能
 add command for testing abilities of baubles

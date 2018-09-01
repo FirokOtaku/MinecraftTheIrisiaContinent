@@ -19,6 +19,14 @@ public class DamageSources
 	=new DamageSource("painboundDamage")
 	.setDamageBypassesArmor()
 	.setDamageIsAbsolute();
+
+	public final static DamageSource MagicAmplificativeDamage // 魔力增幅的额外伤害
+			=new DamageSource("magicAmplificativeDamage")
+			.setMagicDamage();
+
+	public final static DamageSource StoneDamage // 被石头砸中的伤害
+			=new DamageSource("stoneDamage")
+			.setProjectile();
 	
 	public final static DamageSource ElectrostaticDamage
 	=new DamageSource("electrostaticDamage")

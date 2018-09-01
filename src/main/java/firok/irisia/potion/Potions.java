@@ -28,6 +28,7 @@ public class Potions
 	public static Potion MagicAmplificative;
 	public static Potion MagicResistance;
 	public static Potion Thresholded;
+	public static Potion Ethereal;
 	// unimplemented potion
 
 	public static Potion Indomitable;
@@ -192,6 +193,14 @@ public class Potions
 		{
 			super(id,false,Color.YELLOW.getRGB());
 			this.setPotionName("irisia.potion.thresholded");
+		}
+	}
+	public static class PotionEthereal extends EventPotion
+	{
+		public PotionEthereal(int id)
+		{
+			super(id,false,Color.green.getRGB());
+			this.setPotionName("irisia.potion.ethereal");
 		}
 	}
 

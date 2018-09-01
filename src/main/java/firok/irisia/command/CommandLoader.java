@@ -5,10 +5,14 @@ import java.util.List;
 
 import firok.irisia.Irisia;
 import firok.irisia.item.Consumables;
+import firok.irisia.item.EquipmentUniqueBaubles;
 import firok.irisia.potion.Potions;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.ai.EntityAITradePlayer;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -81,6 +85,37 @@ public class CommandLoader
 		tag.setFloat("bonus",bonus);
 		held.setTagCompound(tag);
 	}
+	private void bauble(ICommandSender sender,String[] args)
+	{
+		EntityPlayer player=(EntityPlayer)sender;
+		int slotOrder=Integer.parseInt(args[1]);
+		IInventory inventory=baubles.api.BaublesApi.getBaubles(player);
+		ItemStack isGet=inventory.getStackInSlot(slotOrder);
+		Irisia.log(isGet.toString(),player);
+		if(isGet!=null)
+		{
+			Item item= isGet.getItem();
+			Irisia.log(item.getUnlocalizedName(),player);
+			if(item instanceof EquipmentUniqueBaubles.IBaubleAbility)
+			{
+				((EquipmentUniqueBaubles.IBaubleAbility)item).doAbility(isGet,player);
+			}
+		}
+	}
+	private void invsee(ICommandSender sender,String[] args)
+	{
+		EntityPlayer player=(EntityPlayer)sender;
+		InventoryPlayer inv=player.inventory;
+		StringBuffer sb=new StringBuffer();
+		for(int i=0;i<inv.getSizeInventory();i++)
+		{
+			ItemStack is=inv.getStackInSlot(i);
+			if(is==null) continue;
+			sb.append("   slot");sb.append(i);sb.append(" : ");
+			sb.append(is.toString());
+		}
+		Irisia.log(sb.toString(),player);
+	}
     public CommandLoader(FMLServerStartingEvent event)
     {
 	    event.registerServerCommand(new ICommand()
@@ -105,6 +140,14 @@ public class CommandLoader
 				    else if("gashapon".equals(args[0]))
 				    {
 					    gashapon(sender,args);
+				    }
+				    else if("bauble".equals(args[0]))
+				    {
+				    	bauble(sender,args);
+				    }
+				    else if("invsee".equals(args[0]))
+				    {
+				    	invsee(sender,args);
 				    }
 			    }
 			    catch (Exception exception)

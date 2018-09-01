@@ -4,9 +4,11 @@ import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 
 public class EquipmentSets
@@ -21,6 +23,8 @@ public class EquipmentSets
 	public final static EquipmentSet SolitaSet;
 	public final static EquipmentSet MogigaSet;
 
+	public final static ArmorSet WindRangerSet;
+
 	static
 	{
 		BoneSet=new EquipmentSet("bone",Materials.BoneArmor,Materials.BoneTool);
@@ -32,6 +36,9 @@ public class EquipmentSets
 		LifeWoodSet=new EquipmentSet("lifewood",Materials.LifeWoodArmor,Materials.LifeWoodTool,false,false,false,true); // 转移到 EquipmentAutoRepair
 		SolitaSet=new EquipmentSet("solita",Materials.SolitaArmor,Materials.SolitaTool);
 		MogigaSet=new EquipmentSet("mogiga",Materials.MogigaArmor,Materials.MogigaTool);
+
+		WindRangerSet=new EffectArmorSet("windranger",ItemArmor.ArmorMaterial.CLOTH);
+
 	}
 	/** Stores the armor type: 0 is helmet, 1 is plate, 2 is legs and 3 is boots */
 
@@ -95,9 +102,9 @@ public class EquipmentSets
 			if(hasArmor=hasA)
 			{
 				Helmet=new ItemArmor(am, am.ordinal(), 0);
-				Chestplate=new ItemArmor(am, am.ordinal(), 0);
-				Leggings=new ItemArmor(am, am.ordinal(), 0);
-				Boots=new ItemArmor(am, am.ordinal(), 0);
+				Chestplate=new ItemArmor(am, am.ordinal(), 1);
+				Leggings=new ItemArmor(am, am.ordinal(), 2);
+				Boots=new ItemArmor(am, am.ordinal(), 3);
 			}
 			else
 			{
@@ -118,6 +125,61 @@ public class EquipmentSets
 				Ring=null;
 				Amulet=null;
 				Belt=null;
+			}
+		}
+	}
+
+	public static class ArmorSet
+	{
+		public final String materialName;
+		public final ItemArmor.ArmorMaterial armorMaterial;
+		public final ItemArmor Helmet;
+		public final ItemArmor Chestplate;
+		public final ItemArmor Leggings;
+		public final ItemArmor Boots;
+
+		public ArmorSet(String mn,ItemArmor.ArmorMaterial armorMaterial)
+		{
+			this.armorMaterial=armorMaterial;
+			Helmet=new ItemArmor(armorMaterial, armorMaterial.ordinal(), 0);
+			Chestplate=new ItemArmor(armorMaterial, armorMaterial.ordinal(), 1);
+			Leggings=new ItemArmor(armorMaterial, armorMaterial.ordinal(), 2);
+			Boots=new ItemArmor(armorMaterial, armorMaterial.ordinal(), 3);
+			this.materialName=mn;
+		}
+		protected ArmorSet(String mn,
+		                   ItemArmor.ArmorMaterial armorMaterial,
+		                   ItemArmor helmet,ItemArmor chestplate,
+		                   ItemArmor leggings,ItemArmor boots)
+		{
+			this.materialName=mn;
+			this.armorMaterial=armorMaterial;
+			this.Helmet=helmet;
+			this.Chestplate=chestplate;
+			this.Leggings=leggings;
+			this.Boots=boots;
+		}
+	}
+	public static class EffectArmorSet extends ArmorSet
+	{
+		public EffectArmorSet(String mn,ItemArmor.ArmorMaterial armorMaterial)
+		{
+			super(mn,armorMaterial,
+					new EffectArmorPart(armorMaterial, 0),
+					new EffectArmorPart(armorMaterial, 1),
+					new EffectArmorPart(armorMaterial, 2),
+					new EffectArmorPart(armorMaterial, 3));
+			((EffectArmorPart)this.Helmet).set=this;
+			((EffectArmorPart)this.Chestplate).set=this;
+			((EffectArmorPart)this.Leggings).set=this;
+			((EffectArmorPart)this.Boots).set=this;
+		}
+		public static class EffectArmorPart extends ItemArmor
+		{
+			public EffectArmorSet set;
+			public EffectArmorPart(ItemArmor.ArmorMaterial armorMaterial,int type)
+			{
+				super(armorMaterial,armorMaterial.ordinal(),type);
 			}
 		}
 	}
