@@ -2,6 +2,7 @@ package firok.irisia.common;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 
 import baubles.api.IBauble;
 import baubles.common.container.InventoryBaubles;
@@ -13,6 +14,7 @@ import firok.irisia.client.KeyLoader;
 import firok.irisia.enchantment.EnchantmentLoader;
 import firok.irisia.item.EquipmentSets;
 import firok.irisia.item.ItemLoader;
+import firok.irisia.item.RawMaterials;
 import firok.irisia.potion.PotionLoader;
 import firok.irisia.potion.Potions;
 import net.minecraft.client.Minecraft;
@@ -23,6 +25,7 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.entity.passive.EntityCow;
+import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
@@ -78,9 +81,27 @@ public class EventLoader
     }
 
     @SubscribeEvent
+    public void onLivingDead(net.minecraftforge.event.entity.living.LivingDeathEvent event)
+    {
+    	//SoulCrystal
+	    EntityLivingBase enlb=event.entityLiving;
+	    World world=enlb.worldObj;
+	    if(world.isRemote || enlb instanceof EntityPlayer)
+	    	return;
+
+	    Random rand=world.rand;
+	    if(rand.nextFloat()<0.01+enlb.getMaxHealth()/400) // 每10滴血上限+2.5%掉落几率
+	    {
+	    	enlb.entityDropItem(new ItemStack(RawMaterials.SoulCrystal),0);
+	    }
+
+	    LootManager.dropLoot(enlb); // 调用掉落物管理器的接口 来掉落物品
+    }
+
+    @SubscribeEvent
     public void onPlayerTick_effectArmorSet(LivingEvent.LivingUpdateEvent event)
     {
-	    if (event.entity.ticksExisted%80==0 && event.entity instanceof EntityPlayer) {
+	    if (!event.entity.worldObj.isRemote && event.entity.ticksExisted%80==0 && event.entity instanceof EntityPlayer) {
 		    EntityPlayer player = (EntityPlayer)event.entity;
 		    // player.addChatComponentMessage(new ChatComponentText("checked"));
 		    ItemStack[] armors=player.inventory.armorInventory;
@@ -88,7 +109,7 @@ public class EventLoader
 		    ||armors[1]==null
 		    ||armors[2]==null
 		    ||armors[3]==null)
-		    	return;
+		    	return; // 检查是不是每个物品栏都有东西
 		    Item a1=armors[0].getItem();
 		    Item a2=armors[1].getItem();
 		    Item a3=armors[2].getItem();
@@ -97,14 +118,14 @@ public class EventLoader
 		    if(a1 instanceof EquipmentSets.EffectArmorSet.EffectArmorPart
 				    && a2 instanceof EquipmentSets.EffectArmorSet.EffectArmorPart
 				    && a3 instanceof EquipmentSets.EffectArmorSet.EffectArmorPart
-				    && a4 instanceof EquipmentSets.EffectArmorSet.EffectArmorPart)
+				    && a4 instanceof EquipmentSets.EffectArmorSet.EffectArmorPart) // 检查是不是都是效果套的散件
 		    {
 			    EquipmentSets.EffectArmorSet.EffectArmorPart ea1=(EquipmentSets.EffectArmorSet.EffectArmorPart)a1;
 			    EquipmentSets.EffectArmorSet.EffectArmorPart ea2=(EquipmentSets.EffectArmorSet.EffectArmorPart)a2;
 			    EquipmentSets.EffectArmorSet.EffectArmorPart ea3=(EquipmentSets.EffectArmorSet.EffectArmorPart)a3;
 			    EquipmentSets.EffectArmorSet.EffectArmorPart ea4=(EquipmentSets.EffectArmorSet.EffectArmorPart)a4;
 			    // player.addChatComponentMessage(new ChatComponentText("effect parts"));
-			    if(ea1.set==ea2.set&&ea2.set==ea3.set&&ea3.set==ea4.set)
+			    if(ea1.set==ea2.set&&ea2.set==ea3.set&&ea3.set==ea4.set) // 检查是不是一套
 			    {
 				    // player.addChatComponentMessage(new ChatComponentText("all set"));
 			    	if(ea1.set==EquipmentSets.WindRangerSet)
@@ -129,6 +150,8 @@ public class EventLoader
 //	            +"\nentityPlayer:"+event.entityPlayer.toString()
 //	            +"\ntarget:"+event.target.toString());
 	    if(!(event.target instanceof EntityLivingBase))
+	    	return;
+	    if(event.entity.worldObj.isRemote)
 	    	return;
 
 	    EntityLivingBase enlb=event.entityLiving;
@@ -174,6 +197,10 @@ public class EventLoader
 	    // Thresholded;
 	    // Ethereal;
 	    EntityLivingBase enlb=event.entityLiving;
+
+	    if(enlb.worldObj.isRemote)
+	    	return;
+
 	    Collection effects=enlb.getActivePotionEffects();
 	    for(Object obj:effects)
 	    {

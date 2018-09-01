@@ -3,6 +3,7 @@ package firok.irisia.item;
 import javax.annotation.Nullable;
 
 import firok.irisia.Irisia;
+import firok.irisia.block.HerbsAndMushroom;
 import firok.irisia.common.IrisiaCreativeTabs;
 import firok.irisia.mod.tc.Reg;
 import net.minecraft.creativetab.CreativeTabs;
@@ -52,6 +53,9 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.irisiaMaterial,RawMaterials.UnicornBlood,"material_unicorn_blood","UnicornBlood");
 		register(IrisiaCreativeTabs.irisiaMaterial,RawMaterials.SlimeCore,"material_slime_core","SlimeCore");
 		register(IrisiaCreativeTabs.irisiaMaterial,RawMaterials.BrownWheat,"material_brown_wheat","BrownWheat");
+		register(IrisiaCreativeTabs.irisiaMaterial,RawMaterials.SoulCrystal,"material_soul_crystal","SoulCrystal");
+
+
 		register(IrisiaCreativeTabs.irisiaMaterial,RawMaterials.DwartFlour,"material_dwart_flour","DwartFlour");
 		register(IrisiaCreativeTabs.irisiaMaterial,RawMaterials.ElfStone,"material_elf_stone","ElfStone");
 		register(IrisiaCreativeTabs.irisiaMaterial,RawMaterials.FlumetalIngot,"material_flumetal_ingot","FlumetalIngot");
@@ -77,7 +81,7 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.MogigaSet);
 		register(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.DwartSteelSet);
 		register(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.WindRangerSet);
-		// register(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.LifeWoodSet); // 已经转移
+		// registerLoot(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.LifeWoodSet); // 已经转移
 		register(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.FlumetalSet);
 		// 注册生命木套装
 		register(IrisiaCreativeTabs.irisiaEqui,EquipmentAutoRepair.LifewoodSword,"sword_lifewood","LifewoodSword");
@@ -159,6 +163,9 @@ public class ItemLoader
 	    registerConsumables();
 
 	    registerConsumableWeapons();
+
+	    register(IrisiaCreativeTabs.irisia,HerbsAndMushroom.TestSeed,"test_seed","TestSeed");
+	    register(IrisiaCreativeTabs.irisia,HerbsAndMushroom.TestOutput,"test_output","TestOutput");
     }
     @SideOnly(Side.CLIENT)
     public static void registerRenders()
@@ -249,7 +256,7 @@ public class ItemLoader
 //        ModelLoader.setCustomModelResourceLocation(item, meta, model);
     }
  	
-    // thaumcraft item register // 神秘时代注册
+    // thaumcraft item registerLoot // 神秘时代注册
     private static void registerTcContent(Item item)
     {
     	boolean isTcItem=false;
@@ -294,7 +301,7 @@ public class ItemLoader
         	itemsTc.add(item);
     }
     
-    // tinkers' item register // 匠魂注册
+    // tinkers' item registerLoot // 匠魂注册
 	private static void registerTicContent(Item item)
     {
     	boolean isTicItem=false;

@@ -1,3 +1,11 @@
+0.12.31
+加入灵魂结晶物品
+add SoulCrystal item
+生物死亡时有几率掉落灵魂结晶
+entities will drop SoulCrystal when died
+加入掉落物管理器
+add LootManager
+
 0.12.30
 修改注册物品的方式
 rewrite the way of registering items

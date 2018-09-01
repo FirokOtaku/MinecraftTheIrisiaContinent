@@ -25,6 +25,7 @@ public class RawMaterials
 	public final static InformationItem UnicornHorn; // 独角兽角
 	public final static InformationItem UnicornBlood; // 独角兽血
 	public final static InformationItem SlimeCore; // 史莱姆核
+	public final static InformationItem SoulCrystal; // 灵魂结晶
 
 	// food material
 	public final static InformationItem BrownWheat; // 褐麦
@@ -51,6 +52,18 @@ public class RawMaterials
 
 
 	// irisia !
+	public final static InformationItem CoinCopper;
+	public final static InformationItem CoinCopperPile;
+	public final static InformationItem CoinSilver;
+	public final static InformationItem CoinSilverPile;
+	public final static InformationItem CoinGold;
+	public final static InformationItem CoinGoldPile;
+	public final static InformationItem CoinIrisia;
+	public final static InformationItem CoinIrisiaPile;
+	public final static InformationItem VipCardCopper; // vip铜卡
+	public final static InformationItem VipCardSilver; // vip银卡
+	public final static InformationItem VipCardGold; // vip金卡
+	public final static InformationItem VipCardDiamond; // vip钻石卡
 	public final static InformationItem AncientThaumicNote; // 古代神秘使笔记
 	public final static InformationItem AncientMachinePart;  // 古代机械碎片
 	public final static InformationItem AncientFossilFragment; // 古代生物化石碎块
@@ -71,6 +84,7 @@ public class RawMaterials
 		UnicornHorn=new InformationItem();
 		UnicornBlood =new InformationItem();
 		SlimeCore=new InformationItem();
+		SoulCrystal=new InformationItem();
 
 		BrownWheat=new InformationItem();
 		DwartFlour=new InformationItem();
@@ -91,6 +105,18 @@ public class RawMaterials
 		GoldenSilk = new InformationItem();
 		DiamondSilk = new InformationItem();
 
+		CoinCopper = new InformationItem();
+		CoinCopperPile = new InformationItem();
+		CoinSilver = new InformationItem();
+		CoinSilverPile = new InformationItem();
+		CoinGold = new InformationItem();
+		CoinGoldPile = new InformationItem();
+		CoinIrisia = new InformationItem();
+		CoinIrisiaPile = new InformationItem();
+		VipCardCopper= new InformationItem();
+		VipCardSilver= new InformationItem();
+		VipCardGold= new InformationItem();
+		VipCardDiamond= new InformationItem();
 		AncientThaumicNote = new InformationItem();
 		AncientMachinePart = new InformationItem();
 		AncientFossilFragment=new InformationItem();
