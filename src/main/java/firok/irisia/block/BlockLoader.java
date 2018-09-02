@@ -24,8 +24,8 @@ public class BlockLoader
 
     public BlockLoader(FMLPreInitializationEvent event)
     {
-        // register(grassBlock, "grass_block", unlocalizedName);
-    	//register(IrisiaCreativeTabs.irisiaBlock,mushroomEnderMushroom,"mushroom_ender_mushroom","mushroomEnderMushroom");
+        // registerLoot(grassBlock, "grass_block", unlocalizedName);
+    	//registerLoot(IrisiaCreativeTabs.irisiaBlock,mushroomEnderMushroom,"mushroom_ender_mushroom","mushroomEnderMushroom");
 	    register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.OreMithril,"oreMithril","ore_mithril");
 	    register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.OreAdamantium,"oreAdamantium","ore_adamantium");
 	    register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.OreFlumetal,"oreFlumetal","ore_flumetal");
@@ -55,6 +55,8 @@ public class BlockLoader
 	    register(IrisiaCreativeTabs.irisiaBlock,PavingStones.Flame,"blockPavingStoneFlame","block_paving_stone_flame");
 
 	    register(IrisiaCreativeTabs.irisiaBlock,MachineBlocks.BerryMixer,"machineBerryMixer","machine_berry_mixer");
+
+	    register(IrisiaCreativeTabs.irisia,HerbsAndMushroom.TestHerb,"herbTest","TestHerb");
     }
 
     private static void register(@Nullable CreativeTabs tab,Block block, String unlocalizedName,String textureName)
@@ -63,7 +65,11 @@ public class BlockLoader
 //        block.setUnlocalizedName(unlocalizedName);
 //        if(tab!=null)
 //        	block.setCreativeTab(tab);
+	    if(block==null)
+		    return;
+
         if(tab!=null) block.setCreativeTab(tab);
+
 
         block.
             setBlockName(unlocalizedName).

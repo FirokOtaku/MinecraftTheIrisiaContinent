@@ -1,3 +1,11 @@
+0.12.32
+重构方块注册方式
+rewrite the way of registering blocks
+重构药草方块注册方式
+rewrite the way of implementing Herb block
+Random相关的错误修正
+fix some bugs related to java.util.Random
+
 0.12.31
 加入灵魂结晶物品
 add SoulCrystal item
