@@ -2,18 +2,19 @@ package firok.irisia.block;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import firok.irisia.item.HerbSeeds;
 import net.minecraft.block.*;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.IIcon;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.event.ForgeEventFactory;
@@ -21,29 +22,45 @@ import net.minecraftforge.event.ForgeEventFactory;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static net.minecraftforge.common.EnumPlantType.*;
-import static net.minecraftforge.common.EnumPlantType.Plains;
-
 public class HerbsAndMushroom
 {
 	public final static Herb DeathGrass;
 	public final static Herb MoonGrass;
 	public final static Herb SpicyRoot;
 
+	public final static Herb TestWater;
+
 	public final static Mushroom ShadowMushroom;
 
-	public final static Herb TestHerb;
-	public final static Item TestSeed;
-	public final static Item TestOutput;
+	// public final static Herb TestHerb;
 
 	static
 	{
-//		DeathGrass=new Herb();
-//		MoonGrass=new Herb();
-//		SpicyRoot=new Herb();
-		DeathGrass=null;
-		MoonGrass=null;
-		SpicyRoot=null;
+		//Item itemSeed,
+		//				     Item itemDrop,
+		//		             int maxDrop,
+		//		             int minDrop,
+		//		             int forturePromot,
+		//
+		//		             int stage,
+		//		             int[] stageGrow,
+		//
+//		TestHerb=new Herb(TestSeed,TestOutput,5,1,0,
+//				4,new int[]{2,4,6},1);
+		DeathGrass=new Herb(EnumPlantType.Cave, Items.gold_ingot,
+				3,1,1,
+				null,0,3,new int[]{2,4},1);
+		MoonGrass=new Herb(EnumPlantType.Plains,Items.diamond,
+				3,1,1,
+				null,0,3,new int[]{2,4},1);
+		SpicyRoot=new Herb(EnumPlantType.Desert,Items.apple,
+				3,1,1,
+				null,0,3,new int[]{2,4},1);
+
+		// fixme 目前 如果药草类型是水生 并不能种到水上
+		TestWater=new Herb(EnumPlantType.Water,Items.apple,
+				3,1,1,
+				null,0,3,new int[]{2,4},1);
 
 
 		ShadowMushroom =(Mushroom) (new Mushroom(){
@@ -61,31 +78,6 @@ public class HerbsAndMushroom
 				.setHardness(0.0F)
 				.setStepSound(Block.soundTypeGrass)
 				.setLightLevel(0.125F);
-
-		//Item itemSeed,
-		//				     Item itemDrop,
-		//		             int maxDrop,
-		//		             int minDrop,
-		//		             int forturePromot,
-		//
-		//		             int stage,
-		//		             int[] stageGrow,
-		//		             int growSpeed
-		TestSeed=new Item(){
-			@Override
-			public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float subx, float suby, float subz)
-			{
-				if(world.isRemote)
-					return false;
-
-				world.setBlock(x,y,z,TestHerb);
-
-				return true;
-			}
-		};
-		TestOutput=new Item();
-		TestHerb=new Herb(TestSeed,TestOutput,5,1,0,
-				4,new int[]{2,4,6},1);
 	}
 
 	public static class Mushroom extends BlockMushroom
@@ -98,7 +90,12 @@ public class HerbsAndMushroom
 
 	public static class Herb extends BlockCrops
 	{
-		protected Item itemSeeds; // 种子物品
+		public final EnumPlantType type;
+		protected HerbSeeds.Seed itemSeeds; // 种子物品
+		public HerbSeeds.Seed seed()
+		{
+			return itemSeeds;
+		}
 		protected Item itemDrops; // 掉落的物品
 		protected int maxDrops; // 最大掉落
 		protected int minDrops; // 最小掉落
@@ -112,40 +109,61 @@ public class HerbsAndMushroom
 		protected int growSpeeds; // 生长速度
 		protected IIcon[] icons; // 材质
 
-		public Herb(
-				     Item itemSeed,
-				     Item itemDrop,
-		             int maxDrop,
-		             int minDrop,
-		             int forturePromot,
+		public Herb(Item itemDrop,
+		            int maxDrop, int minDrop, int forturePromot,
 
-		             int stage,
-		             int[] stageGrow,
-		             int growSpeed)
+		            int stage, int[] stageGrow, int growSpeed)
+		{
+			this(null,null,0,0,0,
+					1,new int[]{},0);
+			itemSeeds=new HerbSeeds.Seed(this);
+		}
+
+		public Herb(
+				HerbSeeds.Seed itemSeed, Item itemDrop,
+		             int maxDrop, int minDrop, int forturePromot,
+
+		             int stage, int[] stageGrow, int growSpeed)
 		{
 			this(itemSeed,itemDrop,maxDrop,minDrop,forturePromot,null,0,stage,stageGrow,growSpeed);
 		}
 
-		public Herb
-				(
-				Item itemSeed,
-				Item itemDrop,
-		        int maxDrop,
-		        int minDrop,
-		        int forturePromot,
+		public Herb(
+					HerbSeeds.Seed itemSeed, Item itemDrop,
+					int maxDrop, int minDrop, int forturePromot,
 
-				Item itemDropsSub,
-				float rateDropsSub,
+					Item itemDropsSub, float rateDropsSub,
 
-				int stage,
-				int[] stageGrow,
-				int growSpeed
-				)
+					int stage, int[] stageGrow, int growSpeed)
+		{
+			this(EnumPlantType.Plains,itemSeed,itemDrop,maxDrop,minDrop,forturePromot,itemDropsSub,rateDropsSub,stage,stageGrow,growSpeed);
+		}
+
+		public Herb(
+				EnumPlantType plantType, Item itemDrop,
+				int maxDrop, int minDrop, int forturePromot,
+
+				Item itemDropsSub, float rateDropsSub,
+
+				int stage, int[] stageGrow, int growSpeed)
+		{
+			this(plantType,null,itemDrop,maxDrop,minDrop,forturePromot,itemDropsSub,rateDropsSub,stage,stageGrow,growSpeed);
+			itemSeeds=new HerbSeeds.Seed(this);
+		}
+
+		public Herb(
+				EnumPlantType plantType,
+
+				HerbSeeds.Seed itemSeed, Item itemDrop,
+		        int maxDrop, int minDrop, int forturePromot,
+
+				Item itemDropsSub, float rateDropsSub,
+
+				int stage, int[] stageGrow, int growSpeed)
 		{
 
 			itemSeeds=itemSeed;
-			if(itemDrop==null) throw new RuntimeException("items dropped by HerbBlock cannot be null");
-
+			// if(itemDrop==null) throw new RuntimeException("items dropped by HerbBlock cannot be null");
 			itemDrops=itemDrop;
 			minDrops=minDrop>0?minDrop:0;
 			maxDrops=maxDrop>=minDrops?maxDrop:minDrops;
@@ -161,7 +179,7 @@ public class HerbsAndMushroom
 
 			icons=new IIcon[stages];
 
-			//System.out.println("构造函数执行");
+			type=plantType;
 		}
 
 		@Override
@@ -179,7 +197,7 @@ public class HerbsAndMushroom
 		{
 //			System.out.println("onBlockHarvested 函数执行");
 //			System.out.println("x y z : "+x+","+y+","+z+" ; meta : "+meta);
-			dropBlockAsItemWithChance(world,x,y,z,meta,0,0);
+			this.dropBlockAsItemWithChance(world,x,y,z,meta,0,0);
 		}
 		@Override
 		public void onBlockPreDestroy(World p_149725_1_, int p_149725_2_, int p_149725_3_, int p_149725_4_, int p_149725_5_)
@@ -188,9 +206,28 @@ public class HerbsAndMushroom
 		}
 
 		@Override
-		protected boolean canPlaceBlockOn(Block world)
+		public boolean canPlaceBlockOn(Block block)
 		{
-			return world == Blocks.farmland;
+			switch (type)
+			{
+				case Plains:
+					return block==Blocks.dirt||block==Blocks.grass||block==Blocks.farmland;
+				case Water:
+					return block==Blocks.water;
+				case Desert:
+					return block==Blocks.sand;
+				case Crop:
+					return block==Blocks.farmland;
+				case Cave:
+					return block==Blocks.stone;
+				case Beach:
+					return block==Blocks.sand;
+				case Nether:
+					return block==Blocks.netherrack||block==Blocks.soul_sand;
+
+				default:
+					return false;
+			}
 		}
 
 		@Override
@@ -262,6 +299,12 @@ public class HerbsAndMushroom
 				ret.add(new ItemStack(this.itemDrops,dropnow));
 			}
 
+			if(itemDropsSubs!=null && metadata >= this.stageGrows[stageGrows.length-1]
+					&& world.rand.nextFloat()<rateDropsSubs)
+			{
+				ret.add(new ItemStack(this.itemDropsSubs));
+			}
+
 			return ret;
 		}
 
@@ -323,7 +366,7 @@ public class HerbsAndMushroom
 		 * Gets the block's texture. Args: side, meta
 		 */
 		@SideOnly(Side.CLIENT)
-		public IIcon getIcon(int side, int meta)
+		public IIcon getIcon(int side, int meta) // todo 以后要改材质注册的问题
 		{
 			for(int i=0;i<stageGrows.length;i++)
 			{
@@ -342,8 +385,6 @@ public class HerbsAndMushroom
 								this.getTextureName() + "_stage_" + i);
 			}
 		}
-
-
 	}
 
 }

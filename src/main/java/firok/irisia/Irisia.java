@@ -28,10 +28,10 @@ public class Irisia
 {
     public static final String MODID = "Irisia";
     public static final String NAME = "The Irisia Continent";
-    public static final String VERSION = "0.12.32";
+    public static final String VERSION = "0.12.33";
     public static final boolean IN_DEV=true;
 
-    public static Random rand=new Random();
+    // public static Random rand=new Random();
 
     @Instance(Irisia.MODID)
     public static Irisia instance;
@@ -68,8 +68,8 @@ public class Irisia
 
     public static void main(String... args)
     {
-//        ResourceLocation rsl=new ResourceLocation("irisia:textures/pic.png");
-//        System.out.println(rsl.getResourcePath());Render.bindEntityTexture
+        Util.CoinCounter c=new Util.CoinCounter(1000);
+        System.out.println(c.toString());
     }
     public static NameObject transName(String type,String... tags)
     {

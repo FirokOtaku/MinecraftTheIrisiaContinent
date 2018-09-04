@@ -1,3 +1,13 @@
+0.12.33
+为药草方块添加新的接口
+add more interfaces to Herb block
+重构药草种子的实现方式
+rewrite the way of implementing of HerbSeed.Seed
+删除todo文件
+delete todo.txt file
+重构注册方块的方式
+rewrite the way of registering blocks
+
 0.12.32
 重构方块注册方式
 rewrite the way of registering blocks
