@@ -1,3 +1,7 @@
+0.12.34
+重构配置文件加载方式
+rewrite the way of loading configs
+
 0.12.33
 为药草方块添加新的接口
 add more interfaces to Herb block

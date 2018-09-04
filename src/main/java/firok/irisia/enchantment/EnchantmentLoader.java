@@ -4,12 +4,12 @@ import net.minecraft.enchantment.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
+
+import static firok.irisia.common.ConfigLoader.*;
 
 public class EnchantmentLoader
 {
@@ -18,6 +18,7 @@ public class EnchantmentLoader
 	public final static CustomEnchantment EnderGuarding;
 	public final static CustomEnchantment Flown;
 	public final static CustomEnchantment Shadowy;
+	public final static CustomEnchantment Elastic;
 	public static CustomEnchantment tearing;
 	public static CustomEnchantment inscriptionCapacity;
 	public static CustomEnchantment magicProtection;
@@ -37,7 +38,7 @@ public class EnchantmentLoader
     static
     {
     	// 淘汰
-	    Culling=new CustomEnchantment(EnumEnchantmentType.weapon,"Culling",161,10,
+	    Culling=new CustomEnchantment(EnumEnchantmentType.weapon,"Culling", ideCulling, idewCulling,
 			    0,3,
 			    1,100){
 		    @Override
@@ -59,7 +60,7 @@ public class EnchantmentLoader
 		    }
 	    };
 	    // 末影守护
-	    EnderGuarding=new CustomEnchantment(EnumEnchantmentType.armor,"EnderGuarding",162,10,
+	    EnderGuarding=new CustomEnchantment(EnumEnchantmentType.armor,"EnderGuarding", ideGuarding, idewEnderGuarding,
 			    0,3,
 			    1,100)
 	    {
@@ -78,7 +79,7 @@ public class EnchantmentLoader
 		    }
 	    };
 	    // 击飞
-	    Flown=new CustomEnchantment(EnumEnchantmentType.weapon,"Flown",163,10,
+	    Flown=new CustomEnchantment(EnumEnchantmentType.weapon,"Flown", ideFlown, idewFlown,
 			    0,3,
 			    1,100)
 	    {
@@ -94,7 +95,7 @@ public class EnchantmentLoader
 		    }
 	    };
 	    // 暗影
-	    Shadowy=new CustomEnchantment(EnumEnchantmentType.armor,"Shadowy",164,10,
+	    Shadowy=new CustomEnchantment(EnumEnchantmentType.armor,"Shadowy", ideShadowy, idewShadowy,
 			    0,3,
 			    1,100)
 	    {
