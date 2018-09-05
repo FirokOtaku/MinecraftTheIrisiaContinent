@@ -15,6 +15,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import java.util.*;
 
 import firok.irisia.item.EquipmentSets.EquipmentSet;
+import net.minecraft.item.ItemSeeds;
 
 
 @SuppressWarnings({"unused","deprecation"})
@@ -134,6 +135,7 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.LoveRing,"ring_love","LoveRing");
 		register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.PhotosynthesisAmulet,"ring_photosynthesis","PhotosynthesisAmulet");
 		register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.DwartTravellerBelt,"belt_dwart_traveller","DwartTravellerBelt");
+		register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.TwelveMagicalPowerAmulet,"amulet_twelve_magical","TwelveMagicalAmulet");
 
 	}
 	private static void registerConsumables()
@@ -164,8 +166,7 @@ public class ItemLoader
 
 	    registerConsumableWeapons();
 
-	    register(IrisiaCreativeTabs.irisia,HerbsAndMushroom.TestSeed,"test_seed","TestSeed");
-	    register(IrisiaCreativeTabs.irisia,HerbsAndMushroom.TestOutput,"test_output","TestOutput");
+//	    registerSeeds();
     }
     @SideOnly(Side.CLIENT)
     public static void registerRenders()
@@ -175,11 +176,11 @@ public class ItemLoader
     	// registerRender(functionalRandomTicker);
     }
 
-    private static void register(@Nullable CreativeTabs tab,Item item,Irisia.NameObject nb)
+    public static void register(@Nullable CreativeTabs tab,Item item,Irisia.NameObject nb)
     {
     	register(tab,item,nb.textureName,nb.unlocalizedName);
     }
-    private static void register(@Nullable CreativeTabs tab, EquipmentSets.ArmorSet set)
+	public static void register(@Nullable CreativeTabs tab, EquipmentSets.ArmorSet set)
     {
     	if(set==null)
     		return;
@@ -191,7 +192,7 @@ public class ItemLoader
 	    register(tab,set.Leggings,"leggings_"+set.materialName, fuName+"Leggings");
 	    register(tab,set.Boots,"boots_"+set.materialName, fuName+"Boots");
     }
-    private static void register(@Nullable CreativeTabs tab,EquipmentSet set)
+	public static void register(@Nullable CreativeTabs tab,EquipmentSet set)
     {
     	if(set==null) // 检查要注册的套装是不是空的
     		return;
@@ -214,7 +215,7 @@ public class ItemLoader
     	register(tab,set.Belt,"belt_"+set.materialName, fuName+"Belt");
     	register(tab,set.Ring,"ring_"+set.materialName, fuName+"Ring");
     }
-    private static void register(@Nullable CreativeTabs tab,Wands.WandSet set)
+	public static void register(@Nullable CreativeTabs tab,Wands.WandSet set)
     {
     	if(set==null)
     		return;
@@ -224,17 +225,17 @@ public class ItemLoader
     	register(tab,set.Cap,"cap_"+set.materialName,fuName+"ItemCap");
     	register(tab,set.Rod,"rod_"+set.materialName,fuName+"ItemRod");
     }
-    
-	private static void register(@Nullable CreativeTabs tab,Item item, String name,String unlocalizedName)
+
+	public static void register(@Nullable CreativeTabs tab,Item item, String name,String unlocalizedName)
     {
     	if(item==null || name==null || unlocalizedName==null) // 检查要注册的物品是不是空的
     		return;
 
-	    item.setUnlocalizedName(unlocalizedName);
+	    item.setUnlocalizedName(Irisia.MODID+":Item"+unlocalizedName);
+	    item.setTextureName(Irisia.MODID+":items_"+name);
         GameRegistry.registerItem(item,name,Irisia.MODID);
         if(tab!=null)
         	item.setCreativeTab(tab);
-        item.setUnlocalizedName(unlocalizedName);
         
         items.add(item);
         

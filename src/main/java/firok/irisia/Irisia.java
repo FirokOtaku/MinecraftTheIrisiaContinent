@@ -28,7 +28,7 @@ public class Irisia
 {
     public static final String MODID = "Irisia";
     public static final String NAME = "The Irisia Continent";
-    public static final String VERSION = "0.12.34";
+    public static final String VERSION = "0.12.35";
     public static final boolean IN_DEV=true;
 
     // public static Random rand=new Random();
@@ -68,8 +68,9 @@ public class Irisia
 
     public static void main(String... args)
     {
-        Util.CoinCounter c=new Util.CoinCounter(1000);
-        System.out.println(c.toString());
+        ResourceLocation rl=new ResourceLocation("irisia:items/i1");
+        System.out.println(rl.getResourcePath());
+        //net.minecraftforge.event.terraingen.TerrainGen
     }
     public static NameObject transName(String type,String... tags)
     {

@@ -1,3 +1,7 @@
+0.12.35
+加入十二魔力护符
+add TwelveMagicalAmulet bauble
+
 0.12.34
 重构配置文件加载方式
 rewrite the way of loading configs
