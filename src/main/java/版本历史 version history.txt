@@ -1,3 +1,7 @@
+0.12.36
+加入矮人矿工护甲套装
+add DwartMinerSet equipment set
+
 0.12.35
 加入十二魔力护符
 add TwelveMagicalAmulet bauble

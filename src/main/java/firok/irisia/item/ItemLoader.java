@@ -82,6 +82,7 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.MogigaSet);
 		register(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.DwartSteelSet);
 		register(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.WindRangerSet);
+		register(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.DwartMinerSet);
 		// registerLoot(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.LifeWoodSet); // 已经转移
 		register(IrisiaCreativeTabs.irisiaEqui,EquipmentSets.FlumetalSet);
 		// 注册生命木套装

@@ -24,6 +24,7 @@ public class EquipmentSets
 	public final static EquipmentSet MogigaSet;
 
 	public final static ArmorSet WindRangerSet;
+	public final static ArmorSet DwartMinerSet;
 
 	static
 	{
@@ -38,7 +39,7 @@ public class EquipmentSets
 		MogigaSet=new EquipmentSet("mogiga",Materials.MogigaArmor,Materials.MogigaTool);
 
 		WindRangerSet=new EffectArmorSet("windranger",ItemArmor.ArmorMaterial.CLOTH);
-
+		DwartMinerSet=new EffectArmorSet("dwartminer",ItemArmor.ArmorMaterial.IRON);
 	}
 	/** Stores the armor type: 0 is helmet, 1 is plate, 2 is legs and 3 is boots */
 

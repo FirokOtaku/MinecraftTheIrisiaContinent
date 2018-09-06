@@ -29,7 +29,7 @@ public class CommonProxy
 				    "此版本中出现的任何内容都不会得到保证，请勿将本版本mod用于正式游玩。");
 	    }
 
-//    	new ConfigLoader(event);
+    	ConfigLoader.initConfig(event);
     	IrisiaCreativeTabs.load(event);
     	new ItemLoader(event);
 //    	new FluidLoader(event);
@@ -47,10 +47,13 @@ public class CommonProxy
 
     public void init(FMLInitializationEvent event)
     {
+    	HerbSeeds.postInit(); // 防止交叉引用初始化可能导致的问题
+
 //    	new CraftingLoader();
 	    EnchantmentLoader.info();
 //
     	new EventLoader();
+    	new firok.irisia.world.WorldLoader();
 //
 //    	// TODO
 //    	//
@@ -60,6 +63,8 @@ public class CommonProxy
     	new GuiElementLoader();
 
 	    GashaponManager.init();
+
+	    LootManager.init();
     }
 
     public void postInit(FMLPostInitializationEvent event)
