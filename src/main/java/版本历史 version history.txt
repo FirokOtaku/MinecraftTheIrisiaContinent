@@ -1,3 +1,11 @@
+0.12.37
+重构状态效果实现方式
+rewrite the way of implementing of potion effects
+加入状态效果-风行、状态效果-忍者
+add PotionWindRanger, PotionNinjia effects
+加入忍者护甲套装、守卫护甲套装套装
+add NinjiaSet, GarrisonSet equipment sets
+
 0.12.36
 加入矮人矿工护甲套装
 add DwartMinerSet equipment set

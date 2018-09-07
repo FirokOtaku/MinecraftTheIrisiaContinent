@@ -134,6 +134,19 @@ public class EventLoader
 				    	player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id,85,0));
 					    player.addPotionEffect(new PotionEffect(Potion.damageBoost.id,85,0));
 				    }
+				    else if(ea1.set==EquipmentSets.DwartMinerSet)
+				    {
+				    	player.addPotionEffect(new PotionEffect(Potion.digSpeed.id,85,0));
+				    }
+				    else if(ea1.set==EquipmentSets.GarrisonSet)
+				    {
+				    	player.addPotionEffect(new PotionEffect(Potion.resistance.id,85,0));
+				    }
+				    else if(ea1.set==EquipmentSets.NinjiaSet)
+				    {
+				    	player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id,85,0));
+					    player.addPotionEffect(new PotionEffect(Potion.jump.id,85,0));
+				    }
 			    }
 		    }
 	    }
@@ -190,17 +203,36 @@ public class EventLoader
 //			    +"\nammount:"+event.ammount
 //			    +"\ndamage::"+toString(event.source));
 	    float amount=event.ammount;
-	    // Wise;
-	    // Folly;
-	    // MagicAmplificative;
-	    // MagicResistance;
-	    // Thresholded;
-	    // Ethereal;
 	    EntityLivingBase enlb=event.entityLiving;
 
 	    if(enlb.worldObj.isRemote)
 	    	return;
 
+	    // 先判断有没有风行和忍者效果 有的话先执行这个
+	    float rateMissPhy=0; // 闪避几率
+	    float rateMissMag=0;
+
+	    PotionEffect ninjia=enlb.getActivePotionEffect(Potions.Ninjia);
+	    PotionEffect windranger=enlb.getActivePotionEffect(Potions.WindRanger);
+	    if(ninjia!=null)
+	    {
+	    	rateMissPhy+=ninjia.getAmplifier()*0.2+0.2;
+	    }
+	    if(windranger!=null)
+	    {
+	    	rateMissPhy+=1;
+	    }
+	    boolean isMagic=event.source.isMagicDamage();
+	    if(isMagic && enlb.worldObj.rand.nextFloat()<rateMissMag)
+	    {
+		    event.setCanceled(true); // todo 以后加上音效
+	    }
+	    else if(!isMagic && enlb.worldObj.rand.nextFloat()<rateMissPhy)
+	    {
+		    event.setCanceled(true); // todo 以后加上音效
+	    }
+
+	    // 进行一些小效果的伤害计算
 	    Collection effects=enlb.getActivePotionEffects();
 	    for(Object obj:effects)
 	    {
@@ -215,6 +247,7 @@ public class EventLoader
 		    }
 	    }
 
+	    // 最后判断阈化效果 这个效果判定最强
 	    PotionEffect thresholded=enlb.getActivePotionEffect(Potions.Thresholded);
 	    if(thresholded!=null)
 	    {

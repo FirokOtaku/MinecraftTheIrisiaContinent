@@ -7,35 +7,20 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
 import thaumcraft.common.lib.utils.Utils;
 
+import java.awt.*;
+
 public class PotionLoader
 {
 	
 	public static final ResourceLocation res = new ResourceLocation(Irisia.MODID + ":" + "textures/gui/potion.png");
-	
-	
-    // public static Potion potionFallProtection;
-//	public static Potion wise			=new Wise();
-//	public static Potion folly			=new Folly();
-//	public static Potion spaceUnstable	=new SpaceUnstable();
-//	public static Potion indomitable	=new Indomitable();
-//	public static Potion avarice		=new Avarice();
-//	public static Potion thresholded	=new Thresholded();
-//	public static Potion militaristic	=new Militaristic();
-//	public static Potion painbound		=new Painbound();
-//	public static Potion lifecursed		=new Lifecursed();
-//	public static Potion lifeblessed	=new Lifeblessed();
-//	public static Potion teared			=new Teared();
-//	public static Potion Love			=new PotionLove();
-//	public static Potion electrostatic	=new Electrostatic();
-	
 
     public PotionLoader(FMLPreInitializationEvent event)
     {
         Logger log=event.getModLog();
-        int customPotions = 10;
+        int customPotions = 20;
         int potionOffset = Potion.potionTypes.length;
         int start = 0;
-        log.info("自定义药水种类 : " + potionOffset);
+        log.info("药水id偏移 : " + potionOffset);
 
         if (potionOffset < 128 - customPotions) {
             log.info("扩张药水列表长度至 : " + (potionOffset + customPotions));
@@ -65,28 +50,43 @@ public class PotionLoader
 
         // Wise
         if ((start= getNextPotionId(start)) >= 0) {
-            Potions.Wise = new Potions.PotionWise(start);
+            Potions.Wise = new Potions.EventPotion(start,false,Color.cyan.getRGB(),"wise");
             log.info("Initializing PotionWise with id " + start);
         }
         // Folly
         if ((start= getNextPotionId(start)) >= 0) {
-            Potions.Folly = new Potions.PotionFolly(start);
+            Potions.Folly = new Potions.EventPotion(start,false,Color.red.getRGB(),"folly");
             log.info("Initializing PotionFolly with id " + start);
         }
         // Magic Amplificative
         if ((start= getNextPotionId(start)) >= 0) {
-            Potions.MagicAmplificative = new Potions.PotionMagicAmplificative(start);
+            Potions.MagicAmplificative = new Potions.EventPotion(start,false,Color.GREEN.getRGB(),"magic_amplificative");
             log.info("Initializing PotionMagicAmplificative with id " + start);
         }
         // Magic Resistance
         if ((start= getNextPotionId(start)) >= 0) {
-            Potions.MagicResistance = new Potions.PotionMagicResistance(start);
+            Potions.MagicResistance = new Potions.EventPotion(start,false,Color.GREEN.getRGB(),"magic_resistance");
             log.info("Initializing PotionMagicResistance with id " + start);
         }
         // Thresholded
         if ((start= getNextPotionId(start)) >= 0) {
-            Potions.Thresholded = new Potions.PotionThresholded(start);
+            Potions.Thresholded = new Potions.EventPotion(start,false,Color.YELLOW.getRGB(),"thresholded");
             log.info("Initializing PotionThresholded with id " + start);
+        }
+        // Ethereal
+        if ((start= getNextPotionId(start)) >= 0) {
+            Potions.Ethereal = new Potions.EventPotion(start,false,Color.green.getRGB(),"ethereal");
+            log.info("Initializing PotionEthereal with id " + start);
+        }
+        // Ninjia
+        if ((start= getNextPotionId(start)) >= 0) {
+            Potions.Ninjia = new Potions.EventPotion(start,false,Color.gray.getRGB(),"ninjia");
+            log.info("Initializing PotionNinjia with id " + start);
+        }
+        // WindRanger
+        if ((start= getNextPotionId(start)) >= 0) {
+            Potions.WindRanger = new Potions.EventPotion(start,false,Color.green.getRGB(),"windranger");
+            log.info("Initializing PotionWindRanger with id " + start);
         }
     }
     private static int getNextPotionId(int start)

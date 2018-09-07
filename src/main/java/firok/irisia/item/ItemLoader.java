@@ -232,18 +232,19 @@ public class ItemLoader
     	if(item==null || name==null || unlocalizedName==null) // 检查要注册的物品是不是空的
     		return;
 
-	    item.setUnlocalizedName(Irisia.MODID+":Item"+unlocalizedName);
-	    item.setTextureName(Irisia.MODID+":items_"+name);
+	    item.setUnlocalizedName(unlocalizedName);
+	    item.setTextureName(Irisia.MODID+":"+name);
         GameRegistry.registerItem(item,name,Irisia.MODID);
         if(tab!=null)
         	item.setCreativeTab(tab);
         
-        items.add(item);
+        // items.add(item);
         
 //        if(Loader.isModLoaded("Thaumcraft"))
 //        	registerTcContent(item);
 //        if(Loader.isModLoaded("Tinkers' Contruct"))
 //        	registerTicContent(item);
+
     }
     @SideOnly(Side.CLIENT)
     private static void registerRender(Item item)

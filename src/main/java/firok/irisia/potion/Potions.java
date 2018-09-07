@@ -29,6 +29,8 @@ public class Potions
 	public static Potion MagicResistance;
 	public static Potion Thresholded;
 	public static Potion Ethereal;
+	public static Potion Ninjia;
+	public static Potion WindRanger;
 	// unimplemented potion
 
 	public static Potion Indomitable;
@@ -155,62 +157,15 @@ public class Potions
 			return tick%40==0;
 		}
 	}
-	public static class PotionFolly extends EventPotion
-	{
-		public PotionFolly(int id)
-		{
-			super(id,false,Color.red.getRGB());
-			this.setPotionName("irisia.potion.folly");
-		}
-	}
-	public static class PotionWise extends EventPotion
-	{
-		public PotionWise(int id)
-		{
-			super(id,false,Color.cyan.getRGB());
-			this.setPotionName("irisia.potion.wise");
-		}
-	}
-	public static class PotionMagicAmplificative extends EventPotion
-	{
-		public PotionMagicAmplificative(int id)
-		{
-			super(id,false,Color.GREEN.getRGB());
-			this.setPotionName("irisia.potion.magic_amplificative");
-		}
-	}
-	public static class PotionMagicResistance extends EventPotion
-	{
-		public PotionMagicResistance(int id)
-		{
-			super(id,false,Color.GREEN.getRGB());
-			this.setPotionName("irisia.potion.magic_resistance");
-		}
-	}
-	public static class PotionThresholded extends EventPotion
-	{
-		public PotionThresholded(int id)
-		{
-			super(id,false,Color.YELLOW.getRGB());
-			this.setPotionName("irisia.potion.thresholded");
-		}
-	}
-	public static class PotionEthereal extends EventPotion
-	{
-		public PotionEthereal(int id)
-		{
-			super(id,false,Color.green.getRGB());
-			this.setPotionName("irisia.potion.ethereal");
-		}
-	}
 
 
 
-	public abstract static class EventPotion extends Potion // 这种状态效果是靠event驱动的
+	public static class EventPotion extends Potion // 这种状态效果是靠event驱动的
 	{
-		protected EventPotion(int id,boolean isBad,int rgb)
+		public EventPotion(int id,boolean isBad,int rgb,String name)
 		{
 			super(id,isBad,rgb);
+			this.setPotionName("irisia.potion."+name);
 		}
 		@Override
 		public void performEffect(EntityLivingBase target, int par2) {
