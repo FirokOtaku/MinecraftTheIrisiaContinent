@@ -1,3 +1,13 @@
+0.12.38
+加入部分合成表
+add some crafting recipes
+加入褐煤矿、热石矿方块
+add OreDwartCoal, CoreHotStone blocks
+加入褐煤、热石物品
+add DwartCoal, HotStone items
+加入链枷武器
+add FlailWeapon items
+
 0.12.37
 重构状态效果实现方式
 rewrite the way of implementing of potion effects

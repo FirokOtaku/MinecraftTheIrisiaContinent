@@ -2,9 +2,12 @@ package firok.irisia.item;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import firok.irisia.Irisia;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 
 import java.util.List;
@@ -26,6 +29,8 @@ public class RawMaterials
 	public final static InformationItem UnicornBlood; // 独角兽血
 	public final static InformationItem SlimeCore; // 史莱姆核
 	public final static InformationItem SoulCrystal; // 灵魂结晶
+	public final static InformationItem DwartCoal; // 褐煤
+	public final static InformationItem HotStone; // 热石
 
 	// food material
 	public final static InformationItem BrownWheat; // 褐麦
@@ -85,10 +90,11 @@ public class RawMaterials
 		UnicornBlood =new InformationItem();
 		SlimeCore=new InformationItem();
 		SoulCrystal=new InformationItem();
+		DwartCoal=new InformationItem();
+		HotStone=new InformationItem();
 
 		BrownWheat=new InformationItem();
 		DwartFlour=new InformationItem();
-		MultiCoreBrain=new InformationItem();
 
 		ElfStone= new InformationItem();
 		FlumetalIngot= new InformationItem();
@@ -104,6 +110,7 @@ public class RawMaterials
 
 		GoldenSilk = new InformationItem();
 		DiamondSilk = new InformationItem();
+		MultiCoreBrain=new InformationItem();
 
 		CoinCopper = new InformationItem();
 		CoinCopperPile = new InformationItem();
@@ -152,6 +159,34 @@ public class RawMaterials
 			{
 				info.add(line);
 			}
+		}
+
+		@Override
+		public Item setTextureName(String name)
+		{
+			this.iconString=name;
+			System.out.println(iconString);
+			return this;
+		}
+
+		@Override
+		@SideOnly(Side.CLIENT)
+		public void registerIcons(IIconRegister iir)
+		{
+			this.itemIcon = iir.registerIcon(this.getIconString());
+		}
+		/**
+		 * Returns the string associated with this Item's Icon.
+		 */
+		@SideOnly(Side.CLIENT)
+		protected String getIconString()
+		{
+			return iconString==null?"ERROR":iconString;
+		}
+		@SideOnly(Side.CLIENT)
+		public IIcon getIconFromDamage(int p_77617_1_)
+		{
+			return this.itemIcon;
 		}
 	}
 

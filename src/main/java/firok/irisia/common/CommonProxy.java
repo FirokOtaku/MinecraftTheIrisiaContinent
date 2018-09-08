@@ -4,6 +4,7 @@ import cpw.mods.fml.common.event.*;
 import firok.irisia.Irisia;
 import firok.irisia.block.BlockLoader;
 import firok.irisia.command.CommandLoader;
+import firok.irisia.crafting.CraftingLoader;
 import firok.irisia.enchantment.EnchantmentLoader;
 import firok.irisia.inventory.GuiElementLoader;
 import firok.irisia.item.*;
@@ -49,7 +50,7 @@ public class CommonProxy
     {
     	HerbSeeds.postInit(); // 防止交叉引用初始化可能导致的问题
 
-//    	new CraftingLoader();
+    	new CraftingLoader();
 	    EnchantmentLoader.info();
 //
     	new EventLoader();

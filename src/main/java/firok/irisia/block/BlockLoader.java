@@ -22,6 +22,9 @@ public class BlockLoader
 		register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.OreAdamantium,"oreAdamantium","ore_adamantium");
 		register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.OreFlumetal,"oreFlumetal","ore_flumetal");
 		register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.OreElfStone,"oreElfStone","ore_elfstone");
+		register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.OreDwartCoal,"oreDwartCoal","ore_dwartcoal");
+		register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.OreHotStone,"oreHotStone","ore_hotstone");
+
 
 		register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.BlockMithril,"blockMithril","block_mithril");
 		register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.BlockAdamantium,"blockAdamantium","block_damantium");
@@ -30,6 +33,9 @@ public class BlockLoader
 		register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.BlockMogiga,"blockMogiga","block_mogiga");
 		register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.BlockDwartSteel,"blockDwartSteel","block_dwartsteel");
 		register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.BlockElfStone,"blockElfStone","block_elfstone");
+		register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.BlockDwartCoal,"blockDwartCoal","block_dwartcoal");
+		register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.BlockHotStone,"blockHotStone","block_hotstone");
+
 
 	}
 	private static void registerHerbs()

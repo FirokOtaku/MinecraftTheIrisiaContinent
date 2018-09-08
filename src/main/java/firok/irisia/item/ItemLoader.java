@@ -55,7 +55,8 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.irisiaMaterial,RawMaterials.SlimeCore,"material_slime_core","SlimeCore");
 		register(IrisiaCreativeTabs.irisiaMaterial,RawMaterials.BrownWheat,"material_brown_wheat","BrownWheat");
 		register(IrisiaCreativeTabs.irisiaMaterial,RawMaterials.SoulCrystal,"material_soul_crystal","SoulCrystal");
-
+		register(IrisiaCreativeTabs.irisiaMaterial,RawMaterials.DwartCoal,"material_dwart_coal","DwartCoal");
+		register(IrisiaCreativeTabs.irisiaMaterial,RawMaterials.HotStone,"material_hot_stone","HotStone");
 
 		register(IrisiaCreativeTabs.irisiaMaterial,RawMaterials.DwartFlour,"material_dwart_flour","DwartFlour");
 		register(IrisiaCreativeTabs.irisiaMaterial,RawMaterials.ElfStone,"material_elf_stone","ElfStone");
@@ -71,6 +72,16 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.irisiaMaterial,RawMaterials.GoldenSilk,"material_golden_silk","GoldenSilk");
 		register(IrisiaCreativeTabs.irisiaMaterial,RawMaterials.DiamondSilk,"material_diamond_silk","DiamondSilk");
 		register(IrisiaCreativeTabs.irisiaMaterial,RawMaterials.MultiCoreBrain,"material_multicore_brain","MultiCoreBrain");
+
+		register(IrisiaCreativeTabs.irisia,RawMaterials.CoinCopper,"coin_copper","CoinCopper");
+		register(IrisiaCreativeTabs.irisia,RawMaterials.CoinCopperPile,"coin_copper_pile","CoinCopperPile");
+		register(IrisiaCreativeTabs.irisia,RawMaterials.CoinSilver,"coin_silver","CoinSilver");
+		register(IrisiaCreativeTabs.irisia,RawMaterials.CoinSilverPile,"coin_silver_pile","CoinSilverPile");
+		register(IrisiaCreativeTabs.irisia,RawMaterials.CoinGold,"coin_gold","CoinGold");
+		register(IrisiaCreativeTabs.irisia,RawMaterials.CoinGoldPile,"coin_gold_pile","CoinGoldPile");
+		register(IrisiaCreativeTabs.irisia,RawMaterials.CoinIrisia,"coin_irisia","CoinIrisia");
+		register(IrisiaCreativeTabs.irisia,RawMaterials.CoinIrisiaPile,"coin_irisia_pile","CoinIrisiaPile");
+
 	}
 	private static void registerEquipments()
 	{
@@ -113,6 +124,7 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.irisiaTC,Wands.LifeWoodSet);
 		register(IrisiaCreativeTabs.irisiaTC,Wands.SpectreSet);
 		register(IrisiaCreativeTabs.irisiaTC,Wands.ItemNodeRod,"rod_node","NodeRod");
+		register(IrisiaCreativeTabs.irisiaTC,Wands.ItemCreativeRod,"rod_creative","CreativeRod");
 		register(IrisiaCreativeTabs.irisiaTC,Wands.AdamantiumSet);
 		register(IrisiaCreativeTabs.irisiaTC,Wands.MithrilSet);
 		register(IrisiaCreativeTabs.irisiaTC,Wands.SolitaSet);
@@ -149,6 +161,24 @@ public class ItemLoader
 	{
 		register(IrisiaCreativeTabs.irisia,ConsumableWeapons.ThrowableWeapons,"consw_tws","ThrowableWeapons");
 	}
+	private static void registerWeapons()
+	{
+		register(IrisiaCreativeTabs.irisiaEqui,Weapons.FlailWood,"weapon_flail_wood","WeaponFlailWood");
+		register(IrisiaCreativeTabs.irisiaEqui,Weapons.FlailIron,"weapon_flail_iron","WeaponFlailIron");
+		register(IrisiaCreativeTabs.irisiaEqui,Weapons.FlailGold,"weapon_flail_gold","WeaponFlailGold");
+		register(IrisiaCreativeTabs.irisiaEqui,Weapons.FlailDiamond,"weapon_flail_diamond","WeaponFlailDiamond");
+		register(IrisiaCreativeTabs.irisiaEqui,Weapons.FlailVoidMetal,"weapon_flail_void_metal","WeaponFlailVoidMetal");
+		register(IrisiaCreativeTabs.irisiaEqui,Weapons.FlailAdamantium,"weapon_flail_adamantium","WeaponFlailAdamantium");
+		register(IrisiaCreativeTabs.irisiaEqui,Weapons.FlailMithril,"weapon_flail_mithril","WeaponFlailMithri;");
+		register(IrisiaCreativeTabs.irisiaEqui,Weapons.FlailSolita,"weapon_flail_solita","WeaponFlailSolita");
+		register(IrisiaCreativeTabs.irisiaEqui,Weapons.FlailMogiga,"weapon_flail_mogiga","WeaponFlailMogiga");
+		register(IrisiaCreativeTabs.irisiaEqui,Weapons.FlailBone,"weapon_flail_bone","WeaponFlailBone");
+	}
+//	private static void registerSeeds()
+//	{
+//		register(IrisiaCreativeTabs.irisia, HerbSeeds.DeathGrassSeed,"seed_death_grass","DeathGrassSeed");
+//		register(IrisiaCreativeTabs.irisia, HerbSeeds.MoonGrassSeed,"seed_moon_grass","MoonGrassSeed");
+//	}
 	protected static void registerItems()
     {
 	    registerEquipments();
@@ -166,6 +196,8 @@ public class ItemLoader
 	    registerConsumables();
 
 	    registerConsumableWeapons();
+
+	    registerWeapons();
 
 //	    registerSeeds();
     }
