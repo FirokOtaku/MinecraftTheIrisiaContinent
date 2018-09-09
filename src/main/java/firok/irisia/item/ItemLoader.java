@@ -173,6 +173,8 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.irisiaEqui,Weapons.FlailSolita,"weapon_flail_solita","WeaponFlailSolita");
 		register(IrisiaCreativeTabs.irisiaEqui,Weapons.FlailMogiga,"weapon_flail_mogiga","WeaponFlailMogiga");
 		register(IrisiaCreativeTabs.irisiaEqui,Weapons.FlailBone,"weapon_flail_bone","WeaponFlailBone");
+
+		register(IrisiaCreativeTabs.irisiaEqui,Weapons.VoidRunicLongBow,"weapon_void_runic_long_bow","WeaponVoidRunicLongBow");
 	}
 //	private static void registerSeeds()
 //	{

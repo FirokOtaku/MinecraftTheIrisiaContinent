@@ -1,3 +1,9 @@
+0.12.39
+加入符文长弓武器
+add RunicLongBow weapon
+加入测试靶实体
+add TestTarget entity
+
 0.12.38
 加入部分合成表
 add some crafting recipes

@@ -31,7 +31,50 @@ import java.util.List;
 
 public class Throwables
 {
+	public static class EntityRunicArrow extends EntityThrowable
+	{
+		private float size=1;
+		public EntityRunicArrow(World world,double x,double y,double z,float size)
+		{
+			super(world, x, y, z);
+			this.size=size<1?1:size;
+			this.motionX*=this.size*2f;
+			this.motionY*=this.size*2f;
+			this.motionZ*=this.size*2f;
+		}
+		public EntityRunicArrow(World world, double x, double y, double z)
+		{
+			this(world, x, y, z,1);
+		}
+		public EntityRunicArrow(World world,EntityLivingBase enlb,float size)
+		{
+			super(world,enlb);
+			this.size=size<1?1:size;
+			this.motionX*=this.size*2f;
+			this.motionY*=this.size*2f;
+			this.motionZ*=this.size*2f;
+		}
 
+		@Override
+		protected void onImpact(MovingObjectPosition mop)
+		{
+			if (mop.entityHit != null && mop.entityHit instanceof EntityLivingBase)
+			{
+				mop.entityHit.attackEntityFrom(DamageSources.MagicAmplificativeDamage, size*size*3);
+				// ((EntityLivingBase)mop.entityHit) .addPotionEffect(new PotionEffect(Potion.moveSlowdown.id,40,size-1));
+				mop.entityHit.playSound("thaumcraft:jacobs",1,1); // todo 以后换成别的声音
+			}
+
+			if(!worldObj.isRemote)
+				this.setDead();
+		}
+
+		@Override
+		protected float getGravityVelocity()
+		{
+			return 0.01f;
+		}
+	}
 	public static class EntityStone extends EntityThrowable
 	{
 		private int size=1;
