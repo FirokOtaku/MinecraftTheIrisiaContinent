@@ -1,3 +1,7 @@
+0.12.40
+加入硬币计算接口
+add interface of counting coins
+
 0.12.39
 加入符文长弓武器
 add RunicLongBow weapon
