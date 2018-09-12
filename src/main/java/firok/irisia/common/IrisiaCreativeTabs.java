@@ -15,6 +15,7 @@ public class IrisiaCreativeTabs
 	public static CreativeTabs irisiaMaterial;
 	public static CreativeTabs irisiaBlock;
 	public static CreativeTabs irisiaFood;
+	public static CreativeTabs irisiaBerry;
 	public static CreativeTabs irisiaTC;
 
 	public static void load(FMLPreInitializationEvent event)
@@ -47,6 +48,14 @@ public class IrisiaCreativeTabs
 				return Items.apple;
 			}
 		};
+		irisiaBerry=new CreativeTabs("irisiaBerry")
+		{
+			@Override
+			public Item getTabIconItem()
+			{
+				return Items.bread;
+			}
+		};
 		irisiaEqui = new CreativeTabs("irisiaEqui"){
 			@Override
 			public Item getTabIconItem()
@@ -61,5 +70,6 @@ public class IrisiaCreativeTabs
 				return Items.book;
 			}
 		};
+
 	}
 }

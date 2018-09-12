@@ -1,3 +1,13 @@
+0.12.41
+加入创造模式杖芯
+add CreativeRod item
+加入狼毛、冰狼毛装甲套装
+add WolfFurSet, IcyWolfFurSet armor sets
+细微调整跟进
+adjust some code
+更新部分材质
+update some textures
+
 0.12.40
 加入硬币计算接口
 add interface of counting coins

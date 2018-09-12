@@ -259,7 +259,7 @@ public class EventLoader
 	    if(amount<0)amount=0;
 	    event.ammount=amount;
     }
-    private static String toString(DamageSource damage)
+    public static String toString(DamageSource damage)
     {
     	StringBuffer ret=new StringBuffer();
 	    ret.append("\ndamageType: ");ret.append(damage.damageType);

@@ -6,6 +6,8 @@ import firok.irisia.Irisia;
 import firok.irisia.block.HerbsAndMushroom;
 import firok.irisia.common.IrisiaCreativeTabs;
 import firok.irisia.mod.tc.Reg;
+import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -16,6 +18,13 @@ import java.util.*;
 
 import firok.irisia.item.EquipmentSets.EquipmentSet;
 import net.minecraft.item.ItemSeeds;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.IItemRenderer;
+import net.minecraftforge.client.MinecraftForgeClient;
+import thaumcraft.api.research.ResearchCategories;
+import thaumcraft.api.research.ResearchCategoryList;
+import thaumcraft.client.renderers.tile.ItemJarFilledRenderer;
+import thaumcraft.common.config.ConfigItems;
 
 
 @SuppressWarnings({"unused","deprecation"})
@@ -123,8 +132,8 @@ public class ItemLoader
 		// 法杖套装
 		register(IrisiaCreativeTabs.irisiaTC,Wands.LifeWoodSet);
 		register(IrisiaCreativeTabs.irisiaTC,Wands.SpectreSet);
-		register(IrisiaCreativeTabs.irisiaTC,Wands.ItemNodeRod,"rod_node","NodeRod");
-		register(IrisiaCreativeTabs.irisiaTC,Wands.ItemCreativeRod,"rod_creative","CreativeRod");
+		register(IrisiaCreativeTabs.irisiaTC,Wands.ItemNodeRod,"wand_rod_node","NodeRod");
+		register(IrisiaCreativeTabs.irisiaTC,Wands.ItemCreativeRod,"wand_rod_creative","CreativeRod");
 		register(IrisiaCreativeTabs.irisiaTC,Wands.AdamantiumSet);
 		register(IrisiaCreativeTabs.irisiaTC,Wands.MithrilSet);
 		register(IrisiaCreativeTabs.irisiaTC,Wands.SolitaSet);
@@ -278,19 +287,6 @@ public class ItemLoader
 //        	registerTcContent(item);
 //        if(Loader.isModLoaded("Tinkers' Contruct"))
 //        	registerTicContent(item);
-
-    }
-    @SideOnly(Side.CLIENT)
-    private static void registerRender(Item item)
-    {
-//        ModelResourceLocation model = new ModelResourceLocation(item.getRegistryName(), "inventory");
-//        ModelLoader.setCustomModelResourceLocation(item, 0, model);
-    }
-    @SideOnly(Side.CLIENT)
-    private static void registerRender(Item item,int meta)
-    {
-//        ModelResourceLocation model = new ModelResourceLocation(item.getRegistryName(), "inventory");
-//        ModelLoader.setCustomModelResourceLocation(item, meta, model);
     }
  	
     // thaumcraft item registerLoot // 神秘时代注册

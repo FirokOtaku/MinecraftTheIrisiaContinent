@@ -48,6 +48,16 @@ public class ConfigLoader
     
     // Tree // 树相关
     ;
+
+    // ores 矿物相关
+    public static int amountOGMithril;
+    public static int amountOGAdamantium;
+    public static int amountOGFlumetal;
+    public static int amountOGElfStone;
+    public static float rateOGMithril;
+    public static float rateOGAdamantium;
+    public static float rateOGFlumetal;
+    public static float rateOGElfStone;
     
     // Display // 显示相关
     public static float displayParticleDencity;
@@ -102,6 +112,38 @@ public class ConfigLoader
         idewElastic =config.get(Configuration.CATEGORY_GENERAL,
                 "idEnchantmentWeight_Elastic", 10,
                 "弹性附魔的比重").getInt();
+    }
+    private static void initConfigOres()
+    {
+        amountOGMithril=config.get(Configuration.CATEGORY_GENERAL,
+                "amountOreGenMithril",8,
+                "秘银生成量").getInt();
+        amountOGAdamantium=config.get(Configuration.CATEGORY_GENERAL,
+                "amountOreGenAdamantium",8,
+                "精金生成量").getInt();
+        amountOGFlumetal=config.get(Configuration.CATEGORY_GENERAL,
+                "amountOreGenMithril",12,
+                "流铁生成量").getInt();
+        amountOGElfStone =config.get(Configuration.CATEGORY_GENERAL,
+                "amountOreGenElfStone",16,
+                "精灵石生成量").getInt();
+
+        rateOGAdamantium=config.getFloat(Configuration.CATEGORY_GENERAL,
+                "rateOreGen_Adamantium",
+                0.7f,0f,1f,
+                "精金生成比率");
+        rateOGMithril=config.getFloat(Configuration.CATEGORY_GENERAL,
+                "rateOreGen_Mithril",
+                0.7f,0f,1f,
+                "秘银生成比率");
+        rateOGElfStone=config.getFloat(Configuration.CATEGORY_GENERAL,
+                "rateOreGen_ElfStone",
+                0.7f,0f,1f,
+                "精灵石生成比率");
+        rateOGFlumetal=config.getFloat(Configuration.CATEGORY_GENERAL,
+                "rateOreGen_Flumetal",
+                0.7f,0f,1f,
+                "流铁生成比率");
     }
     private static void initConfigDisplay()
     {

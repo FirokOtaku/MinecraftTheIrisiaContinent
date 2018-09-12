@@ -4,12 +4,16 @@ import java.util.LinkedList;
 import java.util.List;
 
 import firok.irisia.Irisia;
+import firok.irisia.Util;
+import firok.irisia.entity.Npcs;
+import firok.irisia.entity.Throwables;
 import firok.irisia.item.Consumables;
 import firok.irisia.item.EquipmentUniqueBaubles;
 import firok.irisia.potion.Potions;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.ai.EntityAITradePlayer;
+import net.minecraft.command.IEntitySelector;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
@@ -18,6 +22,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 
@@ -65,13 +70,35 @@ public class CommandLoader
 
 		held.readFromNBT(nbt);
 	}
-	private void eff_love(ICommandSender sender,String[] args)
+	private void eff(ICommandSender sender, String[] args)
 	{
 		EntityPlayer player=(EntityPlayer)sender;
-			if(player.worldObj.isRemote)
-				return;
 
-		player.addPotionEffect(new PotionEffect(Potions.Love.id,200,0));
+		int time=200;
+		try{time=Integer.parseInt(args[2]);}catch (Exception e){;}
+		int level=0;
+		try{level=Integer.parseInt(args[3]);}catch (Exception e){;}
+
+		if("love".equals(args[1]))
+		{
+			player.addPotionEffect(new PotionEffect(Potions.Love.id,time,level));
+		}
+		else if("nj".equals(args[1]))
+		{
+			player.addPotionEffect(new PotionEffect(Potions.Ninjia.id,time,level));
+		}
+		else if("wr".equals(args[1]))
+		{
+			player.addPotionEffect(new PotionEffect(Potions.WindRanger.id,time,level));
+		}
+		else if("ts".equals(args[1]))
+		{
+			player.addPotionEffect(new PotionEffect(Potions.Thresholded.id,time,level));
+		}
+		else if("e".equals(args[1]))
+		{
+			player.addPotionEffect(new PotionEffect(Potions.Ethereal.id,time,level));
+		}
 	}
 	private void gashapon(ICommandSender sender,String[] args)
 	{
@@ -102,6 +129,27 @@ public class CommandLoader
 			}
 		}
 	}
+	private void coin(ICommandSender sender,String[] args)
+	{
+		EntityPlayer player=(EntityPlayer)sender;
+		if("count".equals(args[1]))
+		{
+			Util.CoinCounter coins=new Util.CoinCounter(player);
+			Irisia.log(coins.toString(),player);
+			coins.optimize();
+			Irisia.log("最优化之后 : ",player);
+			Irisia.log(coins.toString(),player);
+		}
+		else if("set".equals(args[1]))
+		{
+			Util.CoinCounter coins=new Util.CoinCounter(Integer.parseInt(args[2]));
+			Irisia.log(coins.toString(),player);
+			coins.optimize();
+			Irisia.log("最优化之后 : ",player);
+			Irisia.log(coins.toString(),player);
+			coins.apply(player);
+		}
+	}
 	private void invsee(ICommandSender sender,String[] args)
 	{
 		EntityPlayer player=(EntityPlayer)sender;
@@ -116,6 +164,50 @@ public class CommandLoader
 		}
 		Irisia.log(sb.toString(),player);
 	}
+	private void tb(ICommandSender sender,String[] args)
+	{
+		EntityPlayer player=(EntityPlayer)sender;
+		Irisia.log("summon a thunder ball !",player);
+		player.worldObj.spawnEntityInWorld(new Throwables.EntityThunderBall(player.worldObj,player,0.2f));
+	}
+	private void sound(ICommandSender sender,String[] args)
+	{
+		EntityPlayer player=(EntityPlayer)sender;
+		player.worldObj.playSoundAtEntity(player,args[1],1,1);
+	}
+	private void tt(ICommandSender sender,String[] args)
+	{
+		EntityPlayer player=(EntityPlayer)sender;
+		if("kill".equals(args[1]))
+		{
+			List entities=player.worldObj.getEntitiesWithinAABBExcludingEntity(
+					player,
+					AxisAlignedBB.getBoundingBox(
+							player.posX-64,player.posY-64,player.posZ-64,
+							player.posX+64,player.posY+64,player.posZ+64),
+					new IEntitySelector(){
+
+						@Override
+						public boolean isEntityApplicable(Entity entity)
+						{
+							return entity instanceof Npcs.TestTarget;
+						}
+					});
+
+			for(Object obj:entities)
+			{
+				Npcs.TestTarget target=(Npcs.TestTarget)obj;
+				target.setDead();
+				Irisia.log("target removed",player);
+			}
+		}
+		else if("spawn".equals(args[1]))
+		{
+			player.worldObj.spawnEntityInWorld(
+					new Npcs.TestTarget(player.worldObj,player.posX,player.posY,player.posZ));
+			Irisia.log("target spawned",player);
+		}
+	}
     public CommandLoader(FMLServerStartingEvent event)
     {
 	    event.registerServerCommand(new ICommand()
@@ -123,15 +215,22 @@ public class CommandLoader
 		    @Override
 		    public void processCommand(ICommandSender sender, String[] args)
 		    {
+		    	StringBuffer sb=new StringBuffer();
+		    	for(String arg:args)
+			    {
+			    	sb.append(arg);
+			    	sb.append(' ');
+			    }
+			    Irisia.log(sb,(EntityPlayer)sender);
 			    try
 			    {
 				    if("show".equals(args[0]))
 				    {
 					    show(sender,args);
 				    }
-				    else if("eff_love".equals(args[0]))
+				    else if("eff".equals(args[0]))
 				    {
-					    eff_love(sender,args);
+					    eff(sender,args);
 				    }
 				    else if("add_exp".equals(args[0]))
 				    {
@@ -148,6 +247,22 @@ public class CommandLoader
 				    else if("invsee".equals(args[0]))
 				    {
 				    	invsee(sender,args);
+				    }
+				    else if("coin".equals(args[0]))
+				    {
+				    	coin(sender,args);
+				    }
+				    else if("tb".equals(args[0]))
+				    {
+				    	tb(sender,args);
+				    }
+				    else if("sound".equals(args[0]))
+				    {
+				    	sound(sender,args);
+				    }
+				    else if("tt".equals(args[0]))
+				    {
+				    	tt(sender,args);
 				    }
 			    }
 			    catch (Exception exception)

@@ -29,8 +29,8 @@ public class TcContent
 	private static void initCategories()
 	{
 		ResearchCategories.registerCategory(cata,
-				new ResourceLocation(Irisia.MODID, "textures/items/tc_page_icon.png"),
-				new ResourceLocation(Irisia.MODID, "textures/tc_page_bg.png"));
+				new ResourceLocation("thaumcraft", "textures/gui/gui_researchbackeldritch.png"),
+				new ResourceLocation("thaumcraft", "textures/gui/gui_researchback.png"));
 	}
 	private static void initItems()
 	{

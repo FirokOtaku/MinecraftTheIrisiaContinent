@@ -11,8 +11,11 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import firok.irisia.Irisia;
 import firok.irisia.ability.CauseTeleportation;
+import firok.irisia.entity.Pets;
 import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
+import net.minecraft.command.IEntitySelector;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -22,6 +25,7 @@ import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -47,9 +51,11 @@ public class EquipmentUniqueBaubles
 	public final static EquipmentSets.Ring LucidRing; // 清明指环
 	public final static EquipmentSets.Ring LoveRing; // 爱情指环
 
+	public final static EquipmentSets.Amulet PhotosynthesisAmulet; // 光合护身符
 	public final static EquipmentSets.Belt DwartTravellerBelt; // 矮人旅行者腰带
 	public static EquipmentSets.Amulet SpeAmulet; // 诅咒之护符
 	public static EquipmentSets.Amulet CoreAmulet; // 遥控护符
+	public final static EquipmentSets.Amulet TwelveMagicalPowerAmulet; // 十二魔力护符
 
 	public static EquipmentSets.Belt DwartBelt; // 矮人腰带
 	public static EquipmentSets.Ring KingRing; // 人王指环
@@ -291,7 +297,7 @@ public class EquipmentUniqueBaubles
 			}
 		};
 
-		DwartTravellerBelt=new AbilityBelt() // FIXME 重新加载游戏之后会消失
+		DwartTravellerBelt=new AbilityBelt()
 		{
 			public final String[] slotKeys=new String[]
 					{"slot0","slot1","slot2",
@@ -388,11 +394,57 @@ public class EquipmentUniqueBaubles
 			}
 		}; // 矮人旅行者腰带
 
+		TwelveMagicalPowerAmulet=new EquipmentSets.Amulet(){
+			@Override
+			public void onWornTick(ItemStack is, EntityLivingBase enlb)
+			{
+				if(!enlb.worldObj.isRemote && enlb instanceof EntityPlayer)
+				{
+					long ticks=enlb.worldObj.getWorldTime();
+					// 20min×60s×20tick= 24000 tick
+					// 2000tick=2h
+					//
+					if(ticks%2000!=0)
+						return;
+					int h=(int)(ticks/2000%12);
+					Irisia.log(String.valueOf(h),(EntityPlayer)enlb); // TOREMOVE 以后删掉
+					switch (h)
+					{
+						case 0: // todo 还没确定具体加什么效果
+							;
+							break;
+						case 1:
+							break;
+						case 2:
+							break;
+						case 3:
+							break;
+						case 4:
+							break;
+						case 5:
+							break;
+						case 6:
+							break;
+						case 7:
+							break;
+						case 8:
+							break;
+						case 9:
+							break;
+						case 10:
+							break;
+						case 11: default:
+							break;
+					}
+
+				}
+			}
+		}; // 十二魔力护符
+
 	}
 
 
-	// amulets
-	public final static EquipmentSets.Amulet PhotosynthesisAmulet; // 光合护身符
+
 
 	public static interface IBaubleAbility
 	{

@@ -23,10 +23,13 @@ public class EquipmentSets
 	public final static EquipmentSet SolitaSet;
 	public final static EquipmentSet MogigaSet;
 
-	public final static ArmorSet WindRangerSet;
-	public final static ArmorSet DwartMinerSet;
-	public final static ArmorSet GarrisonSet;
-	public final static ArmorSet NinjiaSet;
+	public final static ArmorSet WolfFurSet;
+	public final static ArmorSet IcyWolfFurSet;
+
+	public final static EffectArmorSet WindRangerSet;
+	public final static EffectArmorSet DwartMinerSet;
+	public final static EffectArmorSet GarrisonSet;
+	public final static EffectArmorSet NinjiaSet;
 
 	static
 	{
@@ -39,6 +42,9 @@ public class EquipmentSets
 		LifeWoodSet=new EquipmentSet("lifewood",Materials.LifeWoodArmor,Materials.LifeWoodTool,false,false,false,true); // 转移到 EquipmentAutoRepair
 		SolitaSet=new EquipmentSet("solita",Materials.SolitaArmor,Materials.SolitaTool);
 		MogigaSet=new EquipmentSet("mogiga",Materials.MogigaArmor,Materials.MogigaTool);
+
+		WolfFurSet=new ArmorSet("wolffur",Materials.WolfFurArmor);
+		IcyWolfFurSet=new ArmorSet("icywolffur",Materials.IcyWolfFurArmor);
 
 		WindRangerSet=new EffectArmorSet("windranger",ItemArmor.ArmorMaterial.CLOTH);
 		DwartMinerSet=new EffectArmorSet("dwartminer",ItemArmor.ArmorMaterial.IRON);
