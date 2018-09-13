@@ -2,11 +2,6 @@ package firok.irisia.item;
 
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
-import baubles.api.IBauble;
-import baubles.common.container.InventoryBaubles;
-import baubles.common.items.ItemRing;
-import baubles.common.lib.PlayerHandler;
-import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import firok.irisia.Irisia;
@@ -14,12 +9,12 @@ import firok.irisia.ability.CauseTeleportation;
 import firok.irisia.entity.Pets;
 import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
+import net.minecraft.client.particle.EntityFX;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
@@ -28,12 +23,12 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.BonemealEvent;
-import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.aspects.Aspect;
 import thaumcraft.common.Thaumcraft;
+import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.lib.research.PlayerKnowledge;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EquipmentUniqueBaubles
@@ -44,25 +39,6 @@ public class EquipmentUniqueBaubles
 	public final static EquipmentSets.Ring FortuneRing; // 幸运指环
 	public final static EquipmentSets.Ring MinersRing; // 矿工指环
 	public final static EquipmentSets.Ring GuardiansRing; // 守卫者指环
-
-	public final static EquipmentSets.Ring ThrivingRing; // 茁壮指环
-	public final static EquipmentSets.Ring InsaneRing; // 癫狂指环
-	public static EquipmentSets.Ring ScarletRing; // 猩红指环
-	public final static EquipmentSets.Ring LucidRing; // 清明指环
-	public final static EquipmentSets.Ring LoveRing; // 爱情指环
-
-	public final static EquipmentSets.Amulet PhotosynthesisAmulet; // 光合护身符
-	public final static EquipmentSets.Belt DwartTravellerBelt; // 矮人旅行者腰带
-	public static EquipmentSets.Amulet SpeAmulet; // 诅咒之护符
-	public static EquipmentSets.Amulet CoreAmulet; // 遥控护符
-	public final static EquipmentSets.Amulet TwelveMagicalPowerAmulet; // 十二魔力护符
-
-	public static EquipmentSets.Belt DwartBelt; // 矮人腰带
-	public static EquipmentSets.Ring KingRing; // 人王指环
-	public static EquipmentSets.Ring ElfRing; // 精灵指环
-	public static EquipmentSets.Amulet TeethAmulet; // 兽牙项链
-
-
 	static
 	{
 		FortuneRing=new EquipmentSets.Ring()
@@ -119,8 +95,15 @@ public class EquipmentUniqueBaubles
 				}
 			}
 		};
+	}
 
-
+	public final static EquipmentSets.Ring ThrivingRing; // 茁壮指环
+	public final static EquipmentSets.Ring InsaneRing; // 癫狂指环
+	public static EquipmentSets.Ring ScarletRing; // 猩红指环
+	public final static EquipmentSets.Ring LucidRing; // 清明指环
+	public final static EquipmentSets.Ring LoveRing; // 爱情指环
+	static
+	{
 		ThrivingRing=new EquipmentSets.Ring(){
 			@Override
 			public void onWornTick(ItemStack is, EntityLivingBase enlb)
@@ -280,8 +263,15 @@ public class EquipmentUniqueBaubles
 				}
 			}
 		}; // 爱情指环
+	}
 
-
+	public final static EquipmentSets.Amulet PhotosynthesisAmulet; // 光合护身符
+	public final static EquipmentSets.Belt DwartTravellerBelt; // 矮人旅行者腰带
+	public static EquipmentSets.Amulet SpeAmulet; // 诅咒之护符
+	public static EquipmentSets.Amulet CoreAmulet; // 遥控护符
+	public final static EquipmentSets.Amulet TwelveMagicalPowerAmulet; // 十二魔力护符
+	static
+	{
 		PhotosynthesisAmulet=new EquipmentSets.Amulet()
 		{
 			@Override
@@ -301,8 +291,8 @@ public class EquipmentUniqueBaubles
 		{
 			public final String[] slotKeys=new String[]
 					{"slot0","slot1","slot2",
-					"slot3","slot4","slot5",
-					"slot6","slot7","slot8"};
+							"slot3","slot4","slot5",
+							"slot6","slot7","slot8"};
 			public ItemStack[] getStacksFromNBT(NBTTagCompound nbt)
 			{
 				ItemStack[] ret=new ItemStack[9];
@@ -434,16 +424,198 @@ public class EquipmentUniqueBaubles
 						case 10:
 							break;
 						case 11: default:
-							break;
+						break;
 					}
 
 				}
 			}
 		}; // 十二魔力护符
-
 	}
 
+	public final static VisRing DimVisRingEarth;
+	public final static VisRing DimVisRingFire;
+	public final static VisRing DimVisRingWater;
+	public final static VisRing DimVisRingAir;
+	public final static VisRing DimVisRingOrder;
+	public final static VisRing DimVisRingEntropy;
+	public final static VisRing VisRingEarth;
+	public final static VisRing VisRingFire;
+	public final static VisRing VisRingWater;
+	public final static VisRing VisRingAir;
+	public final static VisRing VisRingOrder;
+	public final static VisRing VisRingEntropy;
+	static
+	{
+		List<Aspect> earth=new ArrayList<>();
+		int intervalDim=120;
+		int realCountDim=100;
+		int interval=120;
+		int realCount=200;
+		earth.add(Aspect.EARTH);
+		DimVisRingEarth=new VisRing(intervalDim,earth,realCountDim);
+		VisRingEarth=new VisRing(interval,earth,realCount);
 
+		List<Aspect> air=new ArrayList<>();
+		air.add(Aspect.AIR);
+		DimVisRingAir=new VisRing(intervalDim,air,realCountDim);
+		VisRingAir=new VisRing(interval,air,realCount);
+
+		List<Aspect> water=new ArrayList<>();
+		water.add(Aspect.WATER);
+		DimVisRingWater=new VisRing(intervalDim,water,realCountDim);
+		VisRingWater=new VisRing(interval,water,realCount);
+
+		List<Aspect> fire=new ArrayList<>();
+		fire.add(Aspect.FIRE);
+		DimVisRingFire=new VisRing(intervalDim,fire,realCountDim);
+		VisRingFire=new VisRing(interval,fire,realCount);
+
+		List<Aspect> order=new ArrayList<>();
+		order.add(Aspect.ORDER);
+		DimVisRingOrder=new VisRing(intervalDim,order,realCountDim);
+		VisRingOrder=new VisRing(interval,order,realCount);
+
+		List<Aspect> entropy=new ArrayList<>();
+		entropy.add(Aspect.ENTROPY);
+		DimVisRingEntropy=new VisRing(intervalDim,entropy,realCountDim);
+		VisRingEntropy=new VisRing(interval,entropy,realCount);
+	}
+
+	public static EquipmentSets.Belt DwartBelt; // 矮人腰带
+	public static EquipmentSets.Ring KingRing; // 人王指环
+	public static EquipmentSets.Ring ElfRing; // 精灵指环
+	public static EquipmentSets.Amulet TeethAmulet; // 兽牙项链
+	static
+	{}
+
+
+
+
+	public static class VisRing extends VisBauble
+	{
+		public VisRing(int interval, List<Aspect> aspects, int realVisCount)
+		{
+			super(interval,aspects,realVisCount);
+		}
+		@Override
+		public BaubleType getBaubleType(ItemStack itemStack)
+		{
+			return BaubleType.RING;
+		}
+	}
+	public static abstract class VisBauble extends EquipmentSets.ItemBauble // info 给法杖恢复魔力
+	{
+		Aspect aspect;
+		List<Aspect> aspects;
+		int count;
+		int interval;
+		protected VisBauble()
+		{
+			this(8000,Irisia.noAspect,0);
+		}
+		public VisBauble(int interval, List<Aspect> aspects, int realVisCounts)
+		{
+			this.interval=interval>0?interval:8000;
+			this.aspects=aspects==null?Irisia.noAspect:aspects;
+			this.count=realVisCounts>0?realVisCounts:0;
+		}
+
+		@Override
+		public void onWornTick(ItemStack itemStack,EntityLivingBase enlb)
+		{
+			if(enlb.worldObj.isRemote ||
+					Irisia.noAspect==this.aspects ||
+					enlb.ticksExisted%interval!=0 ||
+					count==0 ||
+					! (enlb instanceof EntityPlayer)
+					)
+				return;
+			EntityPlayer player=(EntityPlayer)enlb;
+			InventoryPlayer inv=player.inventory;
+			for(int i=0;i<inv.getSizeInventory();i++)
+			{
+				ItemStack stackInSlot=inv.getStackInSlot(i);
+				if(stackInSlot==null || stackInSlot.stackSize<=0 || !(stackInSlot.getItem() instanceof ItemWandCasting)) continue;
+				ItemWandCasting cast=(ItemWandCasting)stackInSlot.getItem();
+				boolean canAdd=false;
+				int maxVis=cast.getMaxVis(stackInSlot);
+				for(Aspect as:aspects)
+				{
+					if(cast.getVis(stackInSlot,as)<maxVis)
+					{
+						canAdd=true;
+						break;
+					}
+				}
+				if(!canAdd)
+					continue; // info 如果全部魔力都是慢的 说明不能恢复
+				for(Aspect as:aspects)
+				{
+					cast.addRealVis(stackInSlot,as,count,true);
+				}
+				break; // info 如果执行到这里说明已经恢复过一次魔力 直接break
+			}
+		}
+	}
+
+	// note 这个以后可能删掉 用反射可能比较浪费性能 所以以后可能直接换成匿名内部类 但是感觉那样可能浪费内存
+	public static abstract class ParticleBauble extends EquipmentSets.ItemBauble
+	{
+		public final int interval;
+		public final Class<EntityFX> fx;
+		public ParticleBauble()
+		{
+			super();
+			interval=0;
+			fx=null;
+			// fx.getConstructor(Integer.class).newInstance(1);
+		}
+
+		@Override
+		public void onWornTick(ItemStack is, EntityLivingBase enlb)
+		{
+			; // todo 以后在这里渲染粒子
+		}
+	}
+	public static class ParticleRing extends ParticleBauble
+	{
+		public ParticleRing()
+		{
+			super();
+		}
+
+		@Override
+		public BaubleType getBaubleType(ItemStack itemStack)
+		{
+			return BaubleType.RING;
+		}
+	}
+	public static class ParticleAmulet extends ParticleBauble
+	{
+		public ParticleAmulet()
+		{
+			super();
+		}
+
+		@Override
+		public BaubleType getBaubleType(ItemStack itemStack)
+		{
+			return BaubleType.AMULET;
+		}
+	}
+	public static class ParticleBelt extends ParticleBauble
+	{
+		public ParticleBelt()
+		{
+			super();
+		}
+
+		@Override
+		public BaubleType getBaubleType(ItemStack itemStack)
+		{
+			return BaubleType.BELT;
+		}
+	}
 
 
 	public static interface IBaubleAbility

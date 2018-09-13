@@ -30,16 +30,12 @@ import thaumcraft.common.config.ConfigItems;
 @SuppressWarnings({"unused","deprecation"})
 public class ItemLoader
 {
-	private static LinkedList<Item> items;
-	private static LinkedList<Item> itemsTc;
+	public static ArrayList<Item> items=new ArrayList<>();
+	private static ArrayList<Item> itemsTc=new ArrayList<>();
 	
 	public ItemLoader(FMLPreInitializationEvent event)
     {
-        items=new LinkedList<Item>();
-        itemsTc=new LinkedList<Item>();
-        
     	registerItems();
-    	registerRenders();
     }
 	
 	// static 非本地化名称= new 类名
@@ -159,6 +155,18 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.DwartTravellerBelt,"belt_dwart_traveller","DwartTravellerBelt");
 		register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.TwelveMagicalPowerAmulet,"amulet_twelve_magical","TwelveMagicalAmulet");
 
+		register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.DimVisRingEarth,"ring_visring_earth_dim","DimVisRingEarth");
+		register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.DimVisRingFire,"ring_visring_fire_dim","DimVisRingFire");
+		register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.DimVisRingWater,"ring_visring_water_dim","DimVisRingWater");
+		register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.DimVisRingAir,"ring_visring_air_dim","DimVisRingAir");
+		register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.DimVisRingOrder,"ring_visring_order_dim","DimVisRingOrder");
+		register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.DimVisRingEntropy,"ring_visring_entropy_dim","DimVisRingEntropy");
+		register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.VisRingEarth,"ring_visring_earth","VisRingEarth");
+		register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.VisRingFire,"ring_visring_fire","VisRingFire");
+		register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.VisRingWater,"ring_visring_water","VisRingWater");
+		register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.VisRingAir,"ring_visring_air","VisRingAir");
+		register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.VisRingOrder,"ring_visring_order","VisRingOrder");
+		register(IrisiaCreativeTabs.irisiaEqui,EquipmentUniqueBaubles.VisRingEntropy,"ring_visring_entropy","VisRingEntropy");
 	}
 	private static void registerConsumables()
 	{
@@ -178,7 +186,7 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.irisiaEqui,Weapons.FlailDiamond,"weapon_flail_diamond","WeaponFlailDiamond");
 		register(IrisiaCreativeTabs.irisiaEqui,Weapons.FlailVoidMetal,"weapon_flail_void_metal","WeaponFlailVoidMetal");
 		register(IrisiaCreativeTabs.irisiaEqui,Weapons.FlailAdamantium,"weapon_flail_adamantium","WeaponFlailAdamantium");
-		register(IrisiaCreativeTabs.irisiaEqui,Weapons.FlailMithril,"weapon_flail_mithril","WeaponFlailMithri;");
+		register(IrisiaCreativeTabs.irisiaEqui,Weapons.FlailMithril,"weapon_flail_mithril","WeaponFlailMithril");
 		register(IrisiaCreativeTabs.irisiaEqui,Weapons.FlailSolita,"weapon_flail_solita","WeaponFlailSolita");
 		register(IrisiaCreativeTabs.irisiaEqui,Weapons.FlailMogiga,"weapon_flail_mogiga","WeaponFlailMogiga");
 		register(IrisiaCreativeTabs.irisiaEqui,Weapons.FlailBone,"weapon_flail_bone","WeaponFlailBone");
@@ -211,13 +219,6 @@ public class ItemLoader
 	    registerWeapons();
 
 //	    registerSeeds();
-    }
-    @SideOnly(Side.CLIENT)
-    public static void registerRenders()
-    {
-    	// registerRender(tokenMoneyLow);
-    	// registerRender(itemRecipe);
-    	// registerRender(functionalRandomTicker);
     }
 
     public static void register(@Nullable CreativeTabs tab,Item item,Irisia.NameObject nb)
@@ -281,7 +282,7 @@ public class ItemLoader
         if(tab!=null)
         	item.setCreativeTab(tab);
         
-        // items.add(item);
+        items.add(item);
         
 //        if(Loader.isModLoaded("Thaumcraft"))
 //        	registerTcContent(item);

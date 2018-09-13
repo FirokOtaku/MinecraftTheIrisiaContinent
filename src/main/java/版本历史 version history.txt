@@ -1,3 +1,9 @@
+0.12.42
+加入灵气饰品类
+add VisBauble class
+加入灵气指环
+add VisRing items
+
 0.12.41
 加入创造模式杖芯
 add CreativeRod item
