@@ -1,4 +1,4 @@
-package firok.irisia.crafting;
+package firok.irisia.common;
 
 import cpw.mods.fml.common.IFuelHandler;
 import firok.irisia.item.EquipmentSets;
@@ -7,6 +7,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.registry.GameRegistry;
+import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.common.config.ConfigItems;
 
 public class CraftingLoader
 {
@@ -31,6 +33,8 @@ public class CraftingLoader
 
         // coins
         registerCoinCrafting();
+
+        registerRawMaterialCrafting();
     	/*
     	GameRegistry.addShapedRecipe(new ItemStack(ItemLoader.goldenEgg), new Object[]
     			{
@@ -56,14 +60,21 @@ public class CraftingLoader
 //            	return 1;
 //            }
 //        });
+        // 树苗　　100
+        // 木板　　200
+        // 煤炭　　1600
+        // 烈焰棒　2400
+        // 煤炭块　16000
+        // 岩浆桶　20000
         GameRegistry.registerFuelHandler(fuel ->
         {
             if(fuel==null) return 0;
             Item item=fuel.getItem();
-            if(item==RawMaterials.DwartCoal)
+            if(item==RawMaterials.DwartCoal || item==RawMaterials.HotBlood)
                 return 2400;
+
             if(item==RawMaterials.HotStone)
-                return 3600;
+                return 4800;
 
             return 0;
         });
@@ -72,6 +83,14 @@ public class CraftingLoader
 
 
     // some functions
+    protected static void registerRawMaterialCrafting()
+    {
+        GameRegistry.addShapelessRecipe(new ItemStack(Items.paper,8),RawMaterials.PaperPile);
+        GameRegistry.addShapelessRecipe(new ItemStack(Items.paper,64),RawMaterials.PaperBigPile);
+        GameRegistry.addShapelessRecipe(new ItemStack(ConfigItems.itemInkwell,1),RawMaterials.Ink,Items.glass_bottle, Items.feather);
+        GameRegistry.addShapelessRecipe(new ItemStack(RawMaterials.InkBottle),RawMaterials.Ink,Items.glass_bottle);
+        GameRegistry.addShapelessRecipe(new ItemStack(ConfigItems.itemInkwell,1),RawMaterials.InkBottle,Items.feather);
+    }
     protected static void registerCoinCrafting()
     {
         GameRegistry.addShapelessRecipe(new ItemStack(RawMaterials.CoinIrisiaPile),

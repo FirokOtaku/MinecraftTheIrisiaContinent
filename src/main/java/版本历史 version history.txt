@@ -1,3 +1,9 @@
+0.12.43
+加入装饰性方块
+add DecorrationBlocks
+加入部分合成表
+add some crafting recipes
+
 0.12.42
 加入灵气饰品类
 add VisBauble class

@@ -2,8 +2,9 @@ package firok.irisia.block;
 
 import javax.annotation.Nullable;
 
+import firok.irisia.Irisia;
 import firok.irisia.common.IrisiaCreativeTabs;
-import firok.irisia.item.HerbSeeds;
+import firok.irisia.item.DecorationItems;
 import firok.irisia.item.ItemLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
@@ -11,32 +12,38 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemBlock;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import sun.font.Decoration;
+
+import java.util.ArrayList;
 
 public class BlockLoader
 {
+	public static ArrayList<Block> blocks=new ArrayList<>();
+	private static void registerDecorations()
+	{
+		register(IrisiaCreativeTabs.block,DecorationBlocks.Stones,DecorationItems.StoneClass.class,"decor_stones");
+
+		register(IrisiaCreativeTabs.block,DecorationBlocks.Bricks,DecorationItems.BrickClass.class,"decor_bricks");
+	}
 	private static void registerOres()
 	{
-		register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.OreMithril,"oreMithril","ore_mithril");
-		register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.OreAdamantium,"oreAdamantium","ore_adamantium");
-		register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.OreFlumetal,"oreFlumetal","ore_flumetal");
-		register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.OreElfStone,"oreElfStone","ore_elfstone");
-		register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.OreDwartCoal,"oreDwartCoal","ore_dwartcoal");
-		register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.OreHotStone,"oreHotStone","ore_hotstone");
+		register(IrisiaCreativeTabs.block,OresAndMetal.OreMithril,"oreMithril","ore_mithril");
+		register(IrisiaCreativeTabs.block,OresAndMetal.OreAdamantium,"oreAdamantium","ore_adamantium");
+		register(IrisiaCreativeTabs.block,OresAndMetal.OreFlumetal,"oreFlumetal","ore_flumetal");
+		register(IrisiaCreativeTabs.block,OresAndMetal.OreElfStone,"oreElfStone","ore_elfstone");
+		register(IrisiaCreativeTabs.block,OresAndMetal.OreDwartCoal,"oreDwartCoal","ore_dwartcoal");
+		register(IrisiaCreativeTabs.block,OresAndMetal.OreHotStone,"oreHotStone","ore_hotstone");
 
 
-		register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.BlockMithril,"blockMithril","block_mithril");
-		register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.BlockAdamantium,"blockAdamantium","block_damantium");
-		register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.BlockFlumetal,"blockFlumetal","block_flumetal");
-		register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.BlockSolita,"blockSolita","block_solita");
-		register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.BlockMogiga,"blockMogiga","block_mogiga");
-		register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.BlockDwartSteel,"blockDwartSteel","block_dwartsteel");
-		register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.BlockElfStone,"blockElfStone","block_elfstone");
-		register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.BlockDwartCoal,"blockDwartCoal","block_dwartcoal");
-		register(IrisiaCreativeTabs.irisiaBlock,OresAndMetal.BlockHotStone,"blockHotStone","block_hotstone");
-
-
+		register(IrisiaCreativeTabs.block,OresAndMetal.BlockMithril,"blockMithril","block_mithril");
+		register(IrisiaCreativeTabs.block,OresAndMetal.BlockAdamantium,"blockAdamantium","block_damantium");
+		register(IrisiaCreativeTabs.block,OresAndMetal.BlockFlumetal,"blockFlumetal","block_flumetal");
+		register(IrisiaCreativeTabs.block,OresAndMetal.BlockSolita,"blockSolita","block_solita");
+		register(IrisiaCreativeTabs.block,OresAndMetal.BlockMogiga,"blockMogiga","block_mogiga");
+		register(IrisiaCreativeTabs.block,OresAndMetal.BlockDwartSteel,"blockDwartSteel","block_dwartsteel");
+		register(IrisiaCreativeTabs.block,OresAndMetal.BlockElfStone,"blockElfStone","block_elfstone");
+		register(IrisiaCreativeTabs.block,OresAndMetal.BlockDwartCoal,"blockDwartCoal","block_dwartcoal");
+		register(IrisiaCreativeTabs.block,OresAndMetal.BlockHotStone,"blockHotStone","block_hotstone");
 	}
 	private static void registerHerbs()
 	{
@@ -50,23 +57,25 @@ public class BlockLoader
 	}
 	private static void registerArcaneStelas()
 	{
-		register(IrisiaCreativeTabs.irisiaBlock, ArcaneStelas.StelaSpeed,"blockStelaSpeed","block_stela_speed");
-		register(IrisiaCreativeTabs.irisiaBlock, ArcaneStelas.StelaJump,"blockStelaJump","block_stela_jump");
-		register(IrisiaCreativeTabs.irisiaBlock, ArcaneStelas.StelaResistance,"blockResistance","block_stela_resistance");
-		register(IrisiaCreativeTabs.irisiaBlock, ArcaneStelas.StelaDigSpeed,"blockDigSpeed","block_stela_digspeed");
+		register(IrisiaCreativeTabs.block, ArcaneStelas.StelaSpeed,"blockStelaSpeed","block_stela_speed");
+		register(IrisiaCreativeTabs.block, ArcaneStelas.StelaJump,"blockStelaJump","block_stela_jump");
+		register(IrisiaCreativeTabs.block, ArcaneStelas.StelaResistance,"blockStelaResistance","block_stela_resistance");
+		register(IrisiaCreativeTabs.block, ArcaneStelas.StelaDigSpeed,"blockStelaDigSpeed","block_stela_digspeed");
 	}
 	private static void registerPavingStones()
 	{
-		register(IrisiaCreativeTabs.irisiaBlock,PavingStones.Shake,"blockPavingStoneShake","block_paving_stone_shake");
-		register(IrisiaCreativeTabs.irisiaBlock,PavingStones.Flame,"blockPavingStoneFlame","block_paving_stone_flame");
+		register(IrisiaCreativeTabs.block,PavingStones.Shake,"blockPavingStoneShake","block_paving_stone_shake");
+		register(IrisiaCreativeTabs.block,PavingStones.Flame,"blockPavingStoneFlame","block_paving_stone_flame");
 	}
 	private static void registerMatchines()
 	{
-		register(IrisiaCreativeTabs.irisiaBlock,MachineBlocks.BerryMixer,"machineBerryMixer","machine_berry_mixer");
+		register(IrisiaCreativeTabs.block,MachineBlocks.BerryMixer,"machineBerryMixer","machine_berry_mixer");
 	}
 
     public BlockLoader(FMLPreInitializationEvent event)
     {
+	    registerDecorations();
+
         registerOres();
 
 	    registerHerbs();
@@ -89,7 +98,7 @@ public class BlockLoader
 	    ItemLoader.register(tab,herb.seed(),"seed_"+textureName,unlocalizedName+"Seed");
     }
     private static void register(@Nullable CreativeTabs tab,Block block, String unlocalizedName,String textureName)
-    {
+    { // info 这个是最主要的注册方法
 //        GameRegistry.registerBlock(block.setRegistryName(name));
 //        block.setUnlocalizedName(unlocalizedName);
 //        if(tab!=null)
@@ -101,16 +110,18 @@ public class BlockLoader
 
         block.
             setBlockName(unlocalizedName).
-            setBlockTextureName(textureName);
+            setBlockTextureName(Irisia.MODID+":"+textureName);
 
         GameRegistry.registerBlock(block,textureName);
+
+	    blocks.add(block);
     }
-    
-    @SideOnly(Side.CLIENT)
-    private static void registerRender(Block block)
-    {
-//        ModelResourceLocation model = new ModelResourceLocation(block.getRegistryName(), "inventory");
-//        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, model);
+    private static void register(@Nullable CreativeTabs tab,Block block,Class<? extends ItemBlock> itemBlockClass,String tn)
+    { // note 现在不知道这个方法能不能用 以后再测试一下
+    	if(tab!=null)
+    		block.setCreativeTab(tab);
+
+    	GameRegistry.registerBlock(block,itemBlockClass,Irisia.MODID+':'+tn);
     }
 
 	private static void registerMyBlock(Block block, Class<? extends ItemBlock> pickup, BlockSlab singleSlab, BlockSlab doubleSlab, boolean isDouble) {
