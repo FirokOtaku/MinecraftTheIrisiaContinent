@@ -20,6 +20,13 @@ public class ClientProxy extends CommonProxy
     {
         super.init(event);
         // new KeyLoader();
+        for(Item item:ItemLoader.items) // info 加载一下提示信息
+        {
+            if(item instanceof Util.Informational)
+            {
+                ((Util.Informational) item).loadInformation();
+            }
+        }
     }
 
     @Override

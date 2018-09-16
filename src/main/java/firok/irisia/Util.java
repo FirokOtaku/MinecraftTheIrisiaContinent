@@ -1,5 +1,7 @@
 package firok.irisia;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import firok.irisia.item.RawMaterials;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -10,6 +12,12 @@ public class Util {
 	public static String getDes(Item itemIn)
 	{
 		return itemIn.getUnlocalizedName()+".des";
+	}
+
+	public static interface Informational
+	{
+		@SideOnly(Side.CLIENT)
+		void loadInformation();
 	}
 
 	public static int countCoinCommon(EntityPlayer player) // 计算有多少普通硬币

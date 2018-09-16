@@ -1,8 +1,11 @@
 package firok.irisia.item;
 
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import firok.irisia.Irisia;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.util.EnumHelper;
 
 public class Materials
@@ -60,7 +63,21 @@ public class Materials
 			EnumHelper.addArmorMaterial(Irisia.MODID+":ICYWOLFFUR",
 					8, new int[]{ 2, 6, 4, 2 }, 15);
 
-
+	static
+	{
+		// note 这个用不到了 直接扔renderIndex一个4就好了
+//		RenderingRegistry.addNewArmourRendererPrefix("bone");
+//		RenderingRegistry.addNewArmourRendererPrefix("spectre");
+//		RenderingRegistry.addNewArmourRendererPrefix("mithril");
+//		RenderingRegistry.addNewArmourRendererPrefix("adamantium");
+//		RenderingRegistry.addNewArmourRendererPrefix("flumetal");
+//		RenderingRegistry.addNewArmourRendererPrefix("dwart");
+//		RenderingRegistry.addNewArmourRendererPrefix("lifewood");
+//		RenderingRegistry.addNewArmourRendererPrefix("mogiga");
+//		RenderingRegistry.addNewArmourRendererPrefix("solita");
+//		RenderingRegistry.addNewArmourRendererPrefix("wolffur");
+//		RenderingRegistry.addNewArmourRendererPrefix("icywolffur");
+	}
 
 
 	public static final Item.ToolMaterial BoneTool =
@@ -104,4 +121,6 @@ public class Materials
 	public static final Item.ToolMaterial Alioth =
 			EnumHelper.addToolMaterial(Irisia.MODID+":ALIOTH",
 					5,3200,32F,10,20);
+
+	public static final EnumRarity WainRarity=EnumHelper.addRarity("Wain",EnumChatFormatting.DARK_PURPLE,"Epic");
 }
