@@ -9,3 +9,5 @@ out/*
 !src
 !.gitignore
 !build.gradle
+!/清单 list.txt
+!/版本历史 version history.txt
