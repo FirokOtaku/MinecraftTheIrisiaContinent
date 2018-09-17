@@ -1,3 +1,7 @@
+0.12.45
+加入末影传送梯控制器、末影传送梯平台方块
+add EnderElevatorController, EnderElevatorPlatform blocks
+
 0.12.44
 重构物品信息加载方式
 rewrite the way of loading informations of items

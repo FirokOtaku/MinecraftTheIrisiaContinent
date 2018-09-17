@@ -70,6 +70,10 @@ public class BlockLoader
 	private static void registerMatchines()
 	{
 		register(IrisiaCreativeTabs.block,MachineBlocks.BerryMixer,"machineBerryMixer","machine_berry_mixer");
+
+		register(IrisiaCreativeTabs.block,EnderElevator.ElevatorController,"machine_ender_elevator_controller","MachineEnderElevatorController");
+		register(IrisiaCreativeTabs.block,EnderElevator.ElevatorPlatform,"machine_ender_elevator_platform","MachineEnderElevatorPlatform");
+
 	}
 
     public BlockLoader(FMLPreInitializationEvent event)
