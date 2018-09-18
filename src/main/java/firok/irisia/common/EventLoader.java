@@ -131,8 +131,7 @@ public class EventLoader
 			    	if(ea1.set==EquipmentSets.WindRangerSet)
 				    {
 					    // player.addChatComponentMessage(new ChatComponentText("wind ranger"));
-				    	player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id,85,0));
-					    player.addPotionEffect(new PotionEffect(Potion.damageBoost.id,85,0));
+					    player.addPotionEffect(new PotionEffect(Potions.WindRanger.id,85,0));
 				    }
 				    else if(ea1.set==EquipmentSets.DwartMinerSet)
 				    {
@@ -144,6 +143,7 @@ public class EventLoader
 				    }
 				    else if(ea1.set==EquipmentSets.NinjiaSet)
 				    {
+				    	player.addPotionEffect(new PotionEffect(Potions.Ninjia.id,85,0));
 				    	player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id,85,0));
 					    player.addPotionEffect(new PotionEffect(Potion.jump.id,85,0));
 				    }

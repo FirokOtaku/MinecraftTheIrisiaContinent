@@ -24,6 +24,7 @@ public class BlockLoader
 		register(IrisiaCreativeTabs.block,DecorationBlocks.Stones,DecorationItems.StoneClass.class,"decor_stones");
 
 		register(IrisiaCreativeTabs.block,DecorationBlocks.Bricks,DecorationItems.BrickClass.class,"decor_bricks");
+		register(IrisiaCreativeTabs.block,DecorationBlocks.DeathDirt,"death_dirt","DeathDirt");
 	}
 	private static void registerOres()
 	{

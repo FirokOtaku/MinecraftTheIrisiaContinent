@@ -1,10 +1,11 @@
 package firok.irisia.common;
 
-import firok.irisia.Irisia;
 import firok.irisia.item.RawMaterials;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
@@ -15,8 +16,9 @@ public class TcContent
 	static void init()
 	{
 		// thaumcraft.common.config.ConfigResearch
-		initCategories();
-		initItems();
+		initResearchCategories();
+		initResearchItems();
+		initItemAspects();
 	}
 
 	private static final String cata ="IRISIA";
@@ -26,13 +28,13 @@ public class TcContent
 	private static int row(int i){return 0+i;}
 
 
-	private static void initCategories()
+	private static void initResearchCategories()
 	{
 		ResearchCategories.registerCategory(cata,
 				new ResourceLocation("thaumcraft", "textures/gui/gui_researchbackeldritch.png"),
 				new ResourceLocation("thaumcraft", "textures/gui/gui_researchback.png"));
 	}
-	private static void initItems()
+	private static void initResearchItems()
 	{
 		// col 减少是往左 增加是往右
 		// row 减少是往上 增加是往下
@@ -66,7 +68,13 @@ public class TcContent
 				.setParents("DES_central_teleport")
 				.setPages(nopage)
 				.setAutoUnlock().registerResearchItem();
+	}
 
+	private static void initItemAspects()
+	{
+		ThaumcraftApi.registerObjectTag(new ItemStack(RawMaterials.IcyGel),new AspectList().add(Aspect.LIFE,2));
+		ThaumcraftApi.registerObjectTag(new ItemStack(RawMaterials.SoulCrystal),new AspectList().add(Aspect.SOUL,3));
+		ThaumcraftApi.registerObjectTag(new ItemStack(RawMaterials.LostPage),new AspectList().add(Aspect.MIND,10));
 	}
 //	private static void initR()
 //	{

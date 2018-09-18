@@ -1,6 +1,5 @@
 package firok.irisia.common;
 
-import firok.irisia.item.ItemLoader;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -11,12 +10,12 @@ import net.minecraft.item.ItemBlock;
 public class IrisiaCreativeTabs
 {
 	public static CreativeTabs irisia;
-	public static CreativeTabs irisiaEqui;
-	public static CreativeTabs irisiaMaterial;
-	public static CreativeTabs irisiaBlock;
-	public static CreativeTabs irisiaFood;
-	public static CreativeTabs irisiaBerry;
-	public static CreativeTabs irisiaTC;
+	public static CreativeTabs equi;
+	public static CreativeTabs material;
+	public static CreativeTabs block;
+	public static CreativeTabs food;
+	public static CreativeTabs berry;
+	public static CreativeTabs tc;
 
 	public static void load(FMLPreInitializationEvent event)
 	{
@@ -27,28 +26,28 @@ public class IrisiaCreativeTabs
 				return Items.diamond;
 			}
 		};
-		irisiaMaterial = new CreativeTabs("irisiaMaterial"){
+		material = new CreativeTabs("material"){
 			@Override
 			public Item getTabIconItem()
 			{
 				return Items.bone;
 			}
 		};
-		irisiaBlock = new CreativeTabs("irisiaBlock"){
+		block = new CreativeTabs("block"){
 			@Override
 			public Item getTabIconItem()
 			{
 				return ItemBlock.getItemFromBlock(Blocks.stone);
 			}
 		};
-		irisiaFood = new CreativeTabs("irisiaFood"){
+		food = new CreativeTabs("food"){
 			@Override
 			public Item getTabIconItem()
 			{
 				return Items.apple;
 			}
 		};
-		irisiaBerry=new CreativeTabs("irisiaBerry")
+		berry =new CreativeTabs("berry")
 		{
 			@Override
 			public Item getTabIconItem()
@@ -56,14 +55,14 @@ public class IrisiaCreativeTabs
 				return Items.bread;
 			}
 		};
-		irisiaEqui = new CreativeTabs("irisiaEqui"){
+		equi = new CreativeTabs("equi"){
 			@Override
 			public Item getTabIconItem()
 			{
 				return Items.iron_chestplate;
 			}
 		};
-		irisiaTC = new CreativeTabs("irisiaTC"){
+		tc = new CreativeTabs("tc"){
 			@Override
 			public Item getTabIconItem()
 			{

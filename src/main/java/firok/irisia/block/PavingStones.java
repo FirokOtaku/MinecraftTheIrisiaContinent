@@ -26,8 +26,6 @@ public class PavingStones
 				if(world.isRemote)
 					return;
 
-				System.out.println("paving flame walked");
-
 				if(e instanceof EntityLivingBase)
 				{
 					EntityLivingBase enlb=(EntityLivingBase)e;

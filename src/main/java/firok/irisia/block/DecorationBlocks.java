@@ -8,8 +8,10 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -367,5 +369,37 @@ public class DecorationBlocks
 		{
 			return Item.getItemFromBlock(Bricks);
 		}
+	}
+
+	public final static Block DeathDirt; // 亡者之壤
+	static
+	{
+		DeathDirt=new Block(Material.sand){
+			public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
+			{
+				if(world.isRemote)
+					return false;
+
+				if(Irisia.IN_DEV && player.capabilities.isCreativeMode) // todo 以后去掉
+				{
+					int meta=world.getBlockMetadata(x,y,z);
+					if(meta<10)
+					{
+						world.setBlockMetadataWithNotify(x,y,z,meta+1,2);
+						Irisia.log(String.valueOf(meta+1),player);
+						return true;
+					}
+					else
+					{ // todo 这里以后改掉
+						world.spawnEntityInWorld(new EntityItem(world,x,y+1,z,new ItemStack(Items.apple)));
+						world.setBlockMetadataWithNotify(x,y,z,0,2);
+						return true;
+					}
+				}
+
+				return false;
+			}
+		};
+		DeathDirt.setHardness(0.5F).setStepSound(Block.soundTypeGravel);
 	}
 }
