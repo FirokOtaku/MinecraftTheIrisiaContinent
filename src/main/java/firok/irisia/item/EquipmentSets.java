@@ -68,10 +68,10 @@ public class EquipmentSets
 		public final ItemHoe Hoe;
 
 		public final boolean hasArmor;
-		public final ItemArmor Helmet;
-		public final ItemArmor Chestplate;
-		public final ItemArmor Leggings;
-		public final ItemArmor Boots;
+		public final ItemCustomArmor Helmet;
+		public final ItemCustomArmor Chestplate;
+		public final ItemCustomArmor Leggings;
+		public final ItemCustomArmor Boots;
 
 		public final boolean hasBaubles;
 		public final Ring Ring;
@@ -112,10 +112,10 @@ public class EquipmentSets
 
 			if(hasArmor=hasA)
 			{
-				Helmet=new ItemArmor(am, am.ordinal(), 0);
-				Chestplate=new ItemArmor(am, am.ordinal(), 1);
-				Leggings=new ItemArmor(am, am.ordinal(), 2);
-				Boots=new ItemArmor(am, am.ordinal(), 3);
+				Helmet=new ItemCustomArmor(am, am.ordinal(), 0);
+				Chestplate=new ItemCustomArmor(am, am.ordinal(), 1);
+				Leggings=new ItemCustomArmor(am, am.ordinal(), 2);
+				Boots=new ItemCustomArmor(am, am.ordinal(), 3);
 			}
 			else
 			{
@@ -144,24 +144,24 @@ public class EquipmentSets
 	{
 		public final String materialName;
 		public final ItemArmor.ArmorMaterial armorMaterial;
-		public final ItemArmor Helmet;
-		public final ItemArmor Chestplate;
-		public final ItemArmor Leggings;
-		public final ItemArmor Boots;
+		public final ItemCustomArmor Helmet;
+		public final ItemCustomArmor Chestplate;
+		public final ItemCustomArmor Leggings;
+		public final ItemCustomArmor Boots;
 
 		public ArmorSet(String mn,ItemArmor.ArmorMaterial armorMaterial)
 		{
 			this.armorMaterial=armorMaterial;
-			Helmet=new ItemArmor(armorMaterial, armorMaterial.ordinal(), 0);
-			Chestplate=new ItemArmor(armorMaterial, armorMaterial.ordinal(), 1);
-			Leggings=new ItemArmor(armorMaterial, armorMaterial.ordinal(), 2);
-			Boots=new ItemArmor(armorMaterial, armorMaterial.ordinal(), 3);
+			Helmet=new ItemCustomArmor(armorMaterial, armorMaterial.ordinal(), 0);
+			Chestplate=new ItemCustomArmor(armorMaterial, armorMaterial.ordinal(), 1);
+			Leggings=new ItemCustomArmor(armorMaterial, armorMaterial.ordinal(), 2);
+			Boots=new ItemCustomArmor(armorMaterial, armorMaterial.ordinal(), 3);
 			this.materialName=mn;
 		}
 		protected ArmorSet(String mn,
 		                   ItemArmor.ArmorMaterial armorMaterial,
-		                   ItemArmor helmet,ItemArmor chestplate,
-		                   ItemArmor leggings,ItemArmor boots)
+		                   ItemCustomArmor helmet,ItemCustomArmor chestplate,
+		                   ItemCustomArmor leggings,ItemCustomArmor boots)
 		{
 			this.materialName=mn;
 			this.armorMaterial=armorMaterial;
@@ -192,6 +192,64 @@ public class EquipmentSets
 			{
 				super(armorMaterial,armorMaterial.ordinal(),type);
 			}
+		}
+	}
+
+	public static class ItemCustomArmor extends ItemArmor
+	{
+//		public IIcon iconChest;
+//		public IIcon iconLegs;
+//		public IIcon iconBoots;
+//		public IIcon iconChestOver;
+//		public IIcon iconLegsOver;
+//		public IIcon iconBootsOver;
+
+		private IIcon icon;
+		private String materialName;
+
+		public ItemCustomArmor(ItemArmor.ArmorMaterial material,int index,int type)
+		{
+			this(material,null,index,type);
+		}
+		public ItemCustomArmor(ItemArmor.ArmorMaterial material,String name,int index,int type)
+		{
+			super(material,4,type);
+			materialName=name==null?material.toString().toLowerCase():name;
+			if(materialName.contains(":"))
+			{
+				materialName=materialName.split(":")[1];
+			}
+		}
+
+		public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
+			return this.armorType==2?
+					Irisia.MODID+":textures/models/"+materialName+"_layer_2.png" :
+					Irisia.MODID+":textures/models/"+materialName+"_layer_1.png";
+		}
+		@SideOnly(Side.CLIENT)
+		public void registerIcons(IIconRegister ir)
+		{
+//			super.registerIcons(ir);
+//			this.iconChest = ir.registerIcon("thaumcraft:clothchest");
+//			this.iconLegs = ir.registerIcon("thaumcraft:clothlegs");
+//			this.iconBoots = ir.registerIcon("thaumcraft:clothboots");
+//			this.iconChestOver = ir.registerIcon("thaumcraft:clothchestover");
+//			this.iconLegsOver = ir.registerIcon("thaumcraft:clothlegsover");
+//			this.iconBootsOver = ir.registerIcon("thaumcraft:clothbootsover");
+			icon=ir.registerIcon(this.getIconString());
+		}
+		@SideOnly(Side.CLIENT)
+		public IIcon getIconFromDamage(int damage) {
+			return this.icon==null?Items.iron_helmet.getIconFromDamage(damage):icon;
+		}
+		@Override
+		public IIcon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining)
+		{
+			return getIcon(stack, renderPass);
+		}
+		@Override
+		public IIcon getIconFromDamageForRenderPass(int damage, int pass) {
+			return getIconFromDamage(damage);
 		}
 	}
 

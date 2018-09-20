@@ -47,19 +47,19 @@ public class EquipmentAutoRepair
 		SlimeBoots=new SlimeArmor(Materials.SlimeArmor,3,2,40,1,40);
 	}
 
-	public static class AutoRepairArmor extends ItemArmor
+	public static class AutoRepairArmor extends EquipmentSets.ItemCustomArmor
 	{
 		public final int repairSpeed;
 		public final int repairInterval;
 		public AutoRepairArmor(ItemArmor.ArmorMaterial am,int armorType)
 		{
-			super(am,am.ordinal(),armorType);
+			super(am,4,armorType);
 			repairSpeed=1;
 			repairInterval=20;
 		}
 		public AutoRepairArmor(ItemArmor.ArmorMaterial am,int armorType,int rs,int ri)
 		{
-			super(am,am.ordinal(),armorType);
+			super(am,4,armorType);
 			repairSpeed=rs;
 			repairInterval=ri;
 		}

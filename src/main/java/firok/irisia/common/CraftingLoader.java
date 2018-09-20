@@ -1,6 +1,7 @@
 package firok.irisia.common;
 
 import cpw.mods.fml.common.IFuelHandler;
+import firok.irisia.item.EquipmentAutoRepair;
 import firok.irisia.item.EquipmentSets;
 import firok.irisia.item.RawMaterials;
 import net.minecraft.init.Items;
@@ -30,6 +31,12 @@ public class CraftingLoader
         registerEquipmentSetCrafting(EquipmentSets.FlumetalSet,RawMaterials.FlumetalIngot);
         registerEquipmentSetCrafting(EquipmentSets.DwartSteelSet,RawMaterials.DwartSteelIngot);
         registerEquipmentSetCrafting(EquipmentSets.BoneSet,Items.bone);
+
+        // slime set
+        registerHelmetCrafting(EquipmentAutoRepair.SlimeHelmet,RawMaterials.SlimeIngot);
+        registerChestCrafting(EquipmentAutoRepair.SlimeChestplate,RawMaterials.SlimeIngot);
+        registerLeggingsCrafting(EquipmentAutoRepair.SlimeLeggings,RawMaterials.SlimeIngot);
+        registerBootsCrafting(EquipmentAutoRepair.SlimeBoots,RawMaterials.SlimeIngot);
 
         // coins
         registerCoinCrafting();

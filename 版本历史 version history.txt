@@ -1,3 +1,7 @@
+0.12.47
+重构盔甲物品的实现方式
+rewrite the way of implementing armor items
+
 0.12.46
 加入亡者之壤方块
 add DeathDirt block
