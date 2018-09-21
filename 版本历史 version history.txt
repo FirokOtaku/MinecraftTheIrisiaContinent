@@ -1,3 +1,7 @@
+0.12.48
+加入陆行鸽羽、墨水、墨水瓶、魔力纸张、一摞纸、一大摞纸、炽热血液物品
+add TerrestrialDoveFeather, Ink, InkBottle, PaperPile, PaperBigPile, HotBlood items
+
 0.12.47
 重构盔甲物品的实现方式
 rewrite the way of implementing armor items

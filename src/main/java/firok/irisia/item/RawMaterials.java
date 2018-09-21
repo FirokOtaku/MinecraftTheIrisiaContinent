@@ -3,6 +3,7 @@ package firok.irisia.item;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import firok.irisia.Irisia;
+import firok.irisia.Util;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -27,10 +28,17 @@ public class RawMaterials
 	public final static InformationItem CasinosBadge; // 赌场徽章
 	public final static InformationItem UnicornHorn; // 独角兽角
 	public final static InformationItem UnicornBlood; // 独角兽血
+	public final static InformationItem HotBlood; // 炽热血液
 	public final static InformationItem SlimeCore; // 史莱姆核
 	public final static InformationItem SoulCrystal; // 灵魂结晶
 	public final static InformationItem DwartCoal; // 褐煤
 	public final static InformationItem HotStone; // 热石
+	public final static InformationItem TerrestrialDoveFeather; // 陆行鸽羽
+	public final static InformationItem MagicalPaper; // 魔力纸张
+	public final static InformationItem Ink; // 墨水
+	public final static InformationItem InkBottle; // 墨水瓶
+	public final static InformationItem PaperPile; // 一摞纸
+	public final static InformationItem PaperBigPile; // 一大摞纸
 
 	// food material
 	public final static InformationItem BrownWheat; // 褐麦
@@ -88,10 +96,17 @@ public class RawMaterials
 		CasinosBadge = new InformationItem();
 		UnicornHorn=new InformationItem();
 		UnicornBlood =new InformationItem();
+		HotBlood=new InformationItem();
 		SlimeCore=new InformationItem();
 		SoulCrystal=new InformationItem();
 		DwartCoal=new InformationItem();
 		HotStone=new InformationItem();
+		TerrestrialDoveFeather=new InformationItem();
+		MagicalPaper=new InformationItem();
+		Ink=new InformationItem();
+		InkBottle=new InformationItem();
+		PaperPile=new InformationItem();
+		PaperBigPile=new InformationItem();
 
 		BrownWheat=new InformationItem();
 		DwartFlour=new InformationItem();
@@ -129,32 +144,32 @@ public class RawMaterials
 		AncientFossilFragment=new InformationItem();
 	}
 
-	public static class InformationItem extends Item
+	public static class InformationItem extends Item implements Util.Informational
 	{
 		private String[] lines;
 		public InformationItem()
 		{
-			lines=null;
+			lines=Irisia.noString;
+		}
+		public void loadInformation()
+		{
+			String key=this.getUnlocalizedName()+".tooltip";
+			String linesGet=StatCollector.translateToLocal(key);
+			if(linesGet.equals(key))
+			{
+				lines=Irisia.noString;
+			}
+			else
+			{
+				lines=linesGet.split("<br>");
+			}
 		}
 		@Override
 		@SideOnly(Side.CLIENT)
 		public void addInformation(ItemStack stack, EntityPlayer player, List info, boolean p_77624_4_)
 		{
-			if(lines==null)
-			{
-				String key=this.getUnlocalizedName()+".tooltip";
-				String linesGet=StatCollector.translateToLocal(key);
-				if(linesGet.equals(key))
-				{
-					lines=new String[0];
-				}
-				else
-				{
-					lines=linesGet.split("\\n");
-				}
-				System.out.println("key:"+key+" linesGet:"+linesGet+" lines.len:"+lines.length);
-			}
-
+			if(lines.length==0)
+				return;
 			for(String line:lines)
 			{
 				info.add(line);
@@ -165,7 +180,7 @@ public class RawMaterials
 		public Item setTextureName(String name)
 		{
 			this.iconString=name;
-			System.out.println(iconString);
+			// System.out.println(iconString);
 			return this;
 		}
 
@@ -189,6 +204,4 @@ public class RawMaterials
 			return this.itemIcon;
 		}
 	}
-
-
 }
