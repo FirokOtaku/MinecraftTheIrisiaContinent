@@ -163,6 +163,8 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.GlowVisRingAir,"ring_visring_air_glow","GlowVisRingAir");
 		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.GlowVisRingOrder,"ring_visring_order_glow","GlowVisRingOrder");
 		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.GlowVisRingEntropy,"ring_visring_entropy_glow","GlowVisRingEntropy");
+
+		register(IrisiaCreativeTabs.equi,EquipmentAntiBuffBaubles.AntiPoisonRing,"ring_ati_poison","AntiPoisonRing");
 	}
 	private static void registerConsumables()
 	{

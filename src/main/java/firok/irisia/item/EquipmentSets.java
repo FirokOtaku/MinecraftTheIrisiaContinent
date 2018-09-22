@@ -185,7 +185,7 @@ public class EquipmentSets
 			((EffectArmorPart)this.Leggings).set=this;
 			((EffectArmorPart)this.Boots).set=this;
 		}
-		public static class EffectArmorPart extends ItemArmor
+		public static class EffectArmorPart extends ItemCustomArmor
 		{
 			public EffectArmorSet set;
 			public EffectArmorPart(ItemArmor.ArmorMaterial armorMaterial,int type)
