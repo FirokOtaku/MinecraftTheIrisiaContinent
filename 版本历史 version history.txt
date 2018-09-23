@@ -1,3 +1,7 @@
+0.12.50
+加入灵气流失状态效果
+add PotionVisLeaking potion effect
+
 0.12.49
 加入状态效果抗性饰品类
 add AntiBuffBauble class

@@ -1,14 +1,14 @@
 package firok.irisia.potion;
 
+import firok.irisia.Irisia;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.passive.EntityCow;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
-import thaumcraft.api.damagesource.DamageSourceThaumcraft;
-import thaumcraft.api.entities.ITaintedMob;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.common.items.wands.ItemWandCasting;
 
 import java.awt.*;
 import java.util.List;
@@ -22,6 +22,7 @@ public class Potions
 	public static Potion Electrostatic;
 	public static Potion Cold;
 	public static Potion SpaceUnstable;
+	public static Potion VisLeaking;
 	// event potion
 	public static Potion Wise;
 	public static Potion Folly;
@@ -157,7 +158,31 @@ public class Potions
 			return tick%40==0;
 		}
 	}
-
+	public static class PotionVisLeaking extends Potion
+	{
+		public PotionVisLeaking(int id)
+		{
+			super(id,false,Color.blue.getRGB());
+			this.setPotionName("irisia.potion.vis_leaking");
+		}
+		@Override
+		public void performEffect(EntityLivingBase target, int level) {
+			ItemStack stackHeld=target.getHeldItem();
+			if(stackHeld!=null && stackHeld.getItem() instanceof ItemWandCasting)
+			{
+				// ((ItemWandCasting)stackHeld.getItem()).
+				for(Aspect as:Irisia.arrayPrimalAspect)
+				{// fixme 这里以后改掉
+					((ItemWandCasting)stackHeld.getItem()).addRealVis(stackHeld,as,level*50+50,true);
+				}//thaumcraft.common.items.wands.foci.ItemFocusFire
+			}
+		}
+		@Override
+		public boolean isReady(int tick, int par2)
+		{
+			return tick%20==0;
+		}
+	}
 
 
 	public static class EventPotion extends Potion // 这种状态效果是靠event驱动的

@@ -47,6 +47,11 @@ public class PotionLoader
             Potions.SpaceUnstable = new Potions.PotionSpaceUnstable(start);
             log.info("Initializing PotionSpaceUnstable with id " + start);
         }
+        // Vis Leaking
+        if((start=getNextPotionId(start))>=0){
+            Potions.VisLeaking=new Potions.PotionVisLeaking(start);
+            log.info("Initializing PotionVisLeaking with id " + start);
+        }
 
         // Wise
         if ((start= getNextPotionId(start)) >= 0) {
