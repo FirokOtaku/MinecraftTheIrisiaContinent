@@ -6,10 +6,12 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.EnumHelper;
 
 public class WainItems
 {
@@ -123,6 +125,11 @@ public class WainItems
 		public boolean onBlockDestroyed(ItemStack itemStack, World world, Block block, int x, int y, int z, EntityLivingBase en)
 		{
 			return false;
+		}
+		@Override
+		public EnumRarity getRarity(ItemStack itemStack)
+		{
+			return Materials.WainRarity;
 		}
 	}
 }

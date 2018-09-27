@@ -1,3 +1,7 @@
+0.12.51
+加入盔甲收纳盒物品
+add ArmorStorageBox item
+
 0.12.50
 加入灵气流失状态效果
 add PotionVisLeaking potion effect
