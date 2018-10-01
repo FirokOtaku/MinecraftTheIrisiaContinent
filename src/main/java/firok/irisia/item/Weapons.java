@@ -1,17 +1,16 @@
 package firok.irisia.item;
 
 import firok.irisia.DamageSources;
-import firok.irisia.Irisia;
+import firok.irisia.Keys;
+import firok.irisia.common.EntitySelectors;
 import firok.irisia.entity.Throwables;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.init.Items;
 import net.minecraft.item.*;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
@@ -33,11 +32,14 @@ public class Weapons
 	public static final FlailWeapon FlailBone;
 
 	public static RunicLongBowWeapon ThaumiumRunicLongBow;
-	public static RunicLongBowWeapon VoidRunicLongBow;
+	public static final RunicLongBowWeapon VoidRunicLongBow;
 	public static RunicLongBowWeapon AdamantiumLongBow;
 	public static RunicLongBowWeapon MithrilLongBow;
 	public static RunicLongBowWeapon SolitaLongBow;
 	public static RunicLongBowWeapon MogigaLongBow;
+
+	public final static ItemSword MercurialBlade;
+	public static ItemSword PhaseSword;
 
 	static
 	{
@@ -53,6 +55,7 @@ public class Weapons
 		FlailBone=new FlailWeapon(Materials.BoneTool);
 
 		VoidRunicLongBow=new RunicLongBowWeapon();
+		MercurialBlade=new MercurialBladeWeapon();
 	}
 
 	public static class FlailWeapon extends ItemSword
@@ -154,6 +157,32 @@ public class Weapons
 					world.spawnEntityInWorld(entityarrow);
 				}
 			}
+		}
+	}
+	public static class MercurialBladeWeapon extends ItemSword
+	{
+		public MercurialBladeWeapon()
+		{
+			super(ToolMaterial.IRON);
+		}
+		@Override
+		public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase player)
+		{
+			List entities=target.worldObj.getEntitiesWithinAABBExcludingEntity(target,
+					AxisAlignedBB.getBoundingBox(target.posX-3,target.posY-3,target.posZ-3,
+							target.posX+3,target.posY+3,target.posZ+3),
+					EntitySelectors.SelectEntityMonstersAlive);
+			if(entities.size()<=0)
+			{
+				target.worldObj.playSoundAtEntity(target,Keys.SoundCreepy,1,1);
+				target.attackEntityFrom(DamageSource.generic,24);
+			}
+			else
+			{
+				target.attackEntityFrom(DamageSource.generic,6);
+			}
+			itemStack.damageItem(1, player);
+			return true;
 		}
 	}
 }

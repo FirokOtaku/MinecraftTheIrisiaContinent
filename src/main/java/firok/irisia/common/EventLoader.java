@@ -4,48 +4,26 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
-import baubles.api.IBauble;
-import baubles.common.container.InventoryBaubles;
-import baubles.common.lib.PlayerHandler;
-import cpw.mods.fml.common.FMLLog;
 import firok.irisia.DamageSources;
 import firok.irisia.Irisia;
-import firok.irisia.client.KeyLoader;
-import firok.irisia.enchantment.EnchantmentLoader;
 import firok.irisia.item.EquipmentSets;
-import firok.irisia.item.ItemLoader;
 import firok.irisia.item.RawMaterials;
-import firok.irisia.potion.PotionLoader;
 import firok.irisia.potion.Potions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.passive.EntityBat;
-import net.minecraft.entity.passive.EntityCow;
-import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTool;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.*;
-import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.InputEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import org.apache.logging.log4j.Level;
-
-import static net.minecraft.client.Minecraft.getMinecraft;
 
 
 @SuppressWarnings("static-method")
@@ -89,11 +67,15 @@ public class EventLoader
 	    if(world.isRemote || enlb instanceof EntityPlayer)
 	    	return;
 
+	    PotionEffect midas=enlb.getActivePotionEffect(Potions.Midas);
+	    int factor=midas==null?0:midas.getAmplifier()+1; // 如果目标有迈达斯buff 掉钱更多
+
 	    Random rand=world.rand;
 	    if(rand.nextFloat()<0.01+enlb.getMaxHealth()/400) // 每10滴血上限+2.5%掉落几率
 	    {
 	    	enlb.entityDropItem(new ItemStack(RawMaterials.SoulCrystal),0);
 	    }
+	    enlb.entityDropItem(new ItemStack(RawMaterials.CoinCopper,(int)((1+factor*0.4)*enlb.getMaxHealth()/4)),0);
 
 	    LootManager.dropLoot(enlb); // 调用掉落物管理器的接口 来掉落物品
     }
@@ -170,11 +152,34 @@ public class EventLoader
 	    EntityLivingBase enlb=event.entityLiving;
 	    Collection effects=enlb.getActivePotionEffects();
 
+	    // 法力增幅buff结算
 	    PotionEffect amplificative=enlb.getActivePotionEffect(Potions.MagicAmplificative);
 	    if(amplificative!=null)
 	    {
 		    firok.irisia.ability.CauseDamage.toLiving((EntityLivingBase) event.target,DamageSources.MagicAmplificativeDamage,
 				    (1+amplificative.getAmplifier())*4,true);
+	    }
+
+	    if(event.target instanceof EntityLivingBase) // potion leaderly // 领袖buff结算
+	    {
+		    List players=enlb.worldObj.getEntitiesWithinAABBExcludingEntity(enlb,
+				    AxisAlignedBB.getBoundingBox(enlb.posX-5,enlb.posY-3,enlb.posZ-5,
+						    enlb.posX+5,enlb.posY+3,enlb.posZ+5),
+				    EntitySelectors.SelectPlayerAlive);
+		    int levelLeaderly=0;
+		    for(Object obj:players)
+		    {
+			    EntityPlayer playerNearby=(EntityPlayer)obj;
+			    PotionEffect leaderly=playerNearby.getActivePotionEffect(Potions.Leaderly);
+			    if(leaderly!=null)
+			    {
+				    levelLeaderly+=1+leaderly.getAmplifier();
+			    }
+		    }
+		    firok.irisia.ability.CauseDamage.toLiving(
+		    		(EntityLivingBase)event.target,
+				    DamageSources.StoneDamage,3*levelLeaderly,
+				    true);
 	    }
     }
 
