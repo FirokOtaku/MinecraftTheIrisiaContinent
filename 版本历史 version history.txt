@@ -1,3 +1,9 @@
+0.12.53
+加入幽鬼之刃武器
+add MercurialBlade weapon
+更新部分材质
+update some textures
+
 0.12.52
 加入领袖、迈达斯、诅咒、腐蚀状态效果
 add PotionLeaderly, PotionMidas, PotionCursed, PotionCorroded potion effect

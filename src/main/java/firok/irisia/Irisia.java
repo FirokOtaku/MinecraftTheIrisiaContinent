@@ -1,6 +1,6 @@
 package firok.irisia;
 
-import java.util.Random;
+import java.util.*;
 
 import firok.irisia.common.CommonProxy;
 import cpw.mods.fml.common.Mod;
@@ -11,11 +11,10 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.potion.Potion;
 import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ResourceLocation;
+import thaumcraft.api.aspects.Aspect;
 
 
 @Mod(
@@ -28,7 +27,7 @@ public class Irisia
 {
     public static final String MODID = "irisia";
     public static final String NAME = "The Irisia Continent";
-    public static final String VERSION = "0.12.52";
+    public static final String VERSION = "0.12.53";
     public static final boolean IN_DEV=true;
 
     // public static Random rand=new Random();
