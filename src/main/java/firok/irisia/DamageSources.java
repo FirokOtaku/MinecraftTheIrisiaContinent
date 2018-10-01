@@ -6,19 +6,19 @@ public class DamageSources
 {
 
 	public final static DamageSource LightningDamege
-	=new DamageSource("lightningDamage")
-	.setDamageBypassesArmor()
-	.setDamageIsAbsolute();
+			=new DamageSource("lightningDamage")
+			.setDamageBypassesArmor()
+			.setDamageIsAbsolute();
 	
 	public final static DamageSource AvariceDamege
-	=new DamageSource("avariceDamage")
-	.setDamageBypassesArmor()
-	.setDamageIsAbsolute();
+			=new DamageSource("avariceDamage")
+			.setDamageBypassesArmor()
+			.setDamageIsAbsolute();
 	
 	public final static DamageSource PainboundDamege
-	=new DamageSource("painboundDamage")
-	.setDamageBypassesArmor()
-	.setDamageIsAbsolute();
+			=new DamageSource("painboundDamage")
+			.setDamageBypassesArmor()
+			.setDamageIsAbsolute();
 
 	public final static DamageSource MagicAmplificativeDamage // 魔力增幅的额外伤害
 			=new DamageSource("magicAmplificativeDamage")
@@ -29,9 +29,15 @@ public class DamageSources
 			.setProjectile();
 	
 	public final static DamageSource ElectrostaticDamage
-	=new DamageSource("electrostaticDamage")
-	.setDamageBypassesArmor()
-	.setDamageIsAbsolute();
+			=new DamageSource("electrostaticDamage")
+			.setDamageBypassesArmor()
+			.setDamageIsAbsolute();
+
+	public final static DamageSource CursedDamage
+			=new DamageSource("cursedDamage")
+			.setDamageBypassesArmor()
+			.setMagicDamage()
+			.setDamageIsAbsolute();
 
 	public final static DamageSource AliothDamage // 玉衡 独有
 			=new DamageSource("aliothDamage")

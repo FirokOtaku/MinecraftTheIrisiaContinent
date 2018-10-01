@@ -1,21 +1,25 @@
-package firok.irisia.command;
+package firok.irisia.common;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import firok.irisia.Irisia;
 import firok.irisia.Util;
+import firok.irisia.entity.CarryOut;
+import firok.irisia.entity.Monsters;
 import firok.irisia.entity.Npcs;
 import firok.irisia.entity.Throwables;
 import firok.irisia.item.Consumables;
 import firok.irisia.item.EquipmentUniqueBaubles;
 import firok.irisia.potion.Potions;
+import firok.irisia.world.gen.Gen;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -25,6 +29,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import thaumcraft.api.aspects.Aspect;
 
 public class CommandLoader
 {
@@ -78,26 +83,32 @@ public class CommandLoader
 		try{time=Integer.parseInt(args[2]);}catch (Exception e){;}
 		int level=0;
 		try{level=Integer.parseInt(args[3]);}catch (Exception e){;}
-
-		if("love".equals(args[1]))
+		switch (args[1])
 		{
-			player.addPotionEffect(new PotionEffect(Potions.Love.id,time,level));
-		}
-		else if("nj".equals(args[1]))
-		{
-			player.addPotionEffect(new PotionEffect(Potions.Ninjia.id,time,level));
-		}
-		else if("wr".equals(args[1]))
-		{
-			player.addPotionEffect(new PotionEffect(Potions.WindRanger.id,time,level));
-		}
-		else if("ts".equals(args[1]))
-		{
-			player.addPotionEffect(new PotionEffect(Potions.Thresholded.id,time,level));
-		}
-		else if("e".equals(args[1]))
-		{
-			player.addPotionEffect(new PotionEffect(Potions.Ethereal.id,time,level));
+			case "love":
+				player.addPotionEffect(new PotionEffect(Potions.Love.id,time,level));
+				break;
+			case "nj":
+				player.addPotionEffect(new PotionEffect(Potions.Ninjia.id,time,level));
+				break;
+			case "wr":
+				player.addPotionEffect(new PotionEffect(Potions.WindRanger.id,time,level));
+				break;
+			case "ts":
+				player.addPotionEffect(new PotionEffect(Potions.Thresholded.id,time,level));
+				break;
+			case "e":
+				player.addPotionEffect(new PotionEffect(Potions.Ethereal.id,time,level));
+				break;
+			case "visl":
+				player.addPotionEffect(new PotionEffect(Potions.VisLeaking.id,time,level));
+				break;
+			case "cor":
+				player.addPotionEffect(new PotionEffect(Potions.Corroded.id,time,level));
+				break;
+			case "cursed":
+				player.addPotionEffect(new PotionEffect(Potions.Cursed.id,time,level));
+				break;
 		}
 	}
 	private void gashapon(ICommandSender sender,String[] args)
@@ -175,7 +186,7 @@ public class CommandLoader
 		EntityPlayer player=(EntityPlayer)sender;
 		player.worldObj.playSoundAtEntity(player,args[1],1,1);
 	}
-	private void tt(ICommandSender sender,String[] args)
+	private void summon(ICommandSender sender, String[] args)
 	{
 		EntityPlayer player=(EntityPlayer)sender;
 		if("kill".equals(args[1]))
@@ -190,23 +201,115 @@ public class CommandLoader
 						@Override
 						public boolean isEntityApplicable(Entity entity)
 						{
-							return entity instanceof Npcs.TestTarget;
+							return entity instanceof Npcs.TestTarget
+									|| entity instanceof Monsters.GhostKnocker;
 						}
 					});
 
 			for(Object obj:entities)
 			{
-				Npcs.TestTarget target=(Npcs.TestTarget)obj;
+				Entity target=(Entity)obj;
 				target.setDead();
-				Irisia.log("target removed",player);
+				Irisia.log("entity removed",player);
 			}
 		}
 		else if("spawn".equals(args[1]))
 		{
-			player.worldObj.spawnEntityInWorld(
-					new Npcs.TestTarget(player.worldObj,player.posX,player.posY,player.posZ));
-			Irisia.log("target spawned",player);
+			if("tt".equals(args[2]))
+			{
+				player.worldObj.spawnEntityInWorld(
+						new Npcs.TestTarget(player.worldObj,player.posX,player.posY,player.posZ));
+				Irisia.log("target spawned",player);
+			}
+			else if("gk".equals(args[2]))
+			{
+				player.worldObj.spawnEntityInWorld(
+						new Monsters.GhostKnocker(player.worldObj,player.posX,player.posY,player.posZ));
+				Irisia.log("chost knocker spawned",player);
+			}
 		}
+	}
+	private void tnote(ICommandSender sender,String[] args)
+	{
+		EntityPlayer player=(EntityPlayer)sender;
+		ItemStack itemStack=new ItemStack(Consumables.ThaumicNote,1);
+		NBTTagCompound tag=new NBTTagCompound();
+		if("1".equals(args[1]))
+		{
+			tag.setString("a1",Aspect.AIR.getTag());
+			tag.setShort("c1",(short)10);
+			itemStack.setTagCompound(tag);
+		}
+		else if("2".equals(args[1]))
+		{
+			tag.setString("a1",Aspect.FIRE.getTag());
+			tag.setShort("c1",(short)15);
+			itemStack.setTagCompound(tag);
+		}
+		else if("3".equals(args[1]))
+		{
+			tag.setString("a1",Aspect.AIR.getTag());
+			tag.setShort("c1",(short)20);
+			tag.setString("a2",Aspect.EARTH.getTag());
+			tag.setShort("c2",(short)20);
+			itemStack.setTagCompound(tag);
+		}
+		player.entityDropItem(itemStack,0);
+	}
+	private void maze(ICommandSender sender,String[] args)
+	{
+		EntityPlayer player=(EntityPlayer)sender;
+		// args[0]==maze
+		int lenX=10,lenY=5,lenZ=10,levelY=3;
+		if(args.length>3)
+		{
+			lenX=Integer.parseInt(args[1]);
+			lenY=Integer.parseInt(args[2]);
+			lenZ=Integer.parseInt(args[3]);
+			levelY=Integer.parseInt(args[4]);
+		}
+		Gen.genSimpleTowerAt(player.worldObj,
+				(int)player.posX,(int)player.posY,(int)player.posZ,
+				player.worldObj.rand,lenX,lenY,lenZ,levelY,
+				Blocks.stone,Blocks.stonebrick);
+	}
+	private void carryout(ICommandSender sender,String[] args)
+	{
+		EntityPlayer player=(EntityPlayer)sender;
+		player.worldObj.spawnEntityInWorld(new CarryOut.Carrier(player.worldObj,player.posX,player.posY+10,player.posZ));
+	}
+	private void world(ICommandSender sender, String[] args)
+	{
+		EntityPlayer player=(EntityPlayer)sender;
+		if("tp1".equals(args[1]))
+		{//player.worldObj.getPlayerList().transferPlayerToDimension(player, dimensionID, teleporterInstance);
+			player.travelToDimension(ConfigLoader.idDim);
+		}
+		else if("tp2".equals(args[1]))
+		{
+			player.travelToDimension(1);
+		}
+		else if("tp".equals(args[1]))
+		{
+			player.travelToDimension(Integer.parseInt(args[2]));
+		}
+		else if("id".equals(args[1]))
+		{
+			Irisia.log("World Provider Id : "+player.worldObj.provider.dimensionId,player);
+			Irisia.log("World Provider Name : "+player.worldObj.getProviderName(),player);
+		}
+	}
+	private void draw(ICommandSender sender,String[] args)
+	{
+		EntityPlayer player=(EntityPlayer)sender;
+		int size=Integer.parseInt(args[1]);
+		byte dir=Byte.parseByte(args[2]);
+		StringBuilder text=new StringBuilder();
+		for(int i=3;i<args.length;i++)
+		{
+			text.append(args[i]);text.append(' ');
+		}
+		Gen.genTextAt(player.worldObj,(int)player.posX,(int)player.posY+3,(int)player.posZ,text.toString(),size,dir);
 	}
     public CommandLoader(FMLServerStartingEvent event)
     {
@@ -224,46 +327,55 @@ public class CommandLoader
 			    Irisia.log(sb,(EntityPlayer)sender);
 			    try
 			    {
-				    if("show".equals(args[0]))
+			    	switch(args[0])
 				    {
-					    show(sender,args);
+					    case "show":
+						    show(sender,args);
+					    	break;
+					    case "eff":
+					    	eff(sender,args);
+					    	break;
+					    case "add_exp":
+						    add_exp(sender,args);
+					    	break;
+					    case "gashapon":
+						    gashapon(sender,args);
+						    break;
+					    case "bauble":
+					        bauble(sender,args);
+					        break;
+					    case "invsee":
+					        invsee(sender,args);
+					        break;
+					    case "coin":
+					        coin(sender,args);
+					        break;
+					    case "tb":
+					        tb(sender,args);
+					        break;
+					    case "sound":
+						    sound(sender,args);
+				            break;
+					    case "summon":
+				    	    summon(sender,args);
+				            break;
+					    case "tnote":
+						    tnote(sender,args);
+						    break;
+					    case "maze":
+					        maze(sender,args);
+					        break;
+					    case "carryout":
+						    carryout(sender,args);
+						    break;
+					    case "world":
+					    	world(sender,args);
+					    	break;
+					    case "draw":
+					    	draw(sender,args);
+					    	break;
 				    }
-				    else if("eff".equals(args[0]))
-				    {
-					    eff(sender,args);
-				    }
-				    else if("add_exp".equals(args[0]))
-				    {
-					    add_exp(sender,args);
-				    }
-				    else if("gashapon".equals(args[0]))
-				    {
-					    gashapon(sender,args);
-				    }
-				    else if("bauble".equals(args[0]))
-				    {
-				    	bauble(sender,args);
-				    }
-				    else if("invsee".equals(args[0]))
-				    {
-				    	invsee(sender,args);
-				    }
-				    else if("coin".equals(args[0]))
-				    {
-				    	coin(sender,args);
-				    }
-				    else if("tb".equals(args[0]))
-				    {
-				    	tb(sender,args);
-				    }
-				    else if("sound".equals(args[0]))
-				    {
-				    	sound(sender,args);
-				    }
-				    else if("tt".equals(args[0]))
-				    {
-				    	tt(sender,args);
-				    }
+				    Irisia.log("执行完毕",(EntityPlayer)sender);
 			    }
 			    catch (Exception exception)
 			    {
@@ -305,7 +417,10 @@ public class CommandLoader
 		    @Override
 		    public int compareTo(Object o)
 		    {
-			    return 0;
+		    	if(o==this)
+		    		return 0;
+
+			    return -1;
 		    }
 	    });
     }

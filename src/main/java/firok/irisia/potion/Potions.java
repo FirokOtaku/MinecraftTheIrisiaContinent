@@ -1,7 +1,13 @@
 package firok.irisia.potion;
 
+import firok.irisia.DamageSources;
 import firok.irisia.Irisia;
+import firok.irisia.Keys;
+import firok.irisia.ability.CauseDamage;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -23,6 +29,8 @@ public class Potions
 	public static Potion Cold;
 	public static Potion SpaceUnstable;
 	public static Potion VisLeaking;
+	public static Potion Corroded;
+	public static Potion Cursed;
 	// event potion
 	public static Potion Wise;
 	public static Potion Folly;
@@ -32,6 +40,8 @@ public class Potions
 	public static Potion Ethereal;
 	public static Potion Ninjia;
 	public static Potion WindRanger;
+	public static Potion Leaderly;
+	public static Potion Midas;
 	// unimplemented potion
 
 	public static Potion Indomitable;
@@ -158,7 +168,7 @@ public class Potions
 			return tick%40==0;
 		}
 	}
-	public static class PotionVisLeaking extends Potion
+	public static class PotionVisLeaking extends Potion // fixme 还没做完
 	{
 		public PotionVisLeaking(int id)
 		{
@@ -181,6 +191,66 @@ public class Potions
 		public boolean isReady(int tick, int par2)
 		{
 			return tick%20==0;
+		}
+	}
+	public static class PotionCorroded extends Potion
+	{
+		public PotionCorroded(int id)
+		{
+			super(id,false,Color.gray.getRGB());
+			this.setPotionName("irisia.potion.corroded");
+		}
+		@Override
+		public void performEffect(EntityLivingBase target, int level) {
+			if(!target.worldObj.isRemote &&target instanceof EntityPlayer)
+			{
+				InventoryPlayer inv=((EntityPlayer) target).inventory;
+				for(byte i=0;i<inv.armorInventory.length;i++)
+				{
+					ItemStack stackInInv=inv.armorInventory[i];
+					if(stackInInv==null) continue;
+
+					int nowDamage=stackInInv.getItemDamage();
+					int maxDamage=stackInInv.getMaxDamage();
+					int toDamage=level*2+2;
+					if(nowDamage+toDamage>=maxDamage)
+					{
+						stackInInv.damageItem(toDamage,target);
+						inv.armorInventory[i]=null;
+					}
+					else
+					{
+						stackInInv.damageItem(toDamage,target);
+					}
+					inv.markDirty();
+				}
+			}
+		}
+		@Override
+		public boolean isReady(int tick, int par2)
+		{
+			return tick%10==0;
+		}
+	}
+	public static class PotionCursed extends Potion
+	{
+		public PotionCursed(int id)
+		{
+			super(id,false,Color.black.getRGB());
+			this.setPotionName("irisia.potion.cursed");
+		}
+		@Override
+		public void performEffect(EntityLivingBase target, int level) {
+			if(!target.worldObj.isRemote)
+			{
+				target.worldObj.playSoundAtEntity(target,Keys.SoundCreepy,1,1);
+				CauseDamage.toLiving(target,DamageSources.CursedDamage,6+level*6,true);
+			}
+		}
+		@Override
+		public boolean isReady(int tick, int par2)
+		{
+			return tick<=1;
 		}
 	}
 

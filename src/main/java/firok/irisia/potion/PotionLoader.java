@@ -52,6 +52,17 @@ public class PotionLoader
             Potions.VisLeaking=new Potions.PotionVisLeaking(start);
             log.info("Initializing PotionVisLeaking with id " + start);
         }
+        // Corroded
+        if((start=getNextPotionId(start))>=0){
+            Potions.Corroded=new Potions.PotionCorroded(start);
+            log.info("Initializing PotionCorroded with id " + start);
+        }
+        // Cursed
+        if((start=getNextPotionId(start))>=0){
+            Potions.Cursed=new Potions.PotionCursed(start);
+            log.info("Initializing PotionCursed with id " + start);
+        }
+
 
         // Wise
         if ((start= getNextPotionId(start)) >= 0) {
@@ -92,6 +103,16 @@ public class PotionLoader
         if ((start= getNextPotionId(start)) >= 0) {
             Potions.WindRanger = new Potions.EventPotion(start,false,Color.green.getRGB(),"windranger");
             log.info("Initializing PotionWindRanger with id " + start);
+        }
+        // Leaderly
+        if ((start= getNextPotionId(start)) >= 0) {
+            Potions.Leaderly = new Potions.EventPotion(start,false,Color.white.getRGB(),"leadely");
+            log.info("Initializing PotionLeaderly with id " + start);
+        }
+        // Midas
+        if ((start= getNextPotionId(start)) >= 0) {
+            Potions.Midas = new Potions.EventPotion(start,true,Color.yellow.getRGB(),"midas");
+            log.info("Initializing PotionMidas with id " + start);
         }
     }
     private static int getNextPotionId(int start)

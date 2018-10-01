@@ -28,7 +28,7 @@ public class Irisia
 {
     public static final String MODID = "irisia";
     public static final String NAME = "The Irisia Continent";
-    public static final String VERSION = "0.12.50";
+    public static final String VERSION = "0.12.52";
     public static final boolean IN_DEV=true;
 
     // public static Random rand=new Random();
@@ -174,5 +174,30 @@ public class Irisia
         {
             e.printStackTrace();
         }
+    }
+
+    public static void STOP()
+    {
+        throw new RuntimeException("GAME STOP");
+    }
+
+
+    public static final String[] noString=new String[0];
+    public static final List<Aspect> noAspect;
+    public static final List<Aspect> listPrimalAspect;
+    public static final Aspect[] arrayPrimalAspect;
+    public static final Potion[] noPotion=new Potion[0];
+    static
+    {
+        noAspect=new ArrayList<>();
+        listPrimalAspect =new ArrayList<>();
+        listPrimalAspect.add(Aspect.WATER);
+        listPrimalAspect.add(Aspect.FIRE);
+        listPrimalAspect.add(Aspect.AIR);
+        listPrimalAspect.add(Aspect.EARTH);
+        listPrimalAspect.add(Aspect.ORDER);
+        listPrimalAspect.add(Aspect.ENTROPY);
+        arrayPrimalAspect =new Aspect[]{Aspect.WATER,Aspect.FIRE,Aspect.AIR,
+                Aspect.EARTH,Aspect.ORDER,Aspect.ENTROPY};
     }
 }

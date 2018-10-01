@@ -227,3 +227,28 @@ tile.blockStelaDigSpeed.name=符文碑-挖掘速度
 tile.blockPavingStoneShake.name=铺路石-震荡
 tile.blockPavingStoneFlame.name=铺路石-烈焰
 tile.machineBerryMixer.name=莓果混合器
+
+
+info.taste.level0=不
+info.taste.level1=略
+info.taste.level2=
+info.taste.level3=非常
+info.taste.level4=极
+info.taste.kind0=甜
+info.taste.kind1=酸
+info.taste.kind2=苦
+info.taste.kind3=涩
+info.taste.kind4=辣
+info.taste.totalDebuffRate=不良状态抗性 :
+info.taste.totalPoisonRate=毒抗性 :
+info.taste.exp=经验 :
+info.taste.expl=经验等级 :
+
+death.attack.cursedDamage=%1$s死于诅咒%2$s using %3$s
+death.attack.lightningDamage=%1$s死于雷电
+death.attack.painboundDamage=%1$s感受到了他人的痛苦
+death.attack.magicAmplificativeDamage=%1$s消失在魔法中
+death.attack.stoneDamage=%1$s被石头砸死了
+death.attack.electrostaticDamage=%1$s死于静电
+death.attack.cursedDamage=%1$s死于诅咒
+death.attack.aliothDamage=%1$s死于玉衡之力
