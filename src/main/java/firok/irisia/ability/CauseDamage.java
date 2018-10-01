@@ -11,6 +11,6 @@ public class CauseDamage
 	}
 	public static void toLiving(EntityLivingBase enlb,DamageSource source,float amout,boolean bypass)
 	{
-		;
+		enlb.attackEntityFrom(source,amout);
 	}
 }
