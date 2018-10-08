@@ -1,3 +1,6 @@
+0.12.54
+加入黩武状态效果
+
 0.12.53
 加入幽鬼之刃武器
 add MercurialBlade weapon

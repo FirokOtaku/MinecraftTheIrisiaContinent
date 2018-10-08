@@ -31,6 +31,7 @@ public class Potions
 	public static Potion VisLeaking;
 	public static Potion Corroded;
 	public static Potion Cursed;
+	public static Potion Militaristic;
 	// event potion
 	public static Potion Wise;
 	public static Potion Folly;
@@ -47,7 +48,7 @@ public class Potions
 	public static Potion Indomitable;
 	public static Potion Avarice;
 
-	public static Potion Militaristic;
+
 	public static Potion Painbound;
 	public static Potion Lifecursed;
 	public static Potion Lifeblessed;
@@ -245,6 +246,27 @@ public class Potions
 			{
 				target.worldObj.playSoundAtEntity(target,Keys.SoundCreepy,1,1);
 				CauseDamage.toLiving(target,DamageSources.CursedDamage,6+level*6,true);
+			}
+		}
+		@Override
+		public boolean isReady(int tick, int par2)
+		{
+			return tick<=1;
+		}
+	}
+	public static class PotionMilitaristic extends Potion
+	{
+		public PotionMilitaristic(int id)
+		{
+			super(id,false,Color.red.getRGB());
+			this.setPotionName("irisia.potion.militaristic");
+		}
+		@Override
+		public void performEffect(EntityLivingBase target, int level) {
+			if(!target.worldObj.isRemote)
+			{
+				target.worldObj.playSoundAtEntity(target,Keys.SoundCreepy,1,1);
+				CauseDamage.toLiving(target,DamageSources.MilitaristicDamage,4+level*4,true);
 			}
 		}
 		@Override

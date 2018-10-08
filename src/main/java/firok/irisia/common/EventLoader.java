@@ -4,17 +4,23 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
+import baubles.api.BaublesApi;
+import cpw.mods.fml.client.SplashProgress;
 import firok.irisia.DamageSources;
 import firok.irisia.Irisia;
+import firok.irisia.Keys;
 import firok.irisia.item.EquipmentSets;
+import firok.irisia.item.EquipmentUniqueBaubles;
 import firok.irisia.item.RawMaterials;
 import firok.irisia.potion.Potions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
@@ -150,7 +156,18 @@ public class EventLoader
 	    	return;
 
 	    EntityLivingBase enlb=event.entityLiving;
-	    Collection effects=enlb.getActivePotionEffects();
+	    // Collection effects=enlb.getActivePotionEffects();
+
+	    // 黩武debuff解除判定
+	    PotionEffect militaristic=enlb.getActivePotionEffect(Potions.Militaristic);
+	    if(militaristic!=null)
+	    {
+	    	if(enlb.worldObj.rand.nextFloat()<0.08) // 每次攻击只有8%几率消除黩武debuff
+		    {
+		    	enlb.removePotionEffect(Potions.Militaristic.id);
+		    	enlb.worldObj.playSoundAtEntity(enlb,Keys.SoundGulp,1,1); // todo 这里以后换成别的声音
+		    }
+	    }
 
 	    // 法力增幅buff结算
 	    PotionEffect amplificative=enlb.getActivePotionEffect(Potions.MagicAmplificative);
@@ -193,8 +210,6 @@ public class EventLoader
 //			    +"\nentityLiving:"+event.entityLiving.toString()
 //			    +"\nammount:"+event.ammount
 //			    +"\ndamage::"+toString(event.source));
-
-
     }
 
     @SubscribeEvent // 有生物受伤发生的事件
@@ -207,11 +222,12 @@ public class EventLoader
 //			    +"\nentityLiving:"+event.entityLiving.toString()
 //			    +"\nammount:"+event.ammount
 //			    +"\ndamage::"+toString(event.source));
-	    float amount=event.ammount;
 	    EntityLivingBase enlb=event.entityLiving;
 
 	    if(enlb.worldObj.isRemote)
 	    	return;
+
+	    float amount=event.ammount;
 
 	    // 先判断有没有风行和忍者效果 有的话先执行这个
 	    float rateMissPhy=0; // 闪避几率

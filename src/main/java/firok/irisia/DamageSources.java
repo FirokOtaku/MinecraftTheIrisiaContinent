@@ -39,6 +39,12 @@ public class DamageSources
 			.setMagicDamage()
 			.setDamageIsAbsolute();
 
+	public final static DamageSource MilitaristicDamage
+			=new DamageSource("militaristicDamage")
+			.setDamageBypassesArmor()
+			.setMagicDamage()
+			.setDamageIsAbsolute();
+
 	public final static DamageSource AliothDamage // 玉衡 独有
 			=new DamageSource("aliothDamage")
 			.setDamageBypassesArmor()

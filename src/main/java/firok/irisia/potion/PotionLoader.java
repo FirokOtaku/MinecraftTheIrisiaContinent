@@ -62,6 +62,11 @@ public class PotionLoader
             Potions.Cursed=new Potions.PotionCursed(start);
             log.info("Initializing PotionCursed with id " + start);
         }
+        // Militaristic
+        if((start=getNextPotionId(start))>=0){
+            Potions.Militaristic=new Potions.PotionMilitaristic(start);
+            log.info("Initializing PotionMilitaristic with id " + start);
+        }
 
 
         // Wise
