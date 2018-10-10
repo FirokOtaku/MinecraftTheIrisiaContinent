@@ -27,7 +27,7 @@ public class Irisia
 {
     public static final String MODID = "irisia";
     public static final String NAME = "The Irisia Continent";
-    public static final String VERSION = "0.12.54";
+    public static final String VERSION = "0.12.55";
     public static final boolean IN_DEV=true;
 
     // public static Random rand=new Random();
@@ -195,6 +195,25 @@ public class Irisia
     public static final List<Aspect> listPrimalAspect;
     public static final Aspect[] arrayPrimalAspect;
     public static final Potion[] noPotion=new Potion[0];
+    public static final int[] noInt=new int[0];
+    public static final Integer[] noInteger=new Integer[0];
+    public static String getRomeInt(int i) // now used for BuffBauble s
+    {
+        switch (i)
+        {
+            case 0:return "Ⅰ";
+            case 1:return "Ⅱ";
+            case 2:return "Ⅲ";
+            case 3:return "Ⅳ";
+            case 4:return "Ⅴ";
+            case 5:return "Ⅵ";
+            case 6:return "Ⅶ";
+            case 7:return "Ⅷ";
+            case 8:return "Ⅸ";
+            case 9:return "Ⅹ";
+            default:return "[x]";
+        }
+    }
     static
     {
         noAspect=new ArrayList<>();

@@ -115,7 +115,9 @@ item.SlimeHelmet.name=史莱姆头盔
 item.SlimeChestplate.name=史莱姆胸甲
 item.SlimeLeggings.name=史莱姆护腿
 item.SlimeBoots.name=史莱姆靴
+
 item.WainAlioth.name=无限之剑-玉衡
+
 item.LifewoodItemCap.name=生命木杖端
 item.LifewoodItemRod.name=生命木杖芯
 item.SpectreItemCap.name=怨灵杖端
@@ -130,6 +132,7 @@ item.SolitaItemCap.name=索利塔杖端
 item.SolitaItemRod.name=索利塔杖芯
 item.MogigaItemCap.name=魔伽杖端
 item.MogigaItemRod.name=魔伽杖芯
+
 item.ShardOfLove.name=爱情碎片
 item.Bezoar.name=牛黄
 item.IcyGel.name=冰凝胶
@@ -171,18 +174,28 @@ item.CoinGold.name=金币
 item.CoinGoldPile.name=金币摞
 item.CoinIrisia.name=Irisia币
 item.CoinIrisiaPile.name=Irisia币摞
+
 item.VilligerFood.name=村人口粮
 item.MixedSweet.name=混合糖果
 item.NullBerry.name=树莓(空)
+
 item.FortuneRing.name=幸运指环
 item.MinersRing.name=矿工指环
 item.ThrivingRing.name=茁壮指环
 item.InsaneRing.name=癫狂指环
 item.LucidRing.name=清明指环
 item.LoveRing.name=爱情指环
+item.MidasRelicRing.name=迈达斯之遗
 item.PhotosynthesisAmulet.name=光合护符
 item.DwartTravellerBelt.name=矮人旅行者腰带
+item.MermaidBelt.name=人鱼腰带
 item.TwelveMagicalAmulet.name=十二魔力护符
+item.HolyCrossAmulet.name=圣十字护符
+item.GeneralEmblem.name=将军纹章
+item.GiantBelt.name=巨人腰带
+item.ManaBoostRing.name=法力增幅指环
+item.ManaInterferingRing.name=魔法干扰指环
+
 item.Gashapon.name=扭蛋
 item.ThrowableWeapons.name=投掷武器
 item.WeaponFlailWood.name=木连枷
@@ -215,12 +228,14 @@ tile.blockDwartSteel.name=褐钢块
 tile.blockElfStone.name=精灵石块
 tile.blockDwartCoal.name=褐煤块
 tile.blockHotStone.name=热石块
+
 tile.DeathGrassHerb.name=死亡草植物
 tile.MoonGrassHerb.name=月光草植物
 tile.SpicyRootHerb.name=辛辣根植物
 tile.blockShadowMushroom.name=暗影菇植物
 tile.TestWaterHerb.name=测试水生植物
 tile.blockStelaSpeed.name=符文碑-迅捷
+
 tile.blockStelaJump.name=符文碑-跳跃
 tile.blockStelaResistance.name=符文碑-抗性提升
 tile.blockStelaDigSpeed.name=符文碑-挖掘速度
@@ -228,6 +243,25 @@ tile.blockPavingStoneShake.name=铺路石-震荡
 tile.blockPavingStoneFlame.name=铺路石-烈焰
 tile.machineBerryMixer.name=莓果混合器
 
+irisia.potion.love=发情
+irisia.potion.electrostatic=静电
+irisia.potion.cold=寒气
+irisia.potion.space_unstable=空间不稳定
+irisia.potion.vis_leaking=灵气流失
+irisia.potion.corroded=腐蚀
+irisia.potion.cursed=诅咒
+irisia.potion.militaristic=黩武
+irisia.potion.wise=睿智
+irisia.potion.folly=愚钝
+irisia.potion.magic_amplificative=法力增幅
+irisia.potion.magic_resistance=魔法抗性
+irisia.potion.thresholded=阈化
+irisia.potion.ethereal=虚无
+irisia.potion.ninjia=忍者
+irisia.potion.windranger=风行
+irisia.potion.leadely=领袖
+irisia.potion.midas=迈达斯
+irisia.potion.echo=回声
 
 info.taste.level0=不
 info.taste.level1=略
@@ -243,6 +277,10 @@ info.taste.totalDebuffRate=不良状态抗性 :
 info.taste.totalPoisonRate=毒抗性 :
 info.taste.exp=经验 :
 info.taste.expl=经验等级 :
+
+info.antibuff.title=抵抗以下效果
+info.antibuff.interval=每隔
+info.buff.title=提供以下效果
 
 death.attack.cursedDamage=%1$s死于诅咒%2$s using %3$s
 death.attack.lightningDamage=%1$s死于雷电

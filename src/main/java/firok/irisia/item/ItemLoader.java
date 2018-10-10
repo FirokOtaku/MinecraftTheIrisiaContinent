@@ -141,8 +141,10 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.InsaneRing,"ring_insane","InsaneRing");
 		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.LucidRing,"ring_lucid","LucidRing");
 		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.LoveRing,"ring_love","LoveRing");
+		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.MidasRelic,"ring_midas_relic","MidasRelicRing");
 		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.PhotosynthesisAmulet,"ring_photosynthesis","PhotosynthesisAmulet");
 		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.DwartTravellerBelt,"belt_dwart_traveller","DwartTravellerBelt");
+		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.MermaidBelt,"belt_mermaid","MermaidBelt");
 		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.TwelveMagicalPowerAmulet,"amulet_twelve_magical","TwelveMagicalAmulet");
 
 		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.DimVisRingEarth,"ring_visring_earth_dim","DimVisRingEarth");
@@ -165,6 +167,12 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.GlowVisRingEntropy,"ring_visring_entropy_glow","GlowVisRingEntropy");
 
 		register(IrisiaCreativeTabs.equi,EquipmentAntiBuffBaubles.AntiPoisonRing,"ring_ati_poison","AntiPoisonRing");
+		register(IrisiaCreativeTabs.equi,EquipmentAntiBuffBaubles.HolyCrossAmulet,"amulet_holy_cross","HolyCrossAmulet");
+
+		register(IrisiaCreativeTabs.equi,EquipmentBuffBaubles.GeneralEmblem,"amulet_general_emblem","GeneralEmblem");
+		register(IrisiaCreativeTabs.equi,EquipmentBuffBaubles.GiantBelt,"belt_giant","GiantBelt");
+		register(IrisiaCreativeTabs.equi,EquipmentBuffBaubles.ManaBoostRing,"ring_mana_boost","ManaBoostRing");
+		register(IrisiaCreativeTabs.equi,EquipmentBuffBaubles.ManaInterferingRing,"ring_mana_interfering","ManaInterferingRing");
 	}
 	private static void registerConsumables()
 	{

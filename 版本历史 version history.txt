@@ -1,3 +1,11 @@
+0.12.55
+加入人鱼腰带、圣十字护身符饰品
+add MermaidBelt, HolyCrossAmulet baubles
+加入状态效果饰品类
+add BuffBauble class
+加入巨人腰带、将军纹章、法力增幅指环、魔法干扰指环饰品
+add GiantBelt, GeneralEmblem, ManaBoostRing, ManaInterferingRing baubles
+
 0.12.54
 加入黩武状态效果
 
