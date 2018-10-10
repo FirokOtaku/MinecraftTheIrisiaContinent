@@ -81,7 +81,7 @@ public class EventLoader
 	    {
 	    	enlb.entityDropItem(new ItemStack(RawMaterials.SoulCrystal),0);
 	    }
-	    enlb.entityDropItem(new ItemStack(RawMaterials.CoinCopper,(int)((1+factor*0.4)*enlb.getMaxHealth()/4)),0);
+	    enlb.entityDropItem(new ItemStack(RawMaterials.CoinCopper,(int)Math.ceil((1+factor*0.4)*enlb.getMaxHealth()/4)),0);
 
 	    LootManager.dropLoot(enlb); // 调用掉落物管理器的接口 来掉落物品
     }
@@ -155,22 +155,34 @@ public class EventLoader
 	    if(event.entity.worldObj.isRemote)
 	    	return;
 
-	    EntityLivingBase enlb=event.entityLiving;
+	    EntityPlayer player=event.entityPlayer;
+	    IInventory baubles=BaublesApi.getBaubles(player);
+	    if(baubles!=null)
+	    {
+	    	for(int i=0;i<baubles.getSizeInventory();i++)
+		    {
+		    	ItemStack stackInSlot=baubles.getStackInSlot(i);
+		    	if(stackInSlot!=null&&stackInSlot.getItem()==EquipmentUniqueBaubles.MidasRelic)
+			    {
+			    	((EntityLivingBase) event.target).addPotionEffect(new PotionEffect(Potions.Midas.id,200,1));
+			    }
+		    }
+	    }
 	    // Collection effects=enlb.getActivePotionEffects();
 
 	    // 黩武debuff解除判定
-	    PotionEffect militaristic=enlb.getActivePotionEffect(Potions.Militaristic);
+	    PotionEffect militaristic=player.getActivePotionEffect(Potions.Militaristic);
 	    if(militaristic!=null)
 	    {
-	    	if(enlb.worldObj.rand.nextFloat()<0.08) // 每次攻击只有8%几率消除黩武debuff
+	    	if(player.worldObj.rand.nextFloat()<0.08) // 每次攻击只有8%几率消除黩武debuff
 		    {
-		    	enlb.removePotionEffect(Potions.Militaristic.id);
-		    	enlb.worldObj.playSoundAtEntity(enlb,Keys.SoundGulp,1,1); // todo 这里以后换成别的声音
+		    	player.removePotionEffect(Potions.Militaristic.id);
+		    	player.worldObj.playSoundAtEntity(player,Keys.SoundGulp,1,1); // todo 这里以后换成别的声音
 		    }
 	    }
 
 	    // 法力增幅buff结算
-	    PotionEffect amplificative=enlb.getActivePotionEffect(Potions.MagicAmplificative);
+	    PotionEffect amplificative=player.getActivePotionEffect(Potions.MagicAmplificative);
 	    if(amplificative!=null)
 	    {
 		    firok.irisia.ability.CauseDamage.toLiving((EntityLivingBase) event.target,DamageSources.MagicAmplificativeDamage,
@@ -179,9 +191,9 @@ public class EventLoader
 
 	    if(event.target instanceof EntityLivingBase) // potion leaderly // 领袖buff结算
 	    {
-		    List players=enlb.worldObj.getEntitiesWithinAABBExcludingEntity(enlb,
-				    AxisAlignedBB.getBoundingBox(enlb.posX-5,enlb.posY-3,enlb.posZ-5,
-						    enlb.posX+5,enlb.posY+3,enlb.posZ+5),
+		    List players=player.worldObj.getEntitiesWithinAABBExcludingEntity(player,
+				    AxisAlignedBB.getBoundingBox(player.posX-5,player.posY-3,player.posZ-5,
+						    player.posX+5,player.posY+3,player.posZ+5),
 				    EntitySelectors.SelectPlayerAlive);
 		    int levelLeaderly=0;
 		    for(Object obj:players)

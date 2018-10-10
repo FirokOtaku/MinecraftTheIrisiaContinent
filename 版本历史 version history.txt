@@ -8,6 +8,7 @@ add GiantBelt, GeneralEmblem, ManaBoostRing, ManaInterferingRing baubles
 
 0.12.54
 加入黩武状态效果
+add PotionMilitaristic potion effect
 
 0.12.53
 加入幽鬼之刃武器
@@ -17,7 +18,7 @@ update some textures
 
 0.12.52
 加入领袖、迈达斯、诅咒、腐蚀状态效果
-add PotionLeaderly, PotionMidas, PotionCursed, PotionCorroded potion effect
+add PotionLeaderly, PotionMidas, PotionCursed, PotionCorroded potion effects
 
 0.12.51
 加入盔甲收纳盒物品

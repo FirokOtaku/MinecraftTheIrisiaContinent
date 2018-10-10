@@ -17,7 +17,7 @@ public class PotionLoader
     public PotionLoader(FMLPreInitializationEvent event)
     {
         Logger log=event.getModLog();
-        int customPotions = 20;
+        int customPotions = 20; // 现在是18个
         int potionOffset = Potion.potionTypes.length;
         int start = 0;
         log.info("药水id偏移 : " + potionOffset);
