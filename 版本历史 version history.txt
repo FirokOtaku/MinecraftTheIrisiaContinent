@@ -1,3 +1,13 @@
+0.12.56
+加入莫纳草、苹果草、墨尔草、褐麦药草
+add MonaGrass, AppleGrass, InkrGrass, BrownWheat herbs
+加入金球、精灵叶、风暴球、充能的风暴球物品
+add Nugget, ElfLeaves, StormBall, ChargedStormBall items
+加入古代神秘使笔记、古代断剑、古代化石碎片、古代机械零件物品
+add AncientThaumicNote, AncientBrokenSword, AncientFossilFragment, AncientMachinePart items
+加入风暴收集器
+add StormCollector block
+
 0.12.55
 加入人鱼腰带、圣十字护身符饰品
 add MermaidBelt, HolyCrossAmulet baubles

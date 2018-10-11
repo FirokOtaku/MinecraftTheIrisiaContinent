@@ -6,6 +6,7 @@ import firok.irisia.Irisia;
 import firok.irisia.Util;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -39,10 +40,14 @@ public class RawMaterials
 	public final static InformationItem InkBottle; // 墨水瓶
 	public final static InformationItem PaperPile; // 一摞纸
 	public final static InformationItem PaperBigPile; // 一大摞纸
+	public final static InformationItem Nugget; // 金块
+	public final static InformationItem StormBall; // 未充能的风暴球
+	public final static InformationItem ChargedStormBall; // 充能的风暴球
 
 	// food material
 	public final static InformationItem BrownWheat; // 褐麦
 	public final static InformationItem DwartFlour; // 矮人面粉
+	public final static InformationItem ElfLeaves; // 精灵叶
 
 	// ores and metals
 	public final static InformationItem ElfStone;
@@ -80,6 +85,7 @@ public class RawMaterials
 	public final static InformationItem AncientThaumicNote; // 古代神秘使笔记
 	public final static InformationItem AncientMachinePart;  // 古代机械碎片
 	public final static InformationItem AncientFossilFragment; // 古代生物化石碎块
+	public final static InformationItem AncientBrokenSword; // 古代断剑
 
 	static
 	{
@@ -94,10 +100,10 @@ public class RawMaterials
 		TortoiseShell = new InformationItem();
 		BoneShard = new InformationItem();
 		CasinosBadge = new InformationItem();
-		UnicornHorn=new InformationItem();
-		UnicornBlood =new InformationItem();
-		HotBlood=new InformationItem();
-		SlimeCore=new InformationItem();
+		UnicornHorn=new InformationItem(EnumRarity.uncommon);
+		UnicornBlood =new InformationItem(EnumRarity.uncommon);
+		HotBlood=new InformationItem(EnumRarity.uncommon);
+		SlimeCore=new InformationItem(EnumRarity.uncommon);
 		SoulCrystal=new InformationItem();
 		DwartCoal=new InformationItem();
 		HotStone=new InformationItem();
@@ -107,9 +113,13 @@ public class RawMaterials
 		InkBottle=new InformationItem();
 		PaperPile=new InformationItem();
 		PaperBigPile=new InformationItem();
+		Nugget=new InformationItem();
+		StormBall=new InformationItem();
+		ChargedStormBall=new InformationItem(EnumRarity.uncommon);
 
 		BrownWheat=new InformationItem();
 		DwartFlour=new InformationItem();
+		ElfLeaves=new InformationItem();
 
 		ElfStone= new InformationItem();
 		FlumetalIngot= new InformationItem();
@@ -120,8 +130,8 @@ public class RawMaterials
 		AdamantiumIngot=new InformationItem();
 		SlimeIngot=new InformationItem();
 
-		InvalidRunicRing=new InformationItem();
-		LostPage=new InformationItem();
+		InvalidRunicRing=new InformationItem(EnumRarity.uncommon);
+		LostPage=new InformationItem(EnumRarity.uncommon);
 
 		GoldenSilk = new InformationItem();
 		DiamondSilk = new InformationItem();
@@ -135,21 +145,28 @@ public class RawMaterials
 		CoinGoldPile = new InformationItem();
 		CoinIrisia = new InformationItem();
 		CoinIrisiaPile = new InformationItem();
-		VipCardCopper= new InformationItem();
-		VipCardSilver= new InformationItem();
-		VipCardGold= new InformationItem();
-		VipCardDiamond= new InformationItem();
-		AncientThaumicNote = new InformationItem();
-		AncientMachinePart = new InformationItem();
-		AncientFossilFragment=new InformationItem();
+		VipCardCopper= new InformationItem(EnumRarity.uncommon);
+		VipCardSilver= new InformationItem(EnumRarity.uncommon);
+		VipCardGold= new InformationItem(EnumRarity.rare);
+		VipCardDiamond= new InformationItem(EnumRarity.rare);
+		AncientThaumicNote = new InformationItem(EnumRarity.epic);
+		AncientMachinePart = new InformationItem(EnumRarity.epic);
+		AncientFossilFragment=new InformationItem(EnumRarity.epic);
+		AncientBrokenSword=new InformationItem(EnumRarity.epic);
 	}
 
 	public static class InformationItem extends Item implements Util.Informational
 	{
 		private String[] lines;
+		private EnumRarity rarity;
 		public InformationItem()
 		{
+			this(EnumRarity.common);
+		}
+		public InformationItem(EnumRarity r)
+		{
 			lines=Irisia.noString;
+			rarity=r;
 		}
 		public void loadInformation()
 		{
@@ -174,6 +191,11 @@ public class RawMaterials
 			{
 				info.add(line);
 			}
+		}
+		@Override
+		public EnumRarity getRarity(ItemStack stack)
+		{
+			return rarity;
 		}
 
 		@Override

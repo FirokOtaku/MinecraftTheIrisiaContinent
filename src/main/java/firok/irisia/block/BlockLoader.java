@@ -55,6 +55,10 @@ public class BlockLoader
 
 		register(IrisiaCreativeTabs.irisia, HerbsAndMushroom.TestWater,"TestWater","test_water");
 
+		register(IrisiaCreativeTabs.block,HerbsAndMushroom.InkrGrass,"InkrGrass","inkr_grass");
+		register(IrisiaCreativeTabs.block,HerbsAndMushroom.AppleGrass,"AppleGrass","apple_grass");
+		register(IrisiaCreativeTabs.block,HerbsAndMushroom.MonaGrass,"MonaGrass","mona_grass");
+		register(IrisiaCreativeTabs.block,HerbsAndMushroom.BrownWheat,"BrownWheat","brown_wheat");
 	}
 	private static void registerArcaneStelas()
 	{
@@ -68,8 +72,9 @@ public class BlockLoader
 		register(IrisiaCreativeTabs.block,PavingStones.Shake,"blockPavingStoneShake","block_paving_stone_shake");
 		register(IrisiaCreativeTabs.block,PavingStones.Flame,"blockPavingStoneFlame","block_paving_stone_flame");
 	}
-	private static void registerMatchines()
+	private static void registerMachines()
 	{
+		register(IrisiaCreativeTabs.block,MachineBlocks.StormCollector,"machineStormCollector","machine_storm_collector");
 		register(IrisiaCreativeTabs.block,MachineBlocks.BerryMixer,"machineBerryMixer","machine_berry_mixer");
 
 		register(IrisiaCreativeTabs.block,EnderElevator.ElevatorController,"machine_ender_elevator_controller","MachineEnderElevatorController");
@@ -89,7 +94,7 @@ public class BlockLoader
 
 	    registerPavingStones();
 
-	    registerMatchines();
+	    registerMachines();
     }
 
     private static void register(@Nullable CreativeTabs tab, HerbsAndMushroom.Herb herb, String unlocalizedName, String textureName)

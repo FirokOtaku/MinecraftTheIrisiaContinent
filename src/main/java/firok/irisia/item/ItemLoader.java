@@ -51,6 +51,9 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.material,RawMaterials.InkBottle,"material_ink_bottle","InkBottle");
 		register(IrisiaCreativeTabs.material,RawMaterials.PaperPile,"material_paper_pile","PaperPile");
 		register(IrisiaCreativeTabs.material,RawMaterials.PaperBigPile,"material_paper_big_pile","PaperBigPile");
+		register(IrisiaCreativeTabs.material,RawMaterials.Nugget,"material_nugget","Nugget");
+		register(IrisiaCreativeTabs.material,RawMaterials.StormBall,"material_storm_ball","StormBall");
+		register(IrisiaCreativeTabs.material,RawMaterials.ChargedStormBall,"material_charged_storm_ball","ChargedStormBall");
 
 
 		register(IrisiaCreativeTabs.material,RawMaterials.DwartFlour,"material_dwart_flour","DwartFlour");
