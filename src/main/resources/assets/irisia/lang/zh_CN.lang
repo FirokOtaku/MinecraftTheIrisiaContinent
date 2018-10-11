@@ -153,6 +153,17 @@ item.SoulCrystal.name=灵魂结晶
 item.DwartCoal.name=褐煤
 item.HotStone.name=热石
 item.DwartFlour.name=褐面粉
+
+item.Ink.name=墨水
+item.InkBottle.name=墨水瓶
+item.PaperPile.name=一摞纸
+item.PaperBigPile.name=一大摞纸
+item.Nugget.name=金球
+item.StormBall.name=风暴球
+item.ChargedStormBall.name=充能的风暴球
+
+item.MagicalPaper.name=奥术纸张
+item.TerrestrialDoveFeather.name=陆行鸽羽
 item.ElfStone.name=精灵石
 item.FlumetalIngot.name=流铁锭
 item.SolitaIngot.name=索利塔锭
@@ -174,6 +185,11 @@ item.CoinGold.name=金币
 item.CoinGoldPile.name=金币摞
 item.CoinIrisia.name=Irisia币
 item.CoinIrisiaPile.name=Irisia币摞
+
+item.AncientMachinePart.name=古代机械零件
+item.AncientThaumicNote.name=古代神秘使笔记
+item.AncientFossilFragment.name=古代生物化石碎片
+item.AncientBrokenSword.name=古代断剑
 
 item.VilligerFood.name=村人口粮
 item.MixedSweet.name=混合糖果
@@ -242,6 +258,7 @@ tile.blockStelaDigSpeed.name=符文碑-挖掘速度
 tile.blockPavingStoneShake.name=铺路石-震荡
 tile.blockPavingStoneFlame.name=铺路石-烈焰
 tile.machineBerryMixer.name=莓果混合器
+tile.machineStormCollector.name=风暴收集器
 
 irisia.potion.love=发情
 irisia.potion.electrostatic=静电

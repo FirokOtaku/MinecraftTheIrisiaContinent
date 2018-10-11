@@ -116,6 +116,7 @@ public class EventLoader
 			    if(ea1.set==ea2.set&&ea2.set==ea3.set&&ea3.set==ea4.set) // 检查是不是一套
 			    {
 				    // player.addChatComponentMessage(new ChatComponentText("all set"));
+				    // todo 这里以后替换成HashMap实现 现在的写得太死了
 			    	if(ea1.set==EquipmentSets.WindRangerSet)
 				    {
 					    // player.addChatComponentMessage(new ChatComponentText("wind ranger"));
@@ -134,6 +135,10 @@ public class EventLoader
 				    	player.addPotionEffect(new PotionEffect(Potions.Ninjia.id,85,0));
 				    	player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id,85,0));
 					    player.addPotionEffect(new PotionEffect(Potion.jump.id,85,0));
+				    }
+				    else if(ea1.set==EquipmentSets.StormSet)
+				    {
+				    	player.addPotionEffect(new PotionEffect(Potions.Electrostatic.id,85,0));
 				    }
 			    }
 		    }
@@ -162,9 +167,10 @@ public class EventLoader
 	    	for(int i=0;i<baubles.getSizeInventory();i++)
 		    {
 		    	ItemStack stackInSlot=baubles.getStackInSlot(i);
-		    	if(stackInSlot!=null&&stackInSlot.getItem()==EquipmentUniqueBaubles.MidasRelic)
+		    	if(stackInSlot!=null&&stackInSlot.getItem()==EquipmentUniqueBaubles.MidasRelic) // 迈达斯判定
 			    {
 			    	((EntityLivingBase) event.target).addPotionEffect(new PotionEffect(Potions.Midas.id,200,1));
+			    	break;
 			    }
 		    }
 	    }
@@ -241,10 +247,46 @@ public class EventLoader
 
 	    float amount=event.ammount;
 
-	    // 先判断有没有风行和忍者效果 有的话先执行这个
 	    float rateMissPhy=0; // 闪避几率
 	    float rateMissMag=0;
+	    float maxHp=enlb.getMaxHealth();
+	    float nowHp=enlb.getHealth();
+	    // 如果是玩家 先判断身上的装备 提供一些装备效果
+	    if(enlb instanceof EntityPlayer)
+	    {
+		    IInventory inv=BaublesApi.getBaubles((EntityPlayer)enlb);
+		    for(int i=0;i<inv.getSizeInventory();i++)
+		    {
+			    ItemStack stackInSlot=inv.getStackInSlot(i);
+			    if(stackInSlot==null) continue;
 
+			    Item item=stackInSlot.getItem();
+			    if(item==EquipmentUniqueBaubles.EchoAmulet && nowHp-amount<maxHp*0.1)
+			    {
+				    // 找到Echo护身符 检查是不是开启 另外是不是在等cd
+				    NBTTagCompound nbt=stackInSlot.hasTagCompound()?stackInSlot.getTagCompound():new NBTTagCompound();
+				    boolean isOn=nbt.hasKey("isOn")?nbt.getBoolean("isOn"):true;
+				    int cd=nbt.hasKey("cd")?nbt.getInteger("cd"):0;
+
+				    if(isOn&&cd<=0)
+				    { // 一切就绪 给一个buff
+					    enlb.worldObj.playSoundAtEntity(enlb,Keys.SoundDoor,1,1);
+					    enlb.addPotionEffect(new PotionEffect(Potions.Echo.id,200,0));
+					    cd=6;
+				    }
+
+				    nbt.setBoolean("isOn",isOn);
+				    nbt.setInteger("cd",cd);
+				    stackInSlot.setTagCompound(nbt);
+			    }
+			    else if(item==EquipmentUniqueBaubles.SylphBelt)
+			    {
+			    	rateMissPhy+=0.25f;
+			    }
+		    }
+	    }
+
+	    // 先判断有没有风行和忍者效果 有的话先执行这个
 	    PotionEffect ninjia=enlb.getActivePotionEffect(Potions.Ninjia);
 	    PotionEffect windranger=enlb.getActivePotionEffect(Potions.WindRanger);
 	    if(ninjia!=null)

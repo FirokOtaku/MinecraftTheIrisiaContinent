@@ -1,16 +1,20 @@
 package firok.irisia.common;
 
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.event.*;
 import firok.irisia.Irisia;
+import firok.irisia.SomeCodes;
 import firok.irisia.block.BlockLoader;
-import firok.irisia.command.CommandLoader;
-import firok.irisia.crafting.CraftingLoader;
-import firok.irisia.enchantment.EnchantmentLoader;
 import firok.irisia.inventory.GuiElementLoader;
 import firok.irisia.item.*;
 import firok.irisia.potion.PotionLoader;
 import firok.irisia.tileentity.TileEntityLoader;
+import firok.irisia.world.IrisiaWorldProvider;
+import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.common.config.Configuration;
 import org.apache.logging.log4j.Level;
+
+import static firok.irisia.common.ConfigLoader.idDim;
 
 public class CommonProxy
 {
@@ -32,15 +36,30 @@ public class CommonProxy
 
     	ConfigLoader.initConfig(event);
     	IrisiaCreativeTabs.load(event);
+
+	    new PotionLoader(event);
     	new ItemLoader(event);
 //    	new FluidLoader(event);
     	new BlockLoader(event);
 //
 //    	// TODO
 //    	AchievementPage.registerAchievementPage(new PageIrisia());
+
+
+//		new StructureTFMajorFeatureStart();
+//// just call this so that we register structure IDs correctly
 //
+//    	// check for biome conflicts, load biomes
+//		TFBiomeBase.assignBlankBiomeIds();
+//		if (ConfigLoader.hasAssignedBiomeID) {
+//			FMLLog.info("[TwilightForest] Twilight Forest mod has auto-assigned some biome IDs.  This will break any existing Twilight Forest saves.");
+//			saveBiomeIds(null);
+//		}
+//		ConfigLoader.hasBiomeIdConflicts = TFBiomeBase.areThereBiomeIdConflicts();
+
+
+
 //    	new OreDictionaryLoader(event);
-    	new PotionLoader(event);
 //
 //        new EntityLoader();
 	    new TileEntityLoader(event);
@@ -54,7 +73,7 @@ public class CommonProxy
 	    EnchantmentLoader.info();
 //
     	new EventLoader();
-    	new firok.irisia.world.WorldLoader();
+    	//new firok.irisia.world.WorldLoader();
 //
 //    	// TODO
 //    	//
@@ -62,6 +81,14 @@ public class CommonProxy
 //    	new firok.irisia.mod.tc.research.CateLoader();
 		firok.irisia.common.TcContent.init();
     	new GuiElementLoader();
+
+	    // dimension provider
+	    DimensionManager.registerProviderType(ConfigLoader.dimensionProviderID, IrisiaWorldProvider.class, false);
+
+	    DimensionManager.registerDimension(idDim,ConfigLoader.dimensionProviderID);
+
+	    // enter biomes into dictionary
+	    //TFBiomeBase.registerWithBiomeDictionary();
 
 	    GashaponManager.init();
 
@@ -71,10 +98,36 @@ public class CommonProxy
     public void postInit(FMLPostInitializationEvent event)
     {
 //    	new DimentionLoader();
+
+
+	    // register dimension with Forge
+	    if (!DimensionManager.isDimensionRegistered(idDim))
+	    {
+		    DimensionManager.registerDimension(idDim, ConfigLoader.dimensionProviderID);
+	    }
+	    else
+	    {
+		    FMLLog.warning("[Irisia] Irisia detected that the configured dimension id '%d' is being used.  Using backup ID.  It is recommended that you configure this mod to use a unique dimension ID.", idDim);
+		    FMLLog.warning("[Irisia] Irisia 发现维度id '%d' 已经被占用.  已经改用备用维度id.  推荐为本mod使用一个唯一的维度id.", idDim);
+		    DimensionManager.registerDimension(ConfigLoader.backupdimensionID, ConfigLoader.dimensionProviderID);
+		    idDim = ConfigLoader.backupdimensionID;
+	    }
+
+	    if(Irisia.IN_DEV)
+	    {
+		    SomeCodes.lang();
+		    SomeCodes.armorTexture();
+	    }
     }
     
     public void serverStarting(FMLServerStartingEvent event)
     {
     	new CommandLoader(event);
     }
+
+	private void saveBiomeIds(Configuration config) {
+		config.get("biome", "biome.id.Lake", -1).set(ConfigLoader.idBiomeCrystalForest);
+
+		config.save();
+	}
 }

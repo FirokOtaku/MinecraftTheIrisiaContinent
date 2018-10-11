@@ -2,6 +2,8 @@ package firok.irisia.item;
 
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
+import baubles.common.container.InventoryBaubles;
+import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import firok.irisia.Irisia;
@@ -15,6 +17,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
@@ -33,6 +36,15 @@ import java.util.List;
 
 public class EquipmentUniqueBaubles
 {
+	// 本身没有什么特殊代码 靠Event驱动的饰品
+	public final static EquipmentSets.Ring MidasRelic; // 迈达斯之遗
+	public final static EquipmentSets.Belt SylphBelt; // 风精灵腰带
+	static
+	{
+		MidasRelic=new EquipmentSets.Ring();
+		SylphBelt=new EquipmentSets.Belt();
+	}
+
 	// baubles
 	public static EquipmentSets.Ring PhaseRing; // 月相戒
 	public static EquipmentSets.Ring TwilightRing; // 暮光戒
@@ -267,8 +279,10 @@ public class EquipmentUniqueBaubles
 
 	public final static EquipmentSets.Amulet PhotosynthesisAmulet; // 光合护身符
 	public final static EquipmentSets.Belt DwartTravellerBelt; // 矮人旅行者腰带
+	public final static EquipmentSets.Belt MermaidBelt; // 人鱼腰带
 	public static EquipmentSets.Amulet SpeAmulet; // 诅咒之护符
 	public static EquipmentSets.Amulet CoreAmulet; // 遥控护符
+	public final static EquipmentSets.Belt ChargeBelt; // 电荷腰带
 	public final static EquipmentSets.Amulet TwelveMagicalPowerAmulet; // 十二魔力护符
 	static
 	{
@@ -384,6 +398,37 @@ public class EquipmentUniqueBaubles
 			}
 		}; // 矮人旅行者腰带
 
+		MermaidBelt=new EquipmentSets.Belt()
+		{
+			@Override
+			public void onWornTick(ItemStack stack, EntityLivingBase entity)
+			{
+				if(entity.worldObj.isRemote||entity.ticksExisted%80!=0)
+					return;
+				Block block=entity.worldObj.getBlock((int)entity.posX,(int)entity.posY,(int)entity.posZ); // fixme low 这里好像有问题 水的检测位置有问题
+				if(block==Blocks.water||block==Blocks.flowing_water)
+				{
+					entity.addPotionEffect(new PotionEffect(Potion.moveSpeed.id,85,3));
+					entity.addPotionEffect(new PotionEffect(Potion.waterBreathing.id,85,1));
+				}
+			}
+		}; // 人鱼腰带
+
+		ChargeBelt=new EquipmentSets.Belt()
+		{
+			@Override
+			public void onWornTick(ItemStack stack,EntityLivingBase entity)
+			{
+				if(entity.worldObj.isRemote||entity.ticksExisted%80!=0)
+					return;
+				if(entity.worldObj.isThundering())
+				{
+					entity.addPotionEffect(new PotionEffect(Potion.moveSpeed.id,85,1));
+					entity.addPotionEffect(new PotionEffect(Potion.damageBoost.id,85,1));
+				}
+			}
+		}; // 电荷腰带
+
 		TwelveMagicalPowerAmulet=new EquipmentSets.Amulet(){
 			@Override
 			public void onWornTick(ItemStack is, EntityLivingBase enlb)
@@ -444,6 +489,12 @@ public class EquipmentUniqueBaubles
 	public final static VisRing VisRingAir;
 	public final static VisRing VisRingOrder;
 	public final static VisRing VisRingEntropy;
+	public final static VisRing GlowVisRingEarth;
+	public final static VisRing GlowVisRingFire;
+	public final static VisRing GlowVisRingWater;
+	public final static VisRing GlowVisRingAir;
+	public final static VisRing GlowVisRingOrder;
+	public final static VisRing GlowVisRingEntropy;
 	static
 	{
 		List<Aspect> earth=new ArrayList<>();
@@ -451,34 +502,42 @@ public class EquipmentUniqueBaubles
 		int realCountDim=100;
 		int interval=120;
 		int realCount=200;
+		int intervalGlow=120;
+		int realCountGlow=300;
 		earth.add(Aspect.EARTH);
 		DimVisRingEarth=new VisRing(intervalDim,earth,realCountDim);
 		VisRingEarth=new VisRing(interval,earth,realCount);
+		GlowVisRingEarth=new VisRing(intervalGlow,earth,realCountGlow);
 
 		List<Aspect> air=new ArrayList<>();
 		air.add(Aspect.AIR);
 		DimVisRingAir=new VisRing(intervalDim,air,realCountDim);
 		VisRingAir=new VisRing(interval,air,realCount);
+		GlowVisRingAir=new VisRing(intervalGlow,air,realCountGlow);
 
 		List<Aspect> water=new ArrayList<>();
 		water.add(Aspect.WATER);
 		DimVisRingWater=new VisRing(intervalDim,water,realCountDim);
 		VisRingWater=new VisRing(interval,water,realCount);
+		GlowVisRingWater=new VisRing(intervalGlow,water,realCountGlow);
 
 		List<Aspect> fire=new ArrayList<>();
 		fire.add(Aspect.FIRE);
 		DimVisRingFire=new VisRing(intervalDim,fire,realCountDim);
 		VisRingFire=new VisRing(interval,fire,realCount);
+		GlowVisRingFire=new VisRing(intervalGlow,fire,realCountGlow);
 
 		List<Aspect> order=new ArrayList<>();
 		order.add(Aspect.ORDER);
 		DimVisRingOrder=new VisRing(intervalDim,order,realCountDim);
 		VisRingOrder=new VisRing(interval,order,realCount);
+		GlowVisRingOrder=new VisRing(intervalGlow,order,realCountGlow);
 
 		List<Aspect> entropy=new ArrayList<>();
 		entropy.add(Aspect.ENTROPY);
 		DimVisRingEntropy=new VisRing(intervalDim,entropy,realCountDim);
 		VisRingEntropy=new VisRing(interval,entropy,realCount);
+		GlowVisRingEntropy=new VisRing(intervalGlow,entropy,realCountGlow);
 	}
 
 	public static EquipmentSets.Belt DwartBelt; // 矮人腰带
@@ -536,7 +595,7 @@ public class EquipmentUniqueBaubles
 			{
 				ItemStack stackInSlot=inv.getStackInSlot(i);
 				if(stackInSlot==null || stackInSlot.stackSize<=0 || !(stackInSlot.getItem() instanceof ItemWandCasting)) continue;
-				ItemWandCasting cast=(ItemWandCasting)stackInSlot.getItem();
+				ItemWandCasting cast=(ItemWandCasting)stackInSlot.getItem(); // info 在包里找法杖
 				boolean canAdd=false;
 				int maxVis=cast.getMaxVis(stackInSlot);
 				for(Aspect as:aspects)
@@ -548,7 +607,7 @@ public class EquipmentUniqueBaubles
 					}
 				}
 				if(!canAdd)
-					continue; // info 如果全部魔力都是慢的 说明不能恢复
+					continue; // info 如果全部魔力都是满的 说明不能恢复
 				for(Aspect as:aspects)
 				{
 					cast.addRealVis(stackInSlot,as,count,true);

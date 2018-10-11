@@ -381,25 +381,25 @@ public class Foods
 				int mpl=tag.getInteger("mpl");
 
 				// 增加经验
-				list.add("Exp : "+exp);
-				list.add("ExpL : "+expl);
+				list.add(StatCollector.translateToLocal("info.taste.exp")+exp);
+				list.add(StatCollector.translateToLocal("info.taste.expl")+expl);
 				// 恢复魔力
 				;
 
 
 				byte[] tastes=tag.getByteArray("tastes"); tastes= tastes.length==5? tastes: new byte[5];
-				if(tastes[0]>0) list.add(toLevel(tastes[0])+"甜");
-				if(tastes[1]>0) list.add(toLevel(tastes[1])+"酸");
-				if(tastes[2]>0) list.add(toLevel(tastes[2])+"苦");
-				if(tastes[3]>0) list.add(toLevel(tastes[3])+"涩");
-				if(tastes[4]>0) list.add(toLevel(tastes[4])+"辣");
+				if(tastes[0]>0) list.add(toLevel(tastes[0])+StatCollector.translateToLocal("info.taste.kind0")); // info.taste.kind0
+				if(tastes[1]>0) list.add(toLevel(tastes[1])+StatCollector.translateToLocal("info.taste.kind1"));
+				if(tastes[2]>0) list.add(toLevel(tastes[2])+StatCollector.translateToLocal("info.taste.kind2"));
+				if(tastes[3]>0) list.add(toLevel(tastes[3])+StatCollector.translateToLocal("info.taste.kind3"));
+				if(tastes[4]>0) list.add(toLevel(tastes[4])+StatCollector.translateToLocal("info.taste.kind4"));
 
 
 				float totalDebuffRate=tag.getFloat("antiD");
 				float totalPoisonRate=tag.getFloat("antiP");
 
-				list.add("异常状态抗性 : "+totalDebuffRate*100+"%");
-				list.add("毒抗性 : "+totalPoisonRate*100+"%");
+				list.add(StatCollector.translateToLocal("info.taste.totalDebuffRate")+totalDebuffRate*100+"%");
+				list.add(StatCollector.translateToLocal("info.taste.totalPoisonRate")+totalPoisonRate*100+"%");
 
 
 				int[] pids=tag.getIntArray("pids");
@@ -412,7 +412,12 @@ public class Foods
 				// 增加额外药水效果
 				for(int i=0;i<pids.length;i++)
 				{
-					list.add("Lv."+pls[i]+" "+StatCollector.translateToLocal(Potion.potionTypes[pids[i]].getName()) +" - "+pts[i]/20+"s "+prs[i]+"%");
+					StringBuilder str=new StringBuilder("Lv.");
+					str.append(pls[i]);str.append(' ');
+					str.append(StatCollector.translateToLocal(Potion.potionTypes[pids[i]].getName()));
+					str.append('-');str.append(pts[i]/20);str.append('s');
+					str.append(prs[i]);str.append('%');
+					list.add(str.toString());
 				}
 			}
 			catch (Exception e)
@@ -424,16 +429,8 @@ public class Foods
 		{
 			if(level<=0)
 				return "";
-			if(level==1)
-				return "略";
-			if(level==2)
-				return "";
-			if(level==3)
-				return "非常";
-			if(level==4)
-				return "极";
-			else
-				return "过";
+			if(level>=4) level=4;
+			return StatCollector.translateToLocal("info.taste.level"+level);
 		}
 	}
 }

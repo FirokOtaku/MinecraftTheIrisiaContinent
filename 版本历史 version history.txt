@@ -1,3 +1,9 @@
+0.12.57
+加入风暴装甲套装
+add StormArmor armor set
+加入电荷腰带饰品
+add ChargeBelt bauble
+
 0.12.56
 加入莫纳草、苹果草、墨尔草、褐麦药草
 add MonaGrass, AppleGrass, InkrGrass, BrownWheat herbs

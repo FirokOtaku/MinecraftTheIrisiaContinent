@@ -38,6 +38,7 @@ public class EquipmentSets
 	public final static EffectArmorSet DwartMinerSet;
 	public final static EffectArmorSet GarrisonSet;
 	public final static EffectArmorSet NinjiaSet;
+	public final static EffectArmorSet StormSet;
 
 	static
 	{
@@ -58,6 +59,7 @@ public class EquipmentSets
 		DwartMinerSet=new EffectArmorSet("dwartminer",ItemArmor.ArmorMaterial.IRON);
 		GarrisonSet=new EffectArmorSet("garrison",ItemArmor.ArmorMaterial.CHAIN);
 		NinjiaSet=new EffectArmorSet("ninjia",ItemArmor.ArmorMaterial.CLOTH);
+		StormSet=new EffectArmorSet("storm",Materials.StormArmor);
 	}
 	/** Stores the armor type: 0 is helmet, 1 is plate, 2 is legs and 3 is boots */
 

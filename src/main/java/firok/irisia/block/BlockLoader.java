@@ -12,7 +12,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemBlock;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
-import sun.font.Decoration;
 
 import java.util.ArrayList;
 
@@ -76,6 +75,7 @@ public class BlockLoader
 	{
 		register(IrisiaCreativeTabs.block,MachineBlocks.StormCollector,"machineStormCollector","machine_storm_collector");
 		register(IrisiaCreativeTabs.block,MachineBlocks.BerryMixer,"machineBerryMixer","machine_berry_mixer");
+		register(IrisiaCreativeTabs.block,MachineBlocks.LockedChest,"machineLockedChest","machine_locked_chest");
 
 		register(IrisiaCreativeTabs.block,EnderElevator.ElevatorController,"machine_ender_elevator_controller","MachineEnderElevatorController");
 		register(IrisiaCreativeTabs.block,EnderElevator.ElevatorPlatform,"machine_ender_elevator_platform","MachineEnderElevatorPlatform");

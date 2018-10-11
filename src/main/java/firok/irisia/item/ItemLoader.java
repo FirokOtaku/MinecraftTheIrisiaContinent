@@ -80,6 +80,11 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.irisia,RawMaterials.CoinIrisia,"coin_irisia","CoinIrisia");
 		register(IrisiaCreativeTabs.irisia,RawMaterials.CoinIrisiaPile,"coin_irisia_pile","CoinIrisiaPile");
 
+		register(IrisiaCreativeTabs.material,RawMaterials.AncientMachinePart,"ancient_machine_part","AncientMachinePart");
+		register(IrisiaCreativeTabs.material,RawMaterials.AncientThaumicNote,"ancient_thaumic_note","AncientThaumicNote");
+		register(IrisiaCreativeTabs.material,RawMaterials.AncientFossilFragment,"ancient_fossil_fragment","AncientFossilFragment");
+		register(IrisiaCreativeTabs.material,RawMaterials.AncientBrokenSword,"ancient_broken_sword","AncientBrokenSword");
+
 	}
 	private static void registerEquipments()
 	{
@@ -92,6 +97,7 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.equi,EquipmentSets.DwartSteelSet);
 		register(IrisiaCreativeTabs.equi,EquipmentSets.WindRangerSet);
 		register(IrisiaCreativeTabs.equi,EquipmentSets.DwartMinerSet);
+		register(IrisiaCreativeTabs.equi,EquipmentSets.StormSet);
 		// registerLoot(IrisiaCreativeTabs.equi,EquipmentSets.LifeWoodSet); // 已经转移
 		register(IrisiaCreativeTabs.equi,EquipmentSets.FlumetalSet);
 		// 注册生命木套装
@@ -138,6 +144,9 @@ public class ItemLoader
 	}
 	private static void registerBaubles()
 	{
+		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.SylphBelt,"belt_sylph","SylphBelt");
+		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.MidasRelic,"ring_midas_relic","MidasRelicRing");
+
 		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.FortuneRing,"ring_fortune","FortuneRing");
 		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.MinersRing,"ring_miner","MinersRing");
 		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.ThrivingRing,"ring_thriving","ThrivingRing");

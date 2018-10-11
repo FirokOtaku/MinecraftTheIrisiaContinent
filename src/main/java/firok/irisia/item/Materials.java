@@ -65,6 +65,10 @@ public class Materials
 			EnumHelper.addArmorMaterial(Irisia.MODID+":ICYWOLFFUR",
 					8, new int[]{ 1, 2, 2, 1 }, 15);
 
+	public static final ItemArmor.ArmorMaterial StormArmor =
+			EnumHelper.addArmorMaterial(Irisia.MODID+":STORM",
+					8, new int[]{ 1, 2, 2, 1 }, 15);
+
 	static
 	{
 		// note 这个用不到了 直接扔renderIndex一个4就好了
