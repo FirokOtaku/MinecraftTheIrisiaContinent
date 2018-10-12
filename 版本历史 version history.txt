@@ -1,3 +1,7 @@
+0.12.58
+加入狂战士之剑武器
+add BerserkerSword weapon
+
 0.12.57
 加入风暴装甲套装
 add StormArmor armor set

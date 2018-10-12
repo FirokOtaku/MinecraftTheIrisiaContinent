@@ -26,28 +26,28 @@ public class IrisiaCreativeTabs
 				return Items.diamond;
 			}
 		};
-		material = new CreativeTabs("material"){
+		material = new CreativeTabs("irisia_material"){
 			@Override
 			public Item getTabIconItem()
 			{
 				return Items.bone;
 			}
 		};
-		block = new CreativeTabs("block"){
+		block = new CreativeTabs("irisia_block"){
 			@Override
 			public Item getTabIconItem()
 			{
 				return ItemBlock.getItemFromBlock(Blocks.stone);
 			}
 		};
-		food = new CreativeTabs("food"){
+		food = new CreativeTabs("irisia_food"){
 			@Override
 			public Item getTabIconItem()
 			{
 				return Items.apple;
 			}
 		};
-		berry =new CreativeTabs("berry")
+		berry =new CreativeTabs("irisia_berry")
 		{
 			@Override
 			public Item getTabIconItem()
@@ -55,14 +55,14 @@ public class IrisiaCreativeTabs
 				return Items.bread;
 			}
 		};
-		equi = new CreativeTabs("equi"){
+		equi = new CreativeTabs("irisia_equi"){
 			@Override
 			public Item getTabIconItem()
 			{
 				return Items.iron_chestplate;
 			}
 		};
-		tc = new CreativeTabs("tc"){
+		tc = new CreativeTabs("irisia_tc"){
 			@Override
 			public Item getTabIconItem()
 			{

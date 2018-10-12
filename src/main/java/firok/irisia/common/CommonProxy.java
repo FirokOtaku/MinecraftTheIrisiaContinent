@@ -115,8 +115,7 @@ public class CommonProxy
 
 	    if(Irisia.IN_DEV)
 	    {
-		    SomeCodes.lang();
-		    SomeCodes.armorTexture();
+		    // SomeCodes.armorTexture();
 	    }
     }
     

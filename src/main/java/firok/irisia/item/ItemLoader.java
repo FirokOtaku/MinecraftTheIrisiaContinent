@@ -140,7 +140,13 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.food,Foods.VilligerFood,"villiger_food","VilligerFood");
 		register(IrisiaCreativeTabs.food,Foods.MixedSweet,"mixed_sweet","MixedSweet");
 		register(IrisiaCreativeTabs.food,Foods.BerryNull,"berry_null","NullBerry");
-
+		byte i=0;
+		for(Foods.Berry b:Foods.berries)
+		{
+			register(IrisiaCreativeTabs.food,b,"berry"+i,"Berry"+i);
+			i++;
+		}
+		register(IrisiaCreativeTabs.food,Foods.berry6,"berry6","berry6");
 	}
 	private static void registerBaubles()
 	{
@@ -211,6 +217,7 @@ public class ItemLoader
 
 		register(IrisiaCreativeTabs.equi,Weapons.VoidRunicLongBow,"weapon_void_runic_long_bow","WeaponVoidRunicLongBow");
 		register(IrisiaCreativeTabs.equi,Weapons.MercurialBlade,"weapon_mercurial_blade","WeaponMercurialBlade");
+		register(IrisiaCreativeTabs.equi,Weapons.BerserkerSword,"weapon_berserker_sword","WeaponBerserkerSword");
 	}
 	private static void registerTools()
 	{

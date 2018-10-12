@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import firok.irisia.Irisia;
+import firok.irisia.SomeCodes;
 import firok.irisia.Util;
 import firok.irisia.entity.CarryOut;
 import firok.irisia.entity.Monsters;
@@ -108,6 +109,9 @@ public class CommandLoader
 				break;
 			case "cursed":
 				player.addPotionEffect(new PotionEffect(Potions.Cursed.id,time,level));
+				break;
+			case "mil":
+				player.addPotionEffect(new PotionEffect(Potions.Militaristic.id,time,level));
 				break;
 		}
 	}
@@ -311,6 +315,17 @@ public class CommandLoader
 		}
 		Gen.genTextAt(player.worldObj,(int)player.posX,(int)player.posY+3,(int)player.posZ,text.toString(),size,dir);
 	}
+	private void lang()
+	{
+		try
+		{
+			SomeCodes.lang3();
+		}
+		catch (Exception e)
+		{
+			;
+		}
+	}
     public CommandLoader(FMLServerStartingEvent event)
     {
 	    event.registerServerCommand(new ICommand()
@@ -374,6 +389,9 @@ public class CommandLoader
 					    case "draw":
 					    	draw(sender,args);
 					    	break;
+					    case "lang":
+					    	lang();
+					    	break;
 				    }
 				    Irisia.log("执行完毕",(EntityPlayer)sender);
 			    }
@@ -400,9 +418,9 @@ public class CommandLoader
 			    return new LinkedList();
 		    }
 		    @Override
-		    public boolean canCommandSenderUseCommand(ICommandSender p_71519_1_)
-		    {
-			    return true;
+		    public boolean canCommandSenderUseCommand(ICommandSender sender)
+		    { // todo 这里以后可能去掉indev之类的 单纯只有创造模式能用
+			    return Irisia.IN_DEV||((EntityPlayer)sender).capabilities.isCreativeMode;
 		    }
 		    @Override
 		    public List addTabCompletionOptions(ICommandSender p_71516_1_, String[] p_71516_2_)

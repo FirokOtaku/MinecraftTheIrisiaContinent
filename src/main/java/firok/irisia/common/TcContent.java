@@ -75,6 +75,8 @@ public class TcContent
 		ThaumcraftApi.registerObjectTag(new ItemStack(RawMaterials.IcyGel),new AspectList().add(Aspect.LIFE,2));
 		ThaumcraftApi.registerObjectTag(new ItemStack(RawMaterials.SoulCrystal),new AspectList().add(Aspect.SOUL,3));
 		ThaumcraftApi.registerObjectTag(new ItemStack(RawMaterials.LostPage),new AspectList().add(Aspect.MIND,10));
+		ThaumcraftApi.registerObjectTag(new ItemStack(RawMaterials.StormBall),new AspectList().add(Aspect.METAL,6).add(Aspect.GREED,2));
+		ThaumcraftApi.registerObjectTag(new ItemStack(RawMaterials.ChargedStormBall),new AspectList().add(Aspect.METAL,6).add(Aspect.GREED,2).add(Aspect.WEATHER,16));
 	}
 //	private static void initR()
 //	{
