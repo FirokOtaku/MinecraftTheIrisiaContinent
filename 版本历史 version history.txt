@@ -1,3 +1,7 @@
+0.12.59
+加入远古门方块
+add AncientDoor block
+
 0.12.58
 加入狂战士之剑武器
 add BerserkerSword weapon
