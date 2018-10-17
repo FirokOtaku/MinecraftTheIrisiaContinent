@@ -1,3 +1,9 @@
+0.12.60
+重构口味系统
+rewrite implementing of tastes
+加入星果药草
+add Starous herb
+
 0.12.59
 加入远古门方块
 add AncientDoor block

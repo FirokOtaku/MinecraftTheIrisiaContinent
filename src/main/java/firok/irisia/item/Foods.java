@@ -3,6 +3,7 @@ package firok.irisia.item;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import firok.irisia.Irisia;
+import firok.irisia.common.TasteManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemFood;
@@ -13,7 +14,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 
@@ -21,7 +21,7 @@ public class Foods
 {
 	public final static InformationItemFood VilligerFood; // 村人干粮
 	public final static InformationItemFood IcyGummyJelly; // 冰软糖
-	public final static InformationItemFood HuckTeaLeaf; // 哈克茶叶
+	//public final static InformationItemFood HuckTeaLeaf; // 哈克茶叶
 	public final static InformationItemFood SibertStem; // 希伯特茎
 	public final static InformationItemFood Breadfruit; // 面包果
 	public final static InformationItemFood ElfBean; // 精灵豆
@@ -34,7 +34,10 @@ public class Foods
 	public final static InformationItemFood PotionMpGreater;
 	public final static InformationItemFood PotionMpSuper;
 
-	public final static Berry BerryNull;
+	public final static Berry HuckTeaLeafBerry;
+	public final static Berry MonaFruitBerry;
+	public final static Berry SpicyRootBerry;
+	public final static Berry StarousFruitBerry;
 	public final static MixedSweet MixedSweet;
 
 	static
@@ -45,7 +48,7 @@ public class Foods
 		DwartBread=new InformationItemFood();
 		ElfBread=new InformationItemFood();
 		SibertStem=new InformationItemFood();
-		HuckTeaLeaf=new InformationItemFood();
+		// HuckTeaLeaf=new InformationItemFood();
 		Breadfruit=new InformationItemFood();
 		ElfBean=new InformationItemFood();
 
@@ -63,7 +66,11 @@ public class Foods
 		PotionMpGreater=new InformationItemFood();
 		PotionMpSuper=new InformationItemFood();
 
-		BerryNull=new Berry();
+		HuckTeaLeafBerry=new Berry(new byte[]{0,0,0,0,0});
+		MonaFruitBerry=new Berry(new byte[]{0,0,0,0,0});
+		SpicyRootBerry=new Berry(new byte[]{0,0,0,0,0});
+		StarousFruitBerry=new Berry(new byte[]{0,0,0,0,0});
+
 		MixedSweet =new MixedSweet();
 	}
 
@@ -155,12 +162,9 @@ public class Foods
 
 		@Override
 		@SideOnly(Side.CLIENT)
-		public void addInformation(ItemStack p_77624_1_, EntityPlayer p_77624_2_, List p_77624_3_, boolean p_77624_4_)
+		public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean flag)
 		{
-//			for(String line:lines)
-//			{
-//				p_77624_3_.add(line);
-//			}
+			;
 		}
 
 		@Override
@@ -172,59 +176,39 @@ public class Foods
 
 	public static class Berry extends InformationItemFood
 	{
-		public final int[] tastes;
-		public final int antiD;
-		public final int antiP;
-		public final int exp;
-		public final int expl;
-		public final int[] mps;
-		public final int mpl;
-		public final int[] pids; // 实例化之后 不要往这里面写数据
-		public final int[] pts;
-		public final int[] pls;
-		public final int[] prs;
+//		public final byte[] tastes;
+//		public final int antiD;
+//		public final int antiP;
+//		public final int exp;
+//		public final int expl;
+//		public final int[] mps;
+//		public final int mpl;
+//		public final int[] pids; // 实例化之后 不要往这里面写数据
+//		public final int[] pts;
+//		public final int[] pls;
+//		public final int[] prs;
+//
+//		private final int[] nullArray=new int[0];
 
-		private final int[] nullArray=new int[0];
 
-
-		public Berry(int[] taste,int antiD,int antiP,
+		public Berry(byte[] taste,int antiD,int antiP,
 		             int exp,int expl,
 		             int[] mps,int mpl,
 		             int[] pids,int[] pts,int[] pls,int[] prs)
 		{
 			super(28,1,0,false);
-			tastes= taste==null||taste.length!=5?new int[]{0,0,0,0,0}:taste.clone();
-			this.antiD=antiD;
-			this.antiP=antiP;
-			this.exp=exp;
-			this.expl=expl;
-			this.mps=mps==null||mps.length!=6?new int[]{0,0,0,0,0,0}:mps.clone();
-			this.mpl=mpl;
-
-			if(pids==null||pts==null||pls==null||prs==null||pids.length!=pts.length||pts.length!=pls.length||pls.length!=prs.length)
-			{
-				this.pids=nullArray;
-				this.pts=nullArray;
-				this.pls=nullArray;
-				this.prs=nullArray;
-			}
-			else
-			{
-				this.pids=pids.clone();
-				this.pts=pts.clone();
-				this.pls=pls.clone();
-				this.prs=prs.clone();
-			}
+			TasteManager.registerTaste(this,taste,antiD,antiP,exp,expl,
+					mps,mpl,pids,pts,pls,prs);
 		}
-		public Berry(int[] taste,int antiD,int antiP,int exp,int expl)
+		public Berry(byte[] taste,int antiD,int antiP,int exp,int expl)
 		{
 			this(taste,antiD,antiP,exp,expl,null,0,null,null,null,null);
 		}
-		public Berry(int[] taste,int[] pids,int[] pts,int[] pls,int[] prs)
+		public Berry(byte[] taste,int[] pids,int[] pts,int[] pls,int[] prs)
 		{
 			this(taste,0,0,0,0,null,0,pids,pts,pls,prs);
 		}
-		public Berry(int[] tastes)
+		public Berry(byte[] tastes)
 		{
 			this(tastes,0,0,0,0,null,0,null,null,null,null);
 		}
@@ -232,6 +216,72 @@ public class Foods
 		{
 			this(null,0,0,0,0,null,0,null,null,null,null);
 		}
+
+		@Override
+		@SideOnly(Side.CLIENT)
+		public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean flag)
+		{
+			StringBuilder str=new StringBuilder();
+			byte[] tastes=TasteManager.getTastes(this);
+			if(tastes[0]>0)
+			{
+				str.append(getTasteLevel(tastes[0]));
+				str.append(StatCollector.translateToLocal("info.taste.kind0"));
+				str.append(' ');
+			}
+			if(tastes[1]>0)
+			{
+				str.append(getTasteLevel(tastes[1]));
+				str.append(StatCollector.translateToLocal("info.taste.kind1"));
+				str.append(' ');
+			}
+			if(tastes[2]>0)
+			{
+				str.append(getTasteLevel(tastes[2]));
+				str.append(StatCollector.translateToLocal("info.taste.kind2"));
+				str.append(' ');
+			}
+			if(tastes[3]>0)
+			{
+				str.append(getTasteLevel(tastes[3]));
+				str.append(StatCollector.translateToLocal("info.taste.kind3"));
+				str.append(' ');
+			}
+			if(tastes[4]>0)
+			{
+				str.append(getTasteLevel(tastes[4]));
+				str.append(StatCollector.translateToLocal("info.taste.kind4"));
+			}
+			info.add(str.toString());
+
+//			int[] mps=tag.getIntArray("mps"); mps= mps.length==6?mps:new int[6];
+//			int mpl=tag.getInteger("mpl");
+
+			// 增加经验
+			int exp=TasteManager.getExp(this);
+			int expl=TasteManager.getExpl(this);
+			if(exp>0)
+				info.add(StatCollector.translateToLocal("info.taste.exp")+exp);
+			if(expl>0)
+				info.add(StatCollector.translateToLocal("info.taste.expl")+expl);
+
+			int[] pids,pls,pts,prs;
+			pids=TasteManager.getPids(this);
+			pls=TasteManager.getPls(this);
+			prs=TasteManager.getPrs(this);
+			pts=TasteManager.getPts(this);
+			// 增加额外药水效果
+			for(int i=0;i<pids.length;i++)
+			{
+				StringBuilder str2=new StringBuilder("Lv.");
+				str2.append(pls[i]);str2.append(' ');
+				str2.append(StatCollector.translateToLocal(Potion.potionTypes[pids[i]].getName()));
+				str2.append('-');str2.append(pts[i]/20);str.append('s');
+				str2.append(prs[i]);str2.append('%');
+				info.add(str2.toString());
+			}
+		}
+
 	}
 	public static class MixedSweet extends InformationItemFood
 	{
@@ -362,9 +412,9 @@ public class Foods
 
 		@Override
 		@SideOnly(Side.CLIENT)
-		public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean flag)
+		public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean flag)
 		{
-			super.addInformation(itemStack,player,list,flag);
+			super.addInformation(itemStack,player, info,flag);
 
 			try
 			{
@@ -381,25 +431,25 @@ public class Foods
 				int mpl=tag.getInteger("mpl");
 
 				// 增加经验
-				list.add(StatCollector.translateToLocal("info.taste.exp")+exp);
-				list.add(StatCollector.translateToLocal("info.taste.expl")+expl);
+				info.add(StatCollector.translateToLocal("info.taste.exp")+exp);
+				info.add(StatCollector.translateToLocal("info.taste.expl")+expl);
 				// 恢复魔力
 				;
 
 
 				byte[] tastes=tag.getByteArray("tastes"); tastes= tastes.length==5? tastes: new byte[5];
-				if(tastes[0]>0) list.add(toLevel(tastes[0])+StatCollector.translateToLocal("info.taste.kind0")); // info.taste.kind0
-				if(tastes[1]>0) list.add(toLevel(tastes[1])+StatCollector.translateToLocal("info.taste.kind1"));
-				if(tastes[2]>0) list.add(toLevel(tastes[2])+StatCollector.translateToLocal("info.taste.kind2"));
-				if(tastes[3]>0) list.add(toLevel(tastes[3])+StatCollector.translateToLocal("info.taste.kind3"));
-				if(tastes[4]>0) list.add(toLevel(tastes[4])+StatCollector.translateToLocal("info.taste.kind4"));
+				if(tastes[0]>0) info.add(getTasteLevel(tastes[0])+StatCollector.translateToLocal("info.taste.kind0")); // info.taste.kind0
+				if(tastes[1]>0) info.add(getTasteLevel(tastes[1])+StatCollector.translateToLocal("info.taste.kind1"));
+				if(tastes[2]>0) info.add(getTasteLevel(tastes[2])+StatCollector.translateToLocal("info.taste.kind2"));
+				if(tastes[3]>0) info.add(getTasteLevel(tastes[3])+StatCollector.translateToLocal("info.taste.kind3"));
+				if(tastes[4]>0) info.add(getTasteLevel(tastes[4])+StatCollector.translateToLocal("info.taste.kind4"));
 
 
 				float totalDebuffRate=tag.getFloat("antiD");
 				float totalPoisonRate=tag.getFloat("antiP");
 
-				list.add(StatCollector.translateToLocal("info.taste.totalDebuffRate")+totalDebuffRate*100+"%");
-				list.add(StatCollector.translateToLocal("info.taste.totalPoisonRate")+totalPoisonRate*100+"%");
+				info.add(StatCollector.translateToLocal("info.taste.totalDebuffRate")+totalDebuffRate*100+"%");
+				info.add(StatCollector.translateToLocal("info.taste.totalPoisonRate")+totalPoisonRate*100+"%");
 
 
 				int[] pids=tag.getIntArray("pids");
@@ -417,7 +467,7 @@ public class Foods
 					str.append(StatCollector.translateToLocal(Potion.potionTypes[pids[i]].getName()));
 					str.append('-');str.append(pts[i]/20);str.append('s');
 					str.append(prs[i]);str.append('%');
-					list.add(str.toString());
+					info.add(str.toString());
 				}
 			}
 			catch (Exception e)
@@ -425,12 +475,13 @@ public class Foods
 				;
 			}
 		}
-		private String toLevel(byte level)
-		{
-			if(level<=0)
-				return "";
-			if(level>=4) level=4;
-			return StatCollector.translateToLocal("info.taste.level"+level);
-		}
+
+	}
+	private static String getTasteLevel(byte level)
+	{
+		if(level<=0)
+			return "";
+		if(level>=4) level=4;
+		return StatCollector.translateToLocal("info.taste.level"+level);
 	}
 }

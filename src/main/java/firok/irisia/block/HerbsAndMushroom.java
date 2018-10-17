@@ -2,7 +2,9 @@ package firok.irisia.block;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import firok.irisia.item.Foods;
 import firok.irisia.item.HerbSeeds;
+import firok.irisia.item.RawMaterials;
 import net.minecraft.block.*;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
@@ -24,45 +26,57 @@ import java.util.Random;
 
 public class HerbsAndMushroom
 {
-	public final static Herb DeathGrass;
-	public final static Herb MoonGrass;
-	public final static Herb SpicyRoot;
+	public final static Herb DeathGrassHerb;
+	public final static Herb MoonGrassHerb;
+	public final static Herb SpicyRootHerb;
+	public final static Herb InkrGrassHerb;
+	public final static Herb AppleGrassHerb;
+	public final static Herb MonaHerb;
+	public final static Herb StarousHerb;
+	public final static Herb BrownWheat;
+	public final static Herb HuckTeaHerb;
 
 	public final static Herb TestWater;
 
 	public final static Mushroom ShadowMushroom;
-
-	// public final static Herb TestHerb;
-
 	static
 	{
-		//Item itemSeed,
-		//				     Item itemDrop,
-		//		             int maxDrop,
-		//		             int minDrop,
-		//		             int forturePromot,
-		//
-		//		             int stage,
-		//		             int[] stageGrow,
-		//
-//		TestHerb=new Herb(TestSeed,TestOutput,5,1,0,
-//				4,new int[]{2,4,6},1);
-		DeathGrass=new Herb(EnumPlantType.Cave, Items.gold_ingot,
+		DeathGrassHerb =new Herb(EnumPlantType.Cave, Items.gold_ingot,
 				3,1,1,
 				null,0,3,new int[]{2,4},1);
-		MoonGrass=new Herb(EnumPlantType.Plains,Items.diamond,
+		MoonGrassHerb =new Herb(EnumPlantType.Plains,Items.diamond,
 				3,1,1,
 				null,0,3,new int[]{2,4},1);
-		SpicyRoot=new Herb(EnumPlantType.Desert,Items.apple,
+		SpicyRootHerb =new Herb(EnumPlantType.Desert,Items.apple,
 				3,1,1,
 				null,0,3,new int[]{2,4},1);
 
+		InkrGrassHerb =new Herb(EnumPlantType.Plains,RawMaterials.Ink,
+				2,1,1,
+				null,0,3,new int[]{3,5},1);
+		AppleGrassHerb =new Herb(EnumPlantType.Plains,Items.apple,
+				1,1,0,
+				null,0,3,new int[]{3,6},1);
+		MonaHerb =new Herb(EnumPlantType.Plains,Foods.MonaFruitBerry,
+				1,1,0,
+				null,0,3,new int[]{3,6},1);
+		BrownWheat=new Herb(EnumPlantType.Crop,RawMaterials.BrownWheat,
+				1,2,1,
+				null,0,3,new int[]{3,6},1);
+		HuckTeaHerb=new Herb(EnumPlantType.Plains, Foods.HuckTeaLeafBerry,
+				2,4,0,
+				null,0,3,new int[]{3,6},1);
+		StarousHerb=new Herb(EnumPlantType.Plains,Foods.StarousFruitBerry,
+				1,1,0,
+				null,0,3,new int[]{3,6},1);
+
+		// 测试用 for debug
 		// fixme 目前 如果药草类型是水生 并不能种到水上
 		TestWater=new Herb(EnumPlantType.Water,Items.apple,
 				3,1,1,
 				null,0,3,new int[]{2,4},1);
 
-
+		// 蘑菇 mushrooms
 		ShadowMushroom =(Mushroom) (new Mushroom(){
 			@Override
 			public void onEntityCollidedWithBlock(World p_149670_1_, int p_149670_2_, int p_149670_3_, int p_149670_4_, Entity entity)

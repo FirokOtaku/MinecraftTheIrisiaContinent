@@ -139,14 +139,11 @@ public class ItemLoader
 		// 食物
 		register(IrisiaCreativeTabs.food,Foods.VilligerFood,"villiger_food","VilligerFood");
 		register(IrisiaCreativeTabs.food,Foods.MixedSweet,"mixed_sweet","MixedSweet");
-		register(IrisiaCreativeTabs.food,Foods.BerryNull,"berry_null","NullBerry");
-		byte i=0;
-		for(Foods.Berry b:Foods.berries)
-		{
-			register(IrisiaCreativeTabs.food,b,"berry"+i,"Berry"+i);
-			i++;
-		}
-		register(IrisiaCreativeTabs.food,Foods.berry6,"berry6","berry6");
+
+		register(IrisiaCreativeTabs.food,Foods.HuckTeaLeafBerry,"berry_huck_tea_leaf","BerryHuckTeaLeaf");
+		register(IrisiaCreativeTabs.food,Foods.MonaFruitBerry,"berry_mona_fruit","BerryMonaFruit");
+		register(IrisiaCreativeTabs.food,Foods.SpicyRootBerry,"berry_spicy_root","BerrySpicyRoot");
+		register(IrisiaCreativeTabs.food,Foods.StarousFruitBerry,"berry_starous_fruit","berryStarousFruit");
 	}
 	private static void registerBaubles()
 	{

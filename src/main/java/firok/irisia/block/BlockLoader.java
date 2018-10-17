@@ -47,17 +47,18 @@ public class BlockLoader
 	}
 	private static void registerHerbs()
 	{
-		register(IrisiaCreativeTabs.irisia, HerbsAndMushroom.DeathGrass,"DeathGrass","death_grass");
-		register(IrisiaCreativeTabs.irisia, HerbsAndMushroom.MoonGrass,"MoonGrass","moon_grass");
-		register(IrisiaCreativeTabs.irisia, HerbsAndMushroom.SpicyRoot,"SpicyRoot","spicy_root");
+		register(IrisiaCreativeTabs.irisia, HerbsAndMushroom.DeathGrassHerb,"DeathGrassHerb","death_grass");
+		register(IrisiaCreativeTabs.irisia, HerbsAndMushroom.MoonGrassHerb,"MoonGrassHerb","moon_grass");
+		register(IrisiaCreativeTabs.irisia, HerbsAndMushroom.SpicyRootHerb,"SpicyRootHerb","spicy_root");
 		register(IrisiaCreativeTabs.irisia, HerbsAndMushroom.ShadowMushroom,"blockShadowMushroom","block_shadow_mushroom");
 
 		register(IrisiaCreativeTabs.irisia, HerbsAndMushroom.TestWater,"TestWater","test_water");
 
-		register(IrisiaCreativeTabs.block,HerbsAndMushroom.InkrGrass,"InkrGrass","inkr_grass");
-		register(IrisiaCreativeTabs.block,HerbsAndMushroom.AppleGrass,"AppleGrass","apple_grass");
-		register(IrisiaCreativeTabs.block,HerbsAndMushroom.MonaGrass,"MonaGrass","mona_grass");
+		register(IrisiaCreativeTabs.block,HerbsAndMushroom.InkrGrassHerb,"InkrGrassHerb","inkr_grass");
+		register(IrisiaCreativeTabs.block,HerbsAndMushroom.AppleGrassHerb,"AppleGrassHerb","apple_grass");
+		register(IrisiaCreativeTabs.block,HerbsAndMushroom.MonaHerb,"MonaHerb","mona_grass");
 		register(IrisiaCreativeTabs.block,HerbsAndMushroom.BrownWheat,"BrownWheat","brown_wheat");
+		register(IrisiaCreativeTabs.block,HerbsAndMushroom.StarousHerb,"StarousHerb","starous_herb");
 	}
 	private static void registerArcaneStelas()
 	{
