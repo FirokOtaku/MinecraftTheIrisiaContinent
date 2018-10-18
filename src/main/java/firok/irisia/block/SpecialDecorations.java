@@ -2,10 +2,17 @@ package firok.irisia.block;
 
 import firok.irisia.Keys;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockWeb;
 import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.items.ItemEldritchObject;
@@ -69,5 +76,54 @@ public class SpecialDecorations
 			}
 		};
 
+	}
+
+	public final static SpecialCobweb PoisonouCobweb;
+	public final static SpecialCobweb DirtyCobweb;
+	public final static SpecialCobweb LavaCobweb;
+	static
+	{
+		PoisonouCobweb=new SpecialCobweb();
+		DirtyCobweb=new SpecialCobweb();
+		LavaCobweb=new SpecialCobweb();
+	}
+	public static class SpecialCobweb extends BlockWeb
+	{
+		public SpecialCobweb()
+		{
+			super();
+			setLightOpacity(1);
+		}
+
+		@Override
+		public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
+		{
+			entity.setInWeb();
+			if(this==PoisonouCobweb)
+			{
+				if(entity.ticksExisted%20==0 && entity instanceof EntityLivingBase)
+				{
+					((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.poison.id,80,0));
+				}
+			}
+			else if(this==LavaCobweb)
+			{
+				if(entity.ticksExisted%20==0 && entity instanceof EntityLivingBase)
+				{
+					entity.setFire(4);
+				}
+			}
+
+		}
+		@Override
+		public float getBlockHardness(World world, int x, int y, int z)
+		{
+			return this==DirtyCobweb?6.0f:4.0f;
+		}
+		@Override
+		public boolean isToolEffective(String type, int metadata)
+		{
+			return "sword".equals(type);
+		}
 	}
 }

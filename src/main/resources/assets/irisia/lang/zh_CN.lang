@@ -309,6 +309,8 @@ irisia.potion.leadely=领袖
 irisia.potion.midas=迈达斯
 irisia.potion.echo=回声
 
+info.creativeOnly=创造模式专用
+
 info.taste.level0=不
 info.taste.level1=略
 info.taste.level2=
@@ -328,6 +330,13 @@ info.antibuff.title=抵抗以下效果
 info.antibuff.interval=每隔
 info.buff.title=提供以下效果
 
+info.returnWand.notBind=没有绑定位置
+info.returnWand.notReady=没有充能完毕
+info.returnWand.wrongWorld=错误的世界
+info.returnWand.haveBind=绑定位置成功
+info.returnWand.remain=充能还需要 :
+info.returnWand.bindTo=绑定于 :
+
 death.attack.cursedDamage=%1$s死于诅咒%2$s using %3$s
 death.attack.lightningDamage=%1$s死于雷电
 death.attack.painboundDamage=%1$s感受到了他人的痛苦
@@ -343,3 +352,10 @@ itemGroup.irisia_item=Irisia物品
 itemGroup.irisia_equi=Irisia装备
 itemGroup.irisia_tc=Irisia神秘学
 itemGroup.irisia_food=Irisia食物
+
+enchantment.Culling=淘汰
+enchantment.EnderGuarding=末影守卫
+enchantment.Flown=击飞
+enchantment.Shadowy=暗影
+enchantment.Elastic=弹性
+enchantment.FightConsciousness=战斗渴望
