@@ -5,6 +5,7 @@ import cpw.mods.fml.common.event.*;
 import firok.irisia.Irisia;
 import firok.irisia.SomeCodes;
 import firok.irisia.block.BlockLoader;
+import firok.irisia.entity.EntityLoader;
 import firok.irisia.inventory.GuiElementLoader;
 import firok.irisia.item.*;
 import firok.irisia.potion.PotionLoader;
@@ -61,7 +62,7 @@ public class CommonProxy
 
 //    	new OreDictionaryLoader(event);
 //
-//        new EntityLoader();
+        new EntityLoader();
 	    new TileEntityLoader(event);
     }
 

@@ -1,9 +1,13 @@
 package firok.irisia.client;
 
+import firok.irisia.Util;
 import firok.irisia.common.CommonProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import firok.irisia.item.ItemLoader;
+import firok.irisia.item.RawMaterials;
+import net.minecraft.item.Item;
 
 
 public class ClientProxy extends CommonProxy
@@ -13,6 +17,7 @@ public class ClientProxy extends CommonProxy
     {
         super.preInit(event);
         // new ItemRenderLoader();
+        EntityRendererManager.init();
     }
 
     @Override

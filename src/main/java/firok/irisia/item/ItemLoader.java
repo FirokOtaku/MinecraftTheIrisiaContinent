@@ -134,6 +134,12 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.tc,Wands.SolitaSet);
 		register(IrisiaCreativeTabs.tc,Wands.MogigaSet);
 	}
+	private static void registerFocus()
+	{
+		register(IrisiaCreativeTabs.tc,Focus.Test,"focus_test","FocusTest");
+		register(IrisiaCreativeTabs.tc,Focus.SpiderQueen,"focus_spider_queen","FocusSpiderQueen");
+		register(IrisiaCreativeTabs.tc,Focus.Wither,"focus_wither","FocusWither");
+	}
 	private static void registerFoods()
 	{
 		// 食物
@@ -198,6 +204,7 @@ public class ItemLoader
 	private static void registerConsumableWeapons()
 	{
 		register(IrisiaCreativeTabs.irisia,ConsumableWeapons.ThrowableWeapons,"consw_tws","ThrowableWeapons");
+		register(IrisiaCreativeTabs.irisia,ConsumableWeapons.SmokeBomb,"consw_smoke_bomb","SmokeBomb");
 	}
 	private static void registerWeapons()
 	{
@@ -232,6 +239,8 @@ public class ItemLoader
 	    registerWains();
 
 	    registerWands();
+
+	    registerFocus();
 
 	    registerRawMaterials();
 

@@ -6,10 +6,7 @@ import java.util.List;
 import firok.irisia.Irisia;
 import firok.irisia.SomeCodes;
 import firok.irisia.Util;
-import firok.irisia.entity.CarryOut;
-import firok.irisia.entity.Monsters;
-import firok.irisia.entity.Npcs;
-import firok.irisia.entity.Throwables;
+import firok.irisia.entity.*;
 import firok.irisia.item.Consumables;
 import firok.irisia.item.EquipmentUniqueBaubles;
 import firok.irisia.potion.Potions;
@@ -219,17 +216,24 @@ public class CommandLoader
 		}
 		else if("spawn".equals(args[1]))
 		{
-			if("tt".equals(args[2]))
+			switch(args[2])
 			{
-				player.worldObj.spawnEntityInWorld(
-						new Npcs.TestTarget(player.worldObj,player.posX,player.posY,player.posZ));
-				Irisia.log("target spawned",player);
-			}
-			else if("gk".equals(args[2]))
-			{
-				player.worldObj.spawnEntityInWorld(
-						new Monsters.GhostKnocker(player.worldObj,player.posX,player.posY,player.posZ));
-				Irisia.log("chost knocker spawned",player);
+				case "tt":
+					player.worldObj.spawnEntityInWorld(
+							new Npcs.TestTarget(player.worldObj,player.posX,player.posY,player.posZ));
+					Irisia.log("target spawned",player);
+					break;
+				case "gk":
+					player.worldObj.spawnEntityInWorld(
+							new Monsters.GhostKnocker(player.worldObj,player.posX,player.posY,player.posZ));
+					Irisia.log("chost knocker spawned",player);
+					break;
+				case "irong":
+					player.worldObj.spawnEntityInWorld(
+							new Summons.SummonedIronGolem(player.worldObj,player.posX,player.posY,player.posZ));
+					Irisia.log("summoned iron golem spawned",player);
+					break;
+
 			}
 		}
 	}

@@ -1,3 +1,11 @@
+0.12.62
+加入法杖核心-蛛后、法杖核心-凋零
+add FocusSpiderQueen, FocusWither focus
+加入召唤物-铁傀儡实体
+add SummonedIronGolem entity
+加入烟雾弹物品
+add SmokeBomb item
+
 0.12.61
 加入岩浆蛛网、毒蛛网、土黄蛛网方块
 add LavaCobweb, PoisonousCobweb, DirtyCobweb blocks
