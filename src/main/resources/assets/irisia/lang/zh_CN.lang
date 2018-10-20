@@ -1,4 +1,5 @@
-﻿item.AdamantiumSword.name=精金剑
+﻿#装备套装
+item.AdamantiumSword.name=精金剑
 item.AdamantiumPickaxe.name=精金镐
 item.AdamantiumAxe.name=精金斧
 item.AdamantiumSpade.name=精金锹
@@ -119,7 +120,10 @@ item.SlimeHelmet.name=史莱姆头盔
 item.SlimeChestplate.name=史莱姆胸甲
 item.SlimeLeggings.name=史莱姆护腿
 item.SlimeBoots.name=史莱姆靴
+
+#七神器
 item.WainAlioth.name=无限之剑-玉衡
+
 item.LifewoodItemCap.name=生命木杖端
 item.LifewoodItemRod.name=生命木杖芯
 item.SpectreItemCap.name=怨灵杖端
@@ -231,9 +235,16 @@ item.GeneralEmblem.name=将军纹章
 item.GiantBelt.name=巨人腰带
 item.ManaBoostRing.name=法力增幅指环
 item.ManaInterferingRing.name=魔法干扰指环
+
+#物品 消耗品
 item.Gashapon.name=扭蛋
 item.ThaumicNote.name=神秘使笔记
+
+#物品 消耗性武器
 item.ThrowableWeapons.name=投掷武器
+item.SmokeBomb.name=烟雾弹
+
+#物品 武器
 item.WeaponFlailWood.name=木连枷
 item.WeaponFlailIron.name=铁连枷
 item.WeaponFlailGold.name=金连枷
@@ -249,6 +260,8 @@ item.WeaponMercurialBlade.name=幽鬼之刃
 item.WeaponBerserkerSword.name=狂战士之剑
 item.ToolArmorStorageBox.name=装备收纳盒
 item.ToolBaubleStorageBox.name=饰品收纳盒
+
+#物品 种子
 item.DeathGrassSeed.name=死亡草种子
 item.MoonGrassSeed.name=月光草种子
 item.SpicyRootSeed.name=辛辣根种子
@@ -258,6 +271,7 @@ item.AppleGrassSeed.name=苹果草种子
 item.MonaGrassSeed.name=莫纳草种子
 item.BrownWheatSeed.name=褐麦种子
 
+#矿物方块
 tile.oreMithril.name=秘银矿石
 tile.oreAdamantium.name=精金矿石
 tile.oreFlumetal.name=流铁矿石
@@ -274,6 +288,7 @@ tile.blockElfStone.name=精灵石块
 tile.blockDwartCoal.name=褐煤块
 tile.blockHotStone.name=热石块
 
+#植物方块
 tile.DeathGrassHerb.name=死亡草植物
 tile.MoonGrassHerb.name=月光草植物
 tile.SpicyRootHerb.name=辛辣根植物
@@ -281,6 +296,7 @@ tile.blockShadowMushroom.name=暗影菇植物
 tile.TestWaterHerb.name=测试水生植物
 tile.blockStelaSpeed.name=符文碑-迅捷
 
+#机械方块
 tile.blockStelaJump.name=符文碑-跳跃
 tile.blockStelaResistance.name=符文碑-抗性提升
 tile.blockStelaDigSpeed.name=符文碑-挖掘速度
@@ -289,6 +305,7 @@ tile.blockPavingStoneFlame.name=铺路石-烈焰
 tile.machineBerryMixer.name=莓果混合器
 tile.machineStormCollector.name=风暴收集器
 
+#状态效果
 irisia.potion.love=发情
 irisia.potion.electrostatic=静电
 irisia.potion.cold=寒气
@@ -310,7 +327,7 @@ irisia.potion.midas=迈达斯
 irisia.potion.echo=回声
 
 info.creativeOnly=创造模式专用
-
+#提示信息 口味
 info.taste.level0=不
 info.taste.level1=略
 info.taste.level2=
@@ -325,11 +342,11 @@ info.taste.totalDebuffRate=不良状态抗性 :
 info.taste.totalPoisonRate=毒抗性 :
 info.taste.exp=经验 :
 info.taste.expl=经验等级 :
-
+#提示信息 饰品
 info.antibuff.title=抵抗以下效果
 info.antibuff.interval=每隔
 info.buff.title=提供以下效果
-
+#提示信息 回归法杖
 info.returnWand.notBind=没有绑定位置
 info.returnWand.notReady=没有充能完毕
 info.returnWand.wrongWorld=错误的世界
@@ -337,6 +354,7 @@ info.returnWand.haveBind=绑定位置成功
 info.returnWand.remain=充能还需要 :
 info.returnWand.bindTo=绑定于 :
 
+#死亡信息
 death.attack.cursedDamage=%1$s死于诅咒%2$s using %3$s
 death.attack.lightningDamage=%1$s死于雷电
 death.attack.painboundDamage=%1$s感受到了他人的痛苦
@@ -346,6 +364,7 @@ death.attack.electrostaticDamage=%1$s死于静电
 death.attack.cursedDamage=%1$s死于诅咒
 death.attack.aliothDamage=%1$s死于玉衡之力
 
+#创造模式物品栏
 itemGroup.irisia=Irisia特殊物品
 itemGroup.irisia_block=Irisia方块
 itemGroup.irisia_item=Irisia物品
@@ -353,9 +372,26 @@ itemGroup.irisia_equi=Irisia装备
 itemGroup.irisia_tc=Irisia神秘学
 itemGroup.irisia_food=Irisia食物
 
+#附魔
 enchantment.Culling=淘汰
 enchantment.EnderGuarding=末影守卫
 enchantment.Flown=击飞
 enchantment.Shadowy=暗影
 enchantment.Elastic=弹性
 enchantment.FightConsciousness=战斗渴望
+
+#法杖核心升级条目
+##法杖核心-蛛后
+focus.upgrade.lava.name=岩浆
+focus.upgrade.lava.text=生成的蛛网变为岩浆蛛网,点燃接触的生物
+focus.upgrade.dirty.name=土黄
+focus.upgrade.dirty.text=生成的蛛网变为土黄蛛网,比普通蛛网更难以破坏
+focus.upgrade.poisonous.name=毒性
+focus.upgrade.poisonous.text=生成的蛛网变为毒性蛛网,使接触的生物中毒
+##法杖核心-机械炼成
+focus.upgrade.thaumium.name=神秘升级
+focus.upgrade.thaumium.text=傀儡所需金属变为神秘金属,提升傀儡的生命上限
+focus.upgrade.void.name=虚空升级
+focus.upgrade.void.text=傀儡所需金属变为虚空金属,提升傀儡的生命上限,且傀儡能恢复生命
+focus.upgrade.solita.name=索利塔升级
+focus.upgrade.solita.text=傀儡所需金属变为索利塔金属,大幅提升傀儡的生命上限

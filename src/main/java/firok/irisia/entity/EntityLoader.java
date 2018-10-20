@@ -37,6 +37,12 @@ public class EntityLoader
 
 		registerEntity(200,Summons.SummonedIronGolem.class,"entity_summoned_iron_golem",
 				32,3,true);
+		registerEntity(201,Summons.SummonedThaumiumGolem.class,"entity_summoned_thaumium_golem",
+				32,3,true);
+		registerEntity(202,Summons.SummonedVoidGolem.class,"entity_summoned_iron_golem",
+				32,3,true);
+		registerEntity(203,Summons.SummonedSolitaGolem.class,"entity_summoned_solita_golem",
+				32,3,true);
 //		registerEntity(200,Monsters.GhostKnocker.class,"monster_ghost_knocker",
 //				32,1,false); // fixme 这个实体有问题 暂时不注册
 	}

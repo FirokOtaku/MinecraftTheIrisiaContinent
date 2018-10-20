@@ -1,3 +1,9 @@
+0.12.63
+加入法杖核心-机械炼成
+add FocusMachineryAlchemy focus
+加入奥术护盾方块
+add ArcaneShield block
+
 0.12.62
 加入法杖核心-蛛后、法杖核心-凋零
 add FocusSpiderQueen, FocusWither focus

@@ -139,6 +139,7 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.tc,Focus.Test,"focus_test","FocusTest");
 		register(IrisiaCreativeTabs.tc,Focus.SpiderQueen,"focus_spider_queen","FocusSpiderQueen");
 		register(IrisiaCreativeTabs.tc,Focus.Wither,"focus_wither","FocusWither");
+		register(IrisiaCreativeTabs.tc,Focus.MachineryAlchemy,"focus_machinery_alchemy","FocusMachineryAlchemy");
 	}
 	private static void registerFoods()
 	{

@@ -228,10 +228,25 @@ public class CommandLoader
 							new Monsters.GhostKnocker(player.worldObj,player.posX,player.posY,player.posZ));
 					Irisia.log("chost knocker spawned",player);
 					break;
-				case "irong":
-					player.worldObj.spawnEntityInWorld(
-							new Summons.SummonedIronGolem(player.worldObj,player.posX,player.posY,player.posZ));
+				case "gi":
+					Entity e1=new Summons.SummonedIronGolem(player.worldObj,player.posX,player.posY,player.posZ);
+					player.worldObj.spawnEntityInWorld(e1);
 					Irisia.log("summoned iron golem spawned",player);
+					break;
+				case "gt":
+					Entity e2=new Summons.SummonedThaumiumGolem(player.worldObj,player.posX,player.posY,player.posZ);
+					player.worldObj.spawnEntityInWorld(e2);
+					Irisia.log("summoned thaumium golem spawned",player);
+					break;
+				case "gv":
+					Entity e3=new Summons.SummonedVoidGolem(player.worldObj,player.posX,player.posY,player.posZ);
+					player.worldObj.spawnEntityInWorld(e3);
+					Irisia.log("summoned void golem spawned",player);
+					break;
+				case "gs":
+					Entity e4=new Summons.SummonedSolitaGolem(player.worldObj,player.posX,player.posY,player.posZ);
+					player.worldObj.spawnEntityInWorld(e4);
+					Irisia.log("summoned solita golem spawned",player);
 					break;
 
 			}
