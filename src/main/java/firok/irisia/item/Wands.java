@@ -2,22 +2,21 @@ package firok.irisia.item;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.wands.IWandRodOnUpdate;
+import thaumcraft.api.wands.StaffRod;
 import thaumcraft.api.wands.WandCap;
 import thaumcraft.api.wands.WandRod;
 import thaumcraft.common.items.wands.*;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Wands
@@ -33,6 +32,8 @@ public class Wands
 
 	public final static Item ItemNodeRod;
 	public final static Rod NodeRod;
+	public final static Item ItemCreativeRod;
+	public final static Rod CreativeRod;
 	static
 	{
 		LifeWoodSet=new WandSet("lifewood",150,10,20,20);
@@ -78,8 +79,54 @@ public class Wands
 					}
 				},
 		false,null);
+		ItemCreativeRod=new ItemRod(){
+			@Override
+			public void addInformation(ItemStack itemstack,EntityPlayer player,List list,boolean flag)
+			{
+				list.add("Creative Only");
+			}
+		};
+		CreativeRod=new Rod("creative", 10000, new ItemStack(ItemCreativeRod), 0,
+				new IWandRodOnUpdate()
+				{
+					final Aspect[] aspects=new Aspect[]
+							{Aspect.FIRE, Aspect.WATER, Aspect.AIR,
+									Aspect.EARTH, Aspect.ORDER, Aspect.ENTROPY};
+					@Override
+					public void onUpdate(ItemStack itemstack, EntityPlayer player)
+					{
+						if(player.worldObj.isRemote)
+							return;
 
+						if(player.ticksExisted%80==0)
+						{
+							ItemWandCasting wc=(ItemWandCasting)itemstack.getItem();
+							for (Aspect as : aspects)
+							{
+								int visNow=wc.getVis(itemstack,as);
+								if(visNow<10000)
+								{
+									wc.addVis(itemstack,as,10000-visNow-1,true);
+								}
+							}
+						}
+					}
+				},
+				false,null);
 	}
+
+	public final static Item ItemWhitebeardStaffRod;
+	public final static StaffRod WhitebeardStaffRod;
+	public final static Item ItemBlackbeardStaffRod;
+	public final static StaffRod BlackbeardStaffRod;
+	static
+	{
+		ItemWhitebeardStaffRod =new ItemRod();
+		WhitebeardStaffRod =new StaffRod("white_beard",150,new ItemStack(ItemWhitebeardStaffRod),30);
+		ItemBlackbeardStaffRod =new ItemRod();
+		BlackbeardStaffRod =new StaffRod("black_beard",150,new ItemStack(ItemBlackbeardStaffRod),30);
+	}
+
 	public static class WandSet
 	{
 		public final ItemRod Rod;
@@ -163,22 +210,32 @@ public class Wands
 	{
 		private boolean needResearch;
 		private String researchNeeded;
+
+		private IIcon wand_icon;
 		public ItemRod()
 		{
 			super();
 			this.setHasSubtypes(false);
 		}
 		@SideOnly(Side.CLIENT)
-		public IIcon getIconFromDamage(int meta) {
-			return meta < 50 ? this.iconWand[meta] : (meta < 100 ? this.iconStaff[meta - 50] : this.iconPrimalStaff);
-		}
-		@SideOnly(Side.CLIENT)
 		public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
 			;
+		}
+
+		@SideOnly(Side.CLIENT)
+		public void registerIcons(IIconRegister ir) {
+			wand_icon = ir.registerIcon(this.iconString);
+		}
+		@SideOnly(Side.CLIENT)
+		public IIcon getIconFromDamage(int meta) {
+			return wand_icon==null?
+					( meta < 50 ? this.iconWand[meta] : (meta < 100 ? this.iconStaff[meta - 50] : this.iconPrimalStaff))
+					:wand_icon;
 		}
 	}
 	public static class ItemCap extends ItemWandCap
 	{
+		IIcon rod_icon;
 		public ItemCap()
 		{
 			super();
@@ -187,6 +244,17 @@ public class Wands
 		@SideOnly(Side.CLIENT)
 		public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
 			;
+		}
+
+		@Override
+		@SideOnly(Side.CLIENT)
+		public void registerIcons(IIconRegister ir) {
+			rod_icon = ir.registerIcon(iconString);
+		}
+		@Override
+		@SideOnly(Side.CLIENT)
+		public IIcon getIconFromDamage(int meta) {
+			return rod_icon==null?this.icon[meta]:rod_icon;
 		}
 	}
 }

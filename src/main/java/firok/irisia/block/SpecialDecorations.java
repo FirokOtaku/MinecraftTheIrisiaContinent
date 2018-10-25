@@ -149,6 +149,9 @@ public class SpecialDecorations
 		{
 			{
 				// this.setTickRandomly(true);
+				//ResearchManager
+				this.setLightLevel(6);
+				this.setLightOpacity(8);
 			}
 
 			// 碰撞箱
@@ -169,6 +172,115 @@ public class SpecialDecorations
 				return super.getSelectedBoundingBoxFromPool(world,x,y,z);
 			}
 
+			public int quantityDropped(Random rand)
+			{
+				return 0;
+			}
+			@SideOnly(Side.CLIENT)
+			public int getRenderBlockPass()
+			{
+				return 0;
+			}
+			public boolean renderAsNormalBlock()
+			{
+				return false;
+			}
+			protected boolean canSilkHarvest()
+			{
+				return false;
+			}
+		};
+	}
+
+	public final static Block MagicLight;
+	static
+	{
+		MagicLight=new BlockAir()
+		{
+			{
+				this.setTickRandomly(true);
+				this.setBlockBounds(0.3f,0.3f,0.3f,
+						0.7f,0.7f,0.7f);
+				this.setLightLevel(15);
+			}
+			public boolean isOpaqueCube()
+			{
+				return false;
+			}
+
+
+			@Override
+			public void updateTick(World world, int x, int y, int z, Random rand)
+			{
+				if(!world.isRemote)
+				{
+					int meta=world.getBlockMetadata(x,y,z);
+					if(meta==0)
+					{
+						world.setBlockToAir(x,y,z);
+					}
+				}
+			}
+
+		};
+	}
+	public final static Block AirWall;
+	static
+	{
+		AirWall=new BlockContainer(Material.air)
+		{
+			{
+				this.setTickRandomly(true);
+				this.setBlockBounds(0,0,0,1,1,1);
+			}
+			@Override
+			public void updateTick(World world, int x, int y, int z, Random rand)
+			{
+				world.setBlockToAir(x,y,z);
+			}
+
+			public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack itemStack)
+			{
+				TileEntity te=world.getTileEntity(x,y,z);
+				if(te==null)
+				{
+					te=createNewTileEntity(world,0);
+					((AirWallTE)te).setOwner(entity.getCommandSenderName());
+					world.setTileEntity(x,y,z,te);
+				}
+				else
+				{
+					((AirWallTE)te).setOwner(entity.getCommandSenderName());
+				}
+			}
+
+
+
+			// 碰撞箱
+			public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB box, List list, Entity entity)
+			{
+				if(!(entity instanceof EntityPlayer))
+				{
+					super.addCollisionBoxesToList(world,x,y,z,box,list,entity);
+				}
+				else
+				{
+					TileEntity te=world.getTileEntity(x,y,z);
+					if(te==null ||
+							!(te instanceof AirWallTE)||
+							!entity.getCommandSenderName().equals(((AirWallTE) te).getOwner()))
+					{
+						super.addCollisionBoxesToList(world,x,y,z,box,list,entity);
+					}
+				}
+			}
+			@SideOnly(Side.CLIENT)
+			public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z)
+			{
+				return AxisAlignedBB.getBoundingBox(
+						(double)x + this.minX, (double)y + this.minY, (double)z + this.minZ,
+						(double)x + this.maxX, (double)y + this.maxY, (double)z + this.maxZ);
+			}
 
 			public int quantityDropped(Random rand)
 			{
@@ -186,6 +298,12 @@ public class SpecialDecorations
 			protected boolean canSilkHarvest()
 			{
 				return false;
+			}
+
+			@Override
+			public TileEntity createNewTileEntity(World world, int meta)
+			{
+				return new AirWallTE();
 			}
 		};
 	}

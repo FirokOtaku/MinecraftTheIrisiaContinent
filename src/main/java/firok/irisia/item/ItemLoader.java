@@ -100,6 +100,7 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.equi,EquipmentSets.StormSet);
 		// registerLoot(IrisiaCreativeTabs.equi,EquipmentSets.LifeWoodSet); // 已经转移
 		register(IrisiaCreativeTabs.equi,EquipmentSets.FlumetalSet);
+		register(IrisiaCreativeTabs.equi,EquipmentSets.GarrisonSet);
 		// 注册生命木套装
 		register(IrisiaCreativeTabs.equi,EquipmentAutoRepair.LifewoodSword,"sword_lifewood","LifewoodSword");
 		register(IrisiaCreativeTabs.equi,EquipmentAutoRepair.LifewoodHelmet,"helmet_lifewood","LifewoodHelmet");
@@ -133,6 +134,11 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.tc,Wands.MithrilSet);
 		register(IrisiaCreativeTabs.tc,Wands.SolitaSet);
 		register(IrisiaCreativeTabs.tc,Wands.MogigaSet);
+
+		// 散件
+		register(IrisiaCreativeTabs.tc,Wands.ItemWhitebeardStaffRod,"staff_rod_whitebeard","WhitebeardStaffRod");
+		register(IrisiaCreativeTabs.tc,Wands.ItemBlackbeardStaffRod,"staff_rod_blackbeard","BlackbeardStaffRod");
+
 	}
 	private static void registerFocus()
 	{
@@ -140,6 +146,9 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.tc,Focus.SpiderQueen,"focus_spider_queen","FocusSpiderQueen");
 		register(IrisiaCreativeTabs.tc,Focus.Wither,"focus_wither","FocusWither");
 		register(IrisiaCreativeTabs.tc,Focus.MachineryAlchemy,"focus_machinery_alchemy","FocusMachineryAlchemy");
+		register(IrisiaCreativeTabs.tc,Focus.Supernova,"focus_supernova","FocusSupernova");
+		register(IrisiaCreativeTabs.tc,Focus.ArcaneShield,"focus_arcane_shield","FocusArcaneShield");
+		register(IrisiaCreativeTabs.tc,Focus.Bluring,"focus_bluring","FocusBluring");
 	}
 	private static void registerFoods()
 	{

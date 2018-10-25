@@ -4,9 +4,11 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import firok.irisia.Irisia;
 import firok.irisia.block.OresAndMetal;
+import firok.irisia.block.PavingStones;
 import firok.irisia.block.SpecialDecorations;
 import firok.irisia.entity.Summons;
 import firok.irisia.entity.Throwables;
+import firok.irisia.world.gen.Gen;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
@@ -22,10 +24,15 @@ import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.wands.FocusUpgradeType;
 import thaumcraft.api.wands.ItemFocusBasic;
+import thaumcraft.common.blocks.BlockCosmeticSolid;
+import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.items.wands.WandManager;
 
+import javax.annotation.Nullable;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Focus
 {
@@ -83,6 +90,18 @@ public class Focus
 			new ResourceLocation("irisia","textures/foci/solita.png"),
 			"focus.upgrade.solita.name",
 			"focus.upgrade.solita.text",
+			(new AspectList()).add(Aspect.ORDER, 1));
+	// 核心-奥术护罩 范围扩张
+	public static final FocusUpgradeType ugtEnlarge=new FocusUpgradeType(408,
+			new ResourceLocation("irisia","textures/foci/enlarge.png"),
+			"focus.upgrade.enlarge.name",
+			"focus.upgrade.enlarge.text",
+			(new AspectList()).add(Aspect.ORDER, 1));
+	// 核心-奥术护罩 范围收缩
+	public static final FocusUpgradeType ugtNarrow=new FocusUpgradeType(408,
+			new ResourceLocation("irisia","textures/foci/narrow.png"),
+			"focus.upgrade.narrow.name",
+			"focus.upgrade.narrow.text",
 			(new AspectList()).add(Aspect.ORDER, 1));
 
 	public final static FocusBase Test=new FocusBase(new AspectList().add(Aspect.WATER,1).add(Aspect.FIRE,1), "FT", null, Color.white.getRGB(),
@@ -475,6 +494,76 @@ public class Focus
 	{
 		private final AspectList costBase=(new AspectList().add(Aspect.ORDER,200));
 
+		public int getR(ItemStack stack)
+		{
+			int r=3;
+			r+=this.getUpgradeLevel(stack,ugtEnlarge);
+			r-=this.getUpgradeLevel(stack,ugtNarrow);
+			if(r>5)r=5;
+			if(r<1)r=1;
+			return r;
+		}
+		@Override
+		public AspectList getVisCost(ItemStack stack)
+		{
+			int r=getR(stack);
+
+			return new AspectList().add(Aspect.ORDER,r*r*100);
+		}
+
+		public ItemStack onFocusRightClick(ItemStack itemstack, World world, EntityPlayer p, MovingObjectPosition mop)
+		{ // todo low 现在没法升级
+			ItemWandCasting wand = (ItemWandCasting)itemstack.getItem();
+
+			if(!world.isRemote)
+			{
+				ItemStack focustack=wand.getFocusItem(itemstack);
+				if (wand.consumeAllVis(itemstack, p, this.getVisCost(itemstack), !p.worldObj.isRemote, false))
+				{
+					// todo 以后size跟升级联系起来
+					Throwables.EntityWitherOrb orb=new Throwables.EntityWitherOrb(world,p,1);
+					int r=getR(focustack)+2;
+//					Gen.genBoxAt(world,(int)p.posX-r,(int)p.posY-r,(int)p.posZ-r,
+//							2*r,2*r,2*r,SpecialDecorations.ArcaneShield,0);
+					// fixme 以后改正这里的音效
+					p.worldObj.playSoundAtEntity(p,"mob.spider.say",1,1);
+					p.swingItem();
+				}
+			}
+
+			return itemstack;
+		}
+
+		public boolean canApplyUpgrade(ItemStack focusstack, EntityPlayer player, FocusUpgradeType type, int rank)
+		{ // todo low 以后改
+			return !type.equals(FocusUpgradeType.enlarge);
+		}
+
+		public FocusUpgradeType[] getPossibleUpgradesByRank(ItemStack itemstack, int rank)
+		{ // todo low 以后改
+			switch(rank)
+			{
+				case 1:
+					return new FocusUpgradeType[]{FocusUpgradeType.frugal, FocusUpgradeType.potency};
+				case 2:
+					return new FocusUpgradeType[]{FocusUpgradeType.frugal, FocusUpgradeType.potency};
+				case 3:
+					return new FocusUpgradeType[]{FocusUpgradeType.frugal, FocusUpgradeType.potency};
+				case 4:
+					return new FocusUpgradeType[]{FocusUpgradeType.frugal, FocusUpgradeType.potency, FocusUpgradeType.enlarge};
+				case 5:
+					return new FocusUpgradeType[]{FocusUpgradeType.frugal, FocusUpgradeType.potency, FocusUpgradeType.enlarge};
+				default:
+					return null;
+			}
+		}
+	};
+	// 法杖核心-超新星
+	public final static FocusBase Supernova=new FocusBase(defaultNoCost,"FSN",null,Color.yellow.getRGB(),
+			5000,true)
+	{
+		private final AspectList costBase=(new AspectList().add(Aspect.FIRE,500).add(Aspect.ORDER,200));
+
 		@Override
 		public AspectList getVisCost(ItemStack stack)
 		{
@@ -491,11 +580,131 @@ public class Focus
 				if (wand.consumeAllVis(itemstack, p, this.getVisCost(itemstack), !p.worldObj.isRemote, false))
 				{
 					// todo 以后size跟升级联系起来
-					Throwables.EntityWitherOrb orb=new Throwables.EntityWitherOrb(world,p,1);
+					Throwables.EntitySupernovaOrb orb=new Throwables.EntitySupernovaOrb(world,p,3);
 					world.spawnEntityInWorld(orb);
 					// fixme 以后改正这里的音效
-					p.worldObj.playSoundAtEntity(p,"mob.spider.say",1,1);
+					// p.worldObj.playSoundAtEntity(p,"mob.spider.say",1,1);
 					p.swingItem();
+				}
+			}
+
+			return itemstack;
+		}
+
+		public boolean canApplyUpgrade(ItemStack focusstack, EntityPlayer player, FocusUpgradeType type, int rank)
+		{ // todo low 以后改
+			return !type.equals(FocusUpgradeType.enlarge);
+		}
+
+		public FocusUpgradeType[] getPossibleUpgradesByRank(ItemStack itemstack, int rank)
+		{ // todo low 以后改
+			switch(rank)
+			{
+				case 1:
+					return new FocusUpgradeType[]{FocusUpgradeType.frugal, FocusUpgradeType.potency};
+				case 2:
+					return new FocusUpgradeType[]{FocusUpgradeType.frugal, FocusUpgradeType.potency};
+				case 3:
+					return new FocusUpgradeType[]{FocusUpgradeType.frugal, FocusUpgradeType.potency};
+				case 4:
+					return new FocusUpgradeType[]{FocusUpgradeType.frugal, FocusUpgradeType.potency, FocusUpgradeType.enlarge};
+				case 5:
+					return new FocusUpgradeType[]{FocusUpgradeType.frugal, FocusUpgradeType.potency, FocusUpgradeType.enlarge};
+				default:
+					return null;
+			}
+		}
+	};
+	// 法杖核心-虚化
+	private static ArrayList<BluringPair> bluringPairs=new ArrayList<>();
+	public static void registerBluringPair(BluringPair p)
+	{
+		if(bluringPairs.contains(p))
+			bluringPairs.remove(p);
+		bluringPairs.add(p);
+	}
+	@Nullable
+	public static BluringPair getPair(Block sourceBlock,int sourceMeta)
+	{
+		for(BluringPair p:bluringPairs)
+		{
+			if(p.equals(sourceBlock,sourceMeta))
+				return p;
+		}
+		return null;
+	}
+	public static class BluringPair
+	{
+		Block b1;
+		int meta1;
+		Block b2;
+		int meta2;
+		public Block getBlockSource(){return b1;}
+		public Block getBlockTarget(){return b2;}
+		public int getMetaSource(){return meta1;}
+		public int getMetaTarget(){return meta2;}
+		public BluringPair(Block b1,int meta1,Block b2,int meta2)
+		{
+			this.b1=b1;
+			this.meta1=meta1;
+			this.b2=b2;
+			this.meta2=meta2;
+		}
+		@Override
+		public boolean equals(Object obj)
+		{
+			if(obj==null || !(obj instanceof BluringPair)) return false;
+
+			BluringPair p=(BluringPair)obj;
+			return b1==p.b1&&meta1==p.meta1;
+		}
+		public boolean equals(Block block,int meta)
+		{
+			if(meta1>=0)
+				return b1==block&&meta1==meta;
+			else
+				return b1==block;
+		}
+	}
+	static
+	{
+		registerBluringPair(new BluringPair(ConfigBlocks.blockCosmeticSolid,2,PavingStones.BluringTraveller,-1));
+		registerBluringPair(new BluringPair(PavingStones.Flame,-1,PavingStones.BluringFlame,-1));
+		registerBluringPair(new BluringPair(PavingStones.Shake,-1,PavingStones.BluringShake,-1));
+	}
+	public final static FocusBase Bluring=new FocusBase(defaultNoCost,"FB",null,Color.white.getRGB(),
+			500,true)
+	{
+		private AspectList costBase=(new AspectList().add(Aspect.ORDER,10));
+		@Override
+		public AspectList getVisCost(ItemStack stack)
+		{
+			return costBase;
+		}
+		public ItemStack onFocusRightClick(ItemStack itemstack, World world, EntityPlayer p, MovingObjectPosition mop)
+		{ // todo low 现在没法升级
+			ItemWandCasting wand = (ItemWandCasting)itemstack.getItem();
+
+			if(!world.isRemote && mop!=null && mop.typeOfHit==MovingObjectPosition.MovingObjectType.BLOCK)
+			{
+				Block b2b=world.getBlock(mop.blockX,mop.blockY,mop.blockZ);
+				int m2b=world.getBlockMetadata(mop.blockX,mop.blockY,mop.blockZ);
+				if(b2b instanceof PavingStones.BluringBlock)
+				{
+					PavingStones.BluringBlock target=(PavingStones.BluringBlock)b2b;
+					target.onDebluring(world,mop.blockX,mop.blockY,mop.blockZ);
+				}
+				else
+				{
+					Irisia.log("block:"+b2b.getLocalizedName()+",meta:"+m2b,p);
+					BluringPair pair=getPair(b2b,m2b);
+					if(pair!=null)
+					{
+						if(pair.meta2>=0)
+							world.setBlock(mop.blockX,mop.blockY,mop.blockZ,pair.b2,pair.meta2,2);
+						else
+							world.setBlock(mop.blockX,mop.blockY,mop.blockZ,pair.b2);
+					}
 				}
 			}
 

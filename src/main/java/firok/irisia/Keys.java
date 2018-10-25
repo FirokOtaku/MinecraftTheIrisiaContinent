@@ -26,4 +26,6 @@ public class Keys
 	public static final String InfoReturnWandRemain="info.returnWand.remain";
 	public static final String InfoReturnWandBindTo ="info.returnWand.bindTo";
 
+	public static final String InfoWarnInDev="info.warn.indev";
+
 }

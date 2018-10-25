@@ -23,7 +23,23 @@ public class BlockLoader
 		register(IrisiaCreativeTabs.block,DecorationBlocks.Stones,DecorationItems.StoneClass.class,"decor_stones");
 
 		register(IrisiaCreativeTabs.block,DecorationBlocks.Bricks,DecorationItems.BrickClass.class,"decor_bricks");
-		register(IrisiaCreativeTabs.block,DecorationBlocks.DeathDirt,"death_dirt","DeathDirt");
+		register(IrisiaCreativeTabs.block,DecorationBlocks.DeathDirt,"DeathDirt","death_dirt");
+
+		register(IrisiaCreativeTabs.block,DecorationBlocks.MagicalDirt,"MagicalDirt","magical_dirt");
+
+		register(IrisiaCreativeTabs.block,VisNode.BlockVisNode,"VisNode","vis_node");
+
+		register(IrisiaCreativeTabs.block,SpecialDecorations.AncientDoor,"AncientDoor","ancient_door");
+		register(IrisiaCreativeTabs.block,SpecialDecorations.AncientDoorKeyhole,"AncientDoorKeyHole","ancient_door_keyhole");
+
+		register(IrisiaCreativeTabs.block,SpecialDecorations.PoisonousCobweb,"PoisonousCobweb","decor_poisonous_cobweb");
+		register(IrisiaCreativeTabs.block,SpecialDecorations.DirtyCobweb,"DirtyCobweb","decor_dirty_cobweb");
+		register(IrisiaCreativeTabs.block,SpecialDecorations.LavaCobweb,"LavaCobweb","decor_lava_cobweb");
+
+		register(IrisiaCreativeTabs.block,SpecialDecorations.ArcaneShield,"ArcaneShield","decor_arcane_shield");
+		register(IrisiaCreativeTabs.block,SpecialDecorations.MagicLight,"MagicLight","decor_magic_light");
+		register(IrisiaCreativeTabs.block,SpecialDecorations.AirWall,"AirWall","decor_air_wall");
+
 	}
 	private static void registerOres()
 	{
@@ -71,6 +87,10 @@ public class BlockLoader
 	{
 		register(IrisiaCreativeTabs.block,PavingStones.Shake,"blockPavingStoneShake","block_paving_stone_shake");
 		register(IrisiaCreativeTabs.block,PavingStones.Flame,"blockPavingStoneFlame","block_paving_stone_flame");
+
+		register(IrisiaCreativeTabs.block,PavingStones.BluringFlame,"blockBluringPavingStoneFlame","block_bluring_paving_stone_flame");
+		register(IrisiaCreativeTabs.block,PavingStones.BluringShake,"blockBluringPavingStoneShake","block_bluring_paving_stone_shake");
+		register(IrisiaCreativeTabs.block,PavingStones.BluringTraveller,"blockBluringPavingStoneTraveller","block_bluring_paving_stone_traveller");
 	}
 	private static void registerMachines()
 	{
