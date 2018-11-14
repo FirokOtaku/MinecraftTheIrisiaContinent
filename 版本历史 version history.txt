@@ -1,3 +1,7 @@
+0.12.65
+加入夜刃武器
+add NightBlade weapon
+
 0.12.64
 加入法杖核心-奥术护盾、法杖核心-超新星、法杖核心-虚化
 add FocusArcaneShield, FocusSupernova, FocusBluring focus

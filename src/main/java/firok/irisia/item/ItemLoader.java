@@ -231,6 +231,7 @@ public class ItemLoader
 
 		register(IrisiaCreativeTabs.equi,Weapons.VoidRunicLongBow,"weapon_void_runic_long_bow","WeaponVoidRunicLongBow");
 		register(IrisiaCreativeTabs.equi,Weapons.MercurialBlade,"weapon_mercurial_blade","WeaponMercurialBlade");
+		register(IrisiaCreativeTabs.equi,Weapons.NightBlade,"weapon_night_blade","WeaponNightBlade");
 		register(IrisiaCreativeTabs.equi,Weapons.BerserkerSword,"weapon_berserker_sword","WeaponBerserkerSword");
 	}
 	private static void registerTools()

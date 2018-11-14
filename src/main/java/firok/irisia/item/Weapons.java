@@ -9,6 +9,8 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
@@ -39,8 +41,9 @@ public class Weapons
 	public static RunicLongBowWeapon MogigaLongBow;
 
 	public final static ItemSword MercurialBlade;
+	public final static ItemSword NightBlade;
 	public static ItemSword PhaseSword;
-
+	public final static ItemSword BerserkerSword;
 	static
 	{
 		FlailWood=new FlailWeapon(Item.ToolMaterial.WOOD);
@@ -56,6 +59,8 @@ public class Weapons
 
 		VoidRunicLongBow=new RunicLongBowWeapon();
 		MercurialBlade=new MercurialBladeWeapon();
+		NightBlade=new NightBladeWeapon();
+		BerserkerSword=new BerserkerSwordWeapon();
 	}
 
 	public static class FlailWeapon extends ItemSword
@@ -176,13 +181,69 @@ public class Weapons
 			{
 				target.worldObj.playSoundAtEntity(target,Keys.SoundCreepy,1,1);
 				target.attackEntityFrom(DamageSource.generic,24);
+				if(target.isEntityAlive())
+					target.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id,60,0));
 			}
 			else
 			{
 				target.attackEntityFrom(DamageSource.generic,6);
+				target.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id,40,0));
 			}
 			itemStack.damageItem(1, player);
 			return true;
+		}
+	}
+	public static class NightBladeWeapon extends ItemSword
+	{
+		public NightBladeWeapon()
+		{
+			super(ToolMaterial.IRON);
+		}
+		@Override
+		public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase player)
+		{
+			target.worldObj.playSoundAtEntity(target,Keys.SoundCreepy,1,1);
+			if(target.worldObj.isDaytime())
+			{
+				target.attackEntityFrom(DamageSource.generic,13);
+			}
+			else
+			{
+				target.attackEntityFrom(DamageSource.generic,24);
+				if(target.isEntityAlive())
+					target.addPotionEffect(new PotionEffect(Potion.blindness.id,120,0));
+			}
+
+			itemStack.damageItem(1, player);
+			return true;
+		}
+	}
+	public static class BerserkerSwordWeapon extends ItemSword
+	{
+		public BerserkerSwordWeapon()
+		{
+			super(ToolMaterial.IRON);
+		}
+		@Override
+		public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase player)
+		{
+			float maxP=player.getMaxHealth();
+			float nowP=player.getHealth();
+			float damage=31-nowP/maxP *20;
+			// 没血的时候一刀30 满血只有10
+			target.attackEntityFrom(DamageSource.generic,damage);
+			if(nowP/maxP<0.6) // 血量小于六成 给一个抗性提升buff
+				player.addPotionEffect(new PotionEffect(Potion.resistance.id,80,0));
+			if(damage>=15)
+				; // todo 以后播放一个音效
+
+			itemStack.damageItem(1, player);
+			return true;
+		}
+		@Override
+		public float func_150931_i()
+		{
+			return 10;
 		}
 	}
 }
