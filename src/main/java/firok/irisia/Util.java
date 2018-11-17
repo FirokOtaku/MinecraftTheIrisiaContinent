@@ -3,6 +3,7 @@ package firok.irisia;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import firok.irisia.item.RawMaterials;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.Item;
@@ -12,6 +13,17 @@ public class Util {
 	public static String getDes(Item itemIn)
 	{
 		return itemIn.getUnlocalizedName()+".des";
+	}
+
+	/*
+		0.0784000015258789 走路
+		0.25下落 慢
+		0.45 下落 快
+		1 长距离下落
+	* */
+	public static double getMotion(Entity en)
+	{
+		return Math.sqrt(en.motionX*en.motionX+en.motionY*en.motionY+en.motionZ*en.motionZ);
 	}
 
 	public static interface Informational

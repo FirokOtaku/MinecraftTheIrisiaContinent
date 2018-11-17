@@ -44,6 +44,7 @@ public class Weapons
 	public final static ItemSword NightBlade;
 	public static ItemSword PhaseSword;
 	public final static ItemSword BerserkerSword;
+	public final static ItemSword KineticBlade;
 	static
 	{
 		FlailWood=new FlailWeapon(Item.ToolMaterial.WOOD);
@@ -61,6 +62,7 @@ public class Weapons
 		MercurialBlade=new MercurialBladeWeapon();
 		NightBlade=new NightBladeWeapon();
 		BerserkerSword=new BerserkerSwordWeapon();
+		KineticBlade=new KineticBladeWeapon();
 	}
 
 	public static class FlailWeapon extends ItemSword
@@ -234,6 +236,77 @@ public class Weapons
 			target.attackEntityFrom(DamageSource.generic,damage);
 			if(nowP/maxP<0.6) // 血量小于六成 给一个抗性提升buff
 				player.addPotionEffect(new PotionEffect(Potion.resistance.id,80,0));
+			if(damage>=15)
+				; // todo 以后播放一个音效
+
+			itemStack.damageItem(1, player);
+			return true;
+		}
+		@Override
+		public float func_150931_i()
+		{
+			return 10;
+		}
+	}
+	public static class KineticBladeWeapon extends ItemSword
+	{
+		public KineticBladeWeapon()
+		{
+			super(ToolMaterial.IRON);
+		}
+		@Override
+		/**
+		 * Called whenever this item is equipped and the right mouse button is pressed. Args: itemStack, world, entityPlayer
+		 */
+		public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer p)
+		{
+			if(!world.isRemote)
+			{
+				Irisia.log(getDamage(p),p);
+			}
+			p.setItemInUse(stack, this.getMaxItemUseDuration(stack));
+			return stack;
+		}
+		public static double getDamage(EntityLivingBase en)
+		{
+			/*
+			0.0784000015258789 走路
+			0.25下落 慢
+			0.45 下落 快
+			1 长距离下落
+
+			0.08
+			0.2
+			0.3
+			0.5
+			*/
+			double speed=Util.getMotion(en);
+			double ret;
+			if(speed<0.08)
+				ret= 10*speed/0.0784000015258789;
+			else if(speed<0.2)
+				ret= 13*speed/0.2;
+			else if(speed<0.3)
+				ret= 17*speed/0.3;
+			else if(speed<0.5)
+				ret= 22*speed/0.5;
+			else ret= 29*speed;
+
+			PotionEffect pe;
+			if((pe=en.getActivePotionEffect(Potion.moveSpeed))!=null)
+			{
+				ret*=(1+pe.getAmplifier())*0.15;
+			}
+
+			return ret;
+		}
+		@Override
+		public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase player)
+		{
+			double damage= getDamage(player);
+
+			// 没血的时候一刀30 满血只有10
+			target.attackEntityFrom(DamageSource.generic,(float)damage);
 			if(damage>=15)
 				; // todo 以后播放一个音效
 
