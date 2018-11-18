@@ -7,8 +7,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+import thaumcraft.common.config.ConfigItems;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,18 +40,22 @@ public class EnderElevator // fixme 整个电梯运行有问题 寻找实体的�
 			@Override
 			public boolean onBlockActivated(World world,final int x,final int y,final int z, EntityPlayer player, int side, float subX, float subY, float subZ)
 			{
-				if(world.isRemote || y==0)
+				if(world.isRemote || y<=0)
+					return false;
+
+				ItemStack held=player.getHeldItem();
+				if(held==null||held.getItem()!= ConfigItems.itemWandCasting)
 					return false;
 
 				final int cx=x;
 				final int cy=y-1;
 				final int cz=z;
 
-				Irisia.log("center : "+cx+","+cy+","+cz,player);
+				//Irisia.log("center : "+cx+","+cy+","+cz,player);
 
 				Block[][] blocks=new Block[5][5];
 				blocks[2][2]=world.getBlock(cx,cy,cz);
-				Irisia.log("is platform : "+(blocks[2][2]==ElevatorPlatform),player);
+				//Irisia.log("is platform : "+(blocks[2][2]==ElevatorPlatform),player);
 				if(blocks[2][2]!=ElevatorPlatform)
 					return false;
 
@@ -84,7 +90,7 @@ public class EnderElevator // fixme 整个电梯运行有问题 寻找实体的�
 								radius=1;
 						}
 					}
-				Irisia.log("radius : "+radius,player);
+				//Irisia.log("radius : "+radius,player);
 				if(radius<=0)
 					return false;
 
@@ -93,9 +99,9 @@ public class EnderElevator // fixme 整个电梯运行有问题 寻找实体的�
 				int y2found=-1;
 				if(isDown)
 				{
-					for(int cy2=y-2;cy2>=0&&cy2>=cy-radius*5;cy2--)
+					for(int cy2=y-2;cy2>=0&&cy2>=cy-radius*5-4;cy2--)
 					{
-						Irisia.log(cy2+" : "+world.getBlock(cx,cy2,cz).getLocalizedName(),player);
+						//Irisia.log(cy2+" : "+world.getBlock(cx,cy2,cz).getLocalizedName(),player);
 						if(world.getBlock(cx,cy2,cz)==ElevatorController)
 						{
 							y2found=cy2;
@@ -105,9 +111,9 @@ public class EnderElevator // fixme 整个电梯运行有问题 寻找实体的�
 				}
 				else
 				{
-					for(int cy2=y+1;cy2<=256&&cy2<=cy+radius*5;cy2++)
+					for(int cy2=y+1;cy2<=256&&cy2<=cy+radius*5+4;cy2++)
 					{
-						Irisia.log(cy2+" : "+world.getBlock(cx,cy2,cz).getLocalizedName(),player);
+						//Irisia.log(cy2+" : "+world.getBlock(cx,cy2,cz).getLocalizedName(),player);
 						if(world.getBlock(cx,cy2,cz)==ElevatorController)
 						{
 							y2found=cy2;
@@ -115,7 +121,7 @@ public class EnderElevator // fixme 整个电梯运行有问题 寻找实体的�
 						}
 					}
 				}
-				Irisia.log("y2 found : "+y2found,player);
+				//Irisia.log("y2 found : "+y2found,player);
 				if(y2found<0)
 					return false;
 
@@ -123,17 +129,24 @@ public class EnderElevator // fixme 整个电梯运行有问题 寻找实体的�
 
 				List entities=world.getEntitiesWithinAABBExcludingEntity(null,
 						AxisAlignedBB.getBoundingBox
-								(cx-radius,cy-1,cz-radius,
+								(cx-radius-1,cy-1,cz-radius-1,
 						cx+radius,cy+3,cz+radius));
 
-				Irisia.log("list size : "+entities.size(),player);
-				Irisia.log("move len : "+lenMove,player);
+//				Irisia.log("list size : "+entities.size(),player);
+//				Irisia.log("move len : "+lenMove,player);
 
 				for(Object obj:entities)
 				{
-					Entity en=(Entity)obj;
-					Irisia.log(en.toString(),player);
-					en.setPosition(en.posX,en.posY+lenMove,en.posZ);
+					if(obj instanceof EntityLivingBase)
+					{
+						EntityLivingBase en=(EntityLivingBase)obj;
+						en.setPositionAndUpdate(en.posX,en.posY+lenMove,en.posZ);
+					}
+					else
+					{
+						Entity en=(Entity)obj;
+						en.setPosition(en.posX,en.posY+lenMove,en.posZ);
+					}
 				}
 
 				return true;

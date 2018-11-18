@@ -138,7 +138,7 @@ public class ItemLoader
 		// 散件
 		register(IrisiaCreativeTabs.tc,Wands.ItemWhitebeardStaffRod,"staff_rod_whitebeard","WhitebeardStaffRod");
 		register(IrisiaCreativeTabs.tc,Wands.ItemBlackbeardStaffRod,"staff_rod_blackbeard","BlackbeardStaffRod");
-
+		register(IrisiaCreativeTabs.tc,Wands.ItemGraybeardStaffRod,"staff_rod_graybeard","GraybeardStaffRod");
 	}
 	private static void registerFocus()
 	{

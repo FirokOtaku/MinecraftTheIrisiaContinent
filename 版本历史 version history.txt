@@ -1,3 +1,9 @@
+0.12.67
+加入白胡子权杖、黑胡子权杖、灰胡子权杖
+add ItemWhitebeardStaffRod, ItemBlackbeardStaffRod, ItemGraybeardStaffRod items
+修复末影电梯部分问题
+fix some problems about EnderElevator
+
 0.12.66
 加入动刃武器
 add KineticBlade weapon

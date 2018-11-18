@@ -119,12 +119,16 @@ public class Wands
 	public final static StaffRod WhitebeardStaffRod;
 	public final static Item ItemBlackbeardStaffRod;
 	public final static StaffRod BlackbeardStaffRod;
+	public final static Item ItemGraybeardStaffRod;
+	public final static StaffRod GraybeardStaffRod;
 	static
 	{
 		ItemWhitebeardStaffRod =new ItemRod();
 		WhitebeardStaffRod =new StaffRod("white_beard",150,new ItemStack(ItemWhitebeardStaffRod),30);
 		ItemBlackbeardStaffRod =new ItemRod();
 		BlackbeardStaffRod =new StaffRod("black_beard",150,new ItemStack(ItemBlackbeardStaffRod),30);
+		ItemGraybeardStaffRod=new ItemRod();
+		GraybeardStaffRod=new StaffRod("gray_beard",150,new ItemStack(ItemGraybeardStaffRod),30);
 	}
 
 	public static class WandSet
