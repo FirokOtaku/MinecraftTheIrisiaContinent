@@ -25,6 +25,7 @@ public class Keys
 	public static final String InfoReturnWandHaveBind="info.returnWand.haveBind";
 	public static final String InfoReturnWandRemain="info.returnWand.remain";
 	public static final String InfoReturnWandBindTo ="info.returnWand.bindTo";
+	public static final String InfoSoulEaterSouls="info.soulEater.souls";
 
 	public static final String InfoWarnInDev="info.warn.indev";
 

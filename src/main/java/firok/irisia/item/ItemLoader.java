@@ -234,6 +234,9 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.equi,Weapons.NightBlade,"weapon_night_blade","WeaponNightBlade");
 		register(IrisiaCreativeTabs.equi,Weapons.BerserkerSword,"weapon_berserker_sword","WeaponBerserkerSword");
 		register(IrisiaCreativeTabs.equi,Weapons.KineticBlade,"weapon_kinetic_blade","WeaponKineticBlade");
+		register(IrisiaCreativeTabs.equi,Weapons.WarpingBlade,"weapon_warping_blade","WeaponWarpingBlade");
+		register(IrisiaCreativeTabs.equi,Weapons.SoulEater,"weapon_soul_eater","WeaponSoulEater");
+
 	}
 	private static void registerTools()
 	{

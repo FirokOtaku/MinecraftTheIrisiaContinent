@@ -1,3 +1,7 @@
+0.12.68
+加入噬魂者武器
+add SoulEater weapon
+
 0.12.67
 加入白胡子权杖、黑胡子权杖、灰胡子权杖
 add ItemWhitebeardStaffRod, ItemBlackbeardStaffRod, ItemGraybeardStaffRod items

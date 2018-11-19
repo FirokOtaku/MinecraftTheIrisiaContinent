@@ -355,8 +355,10 @@ info.returnWand.notBind=没有绑定位置
 info.returnWand.notReady=没有充能完毕
 info.returnWand.wrongWorld=错误的世界
 info.returnWand.haveBind=绑定位置成功
-info.returnWand.remain=充能还需要 :
-info.returnWand.bindTo=绑定于 :
+info.returnWand.remain=充能还需要:
+info.returnWand.bindTo=绑定于:
+#提示信息 噬魂者
+info.soulEater.souls=灵魂:
 
 #死亡信息
 death.attack.cursedDamage=%1$s死于诅咒%2$s using %3$s

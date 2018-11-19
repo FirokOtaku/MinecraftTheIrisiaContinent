@@ -1,7 +1,11 @@
 package firok.irisia.item;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import firok.irisia.DamageSources;
+import firok.irisia.Irisia;
 import firok.irisia.Keys;
+import firok.irisia.Util;
 import firok.irisia.common.EntitySelectors;
 import firok.irisia.entity.Throwables;
 import net.minecraft.enchantment.Enchantment;
@@ -9,15 +13,22 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
+import scala.collection.mutable.HashTable;
+import thaumcraft.api.IWarpingGear;
 import thaumcraft.api.ThaumcraftApi;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 public class Weapons
@@ -45,6 +56,8 @@ public class Weapons
 	public static ItemSword PhaseSword;
 	public final static ItemSword BerserkerSword;
 	public final static ItemSword KineticBlade;
+	public final static ItemSword WarpingBlade;
+	public final static ItemSword SoulEater;
 	static
 	{
 		FlailWood=new FlailWeapon(Item.ToolMaterial.WOOD);
@@ -63,6 +76,8 @@ public class Weapons
 		NightBlade=new NightBladeWeapon();
 		BerserkerSword=new BerserkerSwordWeapon();
 		KineticBlade=new KineticBladeWeapon();
+		WarpingBlade=new WarpingBladeWeapon();
+		SoulEater=new SoulEaterWeapon();
 	}
 
 	public static class FlailWeapon extends ItemSword
@@ -317,6 +332,158 @@ public class Weapons
 		public float func_150931_i()
 		{
 			return 10;
+		}
+	}
+	public static class WarpingBladeWeapon extends ItemSword implements IWarpingGear
+	{
+		public WarpingBladeWeapon()
+		{
+			super(ToolMaterial.IRON);
+		}
+
+		@Override
+		public int getWarp(ItemStack stack, EntityPlayer entityPlayer)
+		{
+			NBTTagCompound tag=stack.hasTagCompound()?stack.getTagCompound():new NBTTagCompound();
+			int killed=tag.hasKey("killed")?tag.getInteger("killed"):0;
+
+			return killed/5;
+		}
+
+		@Override
+		/**
+		 * Called whenever this item is equipped and the right mouse button is pressed. Args: itemStack, world, entityPlayer
+		 */
+		public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer p)
+		{
+			NBTTagCompound tag=stack.hasTagCompound()?stack.getTagCompound():new NBTTagCompound();
+
+			int killed=tag.hasKey("killed")?tag.getInteger("killed"):0;
+			tag.setInteger("killed",killed+1);
+
+			ArrayList<String> list=new ArrayList<>();
+			int i=0;
+			for(String str:list)
+			{
+				System.out.println(i+" : "+str);
+				i++;
+			}
+			i=0;
+			Iterator<String> iter=list.iterator();
+			while(iter.hasNext())
+			{
+				String str=iter.next();
+
+				System.out.println(i+" : "+str);
+				i++;
+			}
+
+			stack.setTagCompound(tag);
+			p.setItemInUse(stack, this.getMaxItemUseDuration(stack));
+			return stack;
+		}
+		@Override
+		public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase player)
+		{
+			double damage= 15;
+
+			// 没血的时候一刀30 满血只有10
+			target.attackEntityFrom(DamageSource.generic,(float)damage);
+			float hp=target.getHealth();
+			if(hp<=0)
+			{
+				NBTTagCompound tag=itemStack.hasTagCompound()?itemStack.getTagCompound():new NBTTagCompound();
+				int killed=tag.hasKey("killed")?tag.getInteger("killed"):0;
+				killed++;
+				tag.setInteger("killed",killed);
+				itemStack.setTagCompound(tag);
+			}
+//			if(damage>=15)
+//				; // todo 以后播放一个音效
+
+			itemStack.damageItem(1, player);
+			return true;
+		}
+		@Override
+		public float func_150931_i()
+		{
+			return 10;
+		}
+	}
+	public static class SoulEaterWeapon extends ItemSword implements IWarpingGear
+	{
+		public SoulEaterWeapon()
+		{
+			super(ToolMaterial.IRON);
+		}
+
+		@Override
+		public int getWarp(ItemStack stack, EntityPlayer entityPlayer)
+		{
+			return 3;
+		}
+
+		@Override
+		/**
+		 * Called whenever this item is equipped and the right mouse button is pressed. Args: itemStack, world, entityPlayer
+		 */
+		public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer p)
+		{
+			float hp=p.getHealth();
+			float max=p.getMaxHealth();
+
+			if(max-hp>=4)
+			{
+				NBTTagCompound tag=stack.hasTagCompound()?stack.getTagCompound():new NBTTagCompound();
+				int souls=tag.hasKey("souls")?tag.getInteger("souls"):0;
+
+				if(souls>=15)
+				{
+					souls-=15;
+					p.heal(4);
+
+					tag.setInteger("souls",souls);
+					stack.setTagCompound(tag);
+				}
+			}
+
+			p.setItemInUse(stack, this.getMaxItemUseDuration(stack));
+			return stack;
+		}
+		@Override
+		public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase player)
+		{
+			NBTTagCompound tag=itemStack.hasTagCompound()?itemStack.getTagCompound():new NBTTagCompound();
+			int souls=tag.hasKey("souls")?tag.getInteger("souls"):0;
+			float damage=6;
+
+			damage+=souls/10.0; // 每10点灵魂加1伤害
+			if(damage>41) damage=41; // 最大伤害限制在41
+			target.attackEntityFrom(DamageSource.generic,(float)damage);
+
+			float hp=target.getHealth();
+			if(hp<=0) souls++;// 击杀一个生物增加一个灵魂
+
+
+			tag.setInteger("souls",souls);
+			itemStack.setTagCompound(tag);
+
+			itemStack.damageItem(1, player);
+			return true;
+		}
+		@Override
+		public float func_150931_i()
+		{
+			return 6;
+		}
+
+		@Override
+		@SideOnly(Side.CLIENT)
+		public void addInformation(ItemStack stack, EntityPlayer player, List info, boolean p_77624_4_)
+		{
+			NBTTagCompound tag=stack.hasTagCompound()?stack.getTagCompound():new NBTTagCompound();
+			int souls=tag.hasKey("souls")?tag.getInteger("souls"):0;
+			info.add(StatCollector.translateToLocal(Keys.InfoSoulEaterSouls)+souls);
 		}
 	}
 }
