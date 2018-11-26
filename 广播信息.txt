@@ -1,0 +1,11 @@
+<root>测试root</root>
+<h1>测试h1</h1>
+<h2>测试h2</h2>
+<h3>测试h3</h3>
+<info>测试info</info>
+<info2>测试info2<a>something</a></info2>
+<node>测试node</node>
+<json>测试json</json>
+<title>测试title</title>
+<json1>{"a":123,"b":"456","c":false}</json1>
+<json2>{"a":123,"b":null}</json2>
