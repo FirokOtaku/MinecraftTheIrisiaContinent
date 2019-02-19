@@ -58,6 +58,8 @@ public class ItemLoader
 
 		register(IrisiaCreativeTabs.material,RawMaterials.DwartFlour,"material_dwart_flour","DwartFlour");
 		register(IrisiaCreativeTabs.material,RawMaterials.ElfStone,"material_elf_stone","ElfStone");
+		register(IrisiaCreativeTabs.material,RawMaterials.SolarCrystal,"material_solar_crystal","SolarCrystal");
+		register(IrisiaCreativeTabs.material,RawMaterials.LunarCrystal,"material_lunar_crystal","LunarCrystal");
 		register(IrisiaCreativeTabs.material,RawMaterials.FlumetalIngot,"material_flumetal_ingot","FlumetalIngot");
 		register(IrisiaCreativeTabs.material,RawMaterials.SolitaIngot,"material_solita_ingot","SolitaIngot");
 		register(IrisiaCreativeTabs.material,RawMaterials.MogigaIngot,"material_mogiga_ingot","MogigaIngot");
@@ -331,7 +333,7 @@ public class ItemLoader
 
 	    item.setUnlocalizedName(unlocalizedName);
 	    item.setTextureName(Irisia.MODID+":"+name);
-        GameRegistry.registerItem(item,name,Irisia.MODID);
+	    GameRegistry.registerItem(item,name,Irisia.MODID);
         if(tab!=null)
         	item.setCreativeTab(tab);
         

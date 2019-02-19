@@ -49,15 +49,6 @@ public class ConfigLoader
     // Tree // 树相关
     ;
 
-    // ores 矿物相关
-    public static int amountOGMithril;
-    public static int amountOGAdamantium;
-    public static int amountOGFlumetal;
-    public static int amountOGElfStone;
-    public static float rateOGMithril;
-    public static float rateOGAdamantium;
-    public static float rateOGFlumetal;
-    public static float rateOGElfStone;
     
     // Display // 显示相关
     public static float displayParticleDencity;
@@ -73,7 +64,11 @@ public class ConfigLoader
 
         initConfigEnchantments();
 
+        initConfigOres();
+
         initConfigDisplay();
+
+        initDims();
 
         config.save();
         logger.info("Finished loading configs 配置文件加载完成");
@@ -113,37 +108,42 @@ public class ConfigLoader
                 "idEnchantmentWeight_Elastic", 10,
                 "弹性附魔的比重").getInt();
     }
-    private static void initConfigOres()
+
+
+	// ores 矿物相关
+	public static int amountOGMithril;
+	public static int amountOGAdamantium;
+	public static int amountOGFlumetal;
+	public static int amountOGElfStone;
+	public static int amountOGSolarCrystal;
+	public static int amountOGLunarCrystal;
+	public static boolean regenOGSolarCrystal;
+	public static boolean regenOGLunarCrystal;
+	public static boolean regenOGMithril;
+	public static boolean regenOGAdamantium;
+	public static boolean regenOGFlumetal;
+	public static boolean regenOGElfStone;
+
+	private static void initConfigOres()
     {
         amountOGMithril=config.get(Configuration.CATEGORY_GENERAL,
                 "amountOreGenMithril",8,
-                "秘银生成量").getInt();
+                "秘银生成量",0,16).getInt();
         amountOGAdamantium=config.get(Configuration.CATEGORY_GENERAL,
                 "amountOreGenAdamantium",8,
-                "精金生成量").getInt();
+                "精金生成量",0,16).getInt();
         amountOGFlumetal=config.get(Configuration.CATEGORY_GENERAL,
                 "amountOreGenMithril",12,
-                "流铁生成量").getInt();
+                "流铁生成量",0,24).getInt();
         amountOGElfStone =config.get(Configuration.CATEGORY_GENERAL,
                 "amountOreGenElfStone",16,
-                "精灵石生成量").getInt();
-
-        rateOGAdamantium=config.getFloat(Configuration.CATEGORY_GENERAL,
-                "rateOreGen_Adamantium",
-                0.7f,0f,1f,
-                "精金生成比率");
-        rateOGMithril=config.getFloat(Configuration.CATEGORY_GENERAL,
-                "rateOreGen_Mithril",
-                0.7f,0f,1f,
-                "秘银生成比率");
-        rateOGElfStone=config.getFloat(Configuration.CATEGORY_GENERAL,
-                "rateOreGen_ElfStone",
-                0.7f,0f,1f,
-                "精灵石生成比率");
-        rateOGFlumetal=config.getFloat(Configuration.CATEGORY_GENERAL,
-                "rateOreGen_Flumetal",
-                0.7f,0f,1f,
-                "流铁生成比率");
+                "精灵石生成量",0,32).getInt();
+	    amountOGSolarCrystal =config.get(Configuration.CATEGORY_GENERAL,
+			    "amountOGSolarCrystal",4,
+			    "日耀水晶生成量",0,8).getInt();
+	    amountOGLunarCrystal =config.get(Configuration.CATEGORY_GENERAL,
+			    "amountOGLunarCrystal",4,
+			    "月影水晶生成量",0,8).getInt();
     }
     private static void initConfigDisplay()
     {
@@ -151,6 +151,27 @@ public class ConfigLoader
                 "displayParticleDencity",
                 50f,0f,100f,
                 "客户端属性:粒子密度");
+    }
+
+    public static String worldSeed;
+    public static int idDimIrisia;
+    public static int backupdimensionID=455;
+    public static int dimensionProviderID;
+    public static boolean hasBiomeIdConflicts;
+    public static int idBiomeCrystalForest;
+    private static void initDims()
+    {
+        worldSeed = config.get(Configuration.CATEGORY_GENERAL,
+                "world_seed", "seed_s2lab_firok_irisia").getString();
+
+        dimensionProviderID = config.get("dimension", "dimensionProviderID", -470).getInt();
+
+        idDimIrisia =config.get(Configuration.CATEGORY_GENERAL,
+                "idDimIrisia", 450,
+                "irisia维度id").getInt();
+        idBiomeCrystalForest =config.get(Configuration.CATEGORY_GENERAL,
+                "idBiome_CrystalForest", 60,
+                "水晶森林生物群系id").getInt();
     }
 
 

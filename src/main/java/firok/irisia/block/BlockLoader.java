@@ -49,7 +49,8 @@ public class BlockLoader
 		register(IrisiaCreativeTabs.block,OresAndMetal.OreElfStone,"oreElfStone","ore_elfstone");
 		register(IrisiaCreativeTabs.block,OresAndMetal.OreDwartCoal,"oreDwartCoal","ore_dwartcoal");
 		register(IrisiaCreativeTabs.block,OresAndMetal.OreHotStone,"oreHotStone","ore_hotstone");
-
+		register(IrisiaCreativeTabs.block,OresAndMetal.OreSolarCrystal,"oreSolarCrystal","ore_solar_crystal");
+		register(IrisiaCreativeTabs.block,OresAndMetal.OreLunarCrystal,"oreLunarCrystal","ore_lunar_crystal");
 
 		register(IrisiaCreativeTabs.block,OresAndMetal.BlockMithril,"blockMithril","block_mithril");
 		register(IrisiaCreativeTabs.block,OresAndMetal.BlockAdamantium,"blockAdamantium","block_damantium");
@@ -60,6 +61,9 @@ public class BlockLoader
 		register(IrisiaCreativeTabs.block,OresAndMetal.BlockElfStone,"blockElfStone","block_elfstone");
 		register(IrisiaCreativeTabs.block,OresAndMetal.BlockDwartCoal,"blockDwartCoal","block_dwartcoal");
 		register(IrisiaCreativeTabs.block,OresAndMetal.BlockHotStone,"blockHotStone","block_hotstone");
+		register(IrisiaCreativeTabs.block,OresAndMetal.BlockSolarCrystal,"blockSolarCrystal","block_solar_crystal");
+		register(IrisiaCreativeTabs.block,OresAndMetal.BlockLunarCrystal,"blockLunarCrystal","block_lunar_crystal");
+
 	}
 	private static void registerHerbs()
 	{

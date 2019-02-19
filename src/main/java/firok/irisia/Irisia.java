@@ -27,7 +27,7 @@ public class Irisia
 {
     public static final String MODID = "irisia";
     public static final String NAME = "The Irisia Continent";
-    public static final String VERSION = "0.12.68";
+    public static final String VERSION = "0.12.69";
     public static final boolean IN_DEV=true;
 
     // public static Random rand=new Random();
@@ -146,6 +146,21 @@ public class Irisia
         return String.valueOf(cs);
     }
 
+    public static void tellPlayer(String content,EntityPlayer player)
+    {
+        if(!player.worldObj.isRemote)
+        {
+            player.addChatComponentMessage(new ChatComponentText(content));
+        }
+    }
+    public static void tellPlayerKey(String key,EntityPlayer player)
+    {
+        if(!player.worldObj.isRemote)
+        {
+            player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal(key)));
+        }
+    }
+
 
     public static void log(Object str, EntityPlayer player)
     {
@@ -168,6 +183,13 @@ public class Irisia
     public static void log(StringBuffer sb)
     {
         log(sb.toString());
+    }
+    public static void log(Object[] objs)
+    {
+        for(Object obj:objs)
+        {
+            log(obj.toString());
+        }
     }
     public static void log(String str)
     {
@@ -196,6 +218,9 @@ public class Irisia
     public static final Aspect[] arrayPrimalAspect;
     public static final Potion[] noPotion=new Potion[0];
     public static final int[] noInt=new int[0];
+    public static final byte[] noByte=new byte[0];
+    public static final int[] int5zero=new int[]{0,0,0,0,0};
+    public static final byte[] byte5zero=new byte[]{0,0,0,0,0};
     public static final Integer[] noInteger=new Integer[0];
     public static String getRomeInt(int i) // now used for BuffBauble s
     {
@@ -216,14 +241,17 @@ public class Irisia
     }
     static
     {
-        noAspect=new ArrayList<>();
-        listPrimalAspect =new ArrayList<>();
-        listPrimalAspect.add(Aspect.WATER);
-        listPrimalAspect.add(Aspect.FIRE);
-        listPrimalAspect.add(Aspect.AIR);
-        listPrimalAspect.add(Aspect.EARTH);
-        listPrimalAspect.add(Aspect.ORDER);
-        listPrimalAspect.add(Aspect.ENTROPY);
+        noAspect=Collections.unmodifiableList(new ArrayList<>());
+
+        ArrayList tempList1 =new ArrayList<>();
+        tempList1.add(Aspect.WATER);
+        tempList1.add(Aspect.FIRE);
+        tempList1.add(Aspect.AIR);
+        tempList1.add(Aspect.EARTH);
+        tempList1.add(Aspect.ORDER);
+        tempList1.add(Aspect.ENTROPY);
+        listPrimalAspect=Collections.unmodifiableList(tempList1);
+
         arrayPrimalAspect =new Aspect[]{Aspect.WATER,Aspect.FIRE,Aspect.AIR,
                 Aspect.EARTH,Aspect.ORDER,Aspect.ENTROPY};
     }

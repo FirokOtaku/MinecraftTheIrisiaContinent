@@ -1,3 +1,9 @@
+0.12.69
+加入日耀水晶、月影水晶矿物
+add SolarCrystal, LunarCrystal ores
+为日耀水晶、月影水晶、精金、秘银、流铁、精灵石添加简单的矿物生成
+now SolarCrystal, LunarCrystal, Adamantium, Mithril, Flumetal, ElfStone will generate in world
+
 0.12.68
 加入噬魂者武器
 add SoulEater weapon

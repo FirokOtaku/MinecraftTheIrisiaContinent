@@ -2,20 +2,22 @@ package firok.irisia.common;
 
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.event.*;
+import cpw.mods.fml.common.registry.GameRegistry;
 import firok.irisia.Irisia;
-import firok.irisia.SomeCodes;
 import firok.irisia.block.BlockLoader;
 import firok.irisia.entity.EntityLoader;
 import firok.irisia.inventory.GuiElementLoader;
 import firok.irisia.item.*;
 import firok.irisia.potion.PotionLoader;
 import firok.irisia.tileentity.TileEntityLoader;
+import firok.irisia.world.IrisiaWorldGenerator;
 import firok.irisia.world.IrisiaWorldProvider;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.config.Configuration;
 import org.apache.logging.log4j.Level;
+import firok.irisia.client.IrisiaRenderEventManager;
 
-import static firok.irisia.common.ConfigLoader.idDim;
+import static firok.irisia.common.ConfigLoader.idDimIrisia;
 
 public class CommonProxy
 {
@@ -64,6 +66,12 @@ public class CommonProxy
 //
         new EntityLoader();
 	    new TileEntityLoader(event);
+
+	    GameRegistry.registerWorldGenerator(new IrisiaWorldGenerator(), 0);
+	    IrisiaWorldGenerator.preInit();
+	    IrisiaWorldGenerator.init();
+	    IrisiaWorldGenerator.registerBiomes();
+	    //renderEventHandler = new IrisiaRenderEventManager();
     }
 
     public void init(FMLInitializationEvent event)

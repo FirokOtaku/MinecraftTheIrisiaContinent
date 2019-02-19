@@ -20,6 +20,8 @@ public class OresAndMetal
 	public final static BlockOre OreElfStone;
 	public final static BlockOre OreDwartCoal;
 	public final static BlockOre OreHotStone;
+	public final static BlockOre OreSolarCrystal;
+	public final static BlockOre OreLunarCrystal;
 	public final static BlockCompressed BlockMithril;
 	public final static BlockCompressed BlockAdamantium;
 	public final static BlockCompressed BlockFlumetal;
@@ -29,6 +31,8 @@ public class OresAndMetal
 	public final static BlockCompressed BlockHotStone;
 	public final static BlockCompressed BlockSolita;
 	public final static BlockCompressed BlockMogiga;
+	public final static BlockCompressed BlockSolarCrystal;
+	public final static BlockCompressed BlockLunarCrystal;
 
 	static
 	{
@@ -44,7 +48,9 @@ public class OresAndMetal
 
 		OreHotStone=(Ore)new Ore(1);
 
+		OreSolarCrystal=(Ore)new Ore(2);
 
+		OreLunarCrystal=(Ore)new Ore(2);
 
 		BlockMithril=(BlockCompressed)new BlockCompressed(MapColor.silverColor).
 				setHardness(5.0F).
@@ -90,6 +96,16 @@ public class OresAndMetal
 				setHardness(5.0F).
 				setResistance(10.0F).
 				setStepSound(Block.soundTypeMetal);
+
+		BlockSolarCrystal=(BlockCompressed)new BlockCompressed(MapColor.yellowColor).
+				setHardness(5.0F).
+				setResistance(10.0F).
+				setStepSound(Block.soundTypeMetal);
+
+		BlockLunarCrystal=(BlockCompressed)new BlockCompressed(MapColor.blueColor).
+				setHardness(5.0F).
+				setResistance(10.0F).
+				setStepSound(Block.soundTypeMetal);
 	}
 
 	public static class Ore extends BlockOre
@@ -113,6 +129,8 @@ public class OresAndMetal
 			if(this==OreElfStone) return RawMaterials.ElfStone;
 			if(this==OreDwartCoal) return RawMaterials.DwartCoal;
 			if(this==OreHotStone) return RawMaterials.HotStone;
+			if(this==OreSolarCrystal) return RawMaterials.SolarCrystal;
+			if(this==OreLunarCrystal) return RawMaterials.LunarCrystal;
 
 			return Item.getItemFromBlock(this);
 		}
@@ -126,6 +144,7 @@ public class OresAndMetal
 			return this == OreElfStone ? 1 + rand.nextInt(3) :
 					this == OreDwartCoal ? 1+rand.nextInt(3) :
 					this == OreHotStone?2+rand.nextInt(3) :
+					this ==OreLunarCrystal||this==OreSolarCrystal?1+rand.nextInt(3):
 							1;
 		}
 
@@ -153,7 +172,10 @@ public class OresAndMetal
 				{
 					exp = MathHelper.getRandomIntegerInRange(rand, 2, 5);
 				}
-
+				else if(this==OreSolarCrystal||this==OreLunarCrystal)
+				{
+					exp = MathHelper.getRandomIntegerInRange(rand, 6, 14);
+				}
 				return exp;
 			}
 			return 0;

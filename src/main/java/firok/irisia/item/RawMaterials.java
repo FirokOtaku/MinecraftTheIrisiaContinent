@@ -51,6 +51,8 @@ public class RawMaterials
 
 	// ores and metals
 	public final static InformationItem ElfStone;
+	public final static InformationItem SolarCrystal;
+	public final static InformationItem LunarCrystal;
 	public final static InformationItem FlumetalIngot;
 	public final static InformationItem SolitaIngot;
 	public final static InformationItem MogigaIngot;
@@ -122,6 +124,8 @@ public class RawMaterials
 		ElfLeaves=new InformationItem();
 
 		ElfStone= new InformationItem();
+		SolarCrystal=new InformationItem();
+		LunarCrystal=new InformationItem();
 		FlumetalIngot= new InformationItem();
 		SolitaIngot= new InformationItem();
 		MogigaIngot= new InformationItem();
