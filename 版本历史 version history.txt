@@ -1,3 +1,9 @@
+0.12.70
+加入灵气压缩器多方块机械
+add AuraCompressor multi-block machine
+加入法杖触发管理器
+add wand-trigger-manager
+
 0.12.69
 加入日耀水晶、月影水晶矿物
 add SolarCrystal, LunarCrystal ores

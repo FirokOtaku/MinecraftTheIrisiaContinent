@@ -105,6 +105,7 @@ public class BlockLoader
 		register(IrisiaCreativeTabs.block,EnderElevator.ElevatorController,"machine_ender_elevator_controller","MachineEnderElevatorController");
 		register(IrisiaCreativeTabs.block,EnderElevator.ElevatorPlatform,"machine_ender_elevator_platform","MachineEnderElevatorPlatform");
 
+		register(IrisiaCreativeTabs.block,AuraCompresser.BlockCompresser,"MachineAuraCompresser","machine_aura_compresser");
 	}
 
     public BlockLoader(FMLPreInitializationEvent event)
