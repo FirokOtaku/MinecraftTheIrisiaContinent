@@ -2,6 +2,7 @@ package firok.irisia.item;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import firok.irisia.Irisia;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
@@ -20,54 +21,67 @@ public class Materials
 	public static final ItemArmor.ArmorMaterial BoneArmor =
 			EnumHelper.addArmorMaterial(Irisia.MODID+":BONE",
 					6, new int[]{ 1, 3, 2, 1 }, 12);
+	static{BoneArmor.customCraftingMaterial=Items.bone;}
 
 	public static final ItemArmor.ArmorMaterial SpectreArmor =
 			EnumHelper.addArmorMaterial(Irisia.MODID+":SPECTRE",
 					8, new int[]{ 1, 3, 2, 1 }, 14);
+	static{SpectreArmor.customCraftingMaterial=Items.ghast_tear;}
 
 	public static final ItemArmor.ArmorMaterial MithrilArmor =
 			EnumHelper.addArmorMaterial(Irisia.MODID+":MITHRIL",
 					30, new int[]{ 4, 8, 7, 4 }, 10);
+	static{MithrilArmor.customCraftingMaterial= RawMaterials.MithrilIngot;}
 
 	public static final ItemArmor.ArmorMaterial AdamantiumArmor =
 			EnumHelper.addArmorMaterial(Irisia.MODID+":ADAMANTIUM",
 					8, new int[]{ 2, 5, 4, 1 }, 35);
+	static{AdamantiumArmor.customCraftingMaterial=RawMaterials.AdamantiumIngot;}
 
 	public static final ItemArmor.ArmorMaterial FlumetalArmor =
 			EnumHelper.addArmorMaterial(Irisia.MODID+":FLUMETAL",
 					13, new int[]{ 2, 5, 4, 2 }, 10);
+	static{FlumetalArmor.customCraftingMaterial=RawMaterials.FlumetalIngot;}
 
 	public static final ItemArmor.ArmorMaterial DwartSteelArmor =
 			EnumHelper.addArmorMaterial(Irisia.MODID+":DWARTSTELL",
 					18, new int[]{ 3, 6, 6, 3 }, 8);
+	static{DwartSteelArmor.customCraftingMaterial=RawMaterials.DwartSteelIngot;}
 
 	public static final ItemArmor.ArmorMaterial LifeWoodArmor =
 			EnumHelper.addArmorMaterial(Irisia.MODID+":LIFEWOOD",
 					6, new int[]{ 1, 3, 2, 1 }, 12);
+	static{LifeWoodArmor.customCraftingMaterial= Item.getItemFromBlock(Blocks.log);}
 
 	public static final ItemArmor.ArmorMaterial MogigaArmor =
 			EnumHelper.addArmorMaterial(Irisia.MODID+":MOGIGA",
 					9, new int[]{ 3, 6, 4, 2 }, 45);
+	static{MogigaArmor.customCraftingMaterial=RawMaterials.MogigaIngot;}
 
 	public static final ItemArmor.ArmorMaterial SolitaArmor =
 			EnumHelper.addArmorMaterial(Irisia.MODID+":SOLITA",
 					44, new int[]{ 4, 10, 8, 4 }, 10);
+	static{SolitaArmor.customCraftingMaterial=RawMaterials.SolitaIngot;}
 
 	public static final ItemArmor.ArmorMaterial SlimeArmor =
 			EnumHelper.addArmorMaterial(Irisia.MODID+":SOLITA",
 					8, new int[]{ 1, 2, 2, 1 }, 14);
+	static{SlimeArmor.customCraftingMaterial=Items.slime_ball;}
 
 	public static final ItemArmor.ArmorMaterial WolfFurArmor =
 			EnumHelper.addArmorMaterial(Irisia.MODID+":WOLFFUR",
 					8, new int[]{ 1, 2, 2, 1 }, 15);
+	static{WolfFurArmor.customCraftingMaterial=RawMaterials.WolfFur;}
 
 	public static final ItemArmor.ArmorMaterial IcyWolfFurArmor =
 			EnumHelper.addArmorMaterial(Irisia.MODID+":ICYWOLFFUR",
 					8, new int[]{ 1, 2, 2, 1 }, 15);
+	static{IcyWolfFurArmor.customCraftingMaterial=RawMaterials.IcyWolfFur;}
 
 	public static final ItemArmor.ArmorMaterial StormArmor =
 			EnumHelper.addArmorMaterial(Irisia.MODID+":STORM",
 					8, new int[]{ 1, 2, 2, 1 }, 15);
+	static{StormArmor.customCraftingMaterial=RawMaterials.ChargedStormBall;}
 
 	static
 	{

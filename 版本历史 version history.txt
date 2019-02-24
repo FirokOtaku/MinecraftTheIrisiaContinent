@@ -1,3 +1,7 @@
+0.12.71
+为各种护甲材质添加各自的维修材料
+now armors can be repaired in anvil
+
 0.12.70
 加入灵气压缩器多方块机械
 add AuraCompressor multi-block machine
