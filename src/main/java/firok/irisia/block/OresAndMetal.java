@@ -9,6 +9,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 
 import java.util.Random;
 
@@ -22,6 +23,7 @@ public class OresAndMetal
 	public final static BlockOre OreHotStone;
 	public final static BlockOre OreSolarCrystal;
 	public final static BlockOre OreLunarCrystal;
+	public final static BlockOre OreMagical;
 	public final static BlockCompressed BlockMithril;
 	public final static BlockCompressed BlockAdamantium;
 	public final static BlockCompressed BlockFlumetal;
@@ -51,6 +53,8 @@ public class OresAndMetal
 		OreSolarCrystal=(Ore)new Ore(2);
 
 		OreLunarCrystal=(Ore)new Ore(2);
+
+		OreMagical=(Ore)new Ore(1);
 
 		BlockMithril=(BlockCompressed)new BlockCompressed(MapColor.silverColor).
 				setHardness(5.0F).
@@ -131,6 +135,7 @@ public class OresAndMetal
 			if(this==OreHotStone) return RawMaterials.HotStone;
 			if(this==OreSolarCrystal) return RawMaterials.SolarCrystal;
 			if(this==OreLunarCrystal) return RawMaterials.LunarCrystal;
+			if(this==OreMagical) return RawMaterials.MagicalDust;
 
 			return Item.getItemFromBlock(this);
 		}
@@ -144,14 +149,16 @@ public class OresAndMetal
 			return this == OreElfStone ? 1 + rand.nextInt(3) :
 					this == OreDwartCoal ? 1+rand.nextInt(3) :
 					this == OreHotStone?2+rand.nextInt(3) :
-					this ==OreLunarCrystal||this==OreSolarCrystal?1+rand.nextInt(3):
+					this == OreLunarCrystal||this==OreSolarCrystal?1+rand.nextInt(3):
+					this == OreMagical?1+rand.nextInt(1):
 							1;
 		}
 
-		private Random rand = new Random();
 		@Override
 		public int getExpDrop(IBlockAccess world, int p_149690_5_, int p_149690_7_)
 		{
+			World w=(World)world;
+			Random rand=w.rand;
 			if (this.getItemDropped(p_149690_5_, rand, p_149690_7_) != Item.getItemFromBlock(this))
 			{
 				int exp = 0;
@@ -175,6 +182,10 @@ public class OresAndMetal
 				else if(this==OreSolarCrystal||this==OreLunarCrystal)
 				{
 					exp = MathHelper.getRandomIntegerInRange(rand, 6, 14);
+				}
+				else if(this==OreMagical)
+				{
+					exp=MathHelper.getRandomIntegerInRange(rand,3,6);
 				}
 				return exp;
 			}

@@ -67,6 +67,7 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.material,RawMaterials.MithrilIngot,"material_mithril_ingot","MithrilIngot");
 		register(IrisiaCreativeTabs.material,RawMaterials.AdamantiumIngot,"material_adamantium_ingot","AdamantiumIngot");
 		register(IrisiaCreativeTabs.material,RawMaterials.SlimeIngot,"material_slime_ingot","SlimeIngot");
+		register(IrisiaCreativeTabs.material,RawMaterials.MagicalDust,"material_magical_dust","MagicalDust");
 		register(IrisiaCreativeTabs.material,RawMaterials.InvalidRunicRing,"material_invalid_runic_ring","InvalidRunicRing");
 		register(IrisiaCreativeTabs.material,RawMaterials.LostPage,"material_lost_page","LostPage");
 		register(IrisiaCreativeTabs.material,RawMaterials.GoldenSilk,"material_golden_silk","GoldenSilk");
@@ -238,6 +239,7 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.equi,Weapons.KineticBlade,"weapon_kinetic_blade","WeaponKineticBlade");
 		register(IrisiaCreativeTabs.equi,Weapons.WarpingBlade,"weapon_warping_blade","WeaponWarpingBlade");
 		register(IrisiaCreativeTabs.equi,Weapons.SoulEater,"weapon_soul_eater","WeaponSoulEater");
+		register(IrisiaCreativeTabs.equi,Weapons.LunarDagger,"weapon_lunar_dagger","WeaponLunarDagger");
 
 	}
 	private static void registerTools()

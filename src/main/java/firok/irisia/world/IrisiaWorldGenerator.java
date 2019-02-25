@@ -2,6 +2,7 @@ package firok.irisia.world;
 
 import cpw.mods.fml.common.IWorldGenerator;
 import firok.irisia.Irisia;
+import firok.irisia.block.HerbsAndMushroom;
 import firok.irisia.block.OresAndMetal;
 import firok.irisia.common.ConfigLoader;
 import net.minecraft.block.Block;
@@ -143,6 +144,11 @@ public class IrisiaWorldGenerator implements IWorldGenerator
 				world,random,chunkX,chunkZ,
 				30,60,
 				OresAndMetal.OreElfStone,0,amountOGElfStone);
+		// 魔力矿
+		amountReplaced+=genOre(newGen,regenOGMagical,
+				world,random,chunkX,chunkZ,
+				30,60,
+				OresAndMetal.OreMagical,0,amountOGMagical);
 		// Irisia.log(String.format("%d,%d区块共生成%d块irisia矿物",chunkX,chunkZ,amountReplaced));
 //		if (Config.genAmber && (newGen || Config.regenAmber)) {
 //			for(i = 0; i < 20; ++i) {

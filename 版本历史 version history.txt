@@ -1,3 +1,11 @@
+0.12.72
+加入魔力矿
+add Magical ore
+魔力矿现在会在世界上生成
+now MagicalOre will generate in world
+加入月影匕首
+add LunarDagger weapon
+
 0.12.71
 为各种护甲材质添加各自的维修材料
 now armors can be repaired in anvil

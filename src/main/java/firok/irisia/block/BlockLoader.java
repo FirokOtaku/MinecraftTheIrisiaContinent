@@ -51,6 +51,7 @@ public class BlockLoader
 		register(IrisiaCreativeTabs.block,OresAndMetal.OreHotStone,"oreHotStone","ore_hotstone");
 		register(IrisiaCreativeTabs.block,OresAndMetal.OreSolarCrystal,"oreSolarCrystal","ore_solar_crystal");
 		register(IrisiaCreativeTabs.block,OresAndMetal.OreLunarCrystal,"oreLunarCrystal","ore_lunar_crystal");
+		register(IrisiaCreativeTabs.block,OresAndMetal.OreMagical,"oreMagical","ore_magical");
 
 		register(IrisiaCreativeTabs.block,OresAndMetal.BlockMithril,"blockMithril","block_mithril");
 		register(IrisiaCreativeTabs.block,OresAndMetal.BlockAdamantium,"blockAdamantium","block_damantium");

@@ -10,6 +10,7 @@ import firok.irisia.common.EntitySelectors;
 import firok.irisia.entity.Throwables;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
@@ -22,12 +23,10 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
-import scala.collection.mutable.HashTable;
 import thaumcraft.api.IWarpingGear;
 import thaumcraft.api.ThaumcraftApi;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -58,6 +57,7 @@ public class Weapons
 	public final static ItemSword KineticBlade;
 	public final static ItemSword WarpingBlade;
 	public final static ItemSword SoulEater;
+	public final static ItemSword LunarDagger;
 	static
 	{
 		FlailWood=new FlailWeapon(Item.ToolMaterial.WOOD);
@@ -78,6 +78,7 @@ public class Weapons
 		KineticBlade=new KineticBladeWeapon();
 		WarpingBlade=new WarpingBladeWeapon();
 		SoulEater=new SoulEaterWeapon();
+		LunarDagger=new LunarDaggerWeapon();
 	}
 
 	public static class FlailWeapon extends ItemSword
@@ -484,6 +485,52 @@ public class Weapons
 			NBTTagCompound tag=stack.hasTagCompound()?stack.getTagCompound():new NBTTagCompound();
 			int souls=tag.hasKey("souls")?tag.getInteger("souls"):0;
 			info.add(StatCollector.translateToLocal(Keys.InfoSoulEaterSouls)+souls);
+		}
+	}
+	public static class LunarDaggerWeapon extends ItemSword
+	{
+		public LunarDaggerWeapon()
+		{
+			super(ToolMaterial.IRON);
+		}
+
+		@Override
+		public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean onHand)
+		{
+			if(onHand&&!world.isRemote&&world.getTotalWorldTime()%10==0)
+			{
+				if(entity.isSneaking() && entity instanceof EntityLivingBase)
+				{
+					((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.invisibility.id,20,0));
+				}
+			}
+		}
+
+		@Override
+		public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase player)
+		{
+			boolean isNight=!player.worldObj.isDaytime();
+			boolean isInvisible=player.getActivePotionEffect(Potion.invisibility)!=null;
+			// 夜晚攻击加成5 隐形暴击倍数3
+			float damage=(isNight?8:3)*(isInvisible?3.5f:1);
+			target.attackEntityFrom(DamageSource.generic,damage);
+
+			// 移除玩家的隐形
+			player.removePotionEffect(Potion.invisibility.id);
+			player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id,80,1));
+			player.addPotionEffect(new PotionEffect(Potion.jump.id,80,1));
+
+			if(damage>=15)
+				; // todo 以后播放一个音效
+
+			itemStack.damageItem(1, player);
+			return true;
+		}
+
+		@Override
+		public int getMaxItemUseDuration(ItemStack itemStack)
+		{
+			return 6;
 		}
 	}
 }
