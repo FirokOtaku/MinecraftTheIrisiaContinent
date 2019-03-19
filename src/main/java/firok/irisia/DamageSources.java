@@ -45,6 +45,11 @@ public class DamageSources
 			.setMagicDamage()
 			.setDamageIsAbsolute();
 
+	public final static DamageSource PlagueDamage
+			=new DamageSource("plagueDamage")
+			.setDamageBypassesArmor()
+			.setDamageIsAbsolute();
+
 	public final static DamageSource AliothDamage // 玉衡 独有
 			=new DamageSource("aliothDamage")
 			.setDamageBypassesArmor()

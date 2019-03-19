@@ -1,19 +1,56 @@
 package firok.irisia.item;
 
+import baubles.api.BaublesApi;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import firok.irisia.Irisia;
+import firok.irisia.Keys;
+import firok.irisia.block.OresAndMetal;
+import firok.irisia.inventory.GuiElementLoader;
+import firok.irisia.inventory.IHandInv;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockOre;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.init.Items;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.ArrowLooseEvent;
+import net.minecraftforge.event.entity.player.ArrowNockEvent;
 
 import java.util.List;
 
 public class Tools
 {
+	public static final Item Astrolabe;
+	static
+	{
+		Astrolabe=new Item(){
+
+			@Override
+			public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+			{
+				Irisia.tellPlayer("",player);
+				Irisia.tellPlayer("星罗万象",player);
+				return stack;
+			}
+		};
+	}
+	private static final String[] items=new String[]{"item1","item2","item3","item4"};
+	private static final String[] names=new String[]{"name1","name2","name3","name4"};
 	public final static Item ArmorStorageBox; // 装备收纳盒
 	static
 	{

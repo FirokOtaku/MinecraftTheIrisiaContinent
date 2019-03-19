@@ -11,7 +11,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
-
+import static net.minecraft.item.EnumRarity.*;
 import java.util.List;
 
 public class RawMaterials
@@ -53,6 +53,8 @@ public class RawMaterials
 	public final static InformationItem ElfStone;
 	public final static InformationItem SolarCrystal;
 	public final static InformationItem LunarCrystal;
+	public final static InformationItem GlitteringSolarCrystal;
+	public final static InformationItem GlitteringLunarCrystal;
 	public final static InformationItem FlumetalIngot;
 	public final static InformationItem SolitaIngot;
 	public final static InformationItem MogigaIngot;
@@ -102,10 +104,10 @@ public class RawMaterials
 		TortoiseShell = new InformationItem();
 		BoneShard = new InformationItem();
 		CasinosBadge = new InformationItem();
-		UnicornHorn=new InformationItem(EnumRarity.uncommon);
-		UnicornBlood =new InformationItem(EnumRarity.uncommon);
-		HotBlood=new InformationItem(EnumRarity.uncommon);
-		SlimeCore=new InformationItem(EnumRarity.uncommon);
+		UnicornHorn=new InformationItem(uncommon);
+		UnicornBlood =new InformationItem(uncommon);
+		HotBlood=new InformationItem(uncommon);
+		SlimeCore=new InformationItem(uncommon);
 		SoulCrystal=new InformationItem();
 		DwartCoal=new InformationItem();
 		HotStone=new InformationItem();
@@ -117,7 +119,7 @@ public class RawMaterials
 		PaperBigPile=new InformationItem();
 		Nugget=new InformationItem();
 		StormBall=new InformationItem();
-		ChargedStormBall=new InformationItem(EnumRarity.uncommon);
+		ChargedStormBall=new InformationItem(uncommon);
 
 		BrownWheat=new InformationItem();
 		DwartFlour=new InformationItem();
@@ -126,6 +128,8 @@ public class RawMaterials
 		ElfStone= new InformationItem();
 		SolarCrystal=new InformationItem();
 		LunarCrystal=new InformationItem();
+		GlitteringSolarCrystal=new InformationItem(uncommon);
+		GlitteringLunarCrystal=new InformationItem(uncommon);
 		FlumetalIngot= new InformationItem();
 		SolitaIngot= new InformationItem();
 		MogigaIngot= new InformationItem();
@@ -134,8 +138,8 @@ public class RawMaterials
 		AdamantiumIngot=new InformationItem();
 		SlimeIngot=new InformationItem();
 
-		InvalidRunicRing=new InformationItem(EnumRarity.uncommon);
-		LostPage=new InformationItem(EnumRarity.uncommon);
+		InvalidRunicRing=new InformationItem(uncommon);
+		LostPage=new InformationItem(uncommon);
 
 		GoldenSilk = new InformationItem();
 		DiamondSilk = new InformationItem();
@@ -149,14 +153,14 @@ public class RawMaterials
 		CoinGoldPile = new InformationItem();
 		CoinIrisia = new InformationItem();
 		CoinIrisiaPile = new InformationItem();
-		VipCardCopper= new InformationItem(EnumRarity.uncommon);
-		VipCardSilver= new InformationItem(EnumRarity.uncommon);
-		VipCardGold= new InformationItem(EnumRarity.rare);
-		VipCardDiamond= new InformationItem(EnumRarity.rare);
-		AncientThaumicNote = new InformationItem(EnumRarity.epic);
-		AncientMachinePart = new InformationItem(EnumRarity.epic);
-		AncientFossilFragment=new InformationItem(EnumRarity.epic);
-		AncientBrokenSword=new InformationItem(EnumRarity.epic);
+		VipCardCopper= new InformationItem(uncommon);
+		VipCardSilver= new InformationItem(uncommon);
+		VipCardGold= new InformationItem(rare);
+		VipCardDiamond= new InformationItem(rare);
+		AncientThaumicNote = new InformationItem(epic);
+		AncientMachinePart = new InformationItem(epic);
+		AncientFossilFragment=new InformationItem(epic);
+		AncientBrokenSword=new InformationItem(epic);
 	}
 
 	public static class InformationItem extends Item implements Util.Informational

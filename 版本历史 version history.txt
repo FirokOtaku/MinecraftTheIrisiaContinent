@@ -1,3 +1,13 @@
+0.12.73
+加入闪耀的日耀水晶、闪耀的月影水晶、星相石材料
+add GlitteringSolarCrystal, GlitteringLunarCrystal, AstrologicStone materials
+加入星盘工具
+add Astrolabe tool
+加入状态效果-瘟疫
+add PotionPlaguing effectk
+加入瘟疫之石饰品
+add PlagueStone bauble
+
 0.12.72
 加入魔力矿
 add Magical ore

@@ -55,11 +55,12 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.material,RawMaterials.StormBall,"material_storm_ball","StormBall");
 		register(IrisiaCreativeTabs.material,RawMaterials.ChargedStormBall,"material_charged_storm_ball","ChargedStormBall");
 
-
 		register(IrisiaCreativeTabs.material,RawMaterials.DwartFlour,"material_dwart_flour","DwartFlour");
 		register(IrisiaCreativeTabs.material,RawMaterials.ElfStone,"material_elf_stone","ElfStone");
 		register(IrisiaCreativeTabs.material,RawMaterials.SolarCrystal,"material_solar_crystal","SolarCrystal");
 		register(IrisiaCreativeTabs.material,RawMaterials.LunarCrystal,"material_lunar_crystal","LunarCrystal");
+		register(IrisiaCreativeTabs.material,RawMaterials.GlitteringLunarCrystal,"material_glittering_solar_crystal","GlitteringSolarCrystal");
+		register(IrisiaCreativeTabs.material,RawMaterials.GlitteringSolarCrystal,"material_glittering_lunar_crystal","GlitteringLunarCrystal");
 		register(IrisiaCreativeTabs.material,RawMaterials.FlumetalIngot,"material_flumetal_ingot","FlumetalIngot");
 		register(IrisiaCreativeTabs.material,RawMaterials.SolitaIngot,"material_solita_ingot","SolitaIngot");
 		register(IrisiaCreativeTabs.material,RawMaterials.MogigaIngot,"material_mogiga_ingot","MogigaIngot");
@@ -175,7 +176,7 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.InsaneRing,"ring_insane","InsaneRing");
 		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.LucidRing,"ring_lucid","LucidRing");
 		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.LoveRing,"ring_love","LoveRing");
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.MidasRelic,"ring_midas_relic","MidasRelicRing");
+		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.PlagueStone,"amulet_plague_stone","AmuletPlagueStone");
 		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.PhotosynthesisAmulet,"ring_photosynthesis","PhotosynthesisAmulet");
 		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.DwartTravellerBelt,"belt_dwart_traveller","DwartTravellerBelt");
 		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.MermaidBelt,"belt_mermaid","MermaidBelt");
@@ -244,6 +245,7 @@ public class ItemLoader
 	}
 	private static void registerTools()
 	{
+		register(IrisiaCreativeTabs.irisia,Tools.Astrolabe,"tool_astrolabe","ToolAstrolabe");
 		register(IrisiaCreativeTabs.irisia,Tools.ArmorStorageBox,"tool_armor_storage_box","ToolArmorStorageBox");
 	}
 //	private static void registerSeeds()

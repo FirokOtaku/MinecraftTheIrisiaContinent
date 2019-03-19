@@ -17,7 +17,7 @@ public class PotionLoader
     public PotionLoader(FMLPreInitializationEvent event)
     {
         Logger log=event.getModLog();
-        int customPotions = 20; // 现在是18个
+        int customPotions = 20; // 现在是20个
         int potionOffset = Potion.potionTypes.length;
         int start = 0;
         log.info("药水id偏移 : " + potionOffset);
@@ -66,6 +66,11 @@ public class PotionLoader
         if((start=getNextPotionId(start))>=0){
             Potions.Militaristic=new Potions.PotionMilitaristic(start);
             log.info("Initializing PotionMilitaristic with id " + start);
+        }
+        // Plague
+        if((start=getNextPotionId(start))>=0){
+            Potions.Plaguing=new Potions.PotionPlaguing(start);
+            log.info("Initializing PotionPlaguing with id " + start);
         }
 
 

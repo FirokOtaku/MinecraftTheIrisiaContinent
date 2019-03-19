@@ -4,6 +4,7 @@ import firok.irisia.DamageSources;
 import firok.irisia.Irisia;
 import firok.irisia.Keys;
 import firok.irisia.ability.CauseDamage;
+import firok.irisia.common.EntitySelectors;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,6 +33,7 @@ public class Potions
 	public static Potion Corroded;
 	public static Potion Cursed;
 	public static Potion Militaristic;
+	public static Potion Plaguing;
 	// event potion
 	public static Potion Wise;
 	public static Potion Folly;
@@ -47,7 +49,6 @@ public class Potions
 
 	public static Potion Indomitable;
 	public static Potion Avarice;
-
 
 	public static Potion Painbound;
 	public static Potion Lifecursed;
@@ -273,6 +274,41 @@ public class Potions
 		public boolean isReady(int tick, int par2)
 		{
 			return tick<=1;
+		}
+	}
+	public static class PotionPlaguing extends Potion
+	{
+		public PotionPlaguing(int id)
+		{
+			super(id,false,Color.green.getRGB());
+			this.setPotionName("irisia.potion.plaguing ");
+		}
+		@Override
+		public void performEffect(EntityLivingBase entity, int level) {
+			if(!entity.worldObj.isRemote)
+			{
+				List entities=entity.worldObj.getEntitiesWithinAABBExcludingEntity(entity,
+						AxisAlignedBB.getBoundingBox(-7.5,-7.5,-7.5,7.5,7.5,7.5),
+						EntitySelectors.SelectEntityLivingBaseAlive);
+				int level2add=level-1;
+				for(Object obj:entities)
+				{
+					if(entity.worldObj.rand.nextFloat()<0.1+0.08*level)
+					{
+						EntityLivingBase enlb=(EntityLivingBase)obj;
+						if(enlb.getActivePotionEffect(Potions.Plaguing)==null)
+							enlb.addPotionEffect(new PotionEffect(Potions.Plaguing.id,1200,level2add));
+					}
+				}
+
+				if(level<4)
+					entity.attackEntityFrom(DamageSources.PlagueDamage,entity.worldObj.rand.nextInt(6));
+			}
+		}
+		@Override
+		public boolean isReady(int tick, int par2)
+		{
+			return tick%200==0;
 		}
 	}
 

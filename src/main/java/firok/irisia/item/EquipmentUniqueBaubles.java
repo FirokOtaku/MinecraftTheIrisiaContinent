@@ -8,7 +8,9 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import firok.irisia.Irisia;
 import firok.irisia.ability.CauseTeleportation;
+import firok.irisia.common.EntitySelectors;
 import firok.irisia.entity.Pets;
+import firok.irisia.potion.Potions;
 import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
 import net.minecraft.client.particle.EntityFX;
@@ -277,6 +279,7 @@ public class EquipmentUniqueBaubles
 		}; // 爱情指环
 	}
 
+	public final static EquipmentSets.Amulet PlagueStone; // 瘟疫之石
 	public final static EquipmentSets.Amulet PhotosynthesisAmulet; // 光合护身符
 	public final static EquipmentSets.Belt DwartTravellerBelt; // 矮人旅行者腰带
 	public final static EquipmentSets.Belt MermaidBelt; // 人鱼腰带
@@ -286,6 +289,18 @@ public class EquipmentUniqueBaubles
 	public final static EquipmentSets.Amulet TwelveMagicalPowerAmulet; // 十二魔力护符
 	static
 	{
+		PlagueStone=new EquipmentSets.Amulet()
+		{
+			@Override
+			public void onWornTick(ItemStack stack, EntityLivingBase entity)
+			{
+				if(entity.worldObj.isRemote
+						|| entity.worldObj.getTotalWorldTime()%240!=0)
+					return;
+
+				entity.addPotionEffect(new PotionEffect(Potions.Plaguing.id,240,4));
+			}
+		};
 		PhotosynthesisAmulet=new EquipmentSets.Amulet()
 		{
 			@Override
