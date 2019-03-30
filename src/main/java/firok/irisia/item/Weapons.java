@@ -8,11 +8,15 @@ import firok.irisia.Keys;
 import firok.irisia.Util;
 import firok.irisia.common.EntitySelectors;
 import firok.irisia.entity.Throwables;
+import firok.irisia.potion.Potions;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
@@ -23,6 +27,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
+import net.minecraftforge.event.entity.player.ArrowNockEvent;
 import thaumcraft.api.IWarpingGear;
 import thaumcraft.api.ThaumcraftApi;
 
@@ -79,6 +84,9 @@ public class Weapons
 		WarpingBlade=new WarpingBladeWeapon();
 		SoulEater=new SoulEaterWeapon();
 		LunarDagger=new LunarDaggerWeapon();
+//		RhythmicSword=new RhythmicSwordWeapon();
+//		BurningSpear=new BurningSpearWeapon();
+		Radiance=new RadianceWeapon();
 	}
 
 	public static class FlailWeapon extends ItemSword
@@ -531,6 +539,192 @@ public class Weapons
 		public int getMaxItemUseDuration(ItemStack itemStack)
 		{
 			return 6;
+		}
+	}
+
+//	public static class BurningSpearWeapon extends ItemBow
+//	{
+//		@Override
+//		public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int usedDuration)
+//		{
+//			int j = this.getMaxItemUseDuration(itemStack) - usedDuration;
+//
+//			ArrowLooseEvent event = new ArrowLooseEvent(player, itemStack, j);
+//			MinecraftForge.EVENT_BUS.post(event);
+//			if (event.isCanceled())
+//			{
+//				return;
+//			}
+//			j = event.charge;
+//
+//			// flag判断是否创造模式/无限附魔=是否消耗弹药
+//			boolean flag = player.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, itemStack) > 0;
+//
+//			if (flag)//if (flag || player.inventory.hasItem(Items.arrow))
+//			{
+//				float f = (float)j / 20.0F;
+//				f = (f * f + f * 2.0F) / 3.0F;
+//
+//				if ((double)f < 0.1D)
+//				{
+//					return;
+//				}
+//
+//				if (f > 1.0F)
+//				{
+//					f = 1.0F;
+//				}
+//
+//				Throwables.EntityRunicArrow entityarrow = new Throwables.EntityRunicArrow(world, player, 3);
+//				// thaumcraft:craftfail 爆炸音
+//				// thaumcraft:jacobs 电流音
+//				// todo 以后换成别的声音
+//				world.playSoundAtEntity(player, "thaumcraft:craftfail", 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+//
+//				if (!world.isRemote)
+//				{
+//					world.spawnEntityInWorld(entityarrow);
+//				}
+//			}
+//		}
+//
+//		/**
+//		 * How long it takes to use or consume an item
+//		 */
+//		public int getMaxItemUseDuration(ItemStack p_77626_1_)
+//		{
+//			return 72000;
+//		}
+//
+//		/**
+//		 * Called whenever this item is equipped and the right mouse button is pressed. Args: itemStack, world, entityPlayer
+//		 */
+//		public ItemStack onItemRightClick(ItemStack p_77659_1_, World p_77659_2_, EntityPlayer p_77659_3_)
+//		{
+//			ArrowNockEvent event = new ArrowNockEvent(p_77659_3_, p_77659_1_);
+//			MinecraftForge.EVENT_BUS.post(event);
+//			if (event.isCanceled())
+//			{
+//				return event.result;
+//			}
+//
+//			if (p_77659_3_.capabilities.isCreativeMode || p_77659_3_.inventory.hasItem(Items.arrow))
+//			{
+//				p_77659_3_.setItemInUse(p_77659_1_, this.getMaxItemUseDuration(p_77659_1_));
+//			}
+//
+//			return p_77659_1_;
+//		}
+//	}
+	public static class RadianceWeapon extends ItemSword
+	{
+		public static final short MutexDamagePlayer =0x01; // 是否伤害玩家和友好生物
+		public static final short MutexDamageMob =0x02; // 是否伤害怪物
+		public static final short MutexMax =MutexDamagePlayer | MutexDamageMob;
+		public RadianceWeapon()
+		{
+			super(ToolMaterial.IRON);
+		}
+
+		@Override
+		public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase player)
+		{
+//			NBTTagCompound nbt=itemStack.hasTagCompound()?itemStack.getTagCompound():new NBTTagCompound();
+//
+//			long timeNow=target.worldObj.getTotalWorldTime();
+//			long timeLast=nbt.hasKey("timeLast")?nbt.getLong("timeLast"):-1;
+//			int keyLast=nbt.hasKey("keyLast")?nbt.getInteger("keyLast"):-1;
+//
+//			float damage=0;
+//			target.attackEntityFrom(DamageSource.generic,damage);
+//
+//			if(damage>=15)
+//				; // todo 以后播放一个音效
+//
+//			itemStack.damageItem(1, player);
+//			return true;
+			return super.hitEntity(itemStack, target, player);
+		}
+
+		@Override
+		public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+		{
+			if(!world.isRemote && player.isSneaking())
+			{
+				NBTTagCompound tag=stack.hasTagCompound()?stack.getTagCompound():new NBTTagCompound();
+				short mutex=tag.hasKey("mutex")?tag.getShort("mutex"):0;
+				tag.setShort("mutex",mutex<MutexMax?(short)(mutex+1):0);
+				stack.setTagCompound(tag);
+			}
+			return super.onItemRightClick(stack, world, player);
+		}
+
+		@Override
+		public String getItemStackDisplayName(ItemStack itemStack)
+		{
+			int mutex=itemStack.hasTagCompound()?itemStack.getTagCompound().getInteger("mutex"):0x00;
+
+			return super.getItemStackDisplayName(itemStack)+(mutex);
+		}
+
+		@Override
+		public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean p_77624_4_)
+		{
+			short mutex=itemStack.hasTagCompound()?
+					itemStack.getTagCompound().getShort("mutex"):0x00;
+			if((mutex&MutexDamagePlayer)>0)
+			{
+				list.add("伤害友好生物");
+			}
+			if((mutex& MutexDamageMob)>0)
+			{
+				list.add("伤害敌对生物");
+			}
+		}
+
+//		public static int getMutex(ItemStack itemStack)
+//		{
+//			return itemStack.hasTagCompound()?itemStack.getTagCompound().getInteger("mutex"):0x00;
+//		}
+
+		@Override
+		public void onUpdate(ItemStack itemStack, World world, Entity entity, int p_77663_4_, boolean onHand)
+		{
+//			super.onUpdate(itemStack, world, entity, p_77663_4_, onHand);
+			if(onHand && !world.isRemote && entity.ticksExisted%40==0)
+			{
+				short mutex=itemStack.hasTagCompound()?itemStack.getTagCompound().getShort("mutex"):0x00;
+				List entities=world.getEntitiesWithinAABBExcludingEntity(entity,
+						AxisAlignedBB.getBoundingBox(entity.posX-4,entity.posY-4,entity.posZ-4,
+								entity.posX+4,entity.posY+4,entity.posZ+4),
+						EntitySelectors.SelectEntityLivingBaseAlive);
+
+				for(Object obj:entities)
+				{
+					EntityLivingBase enlb=(EntityLivingBase)obj;
+					boolean isF=isFriendly(enlb);
+					if(isF)
+					{
+						if((mutex&MutexDamagePlayer)>0)
+						{
+							enlb.setFire(2);
+						}
+					}
+					else // !isF
+					{
+						if((mutex& MutexDamageMob)>0)
+						{
+							enlb.setFire(2);
+						}
+					}
+				}
+
+			}
+		}
+
+		public static boolean isFriendly(Entity entity)
+		{
+			return entity!=null && !(entity instanceof EntityCreature) && !(entity instanceof IMob);
 		}
 	}
 }

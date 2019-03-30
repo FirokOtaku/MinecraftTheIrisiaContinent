@@ -1,3 +1,7 @@
+0.12.74
+加入辉耀武器
+add Radiance weapon
+
 0.12.73
 加入闪耀的日耀水晶、闪耀的月影水晶、星相石材料
 add GlitteringSolarCrystal, GlitteringLunarCrystal, AstrologicStone materials

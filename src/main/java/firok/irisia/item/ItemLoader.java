@@ -241,6 +241,7 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.equi,Weapons.WarpingBlade,"weapon_warping_blade","WeaponWarpingBlade");
 		register(IrisiaCreativeTabs.equi,Weapons.SoulEater,"weapon_soul_eater","WeaponSoulEater");
 		register(IrisiaCreativeTabs.equi,Weapons.LunarDagger,"weapon_lunar_dagger","WeaponLunarDagger");
+		register(IrisiaCreativeTabs.equi,Weapons.Radiance,"weapon_radiance","WeaponRadiance");
 
 	}
 	private static void registerTools()
