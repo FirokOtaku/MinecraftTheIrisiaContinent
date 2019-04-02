@@ -63,6 +63,9 @@ public class Weapons
 	public final static ItemSword WarpingBlade;
 	public final static ItemSword SoulEater;
 	public final static ItemSword LunarDagger;
+//	public final static ItemSword RhythmicSword;
+	public final static ItemBow BurningSpear;
+	public final static ItemSword Radiance;
 	static
 	{
 		FlailWood=new FlailWeapon(Item.ToolMaterial.WOOD);
@@ -85,7 +88,7 @@ public class Weapons
 		SoulEater=new SoulEaterWeapon();
 		LunarDagger=new LunarDaggerWeapon();
 //		RhythmicSword=new RhythmicSwordWeapon();
-//		BurningSpear=new BurningSpearWeapon();
+		BurningSpear=new BurningSpearWeapon();
 		Radiance=new RadianceWeapon();
 	}
 
@@ -542,27 +545,26 @@ public class Weapons
 		}
 	}
 
-//	public static class BurningSpearWeapon extends ItemBow
-//	{
-//		@Override
-//		public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int usedDuration)
-//		{
-//			int j = this.getMaxItemUseDuration(itemStack) - usedDuration;
-//
-//			ArrowLooseEvent event = new ArrowLooseEvent(player, itemStack, j);
-//			MinecraftForge.EVENT_BUS.post(event);
-//			if (event.isCanceled())
-//			{
-//				return;
-//			}
-//			j = event.charge;
-//
-//			// flag判断是否创造模式/无限附魔=是否消耗弹药
+	public static class BurningSpearWeapon extends ItemBow
+	{
+		@Override
+		public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int usedDuration)
+		{
+			int charge = this.getMaxItemUseDuration(itemStack) - usedDuration;
+
+			ArrowLooseEvent event = new ArrowLooseEvent(player, itemStack, charge);
+			MinecraftForge.EVENT_BUS.post(event);
+			if (event.isCanceled())
+			{
+				return;
+			}
+			charge = event.charge;
+			// flag判断是否创造模式/无限附魔=是否消耗弹药
 //			boolean flag = player.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, itemStack) > 0;
-//
-//			if (flag)//if (flag || player.inventory.hasItem(Items.arrow))
-//			{
-//				float f = (float)j / 20.0F;
+			boolean flag=charge>=8;
+			if (flag)//if (flag || player.inventory.hasItem(Items.arrow))
+			{
+//				float f = (float)charge / 20.0F;
 //				f = (f * f + f * 2.0F) / 3.0F;
 //
 //				if ((double)f < 0.1D)
@@ -574,48 +576,49 @@ public class Weapons
 //				{
 //					f = 1.0F;
 //				}
-//
-//				Throwables.EntityRunicArrow entityarrow = new Throwables.EntityRunicArrow(world, player, 3);
-//				// thaumcraft:craftfail 爆炸音
-//				// thaumcraft:jacobs 电流音
-//				// todo 以后换成别的声音
+
+				Throwables.EntityBurningSpearArrow entityarrow
+						= new Throwables.EntityBurningSpearArrow(world, charge, player, player.isSneaking());
+				// thaumcraft:craftfail 爆炸音
+				// thaumcraft:jacobs 电流音
+				// todo 以后换成别的声音
 //				world.playSoundAtEntity(player, "thaumcraft:craftfail", 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
-//
-//				if (!world.isRemote)
-//				{
-//					world.spawnEntityInWorld(entityarrow);
-//				}
-//			}
-//		}
-//
-//		/**
-//		 * How long it takes to use or consume an item
-//		 */
-//		public int getMaxItemUseDuration(ItemStack p_77626_1_)
-//		{
-//			return 72000;
-//		}
-//
-//		/**
-//		 * Called whenever this item is equipped and the right mouse button is pressed. Args: itemStack, world, entityPlayer
-//		 */
-//		public ItemStack onItemRightClick(ItemStack p_77659_1_, World p_77659_2_, EntityPlayer p_77659_3_)
-//		{
-//			ArrowNockEvent event = new ArrowNockEvent(p_77659_3_, p_77659_1_);
-//			MinecraftForge.EVENT_BUS.post(event);
-//			if (event.isCanceled())
-//			{
-//				return event.result;
-//			}
-//
-//			if (p_77659_3_.capabilities.isCreativeMode || p_77659_3_.inventory.hasItem(Items.arrow))
-//			{
-//				p_77659_3_.setItemInUse(p_77659_1_, this.getMaxItemUseDuration(p_77659_1_));
-//			}
-//
-//			return p_77659_1_;
-//		}
-//	}
+
+				if (!world.isRemote)
+				{
+					world.spawnEntityInWorld(entityarrow);
+				}
+			}
+		}
+
+		/**
+		 * How long it takes to use or consume an item
+		 */
+		public int getMaxItemUseDuration(ItemStack p_77626_1_)
+		{
+			return 72000;
+		}
+
+		/**
+		 * Called whenever this item is equipped and the right mouse button is pressed. Args: itemStack, world, entityPlayer
+		 */
+		public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+		{
+			ArrowNockEvent event = new ArrowNockEvent(player, stack);
+			MinecraftForge.EVENT_BUS.post(event);
+			if (event.isCanceled())
+			{
+				return event.result;
+			}
+
+			if (player.capabilities.isCreativeMode || player.inventory.hasItem(Items.arrow))
+			{
+				player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
+			}
+
+			return stack;
+		}
+	}
 	public static class RadianceWeapon extends ItemSword
 	{
 		public static final short MutexDamagePlayer =0x01; // 是否伤害玩家和友好生物
