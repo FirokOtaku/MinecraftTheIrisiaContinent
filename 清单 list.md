@@ -2,7 +2,7 @@
 
 ## 更新关键字
 
-* 武器-沸血之矛
+* 消耗品-显影之尘
 
 任何建议请提交至本项目[Issue页面](https://github.com/351768593/MinecraftTheIrisiaContinent/issues)
 

@@ -214,6 +214,7 @@ public class ItemLoader
 		// 消耗品
 		register(IrisiaCreativeTabs.irisia,Consumables.Gashapon,"cons_gashapon","Gashapon");
 		register(IrisiaCreativeTabs.irisia,Consumables.ThaumicNote,"cons_thaumic_note","ThaumicNote");
+		register(IrisiaCreativeTabs.irisia,Consumables.DustOfAppearance,"cons_dust_of_appearance","DustOfAppearance");
 	}
 	private static void registerConsumableWeapons()
 	{

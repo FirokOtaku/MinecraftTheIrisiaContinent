@@ -5,10 +5,15 @@ import cpw.mods.fml.relauncher.SideOnly;
 import firok.irisia.item.RawMaterials;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.DamageSource;
 
 import java.awt.*;
 
@@ -82,6 +87,31 @@ public class Util {
 		return range<minRange? minResult:
 				range>maxRange? maxResult:
 						(range-minRange)/(maxRange-minRange)*(maxResult-minResult)+minResult;
+	}
+	public static boolean isFriendly(Entity entity)
+	{
+		return entity!=null && !(entity instanceof EntityCreature) && !(entity instanceof IMob);
+	}
+	public static boolean attackWithCooldown(EntityLivingBase attacker, EntityLivingBase target,
+	                                         ItemStack stackWeapon, int cd,
+	                                         DamageSource damageSource, float damage, float damageMin)
+	{
+		boolean canAttack;
+
+		long now=attacker.worldObj.getTotalWorldTime();
+		NBTTagCompound nbt=stackWeapon.hasTagCompound()?stackWeapon.getTagCompound():new NBTTagCompound();
+		long lastTimeAttack=nbt.hasKey("lastTimeAttack")?nbt.getLong("lastTimeAttack"):-1;
+
+		canAttack=lastTimeAttack<0||now-lastTimeAttack>=cd;
+
+		if(canAttack)
+		{
+			nbt.setLong("lastTimeAttack",now);
+		}
+		target.attackEntityFrom(damageSource,canAttack?damage:damageMin);
+		stackWeapon.setTagCompound(nbt);
+
+		return canAttack;
 	}
 
 	public static String getDes(Item itemIn)
