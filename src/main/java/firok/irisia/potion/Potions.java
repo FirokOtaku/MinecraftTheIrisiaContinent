@@ -34,6 +34,7 @@ public class Potions
 	public static Potion Cursed;
 	public static Potion Militaristic;
 	public static Potion Plaguing;
+	public static Potion Healing;
 	// event potion
 	public static Potion Wise;
 	public static Potion Folly;
@@ -45,6 +46,8 @@ public class Potions
 	public static Potion WindRanger;
 	public static Potion Leaderly;
 	public static Potion Midas;
+	public static Potion Echo;
+	public static Potion Fantasy;
 	// unimplemented potion
 
 	public static Potion Indomitable;
@@ -281,7 +284,7 @@ public class Potions
 		public PotionPlaguing(int id)
 		{
 			super(id,false,Color.green.getRGB());
-			this.setPotionName("irisia.potion.plaguing ");
+			this.setPotionName("irisia.potion.plaguing");
 		}
 		@Override
 		public void performEffect(EntityLivingBase entity, int level) {
@@ -309,6 +312,26 @@ public class Potions
 		public boolean isReady(int tick, int par2)
 		{
 			return tick%200==0;
+		}
+	}
+	public static class PotionHealing extends Potion
+	{
+		public PotionHealing(int id)
+		{
+			super(id,false,Color.red.getRGB());
+			this.setPotionName("irisia.potion.healing");
+		}
+		@Override
+		public void performEffect(EntityLivingBase entity, int level) {
+			if(!entity.worldObj.isRemote)
+			{
+				entity.heal(level);
+			}
+		}
+		@Override
+		public boolean isReady(int tick, int par2)
+		{
+			return tick%20==0;
 		}
 	}
 

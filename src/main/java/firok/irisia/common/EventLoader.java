@@ -1,10 +1,14 @@
 package firok.irisia.common;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
 import baubles.api.BaublesApi;
+import com.google.common.io.Files;
 import cpw.mods.fml.client.SplashProgress;
 import firok.irisia.DamageSources;
 import firok.irisia.Irisia;
@@ -15,6 +19,7 @@ import firok.irisia.item.RawMaterials;
 import firok.irisia.potion.Potions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.command.CommandWeather;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -28,8 +33,16 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.*;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import thaumcraft.api.research.ResearchCategories;
+import thaumcraft.api.research.ResearchCategoryList;
+import thaumcraft.api.research.ResearchItem;
+import thaumcraft.common.Thaumcraft;
+import thaumcraft.common.lib.events.EventHandlerEntity;
+import thaumcraft.common.lib.research.ResearchManager;
 
 
 @SuppressWarnings("static-method")
@@ -333,6 +346,24 @@ public class EventLoader
 
 	    if(amount<0)amount=0;
 	    event.ammount=amount;
+
+	    if(amount>0)
+	    {
+		    PotionEffect healing=enlb.getActivePotionEffect(Potions.Healing);
+		    if(healing!=null)
+		    {
+			    enlb.removePotionEffect(Potions.Healing.id);
+		    }
+	    }
+
+	    // echo
+	    PotionEffect echo=enlb.getActivePotionEffect(Potions.Echo);
+	    if(echo!=null && echo.getDuration()>0)
+	    {
+	    	event.setCanceled(true);
+	    	enlb.worldObj.playSoundAtEntity(enlb, Keys.SoundGulp,1,1);
+	    	enlb.heal(event.ammount);
+	    }
     }
     public static String toString(DamageSource damage)
     {

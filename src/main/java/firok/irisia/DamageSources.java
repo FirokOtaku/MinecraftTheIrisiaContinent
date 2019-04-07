@@ -45,6 +45,10 @@ public class DamageSources
 			.setMagicDamage()
 			.setDamageIsAbsolute();
 
+	public final static DamageSource BurningSpearDamage
+			=new DamageSource("burningSpearDamage")
+			.setProjectile();
+
 	public final static DamageSource PlagueDamage
 			=new DamageSource("plagueDamage")
 			.setDamageBypassesArmor()

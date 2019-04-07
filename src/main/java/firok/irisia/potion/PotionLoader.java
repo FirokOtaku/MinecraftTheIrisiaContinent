@@ -17,7 +17,7 @@ public class PotionLoader
     public PotionLoader(FMLPreInitializationEvent event)
     {
         Logger log=event.getModLog();
-        int customPotions = 20; // 现在是20个
+        int customPotions = 20; // 现在是21个
         int potionOffset = Potion.potionTypes.length;
         int start = 0;
         log.info("药水id偏移 : " + potionOffset);
@@ -72,6 +72,11 @@ public class PotionLoader
             Potions.Plaguing=new Potions.PotionPlaguing(start);
             log.info("Initializing PotionPlaguing with id " + start);
         }
+        // Healing
+        if((start=getNextPotionId(start))>=0){
+            Potions.Healing=new Potions.PotionHealing(start);
+            log.info("Initializing PotionHealing with id " + start);
+        }
 
 
         // Wise
@@ -124,6 +129,16 @@ public class PotionLoader
             Potions.Midas = new Potions.EventPotion(start,true,Color.yellow.getRGB(),"midas");
             log.info("Initializing PotionMidas with id " + start);
         }
+        // Echo
+        if ((start= getNextPotionId(start)) >= 0) {
+            Potions.Echo = new Potions.EventPotion(start,true,Color.yellow.getRGB(),"echo");
+            log.info("Initializing PotionEcho with id " + start);
+        }
+//        // Fantasy
+//        if ((start= getNextPotionId(start)) >= 0) {
+//            Potions.Fantasy = new Potions.EventPotion(start,true,Color.green.getRGB(),"fantasy");
+//            log.info("Initializing PotionFantasy with id " + start);
+//        }
     }
     private static int getNextPotionId(int start)
     {
