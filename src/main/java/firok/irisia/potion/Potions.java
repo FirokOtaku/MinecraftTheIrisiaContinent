@@ -198,7 +198,7 @@ public class Potions
 		@Override
 		public boolean isReady(int tick, int level)
 		{
-			return tick%20==0;
+			return tick% ((30/(level+1))+1) ==0;
 		}
 	}
 	public static class PotionCorroded extends Potion

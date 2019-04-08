@@ -29,4 +29,5 @@ public class CauseVisLeak
 			wand.consumeAllVis(itemStack,p,cost,!p.worldObj.isRemote, false);
 		}
 	}
+	// fixme low 如果有一种灵气不足 会导致所有灵气不减少
 }

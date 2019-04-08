@@ -1,3 +1,7 @@
+0.12.79
+修复灵气流失debuff效果问题
+fix some problems about VisLeaking effect
+
 0.12.78
 修复灵气流失debuff效果问题
 fix some problems about VisLeaking effect
