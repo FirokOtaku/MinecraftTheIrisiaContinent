@@ -4,17 +4,24 @@ import firok.irisia.DamageSources;
 import firok.irisia.Irisia;
 import firok.irisia.Keys;
 import firok.irisia.ability.CauseDamage;
+import firok.irisia.ability.CauseVisLeak;
+import firok.irisia.block.SpecialDecorations;
 import firok.irisia.common.EntitySelectors;
+import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.wands.FocusUpgradeType;
 import thaumcraft.common.items.wands.ItemWandCasting;
 
 import java.awt.*;
@@ -180,20 +187,16 @@ public class Potions
 			super(id,false,Color.blue.getRGB());
 			this.setPotionName("irisia.potion.vis_leaking");
 		}
+
 		@Override
 		public void performEffect(EntityLivingBase target, int level) {
-			ItemStack stackHeld=target.getHeldItem();
-			if(stackHeld!=null && stackHeld.getItem() instanceof ItemWandCasting)
+			if(target instanceof EntityPlayer)
 			{
-				// ((ItemWandCasting)stackHeld.getItem()).
-				for(Aspect as:Irisia.arrayPrimalAspect)
-				{// fixme 这里以后改掉
-					((ItemWandCasting)stackHeld.getItem()).addRealVis(stackHeld,as,level*50+50,true);
-				}//thaumcraft.common.items.wands.foci.ItemFocusFire
+				CauseVisLeak.AtPlayer((EntityPlayer) target);
 			}
 		}
 		@Override
-		public boolean isReady(int tick, int par2)
+		public boolean isReady(int tick, int level)
 		{
 			return tick%20==0;
 		}
