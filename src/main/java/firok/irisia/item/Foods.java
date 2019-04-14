@@ -4,6 +4,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import firok.irisia.Irisia;
 import firok.irisia.common.TasteManager;
+import firok.irisia.potion.Potions;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemFood;
@@ -19,6 +20,7 @@ import java.util.Random;
 
 public class Foods
 {
+	public final static InformationItemFood HealingSalve; // 治疗药膏
 	public final static InformationItemFood VilligerFood; // 村人干粮
 	public final static InformationItemFood IcyGummyJelly; // 冰软糖
 	//public final static InformationItemFood HuckTeaLeaf; // 哈克茶叶
@@ -42,6 +44,17 @@ public class Foods
 
 	static
 	{
+		HealingSalve=new InformationItemFood()
+		{
+			@Override
+			protected void onFoodEaten(ItemStack itemStack, World world, EntityPlayer player)
+			{
+				super.onFoodEaten(itemStack,world,player);
+				if(world.isRemote)
+					return;
+				player.addPotionEffect(new PotionEffect(Potions.Healing.id,100,0));
+			}
+		};
 		VilligerFood=new InformationItemFood();
 		IcyGummyJelly=new InformationItemFood();
 		HardBread=new InformationItemFood();

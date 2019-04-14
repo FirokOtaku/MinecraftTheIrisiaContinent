@@ -1,3 +1,7 @@
+0.12.80
+加入治疗药膏食物
+add HealingSalve food
+
 0.12.79
 修复灵气流失debuff效果问题
 fix some problems about VisLeaking effect

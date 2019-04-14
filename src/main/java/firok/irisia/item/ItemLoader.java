@@ -157,6 +157,7 @@ public class ItemLoader
 	private static void registerFoods()
 	{
 		// 食物
+		register(IrisiaCreativeTabs.food,Foods.HealingSalve,"healing_salve","HealingSalve");
 		register(IrisiaCreativeTabs.food,Foods.VilligerFood,"villiger_food","VilligerFood");
 		register(IrisiaCreativeTabs.food,Foods.MixedSweet,"mixed_sweet","MixedSweet");
 
