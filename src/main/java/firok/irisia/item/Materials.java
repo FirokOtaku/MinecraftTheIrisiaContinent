@@ -70,17 +70,17 @@ public class Materials
 
 	public static final ItemArmor.ArmorMaterial WolfFurArmor =
 			EnumHelper.addArmorMaterial(Irisia.MODID+":WOLFFUR",
-					8, new int[]{ 1, 2, 2, 1 }, 15);
+					4, new int[]{ 2, 3, 2, 1 }, 15);
 	static{WolfFurArmor.customCraftingMaterial=RawMaterials.WolfFur;}
 
 	public static final ItemArmor.ArmorMaterial IcyWolfFurArmor =
 			EnumHelper.addArmorMaterial(Irisia.MODID+":ICYWOLFFUR",
-					8, new int[]{ 1, 2, 2, 1 }, 15);
+					5, new int[]{ 2, 3, 2, 1 }, 17);
 	static{IcyWolfFurArmor.customCraftingMaterial=RawMaterials.IcyWolfFur;}
 
 	public static final ItemArmor.ArmorMaterial StormArmor =
 			EnumHelper.addArmorMaterial(Irisia.MODID+":STORM",
-					8, new int[]{ 1, 2, 2, 1 }, 15);
+					15, new int[]{ 2, 5, 4, 1 }, 12);
 	static{StormArmor.customCraftingMaterial=RawMaterials.ChargedStormBall;}
 
 	static
@@ -100,48 +100,52 @@ public class Materials
 	}
 
 
+	public static final Item.ToolMaterial ObsidianTool =
+			EnumHelper.addToolMaterial(Irisia.MODID+":OBSIDIAN",
+					3,590,3.5F,3.0F,8)
+			.setRepairItem(new ItemStack(Blocks.obsidian));
 	public static final Item.ToolMaterial BoneTool =
 			EnumHelper.addToolMaterial(Irisia.MODID+":BONE",
-					3, 16, 16.0F, 0.0F, 10)
+					0, 39, 1.5F, 0.0F, 16)
 			.setRepairItem(new ItemStack(Items.bone));
 
 	public static final Item.ToolMaterial SpectreTool =
 			EnumHelper.addToolMaterial(Irisia.MODID+":SPECTRE",
-					3, 16, 16.0F, 0.0F, 10)
+					1, 39, 2.5F, 2.0F, 18)
 			.setRepairItem(new ItemStack(Items.ghast_tear));
 
 	public static final Item.ToolMaterial MithrilTool =
 			EnumHelper.addToolMaterial(Irisia.MODID+":MITHRIL",
-					3, 16, 16.0F, 0.0F, 10)
+					3, 2000, 12.0F, 5.0F, 5)
 			.setRepairItem(new ItemStack(RawMaterials.MithrilIngot));
 
 	public static final Item.ToolMaterial AdamantiumTool =
 			EnumHelper.addToolMaterial(Irisia.MODID+":ADAMANTIUM",
-					3, 16, 16.0F, 0.0F, 10)
+					3, 300, 5.0F, 0.0F, 27)
 			.setRepairItem(new ItemStack(RawMaterials.AdamantiumIngot));
 
 	public static final Item.ToolMaterial FlumetalTool =
 			EnumHelper.addToolMaterial(Irisia.MODID+":FLUMETAL",
-					3, 16, 16.0F, 0.0F, 10)
+					2, 240, 5.5F, 1.5F, 16)
 			.setRepairItem(new ItemStack(RawMaterials.FlumetalIngot));
 
 	public static final Item.ToolMaterial DwartSteelTool =
 			EnumHelper.addToolMaterial(Irisia.MODID+":DWARTSTEEL",
-					3, 16, 16.0F, 0.0F, 10)
+					2, 500, 8.0F, 3.0F, 13)
 			.setRepairItem(new ItemStack(RawMaterials.DwartSteelIngot));
 
 	public static final Item.ToolMaterial LifeWoodTool =
 			EnumHelper.addToolMaterial(Irisia.MODID+":LIFEWOOD",
-					3, 16, 16.0F, 0.0F, 10);
+					0, 59, 2.0F, 0.0F, 17);
 
 	public static final Item.ToolMaterial MogigaTool =
 			EnumHelper.addToolMaterial(Irisia.MODID+":MOGIGA",
-					3, 16, 16.0F, 0.0F, 10)
+					3, 460, 6.5F, 2.5F, 43)
 			.setRepairItem(new ItemStack(RawMaterials.MogigaIngot));
 
 	public static final Item.ToolMaterial SolitaTool =
 			EnumHelper.addToolMaterial(Irisia.MODID+":SOLITA",
-					3, 16, 16.0F, 0.0F, 10)
+					3, 5500, 15.0F, 8F, 8)
 			.setRepairItem(new ItemStack(RawMaterials.SolitaIngot));
 
 

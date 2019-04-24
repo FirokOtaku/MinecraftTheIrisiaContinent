@@ -16,6 +16,7 @@ import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
@@ -55,6 +56,8 @@ public class Weapons
 	public static RunicLongBowWeapon SolitaLongBow;
 	public static RunicLongBowWeapon MogigaLongBow;
 
+	public final static ItemSword GuardianSword;
+	public final static ItemSword Maquahuitl;
 	public final static ItemSword MercurialBlade;
 	public final static ItemSword NightBlade;
 	public static ItemSword PhaseSword;
@@ -79,6 +82,8 @@ public class Weapons
 		FlailSolita=new FlailWeapon(Materials.SolitaTool);
 		FlailBone=new FlailWeapon(Materials.BoneTool);
 
+		GuardianSword=new GuardianSwordWeapon();
+		Maquahuitl=new MaquahuitlWeapon();
 		VoidRunicLongBow=new RunicLongBowWeapon();
 		MercurialBlade=new MercurialBladeWeapon();
 		NightBlade=new NightBladeWeapon();
@@ -92,6 +97,47 @@ public class Weapons
 		Radiance=new RadianceWeapon();
 	}
 
+	public static class GuardianSwordWeapon extends ItemSword
+	{
+		public GuardianSwordWeapon()
+		{
+			super(ToolMaterial.IRON);
+		}
+		@Override
+		public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase player)
+		{
+			super.hitEntity(itemStack, target, player);
+			if(!player.worldObj.isRemote)
+			{
+				if(player.worldObj.rand.nextFloat()<0.15)
+				{
+					PotionEffect eff=player.getActivePotionEffect(Potion.resistance);
+					player.addPotionEffect(new PotionEffect(Potion.resistance.id,80,
+							eff==null?0:eff.getAmplifier()+1));
+				}
+			}
+			return true;
+		}
+	}
+	public static class MaquahuitlWeapon extends ItemSword
+	{
+		public MaquahuitlWeapon()
+		{
+			super(Materials.ObsidianTool);
+		}
+		@Override
+		public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase player)
+		{
+			super.hitEntity(itemStack, target, player);
+			if(!player.worldObj.isRemote)
+			{
+				player.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id,80,0));
+				player.addPotionEffect(new PotionEffect(Potion.digSlowdown.id,80,0));
+				player.addPotionEffect(new PotionEffect(Potion.damageBoost.id,80,0));
+			}
+			return true;
+		}
+	}
 	public static class FlailWeapon extends ItemSword
 	{
 		public final float damageFactor;

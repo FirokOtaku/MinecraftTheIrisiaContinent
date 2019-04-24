@@ -1,48 +1,52 @@
+0.12.81
+加入守卫者之剑、马夸威特武器
+added GuardianSwordWeapon, MaquahuitlWeapon weapons
+
 0.12.80
 加入治疗药膏食物
-add HealingSalve food
+added HealingSalve food
 
 0.12.79
 修复灵气流失debuff效果问题
-fix some problems about VisLeaking effect
+fixed some problems about VisLeaking effect
 
 0.12.78
 修复灵气流失debuff效果问题
-fix some problems about VisLeaking effect
+fixed some problems about VisLeaking effect
 
 0.12.77
 加入治愈、回音状态效果
-add PotionHealing, PotionEcho effect
+added PotionHealing, PotionEcho effect
 
 0.12.76
 加入显影之尘物品
-add DustOfAppearance item
+added DustOfAppearance item
 
 0.12.75
 加入沸血之矛武器
-add BurningSpear weapon
+added BurningSpear weapon
 
 0.12.74
 加入辉耀武器
-add Radiance weapon
+added Radiance weapon
 
 0.12.73
 加入闪耀的日耀水晶、闪耀的月影水晶、星相石材料
-add GlitteringSolarCrystal, GlitteringLunarCrystal, AstrologicStone materials
+added GlitteringSolarCrystal, GlitteringLunarCrystal, AstrologicStone materials
 加入星盘工具
-add Astrolabe tool
+added Astrolabe tool
 加入状态效果-瘟疫
-add PotionPlaguing effect
+added PotionPlaguing effect
 加入瘟疫之石饰品
-add PlagueStone bauble
+added PlagueStone bauble
 
 0.12.72
 加入魔力矿
-add Magical ore
+added Magical ore
 魔力矿现在会在世界上生成
 now MagicalOre will generate in world
 加入月影匕首
-add LunarDagger weapon
+added LunarDagger weapon
 
 0.12.71
 为各种护甲材质添加各自的维修材料
@@ -50,213 +54,213 @@ now armors can be repaired in anvil
 
 0.12.70
 加入灵气压缩器多方块机械
-add AuraCompressor multi-block machine
+added AuraCompressor multi-block machine
 加入法杖触发管理器
-add wand-trigger-manager
+added wand-trigger-manager
 
 0.12.69
 加入日耀水晶、月影水晶矿物
-add SolarCrystal, LunarCrystal ores
+added SolarCrystal, LunarCrystal ores
 为日耀水晶、月影水晶、精金、秘银、流铁、精灵石添加简单的矿物生成
 now SolarCrystal, LunarCrystal, Adamantium, Mithril, Flumetal, ElfStone will generate in world
 
 0.12.68
 加入噬魂者武器
-add SoulEater weapon
+added SoulEater weapon
 
 0.12.67
 加入白胡子权杖、黑胡子权杖、灰胡子权杖
-add ItemWhitebeardStaffRod, ItemBlackbeardStaffRod, ItemGraybeardStaffRod items
+added ItemWhitebeardStaffRod, ItemBlackbeardStaffRod, ItemGraybeardStaffRod items
 修复末影电梯部分问题
-fix some problems about EnderElevator
+fixed some problems about EnderElevator
 
 0.12.66
 加入动刃武器
-add KineticBlade weapon
+added KineticBlade weapon
 
 0.12.65
 加入夜刃武器
-add NightBlade weapon
+added NightBlade weapon
 
 0.12.64
 加入法杖核心-奥术护盾、法杖核心-超新星、法杖核心-虚化
-add FocusArcaneShield, FocusSupernova, FocusBluring focus
+added FocusArcaneShield, FocusSupernova, FocusBluring focus
 
 0.12.63
 加入法杖核心-机械炼成
-add FocusMachineryAlchemy focus
+added FocusMachineryAlchemy focus
 加入奥术护盾方块
-add ArcaneShield block
+added ArcaneShield block
 
 0.12.62
 加入法杖核心-蛛后、法杖核心-凋零
-add FocusSpiderQueen, FocusWither focus
+added FocusSpiderQueen, FocusWither focus
 加入召唤物-铁傀儡实体
-add SummonedIronGolem entity
+added SummonedIronGolem entity
 加入烟雾弹物品
-add SmokeBomb item
+added SmokeBomb item
 
 0.12.61
 加入岩浆蛛网、毒蛛网、土黄蛛网方块
-add LavaCobweb, PoisonousCobweb, DirtyCobweb blocks
+added LavaCobweb, PoisonousCobweb, DirtyCobweb blocks
 
 0.12.60
 重构口味系统
-rewrite implementing of tastes
+rewrote implementing of tastes
 加入星果药草
-add Starous herb
+added Starous herb
 
 0.12.59
 加入远古门方块
-add AncientDoor block
+added AncientDoor block
 
 0.12.58
 加入狂战士之剑武器
-add BerserkerSword weapon
+added BerserkerSword weapon
 
 0.12.57
 加入风暴装甲套装
-add StormArmor armor set
+added StormArmor armor set
 加入电荷腰带饰品
-add ChargeBelt bauble
+added ChargeBelt bauble
 
 0.12.56
 加入莫纳草、苹果草、墨尔草、褐麦药草
-add MonaGrass, AppleGrass, InkrGrass, BrownWheat herbs
+added MonaGrass, AppleGrass, InkrGrass, BrownWheat herbs
 加入金球、精灵叶、风暴球、充能的风暴球物品
-add Nugget, ElfLeaves, StormBall, ChargedStormBall items
+added Nugget, ElfLeaves, StormBall, ChargedStormBall items
 加入古代神秘使笔记、古代断剑、古代化石碎片、古代机械零件物品
-add AncientThaumicNote, AncientBrokenSword, AncientFossilFragment, AncientMachinePart items
+added AncientThaumicNote, AncientBrokenSword, AncientFossilFragment, AncientMachinePart items
 加入风暴收集器
-add StormCollector block
+added StormCollector block
 
 0.12.55
 加入人鱼腰带、圣十字护身符饰品
-add MermaidBelt, HolyCrossAmulet baubles
+added MermaidBelt, HolyCrossAmulet baubles
 加入状态效果饰品类
-add BuffBauble class
+added BuffBauble class
 加入巨人腰带、将军纹章、法力增幅指环、魔法干扰指环饰品
-add GiantBelt, GeneralEmblem, ManaBoostRing, ManaInterferingRing baubles
+added GiantBelt, GeneralEmblem, ManaBoostRing, ManaInterferingRing baubles
 
 0.12.54
 加入黩武状态效果
-add PotionMilitaristic potion effect
+added PotionMilitaristic potion effect
 
 0.12.53
 加入幽鬼之刃武器
-add MercurialBlade weapon
+added MercurialBlade weapon
 更新部分材质
-update some textures
+updated some textures
 
 0.12.52
 加入领袖、迈达斯、诅咒、腐蚀状态效果
-add PotionLeaderly, PotionMidas, PotionCursed, PotionCorroded potion effects
+added PotionLeaderly, PotionMidas, PotionCursed, PotionCorroded potion effects
 
 0.12.51
 加入盔甲收纳盒物品
-add ArmorStorageBox item
+added ArmorStorageBox item
 
 0.12.50
 加入灵气流失状态效果
-add PotionVisLeaking potion effect
+added PotionVisLeaking potion effect
 
 0.12.49
 加入状态效果抗性饰品类
-add AntiBuffBauble class
+added AntiBuffBauble class
 
 0.12.48
 加入陆行鸽羽、墨水、墨水瓶、魔力纸张、一摞纸、一大摞纸、炽热血液物品
-add TerrestrialDoveFeather, Ink, InkBottle, PaperPile, PaperBigPile, HotBlood items
+added TerrestrialDoveFeather, Ink, InkBottle, PaperPile, PaperBigPile, HotBlood items
 
 0.12.47
 重构盔甲物品的实现方式
-rewrite the way of implementing armor items
+rewrote the way of implementing armor items
 
 0.12.46
 加入亡者之壤方块
-add DeathDirt block
+added DeathDirt block
 
 0.12.45
 加入末影传送梯控制器、末影传送梯平台方块
-add EnderElevatorController, EnderElevatorPlatform blocks
+added EnderElevatorController, EnderElevatorPlatform blocks
 
 0.12.44
 重构物品信息加载方式
-rewrite the way of loading informations of items
+rewrote the way of loading informations of items
 更新语言文件
-update language file
+updated language file
 
 0.12.43
 加入装饰性方块
-add DecorrationBlocks
+added DecorrationBlocks
 加入部分合成表
-add some crafting recipes
+added some crafting recipes
 
 0.12.42
 加入灵气饰品类
-add VisBauble class
+added VisBauble class
 加入灵气指环
-add VisRing items
+added VisRing items
 
 0.12.41
 加入创造模式杖芯
-add CreativeRod item
+added CreativeRod item
 加入狼毛、冰狼毛装甲套装
-add WolfFurSet, IcyWolfFurSet armor sets
+added WolfFurSet, IcyWolfFurSet armor sets
 细微调整跟进
-adjust some code
+adjusted some code
 更新部分材质
-update some textures
+updated some textures
 
 0.12.40
 加入硬币计算接口
-add interface of counting coins
+added interface of counting coins
 
 0.12.39
 加入符文长弓武器
-add RunicLongBow weapon
+added RunicLongBow weapon
 加入测试靶实体
-add TestTarget entity
+added TestTarget entity
 
 0.12.38
 加入部分合成表
-add some crafting recipes
+added some crafting recipes
 加入褐煤矿、热石矿方块
-add OreDwartCoal, CoreHotStone blocks
+added OreDwartCoal, CoreHotStone blocks
 加入褐煤、热石物品
-add DwartCoal, HotStone items
+added DwartCoal, HotStone items
 加入链枷武器
-add FlailWeapon items
+added FlailWeapon items
 
 0.12.37
 重构状态效果实现方式
-rewrite the way of implementing of potion effects
+rewrote the way of implementing of potion effects
 加入状态效果-风行、状态效果-忍者
-add PotionWindRanger, PotionNinjia effects
+added PotionWindRanger, PotionNinjia effects
 加入忍者护甲套装、守卫护甲套装套装
-add NinjiaSet, GarrisonSet equipment sets
+added NinjiaSet, GarrisonSet equipment sets
 
 0.12.36
 加入矮人矿工护甲套装
-add DwartMinerSet equipment set
+added DwartMinerSet equipment set
 
 0.12.35
 加入十二魔力护符
-add TwelveMagicalAmulet bauble
+added TwelveMagicalAmulet bauble
 
 0.12.34
 重构配置文件加载方式
-rewrite the way of loading configs
+rewrote the way of loading configs
 
 0.12.33
 为药草方块添加新的接口
-add more interfaces to Herb block
+added more interfaces to Herb block
 重构药草种子的实现方式
-rewrite the way of implementing of HerbSeed.Seed
+rewrote the way of implementing of HerbSeed.Seed
 删除todo文件
-delete todo.txt file
+deleted todo.txt file
 重构注册方块的方式
-rewrite the way of registering blocks
+rewrote the way of registering blocks
 
 0.12.32
 重构方块注册方式
@@ -268,19 +272,19 @@ fix some bugs related to java.util.Random
 
 0.12.31
 加入灵魂结晶物品
-add SoulCrystal item
+added SoulCrystal item
 生物死亡时有几率掉落灵魂结晶
 entities will drop SoulCrystal when died
 加入掉落物管理器
-add LootManager
+added LootManager
 
 0.12.30
 修改注册物品的方式
-rewrite the way of registering items
+rewrote the way of registering items
 加入铜币、银币、金币、Irisia币、
 一摞铜币、一摞银币、一摞金币、一摞Irisia币、
 VIP卡铜卡、VIP卡银卡、VIP卡金卡、VIP卡钻石卡物品
-add CopperCoin, SilverCoin, GoldCoin, CopperCoin, IrisiaCoin,
+added CopperCoin, SilverCoin, GoldCoin, CopperCoin, IrisiaCoin,
 CopperCoinPile, SilverCoinPile, GoldCoinPile, IrisiaCoinPile
 VIPCardCopper, VIPCardSilver, VIPCardGold, VIPCardDiamond items
 现在已经添加的原材料物品会注册到游戏了
@@ -288,199 +292,199 @@ now raw-material items added will be registered
 
 0.12.29
 加入效果护甲套装类
-add EffectArmorSet class
+added EffectArmorSet class
 加入风行护甲套装
-add WindRangerSet equipment set
+added WindRangerSet equipment set
 加入套装效果事件监听器
-add event listener of EffectArmorSet
+added event listener of EffectArmorSet
 加入状态效果-发情、状态效果-静电、状态效果-睿智、状态效果-愚钝、
 状态效果-法力增幅、状态效果-魔法抗性、状态效果-阈化、状态效果-虚无
-add PotionLove, PotionElectrostatic, PotionWise, PotionFolly,
+added PotionLove, PotionElectrostatic, PotionWise, PotionFolly,
 PotionMagicAmplificative, PotionMagicResistance, PotionThresholded, PotionEthereal potion effects
 加入伤害接口
-add interface of CauseDamage
+added interface of CauseDamage
 
 0.12.28
 加入指令用于测试饰品技能
-add command for testing abilities of baubles
+added command for testing abilities of baubles
 加入矮人旅行者腰带饰品
-add DwartTravellerBelt bauble
+added DwartTravellerBelt bauble
 
 0.12.27
 加入投掷物-石头实体
-add EntityStone projectile entity
+added EntityStone projectile entity
 
 0.12.26
 增加法杖套装类新的构造方法
-add new constructor methods to WandSet class
+added new constructor methods to WandSet class
 加入精金、秘银、魔伽金属、索利塔金属法杖套装
-add Adamantium, Mithril, Mogiga, Solita wand-sets
+added Adamantium, Mithril, Mogiga, Solita wand-sets
 加入投掷武器物品
-add ThrowableWeapons item
+added ThrowableWeapons item
 
 0.12.25
 增加传送功能接口
-add interface of teleportion
+added interface of teleportion
 加入爱情指环饰品
-add LoveRing baubles
+added LoveRing baubles
 加入附魔-击飞、附魔-暗影
-add Flown enchantment
+added Flown enchantment
 加入扭蛋系统
-add Gashapon system
+added Gashapon system
 加入扭蛋物品
-add Gashapon item
+added Gashapon item
 重构指令实现方式
-rewrite the way of implementing of commands
+rewrote the way of implementing of commands
 加入指令用于测试扭蛋系统
-add command for testing Gashapon system
+added command for testing Gashapon system
 
 0.12.24
 增加杖芯类新的构造方法
-add new constructor methods to Rod class
+added new constructor methods to Rod class
 加入灵气杖芯
-add NodeRod item
+added NodeRod item
 
 0.12.23
 重构法杖部件实现方式
-rewrite the way of implementing of parts of wand-set
+rewrote the way of implementing of parts of wand-set
 法杖部件现在可以用于合成法杖
 parts of wand-sets now can be used to craft wands
 
 0.12.22
 改变附魔加载方式
-change the way of loading enchantments
+changed the way of loading enchantments
 添加附魔-末影守护
-add EnderGuarding enchantment
+added EnderGuarding enchantment
 添加状态效果-寒冷、状态效果-空间不稳定
-add PotionCold, PotionSpaceUnstable potion effects
+added PotionCold, PotionSpaceUnstable potion effects
 添加玉衡-无限之剑
-add AliothTheInfinity sword
+added AliothTheInfinity sword
 
 0.12.21
 添加附魔-淘汰
-add Culling enchantment
+added Culling enchantment
 
 0.12.20
 加入状态效果加载器
-add PotionLoader
+added PotionLoader
 加入状态效果-发情
-add PotionLove
+added PotionLove
 加入指令用来测试状态效果
-add command for tesing PotionEffect
+added command for tesing PotionEffect
 
 0.12.19
 加入树果混合器方块和方块实体
-add BerryMixer block and tile entity
+added BerryMixer block and tile entity
 
 0.12.18
 加入树果食物
-add Berry food
+added Berry food
 
 0.12.17
 加入混合糖果食物
-add MixedSweet food
+added MixedSweet food
 加入指令用来测试混合糖果
-add command for testing MixedSweet
+added command for testing MixedSweet
 加入开发用log接口
-add interface of logging for development
+added interface of logging for development
 
 0.12.16
 加入神秘时代研究页面
-add research page in Thaumonomicon
+added research page in Thaumonomicon
 
 0.12.15
 加入多核脑物品
-add MutilCoreBrain item
+added MutilCoreBrain item
 加入法杖核心类
-add class of wand focus
+added class of wand focus
 
 0.12.14
 加入烈焰铺路石、震荡铺路石方块
-add PavingStoneFlame, PavingStoneShake blocks
+added PavingStoneFlame, PavingStoneShake blocks
 加入测试指令
-add a command for testing
+added a command for testing
 
 0.12.13
 加入史莱姆材质和对应盔甲套装
-add Slime armor material and its armor-set
+added Slime armor material and its armor-set
 
 0.12.12
 加入魔力药水食物
-add PotionMp foods
+added PotionMp foods
 
 0.12.11
 加入清明指环、癫狂指环、茁壮指环饰品
-add ThrivingRing, InsaneRing, LucidRing baubles
+added ThrivingRing, InsaneRing, LucidRing baubles
 
 0.12.10
 添加秘法碑-迅捷、秘法碑-急迫、秘法碑-抗性、秘法碑-轻盈方块
-add StelaSpeed, StelaDigSpeed, StelaResistance, StelaJump blocks
+added StelaSpeed, StelaDigSpeed, StelaResistance, StelaJump blocks
 添加失效的符文护盾指环、遗失的书页物品
-add InvalidRunicRing, LostPage items
+added InvalidRunicRing, LostPage items
 
 0.12.9
 添加附魔类
-add class of CustomEnchantment
+added class of CustomEnchantment
 添加秘法碑类
-add class of ArcaneStela
+added class of ArcaneStela
 添加矿工指环、守卫者指环饰品
-add Miners'Ring, Guardians'Ring bauble
+added Miners'Ring, Guardians'Ring bauble
 
 0.12.8
 添加褐麦、矮人面粉物品
-add BrownWheat, DwartFloor items
+added BrownWheat, DwartFloor items
 添加硬面包、矮人面包、精灵面包、冰软糖食物
-add HardBread, DwartBread, ElfBread, IcyGummyJelly foods
+added HardBread, DwartBread, ElfBread, IcyGummyJelly foods
 添加光合护身符
-add PhotosynthesisAmulet bauble
+added PhotosynthesisAmulet bauble
 为食物类加入药水列表接口
-add interface of potion effects to class of food
+added interface of potion effects to class of food
 重写原材料提示信息添加方式
-rewrite the way of adding tooltips to raw material items
+rewrote the way of adding tooltips to raw material items
 
 0.12.7
 添加自动修复装备套装
-add auto-repairing equipment set
+added auto-repairing equipment set
 将生命木套装里除了饰品以外的装备替换为自动修复装备
-replace equipments in Lifewood-set with auto-repairing-version
+replaced equipments in Lifewood-set with auto-repairing-version
 
 0.12.6
 加入独角兽角、独角兽血物品
-add Unicorn Horn, Unicorn Blood items
+added Unicorn Horn, Unicorn Blood items
 重构药草方块实现方式
-rewrite the way of implementing of herbs
+rewrote the way of implementing of herbs
 加入开发版本mod警告
-add warning of using in-dev mod
+added warning of using in-dev mod
 
 0.12.5
 重写原材料物品的提示信息显示接口
-rewrite the interface of tooltips of raw-material-items
+rewrote the interface of tooltips of raw-material-items
 加入带提示信息的食物类
-add class of foods with interface of tooltips
+added class of foods with interface of tooltips
 
 0.12.4
 加入怨灵、生命木法杖套装
-add Spectre, LifeWood wand-sets
+added Spectre, LifeWood wand-sets
 
 0.12.3
 重构创造模式物品栏的加载方式
-rewrite the way of creative tabs' loading
+rewrote the way of creative tabs' loading
 添加装备套装加载方式
-add registry of equipments sets
+added registry of equipments sets
 
 0.12.2
 添加骨、怨灵、秘银、精金、流铁、生命木、矮人褐钢的材质和对应装备套装
-add Bone, Spectre, Mithril, Adamantium, Flumetal, LifeWood, DwartSteel tool/armor materials and their equipment-sets
+added Bone, Spectre, Mithril, Adamantium, Flumetal, LifeWood, DwartSteel tool/armor materials and their equipment-sets
 
 0.12.1
 添加黄土、被腐蚀方块
-add Loess, CorrosedBlock blocks
+added Loess, CorrosedBlock blocks
 添加死亡草、月光草、辛辣根、阴影菇方块
-add DeathGrass, MoonGrass, SpicyRoot, ShadowMushroom blocks
+added DeathGrass, MoonGrass, SpicyRoot, ShadowMushroom blocks
 
 0.12.0
 添加若干基础合成材料
-add some raw materials
+added some raw materials
 
 0.12
 项目环境自1.10.2迁移至1.7.10
