@@ -1,25 +1,19 @@
 package firok.irisia.common;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
 import baubles.api.BaublesApi;
-import com.google.common.io.Files;
-import cpw.mods.fml.client.SplashProgress;
 import firok.irisia.DamageSources;
 import firok.irisia.Irisia;
 import firok.irisia.Keys;
 import firok.irisia.item.EquipmentSets;
 import firok.irisia.item.EquipmentUniqueBaubles;
 import firok.irisia.item.RawMaterials;
+import firok.irisia.item.WainItems;
 import firok.irisia.potion.Potions;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityClientPlayerMP;
-import net.minecraft.command.CommandWeather;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -29,7 +23,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -37,12 +30,6 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.*;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import thaumcraft.api.research.ResearchCategories;
-import thaumcraft.api.research.ResearchCategoryList;
-import thaumcraft.api.research.ResearchItem;
-import thaumcraft.common.Thaumcraft;
-import thaumcraft.common.lib.events.EventHandlerEntity;
-import thaumcraft.common.lib.research.ResearchManager;
 
 
 @SuppressWarnings("static-method")
@@ -53,29 +40,39 @@ public class EventLoader
         MinecraftForge.EVENT_BUS.register(this);
     }
 
+	@SubscribeEvent
+	public void playerLoad(PlayerEvent.LoadFromFile event) {
+		EntityPlayer p = event.entityPlayer;
+		File f=getPlayerFile("irisia", event.playerDirectory, p.getCommandSenderName());
+		DataManager.loadPlayerData(p.getCommandSenderName(),f);
+	}
+	@SubscribeEvent
+	public void playerSave(PlayerEvent.SaveToFile event) {
+		EntityPlayer p = event.entityPlayer;
+		File f=getPlayerFile("irisia",event.playerDirectory,p.getCommandSenderName());
+		DataManager.savePlayerData(p.getCommandSenderName(),f);
+	}
+	// copied from tc4
+	public static File getPlayerFile(String suffix, File playerDirectory, String playername) {
+		if ("dat".equals(suffix)) throw new IllegalArgumentException("The suffix 'dat' is reserved");
+		else return new File(playerDirectory, playername + "." + suffix);
+	}
 
-    private static boolean hasNoticed=false;
-    @SubscribeEvent
-    public void onPlayerChat(net.minecraftforge.event.ServerChatEvent e)
-    {
-    	if(Irisia.IN_DEV && hasNoticed)
-    		return;
-
-	    try
-	    {
-		    EntityClientPlayerMP player=Minecraft.getMinecraft().thePlayer;
-		    if(player!=null && player.worldObj.isRemote)
-		    {
-			    player.addChatMessage(new ChatComponentText("警告：你正在使用一份开发版mod，此版本mod仅用于调试之用。"));
-			    player.addChatMessage(new ChatComponentText("此版本中出现的任何内容都不会得到保证，请勿将本版本mod用于正式游玩。"));
-			    hasNoticed=true;
-		    }
-	    }
-	    catch (Exception e2)
-	    {
-		    ;
-	    }
-    }
+	@SubscribeEvent
+	public void entitySpawns(EntityJoinWorldEvent event)
+	{
+		if (!event.world.isRemote)
+		{
+			Entity en=event.entity;
+			if(en instanceof EntityPlayer)
+			{
+				if(Irisia.IN_DEV)
+				{
+					Irisia.tellPlayerKey(Keys.InfoWarnInDev,(EntityPlayer)en);
+				}
+			}
+		}
+	}
 
     @SubscribeEvent
     public void onLivingDead(net.minecraftforge.event.entity.living.LivingDeathEvent event)
@@ -383,4 +380,7 @@ public class EventLoader
 	    ret.append("\nisUnblockable: ");ret.append(damage.isUnblockable());
     	return ret.toString();
     }
+
+    // 星象相关计算
+
 }
