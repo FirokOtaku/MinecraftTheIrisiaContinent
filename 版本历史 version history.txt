@@ -1,3 +1,7 @@
+0.12.82
+加入揭示之石饰品
+added GemRevealing amulet
+
 0.12.81
 加入守卫者之剑、马夸威特武器
 added GuardianSwordWeapon, MaquahuitlWeapon weapons

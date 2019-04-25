@@ -280,6 +280,7 @@ public class EquipmentUniqueBaubles
 	}
 
 	public final static EquipmentSets.Amulet PlagueStone; // 瘟疫之石
+	public final static EquipmentSets.Amulet RevealingGem;
 	public final static EquipmentSets.Amulet PhotosynthesisAmulet; // 光合护身符
 	public final static EquipmentSets.Belt DwartTravellerBelt; // 矮人旅行者腰带
 	public final static EquipmentSets.Belt MermaidBelt; // 人鱼腰带
@@ -287,6 +288,7 @@ public class EquipmentUniqueBaubles
 	public static EquipmentSets.Amulet CoreAmulet; // 遥控护符
 	public final static EquipmentSets.Belt ChargeBelt; // 电荷腰带
 	public final static EquipmentSets.Amulet TwelveMagicalPowerAmulet; // 十二魔力护符
+	public final static EquipmentSets.Amulet EchoAmulet;
 	static
 	{
 		PlagueStone=new EquipmentSets.Amulet()
@@ -299,6 +301,25 @@ public class EquipmentUniqueBaubles
 					return;
 
 				entity.addPotionEffect(new PotionEffect(Potions.Plaguing.id,240,4));
+			}
+		};
+		RevealingGem=new EquipmentSets.Amulet()
+		{
+			@Override
+			public void onWornTick(ItemStack stack, EntityLivingBase entity)
+			{
+				if(entity.worldObj.isRemote
+						|| entity.worldObj.getTotalWorldTime()%30!=0)
+					return;
+
+				List<EntityLivingBase> entities=entity.worldObj.getEntitiesWithinAABBExcludingEntity(entity,
+						AxisAlignedBB.getBoundingBox(entity.posX-5,entity.posY-4,entity.posZ-5,
+								entity.posX+5,entity.posY+4,entity.posZ+5),
+						EntitySelectors.SelectEntityLivingBaseAlive);
+				for(EntityLivingBase enlb:entities)
+				{
+					enlb.removePotionEffect(Potion.invisibility.id);
+				}
 			}
 		};
 		PhotosynthesisAmulet=new EquipmentSets.Amulet()

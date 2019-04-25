@@ -171,6 +171,7 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.SylphBelt,"belt_sylph","SylphBelt");
 		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.MidasRelic,"ring_midas_relic","MidasRelicRing");
 
+		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.RevealingGem,"amulet_gem_revealing","GemRevealing");
 		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.FortuneRing,"ring_fortune","FortuneRing");
 		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.MinersRing,"ring_miner","MinersRing");
 		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.ThrivingRing,"ring_thriving","ThrivingRing");
