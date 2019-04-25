@@ -279,6 +279,7 @@ public class EquipmentUniqueBaubles
 		}; // 爱情指环
 	}
 
+	public final static EquipmentSets.Amulet FrostyStone; // 冰霜之石
 	public final static EquipmentSets.Amulet PlagueStone; // 瘟疫之石
 	public final static EquipmentSets.Amulet RevealingGem;
 	public final static EquipmentSets.Amulet PhotosynthesisAmulet; // 光合护身符
@@ -288,9 +289,9 @@ public class EquipmentUniqueBaubles
 	public static EquipmentSets.Amulet CoreAmulet; // 遥控护符
 	public final static EquipmentSets.Belt ChargeBelt; // 电荷腰带
 	public final static EquipmentSets.Amulet TwelveMagicalPowerAmulet; // 十二魔力护符
-	public final static EquipmentSets.Amulet EchoAmulet;
 	static
 	{
+		FrostyStone=new EquipmentSets.Amulet();
 		PlagueStone=new EquipmentSets.Amulet()
 		{
 			@Override
@@ -513,6 +514,7 @@ public class EquipmentUniqueBaubles
 		}; // 十二魔力护符
 	}
 
+	// 各种灵气指环
 	public final static VisRing DimVisRingEarth;
 	public final static VisRing DimVisRingFire;
 	public final static VisRing DimVisRingWater;

@@ -4,6 +4,7 @@ import firok.irisia.DamageSources;
 import firok.irisia.Irisia;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
@@ -11,14 +12,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.EnumHelper;
 
 public class WainItems
 {
-	public static ItemSword AliothTheInfinity;
+	public final static ItemSword AliothTheInfinity;
+	public final static EquipmentSets.Amulet PhecdaTheEcho;
 	static
 	{
-		AliothTheInfinity=new AliothTheInfinity();
+		AliothTheInfinity =new AliothTheInfinity();
+		PhecdaTheEcho =new PhecdaTheEcho();
 	}
 
 	// 无限之剑《玉衡》（The Infinity） Alioth
@@ -130,6 +132,44 @@ public class WainItems
 		public EnumRarity getRarity(ItemStack itemStack)
 		{
 			return Materials.WainRarity;
+		}
+	}
+	// 回音护符《天玑》(The Echo) Phecda
+	public static class PhecdaTheEcho extends EquipmentUniqueBaubles.AbilityAmulet
+	{
+		@Override
+		public void doAbility(ItemStack itemStack, EntityPlayer player)
+		{ // 开启/关闭被动
+			NBTTagCompound nbt=itemStack.hasTagCompound()?itemStack.getTagCompound():new NBTTagCompound();
+			boolean isOn=nbt.hasKey("isOn")?nbt.getBoolean("isOn"):true;
+			nbt.setBoolean("isOn",!isOn);
+			itemStack.setTagCompound(nbt);
+		}
+		@Override
+		public void onUpdate(ItemStack itemStack, World world, Entity entity, int flagInt, boolean flagBool)
+		{ // 刷新技能cd 每十秒减1
+			if(world.isRemote || entity.ticksExisted%200!=0) return;
+			NBTTagCompound nbt=itemStack.hasTagCompound()?itemStack.getTagCompound():new NBTTagCompound();
+			int cd=nbt.hasKey("cd")?nbt.getInteger("cd"):0;
+			if(cd>0) cd--;
+			nbt.setInteger("cd",cd);
+			itemStack.setTagCompound(nbt);
+		}
+		@Override
+		public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
+		{
+			super.onItemRightClick(itemStack,world,player);
+			if(world.isRemote)return itemStack;
+
+			NBTTagCompound nbt=itemStack.hasTagCompound()?itemStack.getTagCompound():new NBTTagCompound();
+			int cd=nbt.hasKey("cd")?nbt.getInteger("cd"):0;
+			nbt.setInteger("cd",cd);
+			boolean isOn=nbt.hasKey("isOn")?nbt.getBoolean("isOn"):true;
+			nbt.setBoolean("isOn",!isOn);
+			itemStack.setTagCompound(nbt);
+			Irisia.log("isOn:"+isOn+" cd:"+cd,player); // 这里以后去掉
+
+			return itemStack;
 		}
 	}
 }

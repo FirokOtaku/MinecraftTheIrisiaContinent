@@ -264,6 +264,7 @@ public class EventLoader
 	    float rateMissMag=0;
 	    float maxHp=enlb.getMaxHealth();
 	    float nowHp=enlb.getHealth();
+	    boolean isFireDamage=event.source.isFireDamage();
 	    // 如果是玩家 先判断身上的装备 提供一些装备效果
 	    if(enlb instanceof EntityPlayer)
 	    {
@@ -274,7 +275,7 @@ public class EventLoader
 			    if(stackInSlot==null) continue;
 
 			    Item item=stackInSlot.getItem();
-			    if(item==EquipmentUniqueBaubles.EchoAmulet && nowHp-amount<maxHp*0.1)
+			    if(item== WainItems.PhecdaTheEcho && nowHp-amount<maxHp*0.1)
 			    {
 				    // 找到Echo护身符 检查是不是开启 另外是不是在等cd
 				    NBTTagCompound nbt=stackInSlot.hasTagCompound()?stackInSlot.getTagCompound():new NBTTagCompound();
@@ -295,6 +296,10 @@ public class EventLoader
 			    else if(item==EquipmentUniqueBaubles.SylphBelt)
 			    {
 			    	rateMissPhy+=0.25f;
+			    }
+			    else if(isFireDamage && item==EquipmentUniqueBaubles.FrostyStone)
+			    {
+			    	amount=0;
 			    }
 		    }
 	    }
@@ -344,8 +349,9 @@ public class EventLoader
 		    if(amount>maxDamage)amount=maxDamage;
 	    }
 
-	    if(amount<0)amount=0;
+	    if(amount<0) amount=0;
 	    event.ammount=amount;
+	    if(amount==0) event.setCanceled(true);
 
 	    if(amount>0)
 	    {

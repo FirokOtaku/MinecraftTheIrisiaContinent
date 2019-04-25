@@ -124,7 +124,10 @@ public class ItemLoader
 	private static void registerWains()
 	{
 		// 北斗
+		// 天权-无限之剑
 		register(IrisiaCreativeTabs.equi,WainItems.AliothTheInfinity,"wain_alioth","WainAlioth");
+		// 天玑-回音护符
+		register(IrisiaCreativeTabs.equi,WainItems.PhecdaTheEcho,"wain_phecda","WainPhecda");
 
 	}
 	private static void registerWands()
@@ -171,7 +174,8 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.SylphBelt,"belt_sylph","SylphBelt");
 		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.MidasRelic,"ring_midas_relic","MidasRelicRing");
 
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.RevealingGem,"amulet_gem_revealing","GemRevealing");
+		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.FrostyStone,"amulet_frosty_stone","FrostyStone");
+		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.RevealingGem,"amulet_revealing_gem","GemRevealing");
 		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.FortuneRing,"ring_fortune","FortuneRing");
 		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.MinersRing,"ring_miner","MinersRing");
 		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.ThrivingRing,"ring_thriving","ThrivingRing");
