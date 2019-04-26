@@ -1,3 +1,11 @@
+0.12.85
+加入星象数据管理器
+added AstrologyManager
+加入颜色工具类
+added Colors class
+加入法杖点击事件管理器
+added WandTriggerManager
+
 0.12.84
 加入额外数据管理器
 added extra data manager

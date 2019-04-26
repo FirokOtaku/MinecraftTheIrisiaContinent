@@ -1,19 +1,14 @@
 package firok.irisia;
 
 import java.util.*;
-
 import firok.irisia.common.CommonProxy;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.*;
+import cpw.mods.fml.common.Mod.*;
+import cpw.mods.fml.common.event.*;
+import firok.irisia.thaum.IrisiaWandTriggerManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
-import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.*;
 import thaumcraft.api.aspects.Aspect;
 
 
@@ -27,7 +22,7 @@ public class Irisia
 {
     public static final String MODID = "irisia";
     public static final String NAME = "The Irisia Continent";
-    public static final String VERSION = "0.12.84";
+    public static final String VERSION = "0.12.85";
     public static final boolean IN_DEV=true;
 
     // public static Random rand=new Random();
@@ -75,8 +70,9 @@ public class Irisia
             serverSide = "firok.irisia.common.CommonProxy")
     public static CommonProxy proxy;
 
+    public static IrisiaWandTriggerManager wandManager;
 
-    public static void main(String... args)
+    public static void main(String... args) throws Exception
     {
 
     }

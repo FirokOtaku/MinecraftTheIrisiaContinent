@@ -9,6 +9,8 @@ import firok.irisia.entity.EntityLoader;
 import firok.irisia.inventory.GuiElementLoader;
 import firok.irisia.item.*;
 import firok.irisia.potion.PotionLoader;
+import firok.irisia.thaum.IrisiaThaumicRecipe;
+import firok.irisia.thaum.IrisiaWandTriggerManager;
 import firok.irisia.tileentity.TileEntityLoader;
 import firok.irisia.world.IrisiaWorldGenerator;
 import firok.irisia.world.IrisiaWorldProvider;
@@ -16,12 +18,16 @@ import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.config.Configuration;
 import org.apache.logging.log4j.Level;
 import firok.irisia.client.IrisiaRenderEventManager;
+import thaumcraft.api.wands.WandTriggerRegistry;
+import thaumcraft.common.config.ConfigBlocks;
 
 import static firok.irisia.common.ConfigLoader.idDimIrisia;
 
 public class CommonProxy
 {
-    public void preInit(FMLPreInitializationEvent event)
+	public static IrisiaRenderEventManager renderEventHandler;
+
+	public void preInit(FMLPreInitializationEvent event)
     {
     	System.out.println("Ahh, finally, you come here!");
 	    System.out.println("Here is the new world of Thaumic!");
@@ -67,10 +73,15 @@ public class CommonProxy
         new EntityLoader();
 	    new TileEntityLoader(event);
 
+	    // 神秘时代相关内容
+	    IrisiaWandTriggerManager.init(); // 注册法杖点击管理器
 	    GameRegistry.registerWorldGenerator(new IrisiaWorldGenerator(), 0);
 	    IrisiaWorldGenerator.preInit();
 	    IrisiaWorldGenerator.init();
 	    IrisiaWorldGenerator.registerBiomes();
+
+
+	    //WandTriggerRegistry.registerWandBlockTrigger(null,);
 	    //renderEventHandler = new IrisiaRenderEventManager();
     }
 

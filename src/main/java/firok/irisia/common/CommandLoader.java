@@ -28,6 +28,8 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import thaumcraft.api.aspects.Aspect;
+import thaumcraft.common.Thaumcraft;
+import thaumcraft.common.lib.research.PlayerKnowledge;
 
 public class CommandLoader
 {

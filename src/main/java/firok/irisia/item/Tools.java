@@ -6,6 +6,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import firok.irisia.Irisia;
 import firok.irisia.Keys;
 import firok.irisia.block.OresAndMetal;
+import firok.irisia.common.AstrologyManager;
 import firok.irisia.inventory.GuiElementLoader;
 import firok.irisia.inventory.IHandInv;
 import net.minecraft.block.Block;
@@ -38,13 +39,13 @@ public class Tools
 	public static final Item Astrolabe;
 	static
 	{
-		Astrolabe=new Item(){
-
+		Astrolabe=new Item()
+		{
 			@Override
 			public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
 			{
-				Irisia.tellPlayer("",player);
-				Irisia.tellPlayer("星罗万象",player);
+				if(!world.isRemote)
+					Irisia.tellPlayer("星罗万象!参数:"+AstrologyManager.getFactor(player.worldObj),player);
 				return stack;
 			}
 		};
