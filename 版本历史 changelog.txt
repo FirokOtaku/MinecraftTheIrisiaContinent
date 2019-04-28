@@ -1,3 +1,7 @@
+0.12.86
+加入扭曲剑、冰蔷薇剑、雷神之锤、骨棒武器
+added WrapingBlade, IcyRoseSword, Mjollnir, BoneStick weapons
+
 0.12.85
 加入星象数据管理器
 added AstrologyManager

@@ -240,6 +240,7 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.equi,Weapons.FlailMogiga,"weapon_flail_mogiga","WeaponFlailMogiga");
 		register(IrisiaCreativeTabs.equi,Weapons.FlailBone,"weapon_flail_bone","WeaponFlailBone");
 
+		register(IrisiaCreativeTabs.equi,Weapons.BoneStick,"weapon_bone_stick","WeaponBoneStick");
 		register(IrisiaCreativeTabs.equi,Weapons.GuardianSword,"weapon_guardian_sword","WeaponGuardianSword");
 		register(IrisiaCreativeTabs.equi,Weapons.Maquahuitl,"weapon_maquahuitl","WeaponMaquahuitl");
 		register(IrisiaCreativeTabs.equi,Weapons.VoidRunicLongBow,"weapon_void_runic_long_bow","WeaponVoidRunicLongBow");
@@ -252,6 +253,8 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.equi,Weapons.LunarDagger,"weapon_lunar_dagger","WeaponLunarDagger");
 		register(IrisiaCreativeTabs.equi,Weapons.Radiance,"weapon_radiance","WeaponRadiance");
 		register(IrisiaCreativeTabs.equi,Weapons.BurningSpear,"weapon_buring_spear","WeaponBuringSpear");
+		register(IrisiaCreativeTabs.equi,Weapons.Mjollnir,"weapon_mjollnir","WeaponMjollnir");
+		register(IrisiaCreativeTabs.equi,Weapons.IcyRoseSword,"weapon_icy_rose_sword","IcyRoseSword");
 	}
 	private static void registerTools()
 	{

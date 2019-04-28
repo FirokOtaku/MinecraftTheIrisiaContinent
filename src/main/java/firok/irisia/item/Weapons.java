@@ -35,6 +35,7 @@ import thaumcraft.api.ThaumcraftApi;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import static firok.irisia.Util.*;
 
 public class Weapons
 {
@@ -56,6 +57,7 @@ public class Weapons
 	public static RunicLongBowWeapon SolitaLongBow;
 	public static RunicLongBowWeapon MogigaLongBow;
 
+	public final static ItemSword BoneStick;
 	public final static ItemSword GuardianSword;
 	public final static ItemSword Maquahuitl;
 	public final static ItemSword MercurialBlade;
@@ -69,6 +71,8 @@ public class Weapons
 //	public final static ItemSword RhythmicSword;
 	public final static ItemBow BurningSpear;
 	public final static ItemSword Radiance;
+	public final static ItemSword Mjollnir;
+	public final static ItemSword IcyRoseSword;
 	static
 	{
 		FlailWood=new FlailWeapon(Item.ToolMaterial.WOOD);
@@ -82,6 +86,7 @@ public class Weapons
 		FlailSolita=new FlailWeapon(Materials.SolitaTool);
 		FlailBone=new FlailWeapon(Materials.BoneTool);
 
+		BoneStick=new BoneStickWeapon();
 		GuardianSword=new GuardianSwordWeapon();
 		Maquahuitl=new MaquahuitlWeapon();
 		VoidRunicLongBow=new RunicLongBowWeapon();
@@ -95,8 +100,32 @@ public class Weapons
 //		RhythmicSword=new RhythmicSwordWeapon();
 		BurningSpear=new BurningSpearWeapon();
 		Radiance=new RadianceWeapon();
+		Mjollnir=new MjollnirWeapon();
+		IcyRoseSword=new IcyRoseSwordWeapon();
 	}
 
+	public static class BoneStickWeapon extends ItemSword
+	{
+		public BoneStickWeapon()
+		{
+			super(Materials.BoneTool);
+		}
+		@Override
+		public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase player)
+		{
+			itemStack.damageItem(1, player);
+			int amount=0;
+			if(itemStack.stackSize==0) amount++;
+			if(player.worldObj.rand.nextFloat()<0.095) amount++;
+
+			if(amount>0)
+			{
+				target.entityDropItem(new ItemStack(Items.dye,amount,15),0);
+			}
+
+			return true;
+		}
+	}
 	public static class GuardianSwordWeapon extends ItemSword
 	{
 		public GuardianSwordWeapon()
@@ -468,6 +497,35 @@ public class Weapons
 			return 10;
 		}
 	}
+	public static class IcyRoseSwordWeapon extends ItemSword
+	{
+		public IcyRoseSwordWeapon()
+		{
+			super(ToolMaterial.IRON);
+		}
+
+		@Override
+		public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase player)
+		{
+			double damage= 15; // todo high 改一下攻击力
+			target.attackEntityFrom(DamageSource.generic,(float)damage);
+			target.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id,80,1));
+//			if(damage>=15)
+//				; // todo 以后播放一个音效
+			itemStack.damageItem(1, player);
+			return true;
+		}
+
+		@Override
+		public void onUpdate(ItemStack stack,World world,Entity entity,int slot,boolean onHand)
+		{
+			if(onHand&&world.getTotalWorldTime()%80==0&&entity instanceof EntityLivingBase)
+			{
+				((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potions.Cold.id,85,1));
+			}
+		}
+
+	}
 	public static class SoulEaterWeapon extends ItemSword implements IWarpingGear
 	{
 		public SoulEaterWeapon()
@@ -770,10 +828,57 @@ public class Weapons
 
 			}
 		}
-
-		public static boolean isFriendly(Entity entity)
+	}
+	public static class MjollnirWeapon extends ItemSword
+	{
+		public MjollnirWeapon()
 		{
-			return entity!=null && !(entity instanceof EntityCreature) && !(entity instanceof IMob);
+			super(ToolMaterial.IRON);
+		}
+
+		@Override
+		public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase player)
+		{
+//			NBTTagCompound nbt=itemStack.hasTagCompound()?itemStack.getTagCompound():new NBTTagCompound();
+//
+//			long timeNow=target.worldObj.getTotalWorldTime();
+//			long timeLast=nbt.hasKey("timeLast")?nbt.getLong("timeLast"):-1;
+//			int keyLast=nbt.hasKey("keyLast")?nbt.getInteger("keyLast"):-1;
+//
+//			float damage=0;
+//			target.attackEntityFrom(DamageSource.generic,damage);
+//
+//			if(damage>=15)
+//				; // todo 以后播放一个音效
+//
+//			itemStack.damageItem(1, player);
+//			return true;
+			return super.hitEntity(itemStack, target, player);
+		}
+
+//		@Override
+//		public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+//		{
+//			if(!world.isRemote && player.isSneaking())
+//			{
+//				NBTTagCompound tag=stack.hasTagCompound()?stack.getTagCompound():new NBTTagCompound();
+//				short mutex=tag.hasKey("mutex")?tag.getShort("mutex"):0;
+//				tag.setShort("mutex",mutex<MutexMax?(short)(mutex+1):0);
+//				stack.setTagCompound(tag);
+//			}
+//			return super.onItemRightClick(stack, world, player);
+//		}
+//		@Override
+//		public String getItemStackDisplayName(ItemStack itemStack)
+//		{
+//			int mutex=itemStack.hasTagCompound()?itemStack.getTagCompound().getInteger("mutex"):0x00;
+//
+//			return super.getItemStackDisplayName(itemStack)+(mutex);
+//		}
+		@Override
+		public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean p_77624_4_)
+		{
+			;
 		}
 	}
 }
