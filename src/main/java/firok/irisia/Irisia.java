@@ -22,10 +22,8 @@ public class Irisia
 {
     public static final String MODID = "irisia";
     public static final String NAME = "The Irisia Continent";
-    public static final String VERSION = "0.12.87";
+    public static final String VERSION = "0.12.88";
     public static final boolean IN_DEV=true;
-
-    // public static Random rand=new Random();
 
     @Instance(Irisia.MODID)
     public static Irisia instance;
@@ -33,17 +31,6 @@ public class Irisia
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
-//        try
-//        {
-//            File f=new File("./");
-//            System.out.println(f.getAbsolutePath());
-//        }
-//        catch (Exception e2)
-//        {
-//            ;
-//        }
-//        STOP();
-
         proxy.preInit(event);
     }
 

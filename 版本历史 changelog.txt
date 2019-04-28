@@ -1,3 +1,9 @@
+0.12.88
+现在可以关闭装甲套装效果
+now can disable effects of armor sets
+为风暴装甲套装增加效果
+added effect to StormArmor
+
 0.12.87
 加入猫薄荷方块
 added Catnip block

@@ -7,6 +7,7 @@ import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import firok.irisia.Irisia;
+import firok.irisia.Keys;
 import firok.irisia.ability.CauseVisRegen;
 import firok.irisia.potion.Potions;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -15,14 +16,16 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.*;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
-import thaumcraft.common.config.ConfigItems;
-import thaumcraft.common.items.wands.ItemWandCasting;
+
+import java.util.List;
 
 import static firok.irisia.common.EventLoader.intervalEffectArmorTick;
 
@@ -257,6 +260,46 @@ public class EquipmentSets
 			{
 				super(armorMaterial,armorMaterial.ordinal(),type);
 			}
+
+			@Override
+			public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
+			{
+				if(this.armorType==0)
+					switchEnableEffect(itemStack);
+				return super.onItemRightClick(itemStack, world, player);
+			}
+
+			@Override
+			public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean onHand)
+			{
+				// super.addInformation(itemStack, player, info, onHand);
+				if(this.armorType==0)
+				{
+					info.add(StatCollector.translateToLocal(
+							getEnableEffect(itemStack)?
+									Keys.InfoEnableArmorSetEffect:
+									Keys.InfoDisableArmorSetEffect
+					));
+				}
+			}
+		}
+		public static final String keyEnable="enable";
+		public static void switchEnableEffect(ItemStack headStack)
+		{
+			NBTTagCompound nbt=headStack.hasTagCompound()?headStack.getTagCompound():new NBTTagCompound();
+			nbt.setBoolean(keyEnable,nbt.hasKey(keyEnable)?!nbt.getBoolean(keyEnable):true);
+			headStack.setTagCompound(nbt);
+		}
+		public static void setEnableEffect(ItemStack headStack,boolean enable)
+		{
+			NBTTagCompound nbt=headStack.hasTagCompound()?headStack.getTagCompound():new NBTTagCompound();
+			nbt.setBoolean(keyEnable,enable);
+			headStack.setTagCompound(nbt);
+		}
+		public static boolean getEnableEffect(ItemStack headStack)
+		{
+			return headStack.hasTagCompound() && headStack.getTagCompound().hasKey(keyEnable)?
+					headStack.getTagCompound().getBoolean(keyEnable) : false;
 		}
 
 		public void performEffect(ItemStack[] armorStacks,EntityPlayer player)

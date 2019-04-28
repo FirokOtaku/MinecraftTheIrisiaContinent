@@ -9,10 +9,8 @@ import baubles.api.BaublesApi;
 import firok.irisia.DamageSources;
 import firok.irisia.Irisia;
 import firok.irisia.Keys;
-import firok.irisia.item.EquipmentSets;
-import firok.irisia.item.EquipmentUniqueBaubles;
-import firok.irisia.item.RawMaterials;
-import firok.irisia.item.WainItems;
+import firok.irisia.ability.*;
+import firok.irisia.item.*;
 import firok.irisia.potion.Potions;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,18 +18,18 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.living.*;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-
-import static firok.irisia.item.EquipmentSets.EffectArmorSet.performPhoenixDamageTransform;
+import static firok.irisia.item.EquipmentSets.EffectArmorSet.*;
+import static firok.irisia.item.EquipmentSets.*;
 
 
 @SuppressWarnings("static-method")
@@ -63,6 +61,7 @@ public class EventLoader
 	@SubscribeEvent
 	public void entitySpawns(EntityJoinWorldEvent event)
 	{
+		if(event.isCanceled()) return;
 		if (!event.world.isRemote)
 		{
 			Entity en=event.entity;
@@ -79,7 +78,8 @@ public class EventLoader
     @SubscribeEvent
     public void onLivingDead(net.minecraftforge.event.entity.living.LivingDeathEvent event)
     {
-    	//SoulCrystal
+	    if(event.isCanceled()) return;
+	    //SoulCrystal
 	    EntityLivingBase enlb=event.entityLiving;
 	    World world=enlb.worldObj;
 	    if(world.isRemote || enlb instanceof EntityPlayer)
@@ -102,10 +102,12 @@ public class EventLoader
     @SubscribeEvent
     public void onPlayerTick_effectArmorSet(LivingEvent.LivingUpdateEvent event)
     {
+	    if(event.isCanceled()) return;
 	    if (!event.entity.worldObj.isRemote && event.entity.ticksExisted%intervalEffectArmorTick==0 && event.entity instanceof EntityPlayer) {
 		    EntityPlayer player = (EntityPlayer)event.entity;
-		    EquipmentSets.EffectArmorSet set=EquipmentSets.EffectArmorSet.getCurrentEquipmentedEffectArmorSet(player);
-		    if(set!=null) set.performEffect(player.inventory.armorInventory,player);
+		    EffectArmorSet set=getCurrentEquipmentedEffectArmorSet(player);
+		    if(set!=null && getEnableEffect(player.inventory.armorInventory[0]))
+		    	set.performEffect(player.inventory.armorInventory,player);
 	    }
     }
 
@@ -118,6 +120,7 @@ public class EventLoader
 //			    +"\nentityLiving:"+event.entityLiving.toString()
 //	            +"\nentityPlayer:"+event.entityPlayer.toString()
 //	            +"\ntarget:"+event.target.toString());
+	    if(event.isCanceled()) return;
 	    if(!(event.target instanceof EntityLivingBase))
 	    	return;
 	    if(event.entity.worldObj.isRemote)
@@ -154,7 +157,7 @@ public class EventLoader
 	    PotionEffect amplificative=player.getActivePotionEffect(Potions.MagicAmplificative);
 	    if(amplificative!=null)
 	    {
-		    firok.irisia.ability.CauseDamage.toLiving((EntityLivingBase) event.target,DamageSources.MagicAmplificativeDamage,
+		    CauseDamage.toLiving((EntityLivingBase) event.target,DamageSources.MagicAmplificativeDamage,
 				    (1+amplificative.getAmplifier())*4,true);
 	    }
 
@@ -187,6 +190,7 @@ public class EventLoader
     // damageType mob/player
 	public void onLivingAttackEvent(net.minecraftforge.event.entity.living.LivingAttackEvent event)
     {
+	    if(event.isCanceled()) return;
 //	    System.out.println("LivingAttackEvent\nentity:"+event.entity.toString()
 //			    +"\nentityLiving:"+event.entityLiving.toString()
 //			    +"\nammount:"+event.ammount
@@ -199,6 +203,7 @@ public class EventLoader
     // damageType mob/player
 	public void onLivingHurtEvent(net.minecraftforge.event.entity.living.LivingHurtEvent event)
     {
+	    if(event.isCanceled()) return;
 //	    System.out.println("LivingHurtEvent\nentity:"+event.entity.toString()
 //			    +"\nentityLiving:"+event.entityLiving.toString()
 //			    +"\nammount:"+event.ammount
@@ -332,6 +337,29 @@ public class EventLoader
 	    	enlb.heal(event.ammount);
 	    }
     }
+
+
+	@SubscribeEvent // 生物被闪电击中发生的事件
+	public void onLivingStuckedByLightning(EntityStruckByLightningEvent event)
+	{
+		if(event.isCanceled()) return;
+		Entity entity=event.entity;
+		if(entity instanceof EntityPlayer)
+		{
+			EntityPlayer player = (EntityPlayer) entity;
+
+			EquipmentSets.EffectArmorSet set= EquipmentSets.EffectArmorSet.getCurrentEquipmentedEffectArmorSet(player);
+			if(set!=null)
+			{
+				if(set==EquipmentSets.StormSet) // 风暴套
+				{
+					player.attackEntityFrom(DamageSources.LightningDamege,2.5f); // todo low 可能会改伤害类型
+					event.setCanceled(true);
+				}
+			}
+		}
+	}
+
     public static String toString(DamageSource damage)
     {
     	StringBuffer ret=new StringBuffer();
