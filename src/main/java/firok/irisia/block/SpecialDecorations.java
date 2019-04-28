@@ -2,22 +2,24 @@ package firok.irisia.block;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import firok.irisia.Irisia;
 import firok.irisia.Keys;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockGlass;
-import net.minecraft.block.BlockGrass;
-import net.minecraft.block.BlockWeb;
+import firok.irisia.inventory.MagicBagGui;
+import firok.irisia.tileentity.AirWallTE;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.ColorizerGrass;
@@ -25,8 +27,10 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import thaumcraft.common.blocks.BlockAiry;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.lib.research.ResearchManager;
 
 import java.util.List;
 import java.util.Random;
@@ -139,6 +143,27 @@ public class SpecialDecorations
 		public boolean isToolEffective(String type, int metadata)
 		{
 			return "sword".equals(type);
+		}
+	}
+
+	public final static Catnip Catnip=new Catnip();
+	public static class Catnip extends BlockGlass
+	{
+		public Catnip()
+		{
+			super(Material.glass,true);
+			this.setTickRandomly(true);
+		}
+
+		@Override
+		public void updateTick(World world, int x, int y, int z, Random rand)
+		{
+			if(!world.isRemote && rand.nextFloat()<0.05)
+			{
+				EntityOcelot cat=new EntityOcelot(world);
+				cat.setPositionAndUpdate(x,y,z);
+				world.spawnEntityInWorld(cat);
+			}
 		}
 	}
 

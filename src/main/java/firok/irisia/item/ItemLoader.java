@@ -102,6 +102,7 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.equi,EquipmentSets.WindRangerSet);
 		register(IrisiaCreativeTabs.equi,EquipmentSets.DwartMinerSet);
 		register(IrisiaCreativeTabs.equi,EquipmentSets.StormSet);
+		register(IrisiaCreativeTabs.equi,EquipmentSets.PhoneixSet);
 		// registerLoot(IrisiaCreativeTabs.equi,EquipmentSets.LifeWoodSet); // 已经转移
 		register(IrisiaCreativeTabs.equi,EquipmentSets.FlumetalSet);
 		register(IrisiaCreativeTabs.equi,EquipmentSets.GarrisonSet);

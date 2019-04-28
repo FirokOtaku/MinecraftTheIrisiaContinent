@@ -1,3 +1,11 @@
+0.12.87
+加入猫薄荷方块
+added Catnip block
+加入凤凰装甲套装
+added PhoenixArmor armor set
+重写装甲套装效果实现方式
+rewrite the way of implementing EffectArmorSet
+
 0.12.86
 加入扭曲剑、冰蔷薇剑、雷神之锤、骨棒武器
 added WrapingBlade, IcyRoseSword, Mjollnir, BoneStick weapons

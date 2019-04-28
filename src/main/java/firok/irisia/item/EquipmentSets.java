@@ -4,20 +4,27 @@ import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
-import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import firok.irisia.Irisia;
+import firok.irisia.ability.CauseVisRegen;
+import firok.irisia.potion.Potions;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.*;
-import net.minecraft.util.ChatComponentText;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.items.wands.ItemWandCasting;
+
+import static firok.irisia.common.EventLoader.intervalEffectArmorTick;
 
 public class EquipmentSets
 {
@@ -39,27 +46,75 @@ public class EquipmentSets
 	public final static EffectArmorSet GarrisonSet;
 	public final static EffectArmorSet NinjiaSet;
 	public final static EffectArmorSet StormSet;
+	public final static EffectArmorSet PhoneixSet;
+
+	public static final int timeEffectArmorBuff=intervalEffectArmorTick+5; // 套装提供的buff时间(tick)
 
 	static
 	{
-		BoneSet=new EquipmentSet("bone",Materials.BoneArmor,Materials.BoneTool);
-		MithrilSet=new EquipmentSet("mithril",Materials.MithrilArmor,Materials.MithrilTool);
-		AdamantiumSet=new EquipmentSet("adamantium",Materials.AdamantiumArmor,Materials.AdamantiumTool);
-		FlumetalSet=new EquipmentSet("flumetal",Materials.FlumetalArmor,Materials.FlumetalTool);
-		SpectreSet=new EquipmentSet("spectre",Materials.SpectreArmor,Materials.SpectreTool);
-		DwartSteelSet=new EquipmentSet("dwartsteel",Materials.DwartSteelArmor,Materials.DwartSteelTool);
+		BoneSet=new EquipmentSet("bone",Materials.BoneArmor,Materials.BoneTool,true,true,true,false);
+		MithrilSet=new EquipmentSet("mithril",Materials.MithrilArmor,Materials.MithrilTool,true,true,true,false);
+		AdamantiumSet=new EquipmentSet("adamantium",Materials.AdamantiumArmor,Materials.AdamantiumTool,true,true,true,false);
+		FlumetalSet=new EquipmentSet("flumetal",Materials.FlumetalArmor,Materials.FlumetalTool,true,true,true,false);
+		SpectreSet=new EquipmentSet("spectre",Materials.SpectreArmor,Materials.SpectreTool,true,true,true,false);
+		DwartSteelSet=new EquipmentSet("dwartsteel",Materials.DwartSteelArmor,Materials.DwartSteelTool,true,true,true,false);
 		LifeWoodSet=new EquipmentSet("lifewood",Materials.LifeWoodArmor,Materials.LifeWoodTool,false,false,false,true); // 转移到 EquipmentAutoRepair
-		SolitaSet=new EquipmentSet("solita",Materials.SolitaArmor,Materials.SolitaTool);
-		MogigaSet=new EquipmentSet("mogiga",Materials.MogigaArmor,Materials.MogigaTool);
+		SolitaSet=new EquipmentSet("solita",Materials.SolitaArmor,Materials.SolitaTool,true,true,true,false);
+		MogigaSet=new EquipmentSet("mogiga",Materials.MogigaArmor,Materials.MogigaTool,true,true,true,false);
 
 		WolfFurSet=new ArmorSet("wolffur",Materials.WolfFurArmor);
 		IcyWolfFurSet=new ArmorSet("icywolffur",Materials.IcyWolfFurArmor);
 
-		WindRangerSet=new EffectArmorSet("windranger",ItemArmor.ArmorMaterial.CLOTH);
-		DwartMinerSet=new EffectArmorSet("dwartminer",ItemArmor.ArmorMaterial.IRON);
-		GarrisonSet=new EffectArmorSet("garrison",ItemArmor.ArmorMaterial.CHAIN);
-		NinjiaSet=new EffectArmorSet("ninjia",ItemArmor.ArmorMaterial.CLOTH);
-		StormSet=new EffectArmorSet("storm",Materials.StormArmor);
+		WindRangerSet = new EffectArmorSet("windranger",ItemArmor.ArmorMaterial.CLOTH)
+		{
+			@Override
+			public void performEffect(ItemStack headStack, ItemStack chestStack, ItemStack legStack, ItemStack bootStack, EntityPlayer player)
+			{
+				player.addPotionEffect(new PotionEffect(Potions.WindRanger.id,timeEffectArmorBuff,0));
+			}
+		};
+		DwartMinerSet = new EffectArmorSet("dwartminer",ItemArmor.ArmorMaterial.IRON)
+		{
+			@Override
+			public void performEffect(ItemStack headStack, ItemStack chestStack, ItemStack legStack, ItemStack bootStack, EntityPlayer player)
+			{
+				player.addPotionEffect(new PotionEffect(Potion.digSpeed.id,timeEffectArmorBuff,0));
+			}
+		};
+		GarrisonSet = new EffectArmorSet("garrison", ItemArmor.ArmorMaterial.CHAIN)
+		{
+			@Override
+			public void performEffect(ItemStack headStack, ItemStack chestStack, ItemStack legStack, ItemStack bootStack, EntityPlayer player)
+			{
+				player.addPotionEffect(new PotionEffect(Potion.resistance.id,timeEffectArmorBuff,0));
+			}
+		};
+		NinjiaSet = new EffectArmorSet("ninjia", ItemArmor.ArmorMaterial.CLOTH)
+		{
+			@Override
+			public void performEffect(ItemStack headStack, ItemStack chestStack, ItemStack legStack, ItemStack bootStack, EntityPlayer player)
+			{
+				player.addPotionEffect(new PotionEffect(Potions.Ninjia.id,timeEffectArmorBuff,0));
+				player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id,timeEffectArmorBuff,0));
+				player.addPotionEffect(new PotionEffect(Potion.jump.id,timeEffectArmorBuff,0));
+			}
+		};
+		StormSet = new EffectArmorSet("storm", Materials.StormArmor)
+		{
+			@Override
+			public void performEffect(ItemStack headStack, ItemStack chestStack, ItemStack legStack, ItemStack bootStack, EntityPlayer player)
+			{
+				player.addPotionEffect(new PotionEffect(Potions.Electrostatic.id,timeEffectArmorBuff,0));
+			}
+		};
+		PhoneixSet =new EffectArmorSet("phoenix",Materials.MogigaArmor)
+		{
+			@Override
+			public void performEffect(ItemStack headStack, ItemStack chestStack, ItemStack legStack, ItemStack bootStack, EntityPlayer player)
+			{
+				player.setFire(5);
+			}
+		};
 	}
 	/** Stores the armor type: 0 is helmet, 1 is plate, 2 is legs and 3 is boots */
 
@@ -181,7 +236,7 @@ public class EquipmentSets
 			this.Boots=boots;
 		}
 	}
-	public static class EffectArmorSet extends ArmorSet
+	public static abstract class EffectArmorSet extends ArmorSet
 	{
 		public EffectArmorSet(String mn,ItemArmor.ArmorMaterial armorMaterial)
 		{
@@ -202,6 +257,51 @@ public class EquipmentSets
 			{
 				super(armorMaterial,armorMaterial.ordinal(),type);
 			}
+		}
+
+		public void performEffect(ItemStack[] armorStacks,EntityPlayer player)
+		{
+			performEffect(armorStacks[0],armorStacks[1],armorStacks[2],armorStacks[3],player);
+		}
+		public abstract void performEffect(ItemStack headStack,ItemStack chestStack,ItemStack legStack,ItemStack bootStack,
+		                                   EntityPlayer player);
+
+		public static EffectArmorSet getCurrentEquipmentedEffectArmorSet(EntityPlayer player)
+		{
+			ItemStack[] armors=player.inventory.armorInventory;
+			if(armors[0]!=null
+				&&armors[1]!=null
+				&&armors[2]!=null
+				&&armors[3]!=null) // 检查是不是每个物品栏都有东西
+			{
+				Item a1=armors[0].getItem();
+				Item a2=armors[1].getItem();
+				Item a3=armors[2].getItem();
+				Item a4=armors[3].getItem();
+				// player.addChatComponentMessage(new ChatComponentText("not null"));
+				if(a1 instanceof EquipmentSets.EffectArmorSet.EffectArmorPart
+						&& a2 instanceof EquipmentSets.EffectArmorSet.EffectArmorPart
+						&& a3 instanceof EquipmentSets.EffectArmorSet.EffectArmorPart
+						&& a4 instanceof EquipmentSets.EffectArmorSet.EffectArmorPart) // 检查是不是都是效果套的散件
+				{
+					EquipmentSets.EffectArmorSet.EffectArmorPart ea1=(EquipmentSets.EffectArmorSet.EffectArmorPart)a1;
+					EquipmentSets.EffectArmorSet.EffectArmorPart ea2=(EquipmentSets.EffectArmorSet.EffectArmorPart)a2;
+					EquipmentSets.EffectArmorSet.EffectArmorPart ea3=(EquipmentSets.EffectArmorSet.EffectArmorPart)a3;
+					EquipmentSets.EffectArmorSet.EffectArmorPart ea4=(EquipmentSets.EffectArmorSet.EffectArmorPart)a4;
+					// player.addChatComponentMessage(new ChatComponentText("effect parts"));
+					if(ea1.set==ea2.set&&ea2.set==ea3.set&&ea3.set==ea4.set) // 检查是不是一套
+					{
+						return ea1.set;
+					}
+				}
+			}
+			return null;
+		}
+
+		// 凤凰套装火焰伤害转化
+		public static void performPhoenixDamageTransform(EntityPlayer player,float amountDamage)
+		{
+			CauseVisRegen.AtPlayer(player,new AspectList().add(Aspect.FIRE,(int)amountDamage*25));
 		}
 	}
 

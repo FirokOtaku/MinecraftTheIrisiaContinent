@@ -36,6 +36,8 @@ public class BlockLoader
 		register(IrisiaCreativeTabs.block,SpecialDecorations.DirtyCobweb,"DirtyCobweb","decor_dirty_cobweb");
 		register(IrisiaCreativeTabs.block,SpecialDecorations.LavaCobweb,"LavaCobweb","decor_lava_cobweb");
 
+		register(IrisiaCreativeTabs.block,SpecialDecorations.Catnip,"Catnip","decor_catnip");
+
 		register(IrisiaCreativeTabs.block,SpecialDecorations.ArcaneShield,"ArcaneShield","decor_arcane_shield");
 		register(IrisiaCreativeTabs.block,SpecialDecorations.MagicLight,"MagicLight","decor_magic_light");
 		register(IrisiaCreativeTabs.block,SpecialDecorations.AirWall,"AirWall","decor_air_wall");

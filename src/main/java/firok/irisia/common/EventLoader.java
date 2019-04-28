@@ -31,6 +31,8 @@ import net.minecraftforge.event.entity.living.*;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
+import static firok.irisia.item.EquipmentSets.EffectArmorSet.performPhoenixDamageTransform;
+
 
 @SuppressWarnings("static-method")
 public class EventLoader
@@ -96,64 +98,15 @@ public class EventLoader
 	    LootManager.dropLoot(enlb); // 调用掉落物管理器的接口 来掉落物品
     }
 
+    public static final int intervalEffectArmorTick=80; // 每隔多少tick系统执行一次套装效果
     @SubscribeEvent
     public void onPlayerTick_effectArmorSet(LivingEvent.LivingUpdateEvent event)
     {
-	    if (!event.entity.worldObj.isRemote && event.entity.ticksExisted%80==0 && event.entity instanceof EntityPlayer) {
+	    if (!event.entity.worldObj.isRemote && event.entity.ticksExisted%intervalEffectArmorTick==0 && event.entity instanceof EntityPlayer) {
 		    EntityPlayer player = (EntityPlayer)event.entity;
-		    // player.addChatComponentMessage(new ChatComponentText("checked"));
-		    ItemStack[] armors=player.inventory.armorInventory;
-		    if(armors[0]==null
-		    ||armors[1]==null
-		    ||armors[2]==null
-		    ||armors[3]==null)
-		    	return; // 检查是不是每个物品栏都有东西
-		    Item a1=armors[0].getItem();
-		    Item a2=armors[1].getItem();
-		    Item a3=armors[2].getItem();
-		    Item a4=armors[3].getItem();
-		    // player.addChatComponentMessage(new ChatComponentText("not null"));
-		    if(a1 instanceof EquipmentSets.EffectArmorSet.EffectArmorPart
-				    && a2 instanceof EquipmentSets.EffectArmorSet.EffectArmorPart
-				    && a3 instanceof EquipmentSets.EffectArmorSet.EffectArmorPart
-				    && a4 instanceof EquipmentSets.EffectArmorSet.EffectArmorPart) // 检查是不是都是效果套的散件
-		    {
-			    EquipmentSets.EffectArmorSet.EffectArmorPart ea1=(EquipmentSets.EffectArmorSet.EffectArmorPart)a1;
-			    EquipmentSets.EffectArmorSet.EffectArmorPart ea2=(EquipmentSets.EffectArmorSet.EffectArmorPart)a2;
-			    EquipmentSets.EffectArmorSet.EffectArmorPart ea3=(EquipmentSets.EffectArmorSet.EffectArmorPart)a3;
-			    EquipmentSets.EffectArmorSet.EffectArmorPart ea4=(EquipmentSets.EffectArmorSet.EffectArmorPart)a4;
-			    // player.addChatComponentMessage(new ChatComponentText("effect parts"));
-			    if(ea1.set==ea2.set&&ea2.set==ea3.set&&ea3.set==ea4.set) // 检查是不是一套
-			    {
-				    // player.addChatComponentMessage(new ChatComponentText("all set"));
-				    // todo 这里以后替换成HashMap实现 现在的写得太死了
-			    	if(ea1.set==EquipmentSets.WindRangerSet)
-				    {
-					    // player.addChatComponentMessage(new ChatComponentText("wind ranger"));
-					    player.addPotionEffect(new PotionEffect(Potions.WindRanger.id,85,0));
-				    }
-				    else if(ea1.set==EquipmentSets.DwartMinerSet)
-				    {
-				    	player.addPotionEffect(new PotionEffect(Potion.digSpeed.id,85,0));
-				    }
-				    else if(ea1.set==EquipmentSets.GarrisonSet)
-				    {
-				    	player.addPotionEffect(new PotionEffect(Potion.resistance.id,85,0));
-				    }
-				    else if(ea1.set==EquipmentSets.NinjiaSet)
-				    {
-				    	player.addPotionEffect(new PotionEffect(Potions.Ninjia.id,85,0));
-				    	player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id,85,0));
-					    player.addPotionEffect(new PotionEffect(Potion.jump.id,85,0));
-				    }
-				    else if(ea1.set==EquipmentSets.StormSet)
-				    {
-				    	player.addPotionEffect(new PotionEffect(Potions.Electrostatic.id,85,0));
-				    }
-			    }
-		    }
+		    EquipmentSets.EffectArmorSet set=EquipmentSets.EffectArmorSet.getCurrentEquipmentedEffectArmorSet(player);
+		    if(set!=null) set.performEffect(player.inventory.armorInventory,player);
 	    }
-
     }
 
     @SubscribeEvent // 玩家攻击别的生物发生的事件
@@ -265,7 +218,8 @@ public class EventLoader
 	    // 如果是玩家 先判断身上的装备 提供一些装备效果
 	    if(enlb instanceof EntityPlayer)
 	    {
-		    IInventory inv=BaublesApi.getBaubles((EntityPlayer)enlb);
+	    	EntityPlayer player=(EntityPlayer)enlb;
+		    IInventory inv=BaublesApi.getBaubles(player);
 		    for(int i=0;i<inv.getSizeInventory();i++)
 		    {
 			    ItemStack stackInSlot=inv.getStackInSlot(i);
@@ -299,6 +253,16 @@ public class EventLoader
 			    	amount=0;
 			    }
 		    }
+
+		    // 凤凰套装判定
+		    if(isFireDamage
+				    && EquipmentSets.EffectArmorSet.getCurrentEquipmentedEffectArmorSet(player)==EquipmentSets.PhoneixSet)
+		    {
+			    performPhoenixDamageTransform(player,amount);
+		    	amount=0; // 取消伤害
+			    event.setCanceled(true);
+			    return;
+		    }
 	    }
 
 	    // 先判断有没有风行和忍者效果 有的话先执行这个
@@ -327,11 +291,11 @@ public class EventLoader
 	    for(Object obj:effects)
 	    {
 		    PotionEffect effect=(PotionEffect)obj;
-		    if(effect.getPotionID()==Potions.MagicResistance.id)
+		    if(effect.getPotionID()==Potions.MagicResistance.id) // 魔法抗性 // 减伤
 		    {
 		    	amount*= 1 - 0.2*(effect.getAmplifier()+1);
 		    }
-		    else if(effect.getPotionID()==Potions.Ethereal.id)
+		    else if(effect.getPotionID()==Potions.Ethereal.id) // 虚无 // 增伤
 		    {
 		    	amount*=event.source.isMagicDamage()?1.5:0;
 		    }
