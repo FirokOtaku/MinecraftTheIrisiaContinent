@@ -80,6 +80,24 @@ public class Util {
 		}
 	}
 
+	public enum ItemType
+	{
+		Item,
+		Block,
+		Helmet,
+		Chestplate,
+		Leggings,
+		Boots,
+		Amulet,
+		Belt,
+		Rings,
+		Sword,
+		Pickaxe,
+		Axe,
+		Hoe,
+		Spade,
+	}
+
 	public static double getValueWithFactor(double range,
 	                                        double minResult,double maxResult,
 	                                        double minRange,double maxRange)

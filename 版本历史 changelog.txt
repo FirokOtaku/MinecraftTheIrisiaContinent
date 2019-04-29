@@ -1,3 +1,13 @@
+0.12.89
+加入黑暗金属锭材料
+added DarkIronIngot material
+加入黑暗金属块
+added DarkIron block
+加入黑暗金属套装
+add DarkIron equipment set
+为装甲套装添加更多功能接口
+added more interfaces to EquipmentSet
+
 0.12.88
 现在可以关闭装甲套装效果
 now can disable effects of armor sets

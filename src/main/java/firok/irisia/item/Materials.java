@@ -83,6 +83,10 @@ public class Materials
 					15, new int[]{ 2, 5, 4, 1 }, 12);
 	static{StormArmor.customCraftingMaterial=RawMaterials.ChargedStormBall;}
 
+	public static final ItemArmor.ArmorMaterial DarkIronArmor =
+			EnumHelper.addArmorMaterial(Irisia.MODID+":DARKIRON",
+					5,new int[]{2,5,4,1}, 12);
+
 	static
 	{
 		// note 这个用不到了 直接扔renderIndex一个4就好了
@@ -147,6 +151,11 @@ public class Materials
 			EnumHelper.addToolMaterial(Irisia.MODID+":SOLITA",
 					3, 5500, 15.0F, 8F, 8)
 			.setRepairItem(new ItemStack(RawMaterials.SolitaIngot));
+
+	public static final Item.ToolMaterial DarkIronTool =
+			EnumHelper.addToolMaterial(Irisia.MODID+":DARKIRON",
+					3,1200,12f,2,14)
+			.setRepairItem(new ItemStack(RawMaterials.DarkIronIngot));
 
 
 	// 独有材料

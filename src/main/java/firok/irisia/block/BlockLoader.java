@@ -66,7 +66,7 @@ public class BlockLoader
 		register(IrisiaCreativeTabs.block,OresAndMetal.BlockHotStone,"blockHotStone","block_hotstone");
 		register(IrisiaCreativeTabs.block,OresAndMetal.BlockSolarCrystal,"blockSolarCrystal","block_solar_crystal");
 		register(IrisiaCreativeTabs.block,OresAndMetal.BlockLunarCrystal,"blockLunarCrystal","block_lunar_crystal");
-
+		register(IrisiaCreativeTabs.block,OresAndMetal.BlockDarkIron,"blockDarkIron","block_dark_iron");
 	}
 	private static void registerHerbs()
 	{

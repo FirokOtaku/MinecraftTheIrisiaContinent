@@ -61,6 +61,7 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.material,RawMaterials.LunarCrystal,"material_lunar_crystal","LunarCrystal");
 		register(IrisiaCreativeTabs.material,RawMaterials.GlitteringLunarCrystal,"material_glittering_solar_crystal","GlitteringSolarCrystal");
 		register(IrisiaCreativeTabs.material,RawMaterials.GlitteringSolarCrystal,"material_glittering_lunar_crystal","GlitteringLunarCrystal");
+		register(IrisiaCreativeTabs.material,RawMaterials.DarkIronIngot,"material_dark_iron_ingot","DarkIronIngot");
 		register(IrisiaCreativeTabs.material,RawMaterials.FlumetalIngot,"material_flumetal_ingot","FlumetalIngot");
 		register(IrisiaCreativeTabs.material,RawMaterials.SolitaIngot,"material_solita_ingot","SolitaIngot");
 		register(IrisiaCreativeTabs.material,RawMaterials.MogigaIngot,"material_mogiga_ingot","MogigaIngot");
@@ -105,6 +106,8 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.equi,EquipmentSets.PhoneixSet);
 		// registerLoot(IrisiaCreativeTabs.equi,EquipmentSets.LifeWoodSet); // 已经转移
 		register(IrisiaCreativeTabs.equi,EquipmentSets.FlumetalSet);
+		register(IrisiaCreativeTabs.equi,EquipmentSets.DarkIronArmorSet);
+		register(IrisiaCreativeTabs.equi,EquipmentSets.DarkIronToolSet);
 		register(IrisiaCreativeTabs.equi,EquipmentSets.GarrisonSet);
 		// 注册生命木套装
 		register(IrisiaCreativeTabs.equi,EquipmentAutoRepair.LifewoodSword,"sword_lifewood","LifewoodSword");

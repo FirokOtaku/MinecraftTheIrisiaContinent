@@ -55,6 +55,7 @@ public class RawMaterials
 	public final static InformationItem LunarCrystal;
 	public final static InformationItem GlitteringSolarCrystal;
 	public final static InformationItem GlitteringLunarCrystal;
+	public final static InformationItem DarkIronIngot;
 	public final static InformationItem FlumetalIngot;
 	public final static InformationItem SolitaIngot;
 	public final static InformationItem MogigaIngot;
@@ -130,6 +131,7 @@ public class RawMaterials
 		LunarCrystal=new InformationItem();
 		GlitteringSolarCrystal=new InformationItem(uncommon);
 		GlitteringLunarCrystal=new InformationItem(uncommon);
+		DarkIronIngot=new InformationItem(uncommon);
 		FlumetalIngot= new InformationItem();
 		SolitaIngot= new InformationItem();
 		MogigaIngot= new InformationItem();

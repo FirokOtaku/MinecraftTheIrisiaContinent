@@ -13,6 +13,7 @@ import firok.irisia.potion.Potions;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.*;
@@ -28,6 +29,7 @@ import thaumcraft.api.aspects.AspectList;
 import java.util.List;
 
 import static firok.irisia.common.EventLoader.intervalEffectArmorTick;
+import static firok.irisia.Util.ItemType;
 
 public class EquipmentSets
 {
@@ -40,6 +42,7 @@ public class EquipmentSets
 	public final static EquipmentSet LifeWoodSet; // 已经转移
 	public final static EquipmentSet SolitaSet;
 	public final static EquipmentSet MogigaSet;
+	public final static EquipmentSet DarkIronToolSet;
 
 	public final static ArmorSet WolfFurSet;
 	public final static ArmorSet IcyWolfFurSet;
@@ -50,6 +53,7 @@ public class EquipmentSets
 	public final static EffectArmorSet NinjiaSet;
 	public final static EffectArmorSet StormSet;
 	public final static EffectArmorSet PhoneixSet;
+	public final static EffectArmorSet DarkIronArmorSet;
 
 	public static final int timeEffectArmorBuff=intervalEffectArmorTick+5; // 套装提供的buff时间(tick)
 
@@ -64,6 +68,17 @@ public class EquipmentSets
 		LifeWoodSet=new EquipmentSet("lifewood",Materials.LifeWoodArmor,Materials.LifeWoodTool,false,false,false,true); // 转移到 EquipmentAutoRepair
 		SolitaSet=new EquipmentSet("solita",Materials.SolitaArmor,Materials.SolitaTool,true,true,true,false);
 		MogigaSet=new EquipmentSet("mogiga",Materials.MogigaArmor,Materials.MogigaTool,true,true,true,false);
+
+		ItemFunctionHandler.ItemHitEntityHandler onHitEntityDarkIron=(type,itemStack,target,player)->{
+			target.addPotionEffect(new PotionEffect(Potion.blindness.id,type==ItemType.Sword?120:60,0));
+			return true;
+		};
+		DarkIronToolSet =new EquipmentSet("darkiron",Materials.DarkIronArmor,Materials.DarkIronTool,true,true,false,false)
+				.setHitEntityHandler(ItemType.Sword,onHitEntityDarkIron)
+				.setHitEntityHandler(ItemType.Pickaxe,onHitEntityDarkIron)
+				.setHitEntityHandler(ItemType.Axe,onHitEntityDarkIron)
+				.setHitEntityHandler(ItemType.Hoe,onHitEntityDarkIron)
+				.setHitEntityHandler(ItemType.Spade,onHitEntityDarkIron);
 
 		WolfFurSet=new ArmorSet("wolffur",Materials.WolfFurArmor);
 		IcyWolfFurSet=new ArmorSet("icywolffur",Materials.IcyWolfFurArmor);
@@ -118,9 +133,90 @@ public class EquipmentSets
 				player.setFire(5);
 			}
 		};
+		DarkIronArmorSet =new EffectArmorSet("darkiron",Materials.DarkIronArmor)
+		{
+			@Override
+			public void performEffect(ItemStack headStack, ItemStack chestStack, ItemStack legStack, ItemStack bootStack, EntityPlayer player)
+			{
+				; // todo high
+			}
+		};
 	}
-	/** Stores the armor type: 0 is helmet, 1 is plate, 2 is legs and 3 is boots */
+	/* Stores the armor type: 0 is helmet, 1 is plate, 2 is legs and 3 is boots */
 
+	/**
+	 * 物品事件管理器
+	 * */
+	public static class ItemFunctionHandler
+	{
+		public static interface ItemRightClickHandler
+		{
+			ItemStack onRightClick(ItemType type,ItemStack itemStack,World world,EntityPlayer entity);
+		}
+		public static interface ItemHitEntityHandler
+		{
+			boolean onHitEntity(ItemType type,ItemStack itemStack, EntityLivingBase target, EntityLivingBase player);
+		}
+		public static interface ItemUseHandler
+		{
+			boolean onUse(ItemType type,ItemStack stack, EntityPlayer player, World world,
+			              int x, int y, int z, int side, float hitX, float hitY, float hitZ);
+		}
+		public static interface ItemUseFirstHandler
+		{
+			public boolean onItemUseFirst(ItemType type,ItemStack stack, EntityPlayer player, World world,
+			                              int x, int y, int z, int side, float hitX, float hitY, float hitZ);
+		}
+		public static interface ItemStopUsingHandler
+		{
+			public void onPlayerStoppedUsing(ItemType type,ItemStack itemStack, World world,
+			                                 EntityPlayer player, int tick);
+		}
+		public static interface ItemUsingTickHandler
+		{
+			public void onUsingTick(ItemType type,ItemStack stack, EntityPlayer player, int count);
+		}
+		public static interface ItemUpdateHandler
+		{
+			public void onUpdate(ItemType type,ItemStack itemStack, World world, Entity entity,
+			                     int position, boolean onHand);
+		}
+		public static interface ItemSwingHandler
+		{
+			public boolean onEntitySwing(ItemType type,EntityLivingBase entity, ItemStack itemStack);
+		}
+		public static interface ItemEntityUpdateHandler
+		{
+			public boolean onEntityUpdate(EntityItem entityItem);
+		}
+		ItemRightClickHandler onRightClick=null;
+		ItemHitEntityHandler onHitEntity=null;
+		ItemUseHandler onUse=null;
+		ItemUseFirstHandler onUseFirst=null;
+		ItemStopUsingHandler onStopUsing=null;
+		ItemUsingTickHandler onUsingTick=null;
+		ItemUpdateHandler onUpdate=null;
+		ItemSwingHandler onSwing=null;
+		ItemEntityUpdateHandler onEntityUpdate=null;
+	}
+	/**
+	 * 装甲事件管理器
+	 */
+	public static class ArmorFunctionHandler extends ItemFunctionHandler
+	{
+		public static interface ArmorAttackedHandler
+		{
+			public boolean onAttacked();
+		}
+		ArmorAttackedHandler onAttacked=null;
+	}
+	/**
+	 * 饰品事件管理器
+	 */
+	public static class BaubleFunctionHandler extends ItemFunctionHandler
+	{
+		;
+	}
 	public static class EquipmentSet
 	{
 		public final ItemArmor.ArmorMaterial armorMaterial;
@@ -128,25 +224,148 @@ public class EquipmentSets
 
 		public final boolean hasWeapon;
 		public final ItemSword Sword;
+		private ItemFunctionHandler handlerSword;
 
 		public final boolean hasTools;
 		public final ItemPickaxe Pickaxe;
+		private ItemFunctionHandler handlerPickaxe;
 		public final ItemAxe Axe;
+		private ItemFunctionHandler handlerAxe;
 		public final ItemSpade Spade;
+		private ItemFunctionHandler handlerSpade;
 		public final ItemHoe Hoe;
+		private ItemFunctionHandler handlerHoe;
 
 		public final boolean hasArmor;
 		public final ItemCustomArmor Helmet;
+		private ArmorFunctionHandler handlerHelmet;
 		public final ItemCustomArmor Chestplate;
+		private ArmorFunctionHandler handlerChestplate;
 		public final ItemCustomArmor Leggings;
+		private ArmorFunctionHandler handlerLeggings;
 		public final ItemCustomArmor Boots;
+		private ArmorFunctionHandler handlerBoots;
 
 		public final boolean hasBaubles;
 		public final Ring Ring;
+		private BaubleFunctionHandler handlerRings;
 		public final Amulet Amulet;
+		private BaubleFunctionHandler handlerAmulet;
 		public final Belt Belt;
+		private BaubleFunctionHandler handlerBelt;
 
 		public final String materialName;
+
+		public ItemFunctionHandler getItemFunctionHandler(ItemType type)
+		{
+			switch (type)
+			{
+				case Sword:
+					return handlerSword;
+//				case Helmet:
+//					return handlerHelmet;
+//				case Chestplate:
+//					return handlerChestplate;
+//				case Leggings:
+//					return handlerLeggings;
+//				case Boots:
+//					return handlerBoots;
+				case Pickaxe:
+					return handlerPickaxe;
+				case Axe:
+					return handlerAxe;
+				case Hoe:
+					return handlerHoe;
+				case Spade:
+					return handlerSpade;
+//				case Amulet:
+//					return handlerAmulet;
+//				case Belt:
+//					return handlerBelt;
+//				case Rings:
+//					return handlerRings;
+				default:
+//				case Item:
+//				case Block:
+					return null;
+			}
+		}
+		public ArmorFunctionHandler getArmorFunctionHandler(ItemType type)
+		{
+			switch(type)
+			{
+				case Helmet:
+					return handlerHelmet;
+				case Chestplate:
+					return handlerChestplate;
+				case Leggings:
+					return handlerLeggings;
+				case Boots:
+					return handlerBoots;
+				default:
+					return null;
+			}
+		}
+		public BaubleFunctionHandler getBaubleFunctionHandler(ItemType type)
+		{
+			switch (type)
+			{
+				case Amulet:
+					return handlerAmulet;
+				case Belt:
+					return handlerBelt;
+				case Rings:
+					return handlerRings;
+				default:
+					return null;
+			}
+		}
+		public EquipmentSet setRightClickHandler(ItemType type, ItemFunctionHandler.ItemRightClickHandler handler)
+		{
+			getItemFunctionHandler(type).onRightClick=handler;
+			return this;
+		}
+		public EquipmentSet setHitEntityHandler(ItemType type, ItemFunctionHandler.ItemHitEntityHandler handler)
+		{
+			getItemFunctionHandler(type).onHitEntity=handler;
+			return this;
+		}
+		public EquipmentSet setUseHandler(ItemType type, ItemFunctionHandler.ItemUseHandler handler)
+		{
+			getItemFunctionHandler(type).onUse=handler;
+			return this;
+		}
+		public EquipmentSet setUseFirstHandler(ItemType type, ItemFunctionHandler.ItemUseFirstHandler handler)
+		{
+			getItemFunctionHandler(type).onUseFirst=handler;
+			return this;
+		}
+		public EquipmentSet setStopUsingHandler(ItemType type, ItemFunctionHandler.ItemStopUsingHandler handler)
+		{
+			getItemFunctionHandler(type).onStopUsing=handler;
+			return this;
+		}
+		public EquipmentSet setUsingTickHandler(ItemType type, ItemFunctionHandler.ItemUsingTickHandler handler)
+		{
+			getItemFunctionHandler(type).onUsingTick=handler;
+			return this;
+		}
+		public EquipmentSet setUpdateHandler(ItemType type, ItemFunctionHandler.ItemUpdateHandler handler)
+		{
+			getItemFunctionHandler(type).onUpdate=handler;
+			return this;
+		}
+		public EquipmentSet setSwinghandler(ItemType type, ItemFunctionHandler.ItemSwingHandler handler)
+		{
+			getItemFunctionHandler(type).onSwing=handler;
+			return this;
+		}
+		public EquipmentSet setEntityUpdate(ItemType type, ItemFunctionHandler.ItemEntityUpdateHandler handler)
+		{
+			getItemFunctionHandler(type).onEntityUpdate=handler;
+			return this;
+		}
+		// todo high 装甲和饰品相关
 
 		public EquipmentSet(String mn,ItemArmor.ArmorMaterial am, Item.ToolMaterial tm)
 		{
@@ -158,17 +377,408 @@ public class EquipmentSets
 			armorMaterial=am;
 			toolMaterial=tm;
 
+			handlerSword=new ItemFunctionHandler();
+			handlerPickaxe=new ItemFunctionHandler();
+			handlerAxe=new ItemFunctionHandler();
+			handlerSpade=new ItemFunctionHandler();
+			handlerHoe=new ItemFunctionHandler();
+			handlerHelmet=new ArmorFunctionHandler();
+			handlerChestplate=new ArmorFunctionHandler();
+			handlerLeggings=new ArmorFunctionHandler();
+			handlerBoots=new ArmorFunctionHandler();
+			handlerRings =new BaubleFunctionHandler();
+			handlerAmulet=new BaubleFunctionHandler();
+			handlerBelt=new BaubleFunctionHandler();
+
 			if(hasWeapon=hasW)
-				Sword=new ItemSword(tm);
+				Sword=new ItemSword(tm)
+				{
+					@Override
+					public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
+					{
+						return handlerSword.onRightClick==null?
+								super.onItemRightClick(itemStack,world,player):
+								handlerSword.onRightClick.onRightClick(ItemType.Sword,itemStack,world,player);
+					}
+
+					@Override
+					public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase player)
+					{
+						return handlerSword.onHitEntity==null?
+								super.hitEntity(itemStack,target,player):
+								handlerSword.onHitEntity.onHitEntity(ItemType.Sword,itemStack,target,player);
+					}
+
+					@Override
+					public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int tick)
+					{
+						if(handlerSword.onStopUsing!=null)
+							handlerSword.onStopUsing.onPlayerStoppedUsing(ItemType.Sword,itemStack,world,player,tick);
+						else
+							super.onPlayerStoppedUsing(itemStack, world, player, tick);
+					}
+
+					@Override
+					public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
+					{
+						return handlerSword.onUseFirst!=null?
+								handlerSword.onUseFirst.onItemUseFirst(ItemType.Sword,stack,player,world,x,y,z,side,hitX,hitY,hitZ):
+								super.onItemUseFirst(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
+					}
+
+					@Override
+					public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
+					{
+						return handlerSword.onUse!=null?
+								handlerSword.onUse.onUse(ItemType.Sword,itemStack,player,world,x,y,z,side,hitX,hitY,hitZ):
+								super.onItemUse(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ);
+					}
+
+					@Override
+					public void onUsingTick(ItemStack itemStack, EntityPlayer player, int count)
+					{
+						if(handlerSword.onUsingTick!=null)
+							handlerSword.onUsingTick.onUsingTick(ItemType.Sword,itemStack,player,count);
+						else
+							super.onUsingTick(itemStack, player, count);
+					}
+
+					@Override
+					public boolean onEntitySwing(EntityLivingBase entity, ItemStack itemStack)
+					{
+						return handlerSword.onSwing==null?
+								super.onEntitySwing(entity,itemStack):
+								handlerSword.onSwing.onEntitySwing(ItemType.Sword,entity,itemStack);
+					}
+
+					@Override
+					public void onUpdate(ItemStack itemStack, World world, Entity entity, int slot, boolean onHand)
+					{
+						if(handlerSword.onUpdate!=null)
+							handlerSword.onUpdate.onUpdate(ItemType.Sword,itemStack,world,entity,slot,onHand);
+						else
+							super.onUpdate(itemStack, world, entity, slot, onHand);
+					}
+
+					@Override
+					public boolean onEntityItemUpdate(EntityItem entityItem)
+					{
+						return handlerSword.onEntityUpdate!=null?
+								handlerSword.onEntityUpdate.onEntityUpdate(entityItem):
+								super.onEntityItemUpdate(entityItem);
+					}
+				};
 			else
 				Sword=null;
 
 			if(hasTools=hasT)
 			{
-				Pickaxe=new ItemPickaxe(tm){};
-				Axe=new ItemAxe(tm){};
-				Spade=new ItemSpade(tm);
-				Hoe=new ItemHoe(tm);
+				Pickaxe=new ItemPickaxe(tm){
+					@Override
+					public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
+					{
+						return handlerPickaxe.onRightClick==null?
+								super.onItemRightClick(itemStack,world,player):
+								handlerPickaxe.onRightClick.onRightClick(ItemType.Pickaxe,itemStack,world,player);
+					}
+
+					@Override
+					public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase player)
+					{
+						return handlerPickaxe.onHitEntity==null?
+								super.hitEntity(itemStack,target,player):
+								handlerPickaxe.onHitEntity.onHitEntity(ItemType.Pickaxe,itemStack,target,player);
+					}
+
+					@Override
+					public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int tick)
+					{
+						if(handlerPickaxe.onStopUsing!=null)
+							handlerPickaxe.onStopUsing.onPlayerStoppedUsing(ItemType.Pickaxe,itemStack,world,player,tick);
+						else
+							super.onPlayerStoppedUsing(itemStack, world, player, tick);
+					}
+
+					@Override
+					public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
+					{
+						return handlerPickaxe.onUseFirst!=null?
+								handlerPickaxe.onUseFirst.onItemUseFirst(ItemType.Pickaxe,stack,player,world,x,y,z,side,hitX,hitY,hitZ):
+								super.onItemUseFirst(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
+					}
+
+					@Override
+					public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
+					{
+						return handlerPickaxe.onUse!=null?
+								handlerPickaxe.onUse.onUse(ItemType.Pickaxe,itemStack,player,world,x,y,z,side,hitX,hitY,hitZ):
+								super.onItemUse(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ);
+					}
+
+					@Override
+					public void onUsingTick(ItemStack itemStack, EntityPlayer player, int count)
+					{
+						if(handlerPickaxe.onUsingTick!=null)
+							handlerPickaxe.onUsingTick.onUsingTick(ItemType.Pickaxe,itemStack,player,count);
+						else
+							super.onUsingTick(itemStack, player, count);
+					}
+
+					@Override
+					public boolean onEntitySwing(EntityLivingBase entity, ItemStack itemStack)
+					{
+						return handlerPickaxe.onSwing==null?
+								super.onEntitySwing(entity,itemStack):
+								handlerPickaxe.onSwing.onEntitySwing(ItemType.Pickaxe,entity,itemStack);
+					}
+
+					@Override
+					public void onUpdate(ItemStack itemStack, World world, Entity entity, int slot, boolean onHand)
+					{
+						if(handlerPickaxe.onUpdate!=null)
+							handlerPickaxe.onUpdate.onUpdate(ItemType.Pickaxe,itemStack,world,entity,slot,onHand);
+						else
+							super.onUpdate(itemStack, world, entity, slot, onHand);
+					}
+
+					@Override
+					public boolean onEntityItemUpdate(EntityItem entityItem)
+					{
+						return handlerPickaxe.onEntityUpdate!=null?
+								handlerPickaxe.onEntityUpdate.onEntityUpdate(entityItem):
+								super.onEntityItemUpdate(entityItem);
+					}
+				};
+				Axe=new ItemAxe(tm){
+					@Override
+					public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
+					{
+						return handlerAxe.onRightClick==null?
+								super.onItemRightClick(itemStack,world,player):
+								handlerAxe.onRightClick.onRightClick(ItemType.Axe,itemStack,world,player);
+					}
+
+					@Override
+					public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase player)
+					{
+						return handlerAxe.onHitEntity==null?
+								super.hitEntity(itemStack,target,player):
+								handlerAxe.onHitEntity.onHitEntity(ItemType.Axe,itemStack,target,player);
+					}
+
+					@Override
+					public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int tick)
+					{
+						if(handlerAxe.onStopUsing!=null)
+							handlerAxe.onStopUsing.onPlayerStoppedUsing(ItemType.Axe,itemStack,world,player,tick);
+						else
+							super.onPlayerStoppedUsing(itemStack, world, player, tick);
+					}
+
+					@Override
+					public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
+					{
+						return handlerAxe.onUseFirst!=null?
+								handlerAxe.onUseFirst.onItemUseFirst(ItemType.Axe,stack,player,world,x,y,z,side,hitX,hitY,hitZ):
+								super.onItemUseFirst(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
+					}
+
+					@Override
+					public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
+					{
+						return handlerAxe.onUse!=null?
+								handlerAxe.onUse.onUse(ItemType.Axe,itemStack,player,world,x,y,z,side,hitX,hitY,hitZ):
+								super.onItemUse(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ);
+					}
+
+					@Override
+					public void onUsingTick(ItemStack itemStack, EntityPlayer player, int count)
+					{
+						if(handlerAxe.onUsingTick!=null)
+							handlerAxe.onUsingTick.onUsingTick(ItemType.Axe,itemStack,player,count);
+						else
+							super.onUsingTick(itemStack, player, count);
+					}
+
+					@Override
+					public boolean onEntitySwing(EntityLivingBase entity, ItemStack itemStack)
+					{
+						return handlerAxe.onSwing==null?
+								super.onEntitySwing(entity,itemStack):
+								handlerAxe.onSwing.onEntitySwing(ItemType.Axe,entity,itemStack);
+					}
+
+					@Override
+					public void onUpdate(ItemStack itemStack, World world, Entity entity, int slot, boolean onHand)
+					{
+						if(handlerAxe.onUpdate!=null)
+							handlerAxe.onUpdate.onUpdate(ItemType.Axe,itemStack,world,entity,slot,onHand);
+						else
+							super.onUpdate(itemStack, world, entity, slot, onHand);
+					}
+
+					@Override
+					public boolean onEntityItemUpdate(EntityItem entityItem)
+					{
+						return handlerAxe.onEntityUpdate!=null?
+								handlerAxe.onEntityUpdate.onEntityUpdate(entityItem):
+								super.onEntityItemUpdate(entityItem);
+					}
+				};
+				Spade=new ItemSpade(tm)
+				{
+					@Override
+					public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
+					{
+						return handlerSpade.onRightClick==null?
+								super.onItemRightClick(itemStack,world,player):
+								handlerSpade.onRightClick.onRightClick(ItemType.Spade,itemStack,world,player);
+					}
+
+					@Override
+					public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase player)
+					{
+						return handlerSpade.onHitEntity==null?
+								super.hitEntity(itemStack,target,player):
+								handlerSpade.onHitEntity.onHitEntity(ItemType.Spade,itemStack,target,player);
+					}
+
+					@Override
+					public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int tick)
+					{
+						if(handlerSpade.onStopUsing!=null)
+							handlerSpade.onStopUsing.onPlayerStoppedUsing(ItemType.Spade,itemStack,world,player,tick);
+						else
+							super.onPlayerStoppedUsing(itemStack, world, player, tick);
+					}
+
+					@Override
+					public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
+					{
+						return handlerSpade.onUseFirst!=null?
+								handlerSpade.onUseFirst.onItemUseFirst(ItemType.Spade,stack,player,world,x,y,z,side,hitX,hitY,hitZ):
+								super.onItemUseFirst(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
+					}
+
+					@Override
+					public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
+					{
+						return handlerSpade.onUse!=null?
+								handlerSpade.onUse.onUse(ItemType.Spade,itemStack,player,world,x,y,z,side,hitX,hitY,hitZ):
+								super.onItemUse(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ);
+					}
+
+					@Override
+					public void onUsingTick(ItemStack itemStack, EntityPlayer player, int count)
+					{
+						if(handlerSpade.onUsingTick!=null)
+							handlerSpade.onUsingTick.onUsingTick(ItemType.Spade,itemStack,player,count);
+						else
+							super.onUsingTick(itemStack, player, count);
+					}
+
+					@Override
+					public boolean onEntitySwing(EntityLivingBase entity, ItemStack itemStack)
+					{
+						return handlerSpade.onSwing==null?
+								super.onEntitySwing(entity,itemStack):
+								handlerSpade.onSwing.onEntitySwing(ItemType.Spade,entity,itemStack);
+					}
+
+					@Override
+					public void onUpdate(ItemStack itemStack, World world, Entity entity, int slot, boolean onHand)
+					{
+						if(handlerSpade.onUpdate!=null)
+							handlerSpade.onUpdate.onUpdate(ItemType.Spade,itemStack,world,entity,slot,onHand);
+						else
+							super.onUpdate(itemStack, world, entity, slot, onHand);
+					}
+
+					@Override
+					public boolean onEntityItemUpdate(EntityItem entityItem)
+					{
+						return handlerSpade.onEntityUpdate!=null?
+								handlerSpade.onEntityUpdate.onEntityUpdate(entityItem):
+								super.onEntityItemUpdate(entityItem);
+					}
+				};
+				Hoe=new ItemHoe(tm)
+				{
+					@Override
+					public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
+					{
+						return handlerHoe.onRightClick==null?
+								super.onItemRightClick(itemStack,world,player):
+								handlerHoe.onRightClick.onRightClick(ItemType.Hoe,itemStack,world,player);
+					}
+
+					@Override
+					public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase player)
+					{
+						return handlerHoe.onHitEntity==null?
+								super.hitEntity(itemStack,target,player):
+								handlerHoe.onHitEntity.onHitEntity(ItemType.Hoe,itemStack,target,player);
+					}
+
+					@Override
+					public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int tick)
+					{
+						if(handlerHoe.onStopUsing!=null)
+							handlerHoe.onStopUsing.onPlayerStoppedUsing(ItemType.Hoe,itemStack,world,player,tick);
+						else
+							super.onPlayerStoppedUsing(itemStack, world, player, tick);
+					}
+
+					@Override
+					public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
+					{
+						return handlerHoe.onUseFirst!=null?
+								handlerHoe.onUseFirst.onItemUseFirst(ItemType.Hoe,stack,player,world,x,y,z,side,hitX,hitY,hitZ):
+								super.onItemUseFirst(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
+					}
+
+					@Override
+					public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
+					{
+						return handlerHoe.onUse!=null?
+								handlerHoe.onUse.onUse(ItemType.Hoe,itemStack,player,world,x,y,z,side,hitX,hitY,hitZ):
+								super.onItemUse(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ);
+					}
+
+					@Override
+					public void onUsingTick(ItemStack itemStack, EntityPlayer player, int count)
+					{
+						if(handlerHoe.onUsingTick!=null)
+							handlerHoe.onUsingTick.onUsingTick(ItemType.Hoe,itemStack,player,count);
+						else
+							super.onUsingTick(itemStack, player, count);
+					}
+
+					@Override
+					public boolean onEntitySwing(EntityLivingBase entity, ItemStack itemStack)
+					{
+						return handlerHoe.onSwing==null?
+								super.onEntitySwing(entity,itemStack):
+								handlerHoe.onSwing.onEntitySwing(ItemType.Hoe,entity,itemStack);
+					}
+
+					@Override
+					public void onUpdate(ItemStack itemStack, World world, Entity entity, int slot, boolean onHand)
+					{
+						if(handlerHoe.onUpdate!=null)
+							handlerHoe.onUpdate.onUpdate(ItemType.Hoe,itemStack,world,entity,slot,onHand);
+						else
+							super.onUpdate(itemStack, world, entity, slot, onHand);
+					}
+
+					@Override
+					public boolean onEntityItemUpdate(EntityItem entityItem)
+					{
+						return handlerHoe.onEntityUpdate!=null?
+								handlerHoe.onEntityUpdate.onEntityUpdate(entityItem):
+								super.onEntityItemUpdate(entityItem);
+					}
+				};
 			}
 			else
 			{
@@ -180,10 +790,314 @@ public class EquipmentSets
 
 			if(hasArmor=hasA)
 			{
-				Helmet=new ItemCustomArmor(am, am.ordinal(), 0);
-				Chestplate=new ItemCustomArmor(am, am.ordinal(), 1);
-				Leggings=new ItemCustomArmor(am, am.ordinal(), 2);
-				Boots=new ItemCustomArmor(am, am.ordinal(), 3);
+				Helmet=new ItemCustomArmor(am, am.ordinal(), 0)
+				{
+					@Override
+					public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
+					{
+						return handlerHelmet.onRightClick==null?
+								super.onItemRightClick(itemStack,world,player):
+								handlerSword.onRightClick.onRightClick(ItemType.Sword,itemStack,world,player);
+					}
+
+					@Override
+					public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase player)
+					{
+						return handlerSword.onHitEntity==null?
+								super.hitEntity(itemStack,target,player):
+								handlerSword.onHitEntity.onHitEntity(ItemType.Sword,itemStack,target,player);
+					}
+
+					@Override
+					public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int tick)
+					{
+						if(handlerSword.onStopUsing!=null)
+							handlerSword.onStopUsing.onPlayerStoppedUsing(ItemType.Sword,itemStack,world,player,tick);
+						else
+							super.onPlayerStoppedUsing(itemStack, world, player, tick);
+					}
+
+					@Override
+					public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
+					{
+						return handlerSword.onUseFirst!=null?
+								handlerSword.onUseFirst.onItemUseFirst(ItemType.Sword,stack,player,world,x,y,z,side,hitX,hitY,hitZ):
+								super.onItemUseFirst(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
+					}
+
+					@Override
+					public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
+					{
+						return handlerSword.onUse!=null?
+								handlerSword.onUse.onUse(ItemType.Sword,itemStack,player,world,x,y,z,side,hitX,hitY,hitZ):
+								super.onItemUse(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ);
+					}
+
+					@Override
+					public void onUsingTick(ItemStack itemStack, EntityPlayer player, int count)
+					{
+						if(handlerSword.onUsingTick!=null)
+							handlerSword.onUsingTick.onUsingTick(ItemType.Sword,itemStack,player,count);
+						else
+							super.onUsingTick(itemStack, player, count);
+					}
+
+					@Override
+					public boolean onEntitySwing(EntityLivingBase entity, ItemStack itemStack)
+					{
+						return handlerSword.onSwing==null?
+								super.onEntitySwing(entity,itemStack):
+								handlerSword.onSwing.onEntitySwing(ItemType.Sword,entity,itemStack);
+					}
+
+					@Override
+					public void onUpdate(ItemStack itemStack, World world, Entity entity, int slot, boolean onHand)
+					{
+						if(handlerSword.onUpdate!=null)
+							handlerSword.onUpdate.onUpdate(ItemType.Sword,itemStack,world,entity,slot,onHand);
+						else
+							super.onUpdate(itemStack, world, entity, slot, onHand);
+					}
+
+					@Override
+					public boolean onEntityItemUpdate(EntityItem entityItem)
+					{
+						return handlerHelmet.onEntityUpdate!=null?
+								handlerHelmet.onEntityUpdate.onEntityUpdate(entityItem):
+								super.onEntityItemUpdate(entityItem);
+					}
+				};
+				Chestplate=new ItemCustomArmor(am, am.ordinal(), 1)
+				{
+					@Override
+					public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
+					{
+						return handlerChestplate.onRightClick==null?
+								super.onItemRightClick(itemStack,world,player):
+								handlerChestplate.onRightClick.onRightClick(ItemType.Chestplate,itemStack,world,player);
+					}
+
+					@Override
+					public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase player)
+					{
+						return handlerChestplate.onHitEntity==null?
+								super.hitEntity(itemStack,target,player):
+								handlerChestplate.onHitEntity.onHitEntity(ItemType.Chestplate,itemStack,target,player);
+					}
+
+					@Override
+					public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int tick)
+					{
+						if(handlerChestplate.onStopUsing!=null)
+							handlerChestplate.onStopUsing.onPlayerStoppedUsing(ItemType.Chestplate,itemStack,world,player,tick);
+						else
+							super.onPlayerStoppedUsing(itemStack, world, player, tick);
+					}
+
+					@Override
+					public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
+					{
+						return handlerChestplate.onUseFirst!=null?
+								handlerChestplate.onUseFirst.onItemUseFirst(ItemType.Chestplate,stack,player,world,x,y,z,side,hitX,hitY,hitZ):
+								super.onItemUseFirst(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
+					}
+
+					@Override
+					public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
+					{
+						return handlerChestplate.onUse!=null?
+								handlerChestplate.onUse.onUse(ItemType.Chestplate,itemStack,player,world,x,y,z,side,hitX,hitY,hitZ):
+								super.onItemUse(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ);
+					}
+
+					@Override
+					public void onUsingTick(ItemStack itemStack, EntityPlayer player, int count)
+					{
+						if(handlerChestplate.onUsingTick!=null)
+							handlerChestplate.onUsingTick.onUsingTick(ItemType.Chestplate,itemStack,player,count);
+						else
+							super.onUsingTick(itemStack, player, count);
+					}
+
+					@Override
+					public boolean onEntitySwing(EntityLivingBase entity, ItemStack itemStack)
+					{
+						return handlerChestplate.onSwing==null?
+								super.onEntitySwing(entity,itemStack):
+								handlerChestplate.onSwing.onEntitySwing(ItemType.Chestplate,entity,itemStack);
+					}
+
+					@Override
+					public void onUpdate(ItemStack itemStack, World world, Entity entity, int slot, boolean onHand)
+					{
+						if(handlerChestplate.onUpdate!=null)
+							handlerChestplate.onUpdate.onUpdate(ItemType.Chestplate,itemStack,world,entity,slot,onHand);
+						else
+							super.onUpdate(itemStack, world, entity, slot, onHand);
+					}
+
+					@Override
+					public boolean onEntityItemUpdate(EntityItem entityItem)
+					{
+						return handlerChestplate.onEntityUpdate!=null?
+								handlerChestplate.onEntityUpdate.onEntityUpdate(entityItem):
+								super.onEntityItemUpdate(entityItem);
+					}
+				};
+				Leggings=new ItemCustomArmor(am, am.ordinal(), 2)
+				{
+					@Override
+					public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
+					{
+						return handlerLeggings.onRightClick==null?
+								super.onItemRightClick(itemStack,world,player):
+								handlerLeggings.onRightClick.onRightClick(ItemType.Leggings,itemStack,world,player);
+					}
+
+					@Override
+					public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase player)
+					{
+						return handlerLeggings.onHitEntity==null?
+								super.hitEntity(itemStack,target,player):
+								handlerLeggings.onHitEntity.onHitEntity(ItemType.Leggings,itemStack,target,player);
+					}
+
+					@Override
+					public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int tick)
+					{
+						if(handlerLeggings.onStopUsing!=null)
+							handlerLeggings.onStopUsing.onPlayerStoppedUsing(ItemType.Leggings,itemStack,world,player,tick);
+						else
+							super.onPlayerStoppedUsing(itemStack, world, player, tick);
+					}
+
+					@Override
+					public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
+					{
+						return handlerLeggings.onUseFirst!=null?
+								handlerLeggings.onUseFirst.onItemUseFirst(ItemType.Leggings,stack,player,world,x,y,z,side,hitX,hitY,hitZ):
+								super.onItemUseFirst(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
+					}
+
+					@Override
+					public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
+					{
+						return handlerLeggings.onUse!=null?
+								handlerLeggings.onUse.onUse(ItemType.Leggings,itemStack,player,world,x,y,z,side,hitX,hitY,hitZ):
+								super.onItemUse(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ);
+					}
+
+					@Override
+					public void onUsingTick(ItemStack itemStack, EntityPlayer player, int count)
+					{
+						if(handlerLeggings.onUsingTick!=null)
+							handlerLeggings.onUsingTick.onUsingTick(ItemType.Leggings,itemStack,player,count);
+						else
+							super.onUsingTick(itemStack, player, count);
+					}
+
+					@Override
+					public boolean onEntitySwing(EntityLivingBase entity, ItemStack itemStack)
+					{
+						return handlerLeggings.onSwing==null?
+								super.onEntitySwing(entity,itemStack):
+								handlerLeggings.onSwing.onEntitySwing(ItemType.Leggings,entity,itemStack);
+					}
+
+					@Override
+					public void onUpdate(ItemStack itemStack, World world, Entity entity, int slot, boolean onHand)
+					{
+						if(handlerLeggings.onUpdate!=null)
+							handlerLeggings.onUpdate.onUpdate(ItemType.Leggings,itemStack,world,entity,slot,onHand);
+						else
+							super.onUpdate(itemStack, world, entity, slot, onHand);
+					}
+
+					@Override
+					public boolean onEntityItemUpdate(EntityItem entityItem)
+					{
+						return handlerLeggings.onEntityUpdate!=null?
+								handlerLeggings.onEntityUpdate.onEntityUpdate(entityItem):
+								super.onEntityItemUpdate(entityItem);
+					}
+				};
+				Boots=new ItemCustomArmor(am, am.ordinal(), 3)
+				{
+					@Override
+					public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
+					{
+						return handlerBoots.onRightClick==null?
+								super.onItemRightClick(itemStack,world,player):
+								handlerBoots.onRightClick.onRightClick(ItemType.Boots,itemStack,world,player);
+					}
+
+					@Override
+					public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase player)
+					{
+						return handlerBoots.onHitEntity==null?
+								super.hitEntity(itemStack,target,player):
+								handlerBoots.onHitEntity.onHitEntity(ItemType.Boots,itemStack,target,player);
+					}
+
+					@Override
+					public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int tick)
+					{
+						if(handlerBoots.onStopUsing!=null)
+							handlerBoots.onStopUsing.onPlayerStoppedUsing(ItemType.Boots,itemStack,world,player,tick);
+						else
+							super.onPlayerStoppedUsing(itemStack, world, player, tick);
+					}
+
+					@Override
+					public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
+					{
+						return handlerBoots.onUseFirst!=null?
+								handlerBoots.onUseFirst.onItemUseFirst(ItemType.Boots,stack,player,world,x,y,z,side,hitX,hitY,hitZ):
+								super.onItemUseFirst(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
+					}
+
+					@Override
+					public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
+					{
+						return handlerBoots.onUse!=null?
+								handlerBoots.onUse.onUse(ItemType.Boots,itemStack,player,world,x,y,z,side,hitX,hitY,hitZ):
+								super.onItemUse(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ);
+					}
+
+					@Override
+					public void onUsingTick(ItemStack itemStack, EntityPlayer player, int count)
+					{
+						if(handlerBoots.onUsingTick!=null)
+							handlerBoots.onUsingTick.onUsingTick(ItemType.Boots,itemStack,player,count);
+						else
+							super.onUsingTick(itemStack, player, count);
+					}
+
+					@Override
+					public boolean onEntitySwing(EntityLivingBase entity, ItemStack itemStack)
+					{
+						return handlerBoots.onSwing==null?
+								super.onEntitySwing(entity,itemStack):
+								handlerBoots.onSwing.onEntitySwing(ItemType.Boots,entity,itemStack);
+					}
+
+					@Override
+					public void onUpdate(ItemStack itemStack, World world, Entity entity, int slot, boolean onHand)
+					{
+						if(handlerBoots.onUpdate!=null)
+							handlerBoots.onUpdate.onUpdate(ItemType.Boots,itemStack,world,entity,slot,onHand);
+						else
+							super.onUpdate(itemStack, world, entity, slot, onHand);
+					}
+
+					@Override
+					public boolean onEntityItemUpdate(EntityItem entityItem)
+					{
+						return handlerBoots.onEntityUpdate!=null?
+								handlerBoots.onEntityUpdate.onEntityUpdate(entityItem):
+								super.onEntityItemUpdate(entityItem);
+					}
+				};
 			}
 			else
 			{
@@ -195,9 +1109,237 @@ public class EquipmentSets
 
 			if(hasBaubles=hasB)
 			{
-				Ring=new Ring();
-				Amulet=new Amulet();
-				Belt=new Belt();
+				Ring=new Ring()
+				{
+					@Override
+					public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
+					{
+						return handlerRings.onRightClick==null?
+								super.onItemRightClick(itemStack,world,player):
+								handlerRings.onRightClick.onRightClick(ItemType.Rings,itemStack,world,player);
+					}
+
+					@Override
+					public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase player)
+					{
+						return handlerRings.onHitEntity==null?
+								super.hitEntity(itemStack,target,player):
+								handlerRings.onHitEntity.onHitEntity(ItemType.Rings,itemStack,target,player);
+					}
+
+					@Override
+					public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int tick)
+					{
+						if(handlerRings.onStopUsing!=null)
+							handlerRings.onStopUsing.onPlayerStoppedUsing(ItemType.Rings,itemStack,world,player,tick);
+						else
+							super.onPlayerStoppedUsing(itemStack, world, player, tick);
+					}
+
+					@Override
+					public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
+					{
+						return handlerRings.onUseFirst!=null?
+								handlerRings.onUseFirst.onItemUseFirst(ItemType.Rings,stack,player,world,x,y,z,side,hitX,hitY,hitZ):
+								super.onItemUseFirst(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
+					}
+
+					@Override
+					public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
+					{
+						return handlerRings.onUse!=null?
+								handlerRings.onUse.onUse(ItemType.Rings,itemStack,player,world,x,y,z,side,hitX,hitY,hitZ):
+								super.onItemUse(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ);
+					}
+
+					@Override
+					public void onUsingTick(ItemStack itemStack, EntityPlayer player, int count)
+					{
+						if(handlerRings.onUsingTick!=null)
+							handlerRings.onUsingTick.onUsingTick(ItemType.Rings,itemStack,player,count);
+						else
+							super.onUsingTick(itemStack, player, count);
+					}
+
+					@Override
+					public boolean onEntitySwing(EntityLivingBase entity, ItemStack itemStack)
+					{
+						return handlerRings.onSwing==null?
+								super.onEntitySwing(entity,itemStack):
+								handlerRings.onSwing.onEntitySwing(ItemType.Rings,entity,itemStack);
+					}
+
+					@Override
+					public void onUpdate(ItemStack itemStack, World world, Entity entity, int slot, boolean onHand)
+					{
+						if(handlerRings.onUpdate!=null)
+							handlerRings.onUpdate.onUpdate(ItemType.Rings,itemStack,world,entity,slot,onHand);
+						else
+							super.onUpdate(itemStack, world, entity, slot, onHand);
+					}
+
+					@Override
+					public boolean onEntityItemUpdate(EntityItem entityItem)
+					{
+						return handlerRings.onEntityUpdate!=null?
+								handlerRings.onEntityUpdate.onEntityUpdate(entityItem):
+								super.onEntityItemUpdate(entityItem);
+					}
+				};
+				Amulet=new Amulet()
+				{
+					@Override
+					public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
+					{
+						return handlerAmulet.onRightClick==null?
+								super.onItemRightClick(itemStack,world,player):
+								handlerAmulet.onRightClick.onRightClick(ItemType.Amulet,itemStack,world,player);
+					}
+
+					@Override
+					public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase player)
+					{
+						return handlerAmulet.onHitEntity==null?
+								super.hitEntity(itemStack,target,player):
+								handlerAmulet.onHitEntity.onHitEntity(ItemType.Amulet,itemStack,target,player);
+					}
+
+					@Override
+					public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int tick)
+					{
+						if(handlerAmulet.onStopUsing!=null)
+							handlerAmulet.onStopUsing.onPlayerStoppedUsing(ItemType.Amulet,itemStack,world,player,tick);
+						else
+							super.onPlayerStoppedUsing(itemStack, world, player, tick);
+					}
+
+					@Override
+					public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
+					{
+						return handlerAmulet.onUseFirst!=null?
+								handlerAmulet.onUseFirst.onItemUseFirst(ItemType.Amulet,stack,player,world,x,y,z,side,hitX,hitY,hitZ):
+								super.onItemUseFirst(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
+					}
+
+					@Override
+					public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
+					{
+						return handlerAmulet.onUse!=null?
+								handlerAmulet.onUse.onUse(ItemType.Amulet,itemStack,player,world,x,y,z,side,hitX,hitY,hitZ):
+								super.onItemUse(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ);
+					}
+
+					@Override
+					public void onUsingTick(ItemStack itemStack, EntityPlayer player, int count)
+					{
+						if(handlerAmulet.onUsingTick!=null)
+							handlerAmulet.onUsingTick.onUsingTick(ItemType.Amulet,itemStack,player,count);
+						else
+							super.onUsingTick(itemStack, player, count);
+					}
+
+					@Override
+					public boolean onEntitySwing(EntityLivingBase entity, ItemStack itemStack)
+					{
+						return handlerAmulet.onSwing==null?
+								super.onEntitySwing(entity,itemStack):
+								handlerAmulet.onSwing.onEntitySwing(ItemType.Amulet,entity,itemStack);
+					}
+
+					@Override
+					public void onUpdate(ItemStack itemStack, World world, Entity entity, int slot, boolean onHand)
+					{
+						if(handlerAmulet.onUpdate!=null)
+							handlerAmulet.onUpdate.onUpdate(ItemType.Amulet,itemStack,world,entity,slot,onHand);
+						else
+							super.onUpdate(itemStack, world, entity, slot, onHand);
+					}
+
+					@Override
+					public boolean onEntityItemUpdate(EntityItem entityItem)
+					{
+						return handlerAmulet.onEntityUpdate!=null?
+								handlerAmulet.onEntityUpdate.onEntityUpdate(entityItem):
+								super.onEntityItemUpdate(entityItem);
+					}
+				};
+				Belt=new Belt()
+				{
+					@Override
+					public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
+					{
+						return handlerBelt.onRightClick==null?
+								super.onItemRightClick(itemStack,world,player):
+								handlerBelt.onRightClick.onRightClick(ItemType.Belt,itemStack,world,player);
+					}
+
+					@Override
+					public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase player)
+					{
+						return handlerBelt.onHitEntity==null?
+								super.hitEntity(itemStack,target,player):
+								handlerBelt.onHitEntity.onHitEntity(ItemType.Belt,itemStack,target,player);
+					}
+
+					@Override
+					public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int tick)
+					{
+						if(handlerBelt.onStopUsing!=null)
+							handlerBelt.onStopUsing.onPlayerStoppedUsing(ItemType.Belt,itemStack,world,player,tick);
+						else
+							super.onPlayerStoppedUsing(itemStack, world, player, tick);
+					}
+
+					@Override
+					public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
+					{
+						return handlerBelt.onUseFirst!=null?
+								handlerBelt.onUseFirst.onItemUseFirst(ItemType.Belt,stack,player,world,x,y,z,side,hitX,hitY,hitZ):
+								super.onItemUseFirst(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
+					}
+
+					@Override
+					public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
+					{
+						return handlerBelt.onUse!=null?
+								handlerBelt.onUse.onUse(ItemType.Belt,itemStack,player,world,x,y,z,side,hitX,hitY,hitZ):
+								super.onItemUse(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ);
+					}
+
+					@Override
+					public void onUsingTick(ItemStack itemStack, EntityPlayer player, int count)
+					{
+						if(handlerBelt.onUsingTick!=null)
+							handlerBelt.onUsingTick.onUsingTick(ItemType.Belt,itemStack,player,count);
+						else
+							super.onUsingTick(itemStack, player, count);
+					}
+
+					@Override
+					public boolean onEntitySwing(EntityLivingBase entity, ItemStack itemStack)
+					{
+						return handlerBelt.onSwing==null?
+								super.onEntitySwing(entity,itemStack):
+								handlerBelt.onSwing.onEntitySwing(ItemType.Belt,entity,itemStack);
+					}
+
+					@Override
+					public void onUpdate(ItemStack itemStack, World world, Entity entity, int slot, boolean onHand)
+					{
+						if(handlerBelt.onUpdate!=null)
+							handlerBelt.onUpdate.onUpdate(ItemType.Belt,itemStack,world,entity,slot,onHand);
+						else
+							super.onUpdate(itemStack, world, entity, slot, onHand);
+					}
+
+					@Override
+					public boolean onEntityItemUpdate(EntityItem entityItem)
+					{
+						return handlerBelt.onEntityUpdate!=null?
+								handlerBelt.onEntityUpdate.onEntityUpdate(entityItem):
+								super.onEntityItemUpdate(entityItem);
+					}
+				};
 			}
 			else
 			{
@@ -208,6 +1350,10 @@ public class EquipmentSets
 		}
 	}
 
+	/**
+	 * 装甲套装
+	 * 只包含装甲的配件
+	 */
 	public static class ArmorSet
 	{
 		public final String materialName;
@@ -348,6 +1494,10 @@ public class EquipmentSets
 		}
 	}
 
+	/**
+	 * 自定义装甲配件
+	 * 主要重写了材质相关的功能
+	 */
 	public static class ItemCustomArmor extends ItemArmor
 	{
 //		public IIcon iconChest;
@@ -407,6 +1557,9 @@ public class EquipmentSets
 	}
 
 
+	/**
+	 * 饰品基类
+	 */
 	public static abstract class ItemBauble extends Item implements IBauble
 	{
 		@Override
@@ -466,6 +1619,9 @@ public class EquipmentSets
 		}
 	}
 
+	/**
+	 * 指环基类
+	 */
 	public static class Ring extends ItemBauble // 指环
 	{
 		@Override
@@ -474,6 +1630,10 @@ public class EquipmentSets
 			return BaubleType.RING;
 		}
 	}
+
+	/**
+	 * 护身符基类
+	 */
 	public static class Amulet extends ItemBauble // 护身符
 	{
 		@Override
@@ -482,6 +1642,10 @@ public class EquipmentSets
 			return BaubleType.AMULET;
 		}
 	}
+
+	/**
+	 * 腰带基类
+	 */
 	public static class Belt extends ItemBauble // 腰带
 	{
 		@Override

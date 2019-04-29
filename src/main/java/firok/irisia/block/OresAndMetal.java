@@ -35,6 +35,7 @@ public class OresAndMetal
 	public final static BlockCompressed BlockMogiga;
 	public final static BlockCompressed BlockSolarCrystal;
 	public final static BlockCompressed BlockLunarCrystal;
+	public final static BlockCompressed BlockDarkIron;
 
 	static
 	{
@@ -110,6 +111,12 @@ public class OresAndMetal
 				setHardness(5.0F).
 				setResistance(10.0F).
 				setStepSound(Block.soundTypeMetal);
+
+		BlockDarkIron=(BlockCompressed)new BlockCompressed(MapColor.blackColor).
+				setHardness(5.0F).
+				setResistance(10.0F).
+				setStepSound(Block.soundTypeMetal);
+
 	}
 
 	public static class Ore extends BlockOre
