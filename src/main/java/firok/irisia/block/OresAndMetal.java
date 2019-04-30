@@ -36,6 +36,9 @@ public class OresAndMetal
 	public final static BlockCompressed BlockSolarCrystal;
 	public final static BlockCompressed BlockLunarCrystal;
 	public final static BlockCompressed BlockDarkIron;
+	public final static BlockCompressed BlockVibrhythmIron;
+	public final static BlockCompressed BlockLuxIron;
+	public final static BlockCompressed BlockStormIron;
 
 	static
 	{
@@ -117,6 +120,20 @@ public class OresAndMetal
 				setResistance(10.0F).
 				setStepSound(Block.soundTypeMetal);
 
+		BlockVibrhythmIron=(BlockCompressed)new BlockCompressed(MapColor.cyanColor).
+				setHardness(5.0F).
+				setResistance(10.0F).
+				setStepSound(Block.soundTypeMetal);
+
+		BlockLuxIron=(BlockCompressed)new BlockCompressed(MapColor.clayColor).
+				setHardness(5.0F).
+				setResistance(10.0F).
+				setStepSound(Block.soundTypeMetal);
+
+		BlockStormIron=(BlockCompressed)new BlockCompressed(MapColor.clayColor).
+				setHardness(5.0F).
+				setResistance(10.0F).
+				setStepSound(Block.soundTypeMetal);
 	}
 
 	public static class Ore extends BlockOre

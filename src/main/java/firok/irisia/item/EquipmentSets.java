@@ -13,6 +13,7 @@ import firok.irisia.potion.Potions;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -20,6 +21,7 @@ import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
@@ -43,6 +45,8 @@ public class EquipmentSets
 	public final static EquipmentSet SolitaSet;
 	public final static EquipmentSet MogigaSet;
 	public final static EquipmentSet DarkIronToolSet;
+	public final static EquipmentSet LuxIronToolSet;
+	public final static EquipmentSet VibrhythmToolSet;
 
 	public final static ArmorSet WolfFurSet;
 	public final static ArmorSet IcyWolfFurSet;
@@ -54,6 +58,7 @@ public class EquipmentSets
 	public final static EffectArmorSet StormSet;
 	public final static EffectArmorSet PhoneixSet;
 	public final static EffectArmorSet DarkIronArmorSet;
+	public final static EffectArmorSet LuxIronArmorSet;
 
 	public static final int timeEffectArmorBuff=intervalEffectArmorTick+5; // 套装提供的buff时间(tick)
 
@@ -70,6 +75,7 @@ public class EquipmentSets
 		MogigaSet=new EquipmentSet("mogiga",Materials.MogigaArmor,Materials.MogigaTool,true,true,true,false);
 
 		ItemFunctionHandler.ItemHitEntityHandler onHitEntityDarkIron=(type,itemStack,target,player)->{
+			itemStack.damageItem(2, player);
 			target.addPotionEffect(new PotionEffect(Potion.blindness.id,type==ItemType.Sword?120:60,0));
 			return true;
 		};
@@ -79,6 +85,21 @@ public class EquipmentSets
 				.setHitEntityHandler(ItemType.Axe,onHitEntityDarkIron)
 				.setHitEntityHandler(ItemType.Hoe,onHitEntityDarkIron)
 				.setHitEntityHandler(ItemType.Spade,onHitEntityDarkIron);
+
+		ItemFunctionHandler.ItemHitEntityHandler onHitEntityLuxIron=(type,itemStack,target,player)-> {
+			itemStack.damageItem(2, player);
+			boolean isUndead=target.getCreatureAttribute()==EnumCreatureAttribute.UNDEAD;
+			target.attackEntityFrom(DamageSource.causeMobDamage(player),isUndead?14:8);
+			return true;
+		};
+		LuxIronToolSet =new EquipmentSet("luxiron",Materials.LuxIronArmor,Materials.LuxIronTool,true,true,false,false)
+				.setHitEntityHandler(ItemType.Sword,onHitEntityLuxIron)
+				.setHitEntityHandler(ItemType.Pickaxe,onHitEntityLuxIron)
+				.setHitEntityHandler(ItemType.Axe,onHitEntityLuxIron)
+				.setHitEntityHandler(ItemType.Hoe,onHitEntityLuxIron)
+				.setHitEntityHandler(ItemType.Spade,onHitEntityLuxIron);
+
+		VibrhythmToolSet=new EquipmentSet("vibrhythmiron",null,Materials.VibrhythmIronTool,true,true,false,false);
 
 		WolfFurSet=new ArmorSet("wolffur",Materials.WolfFurArmor);
 		IcyWolfFurSet=new ArmorSet("icywolffur",Materials.IcyWolfFurArmor);
@@ -139,6 +160,14 @@ public class EquipmentSets
 			public void performEffect(ItemStack headStack, ItemStack chestStack, ItemStack legStack, ItemStack bootStack, EntityPlayer player)
 			{
 				; // todo high
+			}
+		};
+		LuxIronArmorSet =new EffectArmorSet("luxiron",Materials.LuxIronArmor)
+		{
+			@Override
+			public void performEffect(ItemStack headStack, ItemStack chestStack, ItemStack legStack, ItemStack bootStack, EntityPlayer player)
+			{
+				;
 			}
 		};
 	}
@@ -371,7 +400,7 @@ public class EquipmentSets
 		{
 			this(mn,am,tm,true,true,true,true);
 		}
-		public EquipmentSet(String mn,ItemArmor.ArmorMaterial am, Item.ToolMaterial tm,boolean hasW,boolean hasT,boolean hasA,boolean hasB)
+		public EquipmentSet(String mn,ItemArmor.ArmorMaterial am, Item.ToolMaterial tm,boolean hasWeapon,boolean hasTool,boolean hasArmor,boolean hasBauble)
 		{
 			materialName=mn;
 			armorMaterial=am;
@@ -390,7 +419,7 @@ public class EquipmentSets
 			handlerAmulet=new BaubleFunctionHandler();
 			handlerBelt=new BaubleFunctionHandler();
 
-			if(hasWeapon=hasW)
+			if(this.hasWeapon =hasWeapon && tm!=null)
 				Sword=new ItemSword(tm)
 				{
 					@Override
@@ -471,7 +500,7 @@ public class EquipmentSets
 			else
 				Sword=null;
 
-			if(hasTools=hasT)
+			if(hasTools=hasTool && tm!=null)
 			{
 				Pickaxe=new ItemPickaxe(tm){
 					@Override
@@ -788,7 +817,7 @@ public class EquipmentSets
 				Hoe=null;
 			}
 
-			if(hasArmor=hasA)
+			if(this.hasArmor =hasArmor && am!=null)
 			{
 				Helmet=new ItemCustomArmor(am, am.ordinal(), 0)
 				{
@@ -1107,7 +1136,7 @@ public class EquipmentSets
 				Boots=null;
 			}
 
-			if(hasBaubles=hasB)
+			if(hasBaubles=hasBauble)
 			{
 				Ring=new Ring()
 				{

@@ -81,11 +81,19 @@ public class Materials
 	public static final ItemArmor.ArmorMaterial StormArmor =
 			EnumHelper.addArmorMaterial(Irisia.MODID+":STORM",
 					15, new int[]{ 2, 5, 4, 1 }, 12);
-	static{StormArmor.customCraftingMaterial=RawMaterials.ChargedStormBall;}
+	static{StormArmor.customCraftingMaterial=RawMaterials.StormIronIngot;}
 
 	public static final ItemArmor.ArmorMaterial DarkIronArmor =
 			EnumHelper.addArmorMaterial(Irisia.MODID+":DARKIRON",
 					5,new int[]{2,5,4,1}, 12);
+	static{DarkIronArmor.customCraftingMaterial=RawMaterials.DarkIronIngot;}
+
+
+	public static final ItemArmor.ArmorMaterial LuxIronArmor =
+			EnumHelper.addArmorMaterial(Irisia.MODID+":LUXIRON",
+					5,new int[]{2,5,4,1}, 12);
+	static{LuxIronArmor.customCraftingMaterial=RawMaterials.LuxIronIngot;}
+
 
 	static
 	{
@@ -155,7 +163,17 @@ public class Materials
 	public static final Item.ToolMaterial DarkIronTool =
 			EnumHelper.addToolMaterial(Irisia.MODID+":DARKIRON",
 					3,1200,12f,2,14)
-			.setRepairItem(new ItemStack(RawMaterials.DarkIronIngot));
+			.setRepairItem(new ItemStack(RawMaterials.DarkIronIngot)); // todo low 改一下性能参数
+
+	public static final Item.ToolMaterial VibrhythmIronTool =
+			EnumHelper.addToolMaterial(Irisia.MODID+":VIBRHYTHM",
+					3,1200,12f,2,14)
+			.setRepairItem(new ItemStack(RawMaterials.VibrhythmIronIngot)); // todo low 改一下性能参数
+
+	public static final Item.ToolMaterial LuxIronTool =
+			EnumHelper.addToolMaterial(Irisia.MODID+":LUX",
+					3,1200,12f,2,14)
+			.setRepairItem(new ItemStack(RawMaterials.LuxIronIngot)); // todo low 改一下性能参数
 
 
 	// 独有材料
