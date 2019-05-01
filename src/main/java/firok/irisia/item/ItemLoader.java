@@ -268,6 +268,7 @@ public class ItemLoader
 	}
 	private static void registerTools()
 	{
+		register(IrisiaCreativeTabs.irisia,Tools.Debugger,"tool_debugger","ToolDebugger");
 		register(IrisiaCreativeTabs.irisia,Tools.Astrolabe,"tool_astrolabe","ToolAstrolabe");
 		register(IrisiaCreativeTabs.irisia,Tools.ArmorStorageBox,"tool_armor_storage_box","ToolArmorStorageBox");
 	}
