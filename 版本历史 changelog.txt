@@ -1,3 +1,9 @@
+0.12.92
+加入星象石材料
+added AstrologicStone material
+加入回归罗盘工具
+added ReturnCompass tool
+
 0.12.91
 加入调试器物品
 added Debugger item

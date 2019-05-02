@@ -75,7 +75,7 @@ public class RawMaterials
 	public final static InformationItem GoldenSilk;
 	public final static InformationItem DiamondSilk;
 	public final static InformationItem MultiCoreBrain; // 多核脑
-
+	public final static InformationItem AstrologicStone; // 星相石
 
 	// irisia !
 	public final static InformationItem CoinCopper;
@@ -152,6 +152,7 @@ public class RawMaterials
 		GoldenSilk = new InformationItem();
 		DiamondSilk = new InformationItem();
 		MultiCoreBrain=new InformationItem();
+		AstrologicStone=new InformationItem();
 
 		CoinCopper = new InformationItem();
 		CoinCopperPile = new InformationItem();

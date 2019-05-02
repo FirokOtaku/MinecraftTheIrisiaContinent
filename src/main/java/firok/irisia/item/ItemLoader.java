@@ -78,6 +78,7 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.material,RawMaterials.GoldenSilk,"material_golden_silk","GoldenSilk");
 		register(IrisiaCreativeTabs.material,RawMaterials.DiamondSilk,"material_diamond_silk","DiamondSilk");
 		register(IrisiaCreativeTabs.material,RawMaterials.MultiCoreBrain,"material_multicore_brain","MultiCoreBrain");
+		register(IrisiaCreativeTabs.material,RawMaterials.AstrologicStone,"material_astrologic_stone","AstrologicStone");
 
 		register(IrisiaCreativeTabs.irisia,RawMaterials.CoinCopper,"coin_copper","CoinCopper");
 		register(IrisiaCreativeTabs.irisia,RawMaterials.CoinCopperPile,"coin_copper_pile","CoinCopperPile");
@@ -268,6 +269,7 @@ public class ItemLoader
 	}
 	private static void registerTools()
 	{
+		register(IrisiaCreativeTabs.irisia,Tools.ReturnCompass,"tool_return_compass","ToolReturnCompass");
 		register(IrisiaCreativeTabs.irisia,Tools.Debugger,"tool_debugger","ToolDebugger");
 		register(IrisiaCreativeTabs.irisia,Tools.Astrolabe,"tool_astrolabe","ToolAstrolabe");
 		register(IrisiaCreativeTabs.irisia,Tools.ArmorStorageBox,"tool_armor_storage_box","ToolArmorStorageBox");

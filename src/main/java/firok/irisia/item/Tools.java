@@ -10,27 +10,18 @@ import firok.irisia.common.AstrologyManager;
 import firok.irisia.inventory.GuiElementLoader;
 import firok.irisia.inventory.IHandInv;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockOre;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.ArrowLooseEvent;
-import net.minecraftforge.event.entity.player.ArrowNockEvent;
+import net.minecraft.world.storage.WorldInfo;
 
 import java.util.List;
 
@@ -130,14 +121,15 @@ public class Tools
 						case 1: // item
 							break;
 						case 2: // world
-							Irisia.tellPlayer("world name "+world.getWorldInfo().getWorldName(),player);
+							WorldInfo info=world.getWorldInfo();
+							Irisia.tellPlayer("world name "+info.getWorldName(),player);
 							Irisia.tellPlayer("provider name "+world.getProviderName(),player);
-							Irisia.tellPlayer("total time "+world.getWorldInfo().getWorldTotalTime(),player);
-							Irisia.tellPlayer("time "+world.getWorldInfo().getWorldTime(),player);
-							Irisia.tellPlayer("rain time "+world.getWorldInfo().getRainTime(),player);
-							Irisia.tellPlayer("thunder time "+world.getWorldInfo().getThunderTime(),player);
-							Irisia.tellPlayer("vanilla dimension "+world.getWorldInfo().getVanillaDimension(),player);
-							Irisia.tellPlayer("generator options "+world.getWorldInfo().getGeneratorOptions(),player);
+							Irisia.tellPlayer("total time "+info.getWorldTotalTime(),player);
+							Irisia.tellPlayer("time "+info.getWorldTime(),player);
+							Irisia.tellPlayer("rain time "+info.getRainTime(),player);
+							Irisia.tellPlayer("thunder time "+info.getThunderTime(),player);
+							Irisia.tellPlayer("provider dimension "+world.provider.dimensionId,player);
+							Irisia.tellPlayer("generator options "+info.getGeneratorOptions(),player);
 							break;
 						case 3: // player
 							Irisia.tellPlayer("sender name "+player.getCommandSenderName(),player);
@@ -186,6 +178,135 @@ public class Tools
 			{
 				return "调试工具 "+getModeName(getMode(itemStack));
 			}
+		};
+	}
+
+	public final static Item ReturnCompass;
+	static
+	{
+		ReturnCompass =new Item(){
+			{
+				this.setMaxStackSize(1);
+				this.setMaxDamage(0);
+			}
+			public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
+			{
+				if(world.isRemote) return itemStack;
+
+//				boolean isCreative=player.capabilities.isCreativeMode;
+//				Irisia.tellPlayer("当前世界"+player.worldObj.getWorldInfo().getVanillaDimension(),player);
+
+				NBTTagCompound nbt=itemStack.hasTagCompound()?itemStack.getTagCompound():new NBTTagCompound();
+
+				if(player.isSneaking()) // change stack's nbt
+				{
+					nbt.setInteger("world",world.provider.dimensionId);
+					nbt.setDouble("posX",player.posX);
+					nbt.setDouble("posY",player.posY);
+					nbt.setDouble("posZ",player.posZ);
+					Irisia.tellPlayerKey(Keys.InfoReturnWandHaveBind,player);
+				}
+				else // change player's pos
+				{
+					boolean can=true;
+					// check cooldown
+					if(nbt.hasKey("cd"))
+					{
+						if(nbt.getInteger("cd")>0)
+						{
+							if(!player.capabilities.isCreativeMode)
+							{
+								can=false;
+								Irisia.tellPlayerKey(Keys.InfoReturnWandNotReady,player);
+							}
+						}
+					}
+					else
+					{
+						nbt.setInteger("cd",0);
+					}
+					// check pos data
+
+					if(!nbt.hasKey("world")||
+							!nbt.hasKey("posX")||
+							!nbt.hasKey("posY")||
+							!nbt.hasKey("posZ"))
+					{
+						can=false;
+						Irisia.tellPlayerKey(Keys.InfoReturnWandNotBind,player);
+					}
+					else
+					{
+						int worldid=nbt.getInteger("world");
+						if(worldid !=(world.provider.dimensionId))
+						{
+							can=false;
+							Irisia.tellPlayerKey(Keys.InfoReturnWandWrongWorld,player);
+						}
+					}
+
+					if(can)
+					{
+						nbt.setInteger("cd",60);
+						double posX=nbt.getDouble("posX");
+						double posY=nbt.getDouble("posY");
+						double posZ=nbt.getDouble("posZ");
+						player.setPositionAndUpdate(posX,posY,posZ);
+					}
+				}
+
+				itemStack.setTagCompound(nbt);
+
+				return itemStack;
+			}
+			@Override
+			@SideOnly(Side.CLIENT)
+			public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean flag)
+			{
+				NBTTagCompound nbt=itemStack.hasTagCompound()?itemStack.getTagCompound():new NBTTagCompound();
+				int cd=0;
+				if(nbt.hasKey("cd"))
+					cd=nbt.getInteger("cd");
+				info.add(StatCollector.translateToLocal(Keys.InfoReturnWandRemain)+cd);
+
+				if(nbt.hasKey("world")
+						&&nbt.hasKey("posX")
+						&&nbt.hasKey("posY")
+						&&nbt.hasKey("posZ"))
+				{
+					StringBuilder str=new StringBuilder(StatCollector.translateToLocal(Keys.InfoReturnWandBindTo));
+					str.append(' ');str.append(nbt.getInteger("world"));
+					str.append(" : ");str.append((long)nbt.getDouble("posX"));
+					str.append(',');str.append((long)nbt.getDouble("posY"));
+					str.append(',');str.append((long)nbt.getDouble("posZ"));
+
+					info.add(str.toString());
+				}
+				else
+				{
+					info.add(StatCollector.translateToLocal(Keys.InfoReturnWandNotBind));
+				}
+
+			}
+
+			public void onUpdate(ItemStack itemStack, World world, Entity entity, int meta, boolean falg)
+			{
+				if(!world.isRemote&&entity.ticksExisted%20==0)
+				{
+					if(itemStack.hasTagCompound())
+					{
+						NBTTagCompound nbt=itemStack.getTagCompound();
+						if(nbt.hasKey("cd"))
+						{
+							int cd=nbt.getInteger("cd");
+							if(cd>0) cd--;
+							nbt.setInteger("cd",cd);
+						}
+						itemStack.setTagCompound(nbt);
+					}
+				}
+			}
+
 		};
 	}
 
