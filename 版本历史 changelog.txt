@@ -1,3 +1,15 @@
+0.12.93
+为黑暗金属盔甲套装添加效果
+added effect to DarkMetal equipment set
+加入升级杖芯
+added AdvancedWandRod items
+加入光合金属锭材料
+added PhotosynthesisMetalIngot material
+加入光合金属块
+added PhotosynthesisMetal block
+加入光合金属装备套装
+added PhotosynthesisMetal equipment set
+
 0.12.92
 加入星象石材料
 added AstrologicStone material
@@ -10,19 +22,19 @@ added Debugger item
 
 0.12.90
 加入律动金属锭、明光金属锭、风暴金属锭材料
-added VibrhythmIronIngot, LuxIronIngot, StormIronIngot materials
+added VibrhythmMetalIngot, LuxMetalIngot, StormMetalIngot materials
 加入律动金属块、明光金属块、风暴金属块
-added VibrhythmIron, LuxIron, StormIron blocks
+added VibrhythmMetal, LuxMetal, StormMetal blocks
 加入律动金属、明光金属装备套装
-added VibrhythmIron, LuxIron equipment sets
+added VibrhythmMetal, LuxMetal equipment sets
 
 0.12.89
 加入黑暗金属锭材料
-added DarkIronIngot material
+added DarkMetalIngot material
 加入黑暗金属块
-added DarkIron block
+added DarkMetal block
 加入黑暗金属套装
-add DarkIron equipment set
+add DarkMetal equipment set
 为装甲套装添加更多功能接口
 added more interfaces to EquipmentSet
 

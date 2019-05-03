@@ -35,10 +35,11 @@ public class OresAndMetal
 	public final static BlockCompressed BlockMogiga;
 	public final static BlockCompressed BlockSolarCrystal;
 	public final static BlockCompressed BlockLunarCrystal;
-	public final static BlockCompressed BlockDarkIron;
-	public final static BlockCompressed BlockVibrhythmIron;
-	public final static BlockCompressed BlockLuxIron;
-	public final static BlockCompressed BlockStormIron;
+	public final static BlockCompressed BlockDarkMetal;
+	public final static BlockCompressed BlockVibrhythmMetal;
+	public final static BlockCompressed BlockLuxMetal;
+	public final static BlockCompressed BlockStormMetal;
+	public final static BlockCompressed BlockPhotosynthesisMetal;
 
 	static
 	{
@@ -115,22 +116,27 @@ public class OresAndMetal
 				setResistance(10.0F).
 				setStepSound(Block.soundTypeMetal);
 
-		BlockDarkIron=(BlockCompressed)new BlockCompressed(MapColor.blackColor).
+		BlockDarkMetal =(BlockCompressed)new BlockCompressed(MapColor.blackColor).
 				setHardness(5.0F).
 				setResistance(10.0F).
 				setStepSound(Block.soundTypeMetal);
 
-		BlockVibrhythmIron=(BlockCompressed)new BlockCompressed(MapColor.cyanColor).
+		BlockVibrhythmMetal =(BlockCompressed)new BlockCompressed(MapColor.cyanColor).
 				setHardness(5.0F).
 				setResistance(10.0F).
 				setStepSound(Block.soundTypeMetal);
 
-		BlockLuxIron=(BlockCompressed)new BlockCompressed(MapColor.clayColor).
+		BlockLuxMetal =(BlockCompressed)new BlockCompressed(MapColor.clayColor).
 				setHardness(5.0F).
 				setResistance(10.0F).
 				setStepSound(Block.soundTypeMetal);
 
-		BlockStormIron=(BlockCompressed)new BlockCompressed(MapColor.clayColor).
+		BlockStormMetal =(BlockCompressed)new BlockCompressed(MapColor.clayColor).
+				setHardness(5.0F).
+				setResistance(10.0F).
+				setStepSound(Block.soundTypeMetal);
+
+		BlockPhotosynthesisMetal =(BlockCompressed)new BlockCompressed(MapColor.greenColor).
 				setHardness(5.0F).
 				setResistance(10.0F).
 				setStepSound(Block.soundTypeMetal);

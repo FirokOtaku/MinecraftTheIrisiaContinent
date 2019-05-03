@@ -66,10 +66,11 @@ public class BlockLoader
 		register(IrisiaCreativeTabs.block,OresAndMetal.BlockHotStone,"blockHotStone","block_hotstone");
 		register(IrisiaCreativeTabs.block,OresAndMetal.BlockSolarCrystal,"blockSolarCrystal","block_solar_crystal");
 		register(IrisiaCreativeTabs.block,OresAndMetal.BlockLunarCrystal,"blockLunarCrystal","block_lunar_crystal");
-		register(IrisiaCreativeTabs.block,OresAndMetal.BlockDarkIron,"blockDarkIron","block_dark_iron");
-		register(IrisiaCreativeTabs.block,OresAndMetal.BlockVibrhythmIron,"blockVibrhythmIron","block_vibrhythm_iron");
-		register(IrisiaCreativeTabs.block,OresAndMetal.BlockLuxIron,"blockLuxIron","block_lux_iron");
-		register(IrisiaCreativeTabs.block,OresAndMetal.BlockStormIron,"blockStormIron","block_storm_iron");
+		register(IrisiaCreativeTabs.block,OresAndMetal.BlockDarkMetal,"blockDarkMetal","block_dark_metal");
+		register(IrisiaCreativeTabs.block,OresAndMetal.BlockVibrhythmMetal,"blockVibrhythmMetal","block_vibrhythm_metal");
+		register(IrisiaCreativeTabs.block,OresAndMetal.BlockLuxMetal,"blockLuxMetal","block_lux_metal");
+		register(IrisiaCreativeTabs.block,OresAndMetal.BlockStormMetal,"blockStormMetal","block_storm_metal");
+		register(IrisiaCreativeTabs.block,OresAndMetal.BlockPhotosynthesisMetal,"blockPhotosynthesisMetal","block_photosynthesis_metal");
 	}
 	private static void registerHerbs()
 	{

@@ -27,7 +27,6 @@ import java.util.List;
 public class ConsumableWeapons
 {
 	public final static Item ThrowableWeapons;
-
 	static
 	{
 		ThrowableWeapons=new Item()

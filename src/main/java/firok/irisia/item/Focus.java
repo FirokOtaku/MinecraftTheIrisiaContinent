@@ -9,7 +9,7 @@ import firok.irisia.block.SpecialDecorations;
 import firok.irisia.entity.Summons;
 import firok.irisia.entity.Throwables;
 import firok.irisia.world.gen.Gen;
-import net.minecraft.block.Block;
+import net.minecraft.block.*;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;

@@ -330,8 +330,10 @@ public class Tools
 	static
 	{
 		ArmorStorageBox=new Item(){
-			final String[] items=new String[]{"item1","item2","item3","item4"};
-			final String[] names=new String[]{"name1","name2","name3","name4"};
+			{
+				this.setMaxDamage(0);
+				this.setMaxStackSize(1);
+			}
 			public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
 			{
 				try

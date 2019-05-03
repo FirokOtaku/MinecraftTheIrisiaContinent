@@ -61,10 +61,11 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.material,RawMaterials.LunarCrystal,"material_lunar_crystal","LunarCrystal");
 		register(IrisiaCreativeTabs.material,RawMaterials.GlitteringLunarCrystal,"material_glittering_solar_crystal","GlitteringSolarCrystal");
 		register(IrisiaCreativeTabs.material,RawMaterials.GlitteringSolarCrystal,"material_glittering_lunar_crystal","GlitteringLunarCrystal");
-		register(IrisiaCreativeTabs.material,RawMaterials.DarkIronIngot,"material_dark_iron_ingot","DarkIronIngot");
-		register(IrisiaCreativeTabs.material,RawMaterials.VibrhythmIronIngot,"material_vibrhythm_iron_ingot","VibrhythmIronIngot");
-		register(IrisiaCreativeTabs.material,RawMaterials.LuxIronIngot,"material_lux_iron_ingot","LuxIronIngot");
-		register(IrisiaCreativeTabs.material,RawMaterials.StormIronIngot,"material_storm_iron_ingot","StormIronIngot");
+		register(IrisiaCreativeTabs.material,RawMaterials.DarkMetalIngot,"material_dark_metal_ingot","DarkMetalIngot");
+		register(IrisiaCreativeTabs.material,RawMaterials.VibrhythmMetalIngot,"material_vibrhythm_metal_ingot","VibrhythmMetalIngot");
+		register(IrisiaCreativeTabs.material,RawMaterials.LuxMetalIngot,"material_lux_metal_ingot","LuxMetalIngot");
+		register(IrisiaCreativeTabs.material,RawMaterials.StormMetalIngot,"material_storm_metal_ingot","StormMetalIngot");
+		register(IrisiaCreativeTabs.material,RawMaterials.PhotosynthesisMetalIngot,"material_photosynthesis_metal_ingot","PhotosynthesisMetalIngot");
 		register(IrisiaCreativeTabs.material,RawMaterials.FlumetalIngot,"material_flumetal_ingot","FlumetalIngot");
 		register(IrisiaCreativeTabs.material,RawMaterials.SolitaIngot,"material_solita_ingot","SolitaIngot");
 		register(IrisiaCreativeTabs.material,RawMaterials.MogigaIngot,"material_mogiga_ingot","MogigaIngot");
@@ -115,6 +116,8 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.equi,EquipmentSets.VibrhythmToolSet);
 		register(IrisiaCreativeTabs.equi,EquipmentSets.LuxIronArmorSet);
 		register(IrisiaCreativeTabs.equi,EquipmentSets.LuxIronToolSet);
+		register(IrisiaCreativeTabs.equi,EquipmentSets.PhotosynthesisArmorSet);
+		register(IrisiaCreativeTabs.equi,EquipmentSets.PhotosynthesisToolSet);
 		register(IrisiaCreativeTabs.equi,EquipmentSets.GarrisonSet);
 		// 注册生命木套装
 		register(IrisiaCreativeTabs.equi,EquipmentAutoRepair.LifewoodSword,"sword_lifewood","LifewoodSword");
@@ -157,6 +160,14 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.tc,Wands.ItemWhitebeardStaffRod,"staff_rod_whitebeard","WhitebeardStaffRod");
 		register(IrisiaCreativeTabs.tc,Wands.ItemBlackbeardStaffRod,"staff_rod_blackbeard","BlackbeardStaffRod");
 		register(IrisiaCreativeTabs.tc,Wands.ItemGraybeardStaffRod,"staff_rod_graybeard","GraybeardStaffRod");
+
+		// 升级杖芯
+		register(IrisiaCreativeTabs.tc,Wands.ItemAdvancedRodObsidian,"wand_rod_advanced_obsidian","AdvancedRodObsidian");
+		register(IrisiaCreativeTabs.tc,Wands.ItemAdvancedRodBone,"wand_rod_advanced_bone","AdvancedRodBone");
+		register(IrisiaCreativeTabs.tc,Wands.ItemAdvancedRodBlaze,"wand_rod_advanced_blaze","AdvancedRodBlaze");
+		register(IrisiaCreativeTabs.tc,Wands.ItemAdvancedRodIce,"wand_rod_advanced_ice","AdvancedRodIce");
+		register(IrisiaCreativeTabs.tc,Wands.ItemAdvancedRodQuartz,"wand_rod_advanced_quartz","AdvancedRodQuartz");
+		register(IrisiaCreativeTabs.tc,Wands.ItemAdvancedRodReed,"wand_rod_advanced_reed","AdvancedRodReed");
 	}
 	private static void registerFocus()
 	{

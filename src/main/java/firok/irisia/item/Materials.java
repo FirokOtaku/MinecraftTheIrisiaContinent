@@ -1,6 +1,5 @@
 package firok.irisia.item;
 
-import cpw.mods.fml.client.registry.RenderingRegistry;
 import firok.irisia.Irisia;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -81,18 +80,23 @@ public class Materials
 	public static final ItemArmor.ArmorMaterial StormArmor =
 			EnumHelper.addArmorMaterial(Irisia.MODID+":STORM",
 					15, new int[]{ 2, 5, 4, 1 }, 12);
-	static{StormArmor.customCraftingMaterial=RawMaterials.StormIronIngot;}
+	static{StormArmor.customCraftingMaterial=RawMaterials.StormMetalIngot;}
 
 	public static final ItemArmor.ArmorMaterial DarkIronArmor =
 			EnumHelper.addArmorMaterial(Irisia.MODID+":DARKIRON",
 					5,new int[]{2,5,4,1}, 12);
-	static{DarkIronArmor.customCraftingMaterial=RawMaterials.DarkIronIngot;}
+	static{DarkIronArmor.customCraftingMaterial=RawMaterials.DarkMetalIngot;}
 
 
 	public static final ItemArmor.ArmorMaterial LuxIronArmor =
 			EnumHelper.addArmorMaterial(Irisia.MODID+":LUXIRON",
 					5,new int[]{2,5,4,1}, 12);
-	static{LuxIronArmor.customCraftingMaterial=RawMaterials.LuxIronIngot;}
+	static{LuxIronArmor.customCraftingMaterial=RawMaterials.LuxMetalIngot;}
+
+	public static final ItemArmor.ArmorMaterial PhotosynthesisMetalArmor =
+			EnumHelper.addArmorMaterial(Irisia.MODID+":PHOTOSYNTHESIS",
+					5,new int[]{2,5,4,1}, 12);
+	static{LuxIronArmor.customCraftingMaterial=RawMaterials.LuxMetalIngot;}
 
 
 	static
@@ -160,20 +164,25 @@ public class Materials
 					3, 5500, 15.0F, 8F, 8)
 			.setRepairItem(new ItemStack(RawMaterials.SolitaIngot));
 
-	public static final Item.ToolMaterial DarkIronTool =
+	public static final Item.ToolMaterial DarkMetalTool =
 			EnumHelper.addToolMaterial(Irisia.MODID+":DARKIRON",
 					3,1200,12f,2,14)
-			.setRepairItem(new ItemStack(RawMaterials.DarkIronIngot)); // todo low 改一下性能参数
+			.setRepairItem(new ItemStack(RawMaterials.DarkMetalIngot)); // todo low 改一下性能参数
 
-	public static final Item.ToolMaterial VibrhythmIronTool =
+	public static final Item.ToolMaterial VibrhythmMetalTool =
 			EnumHelper.addToolMaterial(Irisia.MODID+":VIBRHYTHM",
 					3,1200,12f,2,14)
-			.setRepairItem(new ItemStack(RawMaterials.VibrhythmIronIngot)); // todo low 改一下性能参数
+			.setRepairItem(new ItemStack(RawMaterials.VibrhythmMetalIngot)); // todo low 改一下性能参数
 
-	public static final Item.ToolMaterial LuxIronTool =
+	public static final Item.ToolMaterial LuxMetalTool =
 			EnumHelper.addToolMaterial(Irisia.MODID+":LUX",
 					3,1200,12f,2,14)
-			.setRepairItem(new ItemStack(RawMaterials.LuxIronIngot)); // todo low 改一下性能参数
+			.setRepairItem(new ItemStack(RawMaterials.LuxMetalIngot)); // todo low 改一下性能参数
+
+	public static final Item.ToolMaterial PhotosynthesisMetalTool =
+			EnumHelper.addToolMaterial(Irisia.MODID+":PHOTOSYNTHESIS",
+					3,1200,12f,2,14)
+			.setRepairItem(new ItemStack(RawMaterials.LuxMetalIngot)); // todo low 改一下性能参数
 
 
 	// 独有材料

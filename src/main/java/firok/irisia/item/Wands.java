@@ -2,6 +2,7 @@ package firok.irisia.item;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import firok.irisia.Irisia;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,6 +22,19 @@ import java.util.List;
 
 public class Wands
 {
+	public final static Rod AdvancedRodObsidian;
+	public final static ItemRod ItemAdvancedRodObsidian;
+	public final static Rod AdvancedRodBone;
+	public final static ItemRod ItemAdvancedRodBone;
+	public final static Rod AdvancedRodBlaze;
+	public final static ItemRod ItemAdvancedRodBlaze;
+	public final static Rod AdvancedRodIce;
+	public final static ItemRod ItemAdvancedRodIce;
+	public final static Rod AdvancedRodQuartz;
+	public final static ItemRod ItemAdvancedRodQuartz;
+	public final static Rod AdvancedRodReed;
+	public final static ItemRod ItemAdvancedRodReed;
+
 	public final static WandSet LifeWoodSet;
 	public final static WandSet SpectreSet;
 
@@ -36,6 +50,28 @@ public class Wands
 	public final static Rod CreativeRod;
 	static
 	{
+		ItemAdvancedRodObsidian=new ItemRod();
+		ItemAdvancedRodBone=new ItemRod();
+		ItemAdvancedRodBlaze=new ItemRod();
+		ItemAdvancedRodIce=new ItemRod();
+		ItemAdvancedRodQuartz=new ItemRod();
+		ItemAdvancedRodReed=new ItemRod();
+		AdvancedRodObsidian=new Rod("arobsidian",80,new ItemStack(ItemAdvancedRodObsidian),30)
+		{
+			@Override
+			public void setOnUpdate(IWandRodOnUpdate onUpdate)
+			{
+				super.setOnUpdate(onUpdate);
+			}
+		};
+
+		AdvancedRodBone=new Rod("arbone",80,new ItemStack(ItemAdvancedRodBone),30);
+		AdvancedRodBlaze=new Rod("arblaze",80,new ItemStack(ItemAdvancedRodBlaze),30);
+		AdvancedRodIce=new Rod("arice",80,new ItemStack(ItemAdvancedRodIce),30);
+		AdvancedRodQuartz=new Rod("arquartz",80,new ItemStack(ItemAdvancedRodQuartz),30);
+		AdvancedRodReed=new Rod("arreed",80,new ItemStack(ItemAdvancedRodReed),30);
+
+
 		LifeWoodSet=new WandSet("lifewood",150,10,20,20);
 		SpectreSet=new WandSet("spectre",200,15,30,30);
 		//String mn,int capacity,float discount,
@@ -56,29 +92,20 @@ public class Wands
 		// FIXME 这里的itemstack以后要换成对的
 		ItemNodeRod=new ItemRod();
 		NodeRod =new Rod("node", 60, new ItemStack(ItemNodeRod), 50,
-				new IWandRodOnUpdate()
-				{
-					final Aspect[] aspects=new Aspect[]
-							{Aspect.FIRE, Aspect.WATER, Aspect.AIR,
-							Aspect.EARTH, Aspect.ORDER, Aspect.ENTROPY};
-					@Override
-					public void onUpdate(ItemStack itemstack, EntityPlayer player)
+				(itemstack,player)->{
+					if(player.worldObj.isRemote)
+						return;
+
+					if(player.ticksExisted%60==0)
+					for(Aspect as:Irisia.arrayPrimalAspect)
 					{
-						if(player.worldObj.isRemote)
-							return;
+						if(((ItemWandCasting)itemstack.getItem())
+								.getVis(itemstack, as) <
+								((ItemWandCasting)itemstack.getItem()).getMaxVis(itemstack))
+							((ItemWandCasting)itemstack.getItem()).addVis(itemstack, as, 1, true);
 
-						if(player.ticksExisted%60==0)
-							for(Aspect as:aspects)
-							{
-								if(((ItemWandCasting)itemstack.getItem())
-										.getVis(itemstack, as) <
-										((ItemWandCasting)itemstack.getItem()).getMaxVis(itemstack))
-								((ItemWandCasting)itemstack.getItem()).addVis(itemstack, as, 1, true);
-
-							}
 					}
-				},
-		false,null);
+				},false,null);
 		ItemCreativeRod=new ItemRod(){
 			@Override
 			public void addInformation(ItemStack itemstack,EntityPlayer player,List list,boolean flag)
@@ -86,33 +113,25 @@ public class Wands
 				list.add("Creative Only");
 			}
 		};
-		CreativeRod=new Rod("creative", 10000, new ItemStack(ItemCreativeRod), 0,
-				new IWandRodOnUpdate()
-				{
-					final Aspect[] aspects=new Aspect[]
-							{Aspect.FIRE, Aspect.WATER, Aspect.AIR,
-									Aspect.EARTH, Aspect.ORDER, Aspect.ENTROPY};
-					@Override
-					public void onUpdate(ItemStack itemstack, EntityPlayer player)
-					{
-						if(player.worldObj.isRemote)
-							return;
 
-						if(player.ticksExisted%80==0)
+		CreativeRod=new Rod("creative", 10000, new ItemStack(ItemCreativeRod), 0,
+				(itemstack,player)->{
+					if(player.worldObj.isRemote)
+						return;
+
+					if(player.ticksExisted%80==0)
+					{
+						ItemWandCasting wc=(ItemWandCasting)itemstack.getItem();
+						for (Aspect as : Irisia.arrayPrimalAspect)
 						{
-							ItemWandCasting wc=(ItemWandCasting)itemstack.getItem();
-							for (Aspect as : aspects)
+							int visNow=wc.getVis(itemstack,as);
+							if(visNow<10000)
 							{
-								int visNow=wc.getVis(itemstack,as);
-								if(visNow<10000)
-								{
-									wc.addVis(itemstack,as,10000-visNow-1,true);
-								}
+								wc.addVis(itemstack,as,10000-visNow-1,true);
 							}
 						}
 					}
-				},
-				false,null);
+				},false,null);
 	}
 
 	public final static Item ItemWhitebeardStaffRod;

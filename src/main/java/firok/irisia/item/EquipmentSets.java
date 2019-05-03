@@ -8,7 +8,9 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import firok.irisia.Irisia;
 import firok.irisia.Keys;
+import firok.irisia.ability.CauseRepairItem;
 import firok.irisia.ability.CauseVisRegen;
+import firok.irisia.common.EntitySelectors;
 import firok.irisia.potion.Potions;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
@@ -21,6 +23,7 @@ import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
@@ -47,6 +50,7 @@ public class EquipmentSets
 	public final static EquipmentSet DarkIronToolSet;
 	public final static EquipmentSet LuxIronToolSet;
 	public final static EquipmentSet VibrhythmToolSet;
+	public final static EquipmentSet PhotosynthesisToolSet;
 
 	public final static ArmorSet WolfFurSet;
 	public final static ArmorSet IcyWolfFurSet;
@@ -59,6 +63,7 @@ public class EquipmentSets
 	public final static EffectArmorSet PhoneixSet;
 	public final static EffectArmorSet DarkIronArmorSet;
 	public final static EffectArmorSet LuxIronArmorSet;
+	public final static EffectArmorSet PhotosynthesisArmorSet;
 
 	public static final int timeEffectArmorBuff=intervalEffectArmorTick+5; // 套装提供的buff时间(tick)
 
@@ -79,7 +84,7 @@ public class EquipmentSets
 			target.addPotionEffect(new PotionEffect(Potion.blindness.id,type==ItemType.Sword?120:60,0));
 			return true;
 		};
-		DarkIronToolSet =new EquipmentSet("darkiron",Materials.DarkIronArmor,Materials.DarkIronTool,true,true,false,false)
+		DarkIronToolSet =new EquipmentSet("darkiron",Materials.DarkIronArmor,Materials.DarkMetalTool,true,true,false,false)
 				.setHitEntityHandler(ItemType.Sword,onHitEntityDarkIron)
 				.setHitEntityHandler(ItemType.Pickaxe,onHitEntityDarkIron)
 				.setHitEntityHandler(ItemType.Axe,onHitEntityDarkIron)
@@ -92,14 +97,26 @@ public class EquipmentSets
 			target.attackEntityFrom(DamageSource.causeMobDamage(player),isUndead?14:8);
 			return true;
 		};
-		LuxIronToolSet =new EquipmentSet("luxiron",Materials.LuxIronArmor,Materials.LuxIronTool,true,true,false,false)
+		LuxIronToolSet =new EquipmentSet("luxiron",Materials.LuxIronArmor,Materials.LuxMetalTool,true,true,false,false)
 				.setHitEntityHandler(ItemType.Sword,onHitEntityLuxIron)
 				.setHitEntityHandler(ItemType.Pickaxe,onHitEntityLuxIron)
 				.setHitEntityHandler(ItemType.Axe,onHitEntityLuxIron)
 				.setHitEntityHandler(ItemType.Hoe,onHitEntityLuxIron)
 				.setHitEntityHandler(ItemType.Spade,onHitEntityLuxIron);
 
-		VibrhythmToolSet=new EquipmentSet("vibrhythmiron",null,Materials.VibrhythmIronTool,true,true,false,false);
+		VibrhythmToolSet=new EquipmentSet("vibrhythmiron",null,Materials.VibrhythmMetalTool,true,true,false,false);
+
+		ItemFunctionHandler.ItemUpdateHandler onItemUpdatePhotosynthesis=(type,itemStack,world,entity,position,onHand)->{
+			if(world.isRemote||entity.ticksExisted%40!=0) return;
+			if(world.getLightBrightness((int)entity.posX,(int)entity.posY,(int)entity.posZ)>8)
+				CauseRepairItem.To(itemStack, (EntityLivingBase) entity);
+		};
+		PhotosynthesisToolSet=new EquipmentSet("photosynthesis",null,Materials.PhotosynthesisMetalTool,true,true,false,false)
+				.setUpdateHandler(ItemType.Sword,onItemUpdatePhotosynthesis)
+				.setUpdateHandler(ItemType.Pickaxe,onItemUpdatePhotosynthesis)
+				.setUpdateHandler(ItemType.Axe,onItemUpdatePhotosynthesis)
+				.setUpdateHandler(ItemType.Hoe,onItemUpdatePhotosynthesis)
+				.setUpdateHandler(ItemType.Spade,onItemUpdatePhotosynthesis);
 
 		WolfFurSet=new ArmorSet("wolffur",Materials.WolfFurArmor);
 		IcyWolfFurSet=new ArmorSet("icywolffur",Materials.IcyWolfFurArmor);
@@ -159,7 +176,18 @@ public class EquipmentSets
 			@Override
 			public void performEffect(ItemStack headStack, ItemStack chestStack, ItemStack legStack, ItemStack bootStack, EntityPlayer player)
 			{
-				; // todo high
+				World world=player.worldObj;
+				if(world.isRemote) return;
+
+				List<EntityLivingBase> entities=world.getEntitiesWithinAABBExcludingEntity(player,
+						AxisAlignedBB.getBoundingBox(player.posX-6,player.posY-6,player.posZ-6,
+								player.posX+6,player.posY+6,player.posZ+6),
+						EntitySelectors.SelectEntityMonstersAlive);
+
+				for(EntityLivingBase entity:entities)
+				{
+					entity.addPotionEffect(new PotionEffect(Potion.blindness.id,timeEffectArmorBuff,0));
+				}
 			}
 		};
 		LuxIronArmorSet =new EffectArmorSet("luxiron",Materials.LuxIronArmor)
@@ -168,6 +196,18 @@ public class EquipmentSets
 			public void performEffect(ItemStack headStack, ItemStack chestStack, ItemStack legStack, ItemStack bootStack, EntityPlayer player)
 			{
 				;
+			}
+		};
+		PhotosynthesisArmorSet =new EffectArmorSet("photosynthesis",Materials.PhotosynthesisMetalArmor)
+		{
+			@Override
+			public void performEffect(ItemStack headStack, ItemStack chestStack, ItemStack legStack, ItemStack bootStack, EntityPlayer player)
+			{
+				if(player.worldObj.getLightBrightness((int)player.posX,(int)player.posY,(int)player.posZ)<=8) return;
+				CauseRepairItem.To(headStack,player);
+				CauseRepairItem.To(chestStack,player);
+				CauseRepairItem.To(legStack,player);
+				CauseRepairItem.To(bootStack,player);
 			}
 		};
 	}
