@@ -1,3 +1,9 @@
+0.12.94
+加入各类箭矢、法球投射物实体
+added arrows, orbs projectile entities
+加入测试靶、物品投递、召唤物-傀儡、无害史莱姆、敲门鬼、远古方块实体
+added TestTarget, Carrier, SummonedGolem, HarmlessSlime, GhostKnocker, AncientCube entities
+
 0.12.93
 为黑暗金属盔甲套装添加效果
 added effect to DarkMetal equipment set

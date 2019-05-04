@@ -18,7 +18,7 @@ public class Npcs
 {
 	public static class TestTarget extends EntityVillager
 	{
-		protected TestTarget(World world)
+		public TestTarget(World world)
 		{
 			this(world,0,0,0);
 		}

@@ -38,14 +38,22 @@ public class ConsumableWeapons
 				switch (i)
 				{
 					case 0:
-						ret.append("smallStone");
+						ret.append("none");
 						break;
 					case 1:
-						ret.append("middleStone");
+						ret.append("smallStone");
 						break;
 					case 2:
+						ret.append("middleStone");
+						break;
+					case 3:
 						ret.append("bigStone");
 						break;
+					case 4:
+						ret.append("hugeStone");
+						break;
+					case 5:
+						ret.append("magicalBall");
 					default:
 						ret.append("others");
 						break;
@@ -65,33 +73,44 @@ public class ConsumableWeapons
 			{
 				if(world.isRemote)
 					return itemStack;
+				boolean hasUsed=false;
 				if(player.isSneaking())
 				{
 					int damage=itemStack.getItemDamage()+1;
-					itemStack.setItemDamage(damage<=5?damage:0);
+					itemStack.setItemDamage(damage<=6?damage:0);
 					player.addChatComponentMessage(new ChatComponentText("damage="+damage));
 				}
 				else
 				{
 					int damage=itemStack.getItemDamage();
-					player.addChatComponentMessage(new ChatComponentText("damage="+itemStack.getItemDamage()));
+					// player.addChatComponentMessage(new ChatComponentText("damage="+itemStack.getItemDamage()));
 
-					world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
-					if(damage==0)
+					world.playSoundAtEntity(player, "random.bow",
+							0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+					if(damage>=1&&damage<=4)
 					{
-						world.spawnEntityInWorld(new EntityEgg(world, player));
+						hasUsed=true;
+						world.spawnEntityInWorld(new Throwables.EntityStone(world,player,damage));
 					}
-					if(damage==1)
+					if(damage==5)
 					{
-						world.spawnEntityInWorld(new EntityArrow(world,player,1));
-					}
-					if(damage==2)
-					{
-						world.spawnEntityInWorld(new thaumcraft.common.entities.projectile.EntityEldritchOrb(world,player));
+						hasUsed=true;
+						world.spawnEntityInWorld(new Throwables.EntityMagicalDirtBall(world,player,5));
 					}
 				}
+				if(hasUsed && !player.capabilities.isCreativeMode)
+					itemStack.stackSize--;
+
 				return itemStack;
 			}
+			@Override
+			@SideOnly(Side.CLIENT)
+			public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean p_77624_4_)
+			{
+				int damage=itemStack.getItemDamage();
+				info.add(new StringBuffer("damage : ").append(damage).toString());
+			}
+
 		};
 
 	}
