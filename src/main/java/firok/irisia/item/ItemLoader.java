@@ -185,6 +185,7 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.food,Foods.HealingSalve,"healing_salve","HealingSalve");
 		register(IrisiaCreativeTabs.food,Foods.VilligerFood,"villiger_food","VilligerFood");
 		register(IrisiaCreativeTabs.food,Foods.MixedSweet,"mixed_sweet","MixedSweet");
+		register(IrisiaCreativeTabs.food,Foods.PoisonousApple,"poisonous_apple","PoisonousApple");
 
 		register(IrisiaCreativeTabs.food,Foods.HuckTeaLeafBerry,"berry_huck_tea_leaf","BerryHuckTeaLeaf");
 		register(IrisiaCreativeTabs.food,Foods.MonaFruitBerry,"berry_mona_fruit","BerryMonaFruit");

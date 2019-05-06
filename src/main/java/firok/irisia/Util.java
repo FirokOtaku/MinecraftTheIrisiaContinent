@@ -18,6 +18,8 @@ import net.minecraft.util.DamageSource;
 import java.awt.*;
 
 public class Util {
+	public static final byte[] Bits=new byte[]{1,2,4,8,16,32,64};
+
 	public static class BlockPos
 	{
 		public final int x,y,z;

@@ -30,6 +30,7 @@ public class Foods
 	public final static InformationItemFood HardBread; // 硬面包
 	public final static InformationItemFood DwartBread; // 矮人面包
 	public final static InformationItemFood ElfBread; // 精灵面包
+	public final static InformationItemFood PoisonousApple; // 毒苹果
 
 	public final static InformationItemFood PotionMpLesser; // 蓝药
 	public final static InformationItemFood PotionMp;
@@ -64,6 +65,8 @@ public class Foods
 		// HuckTeaLeaf=new InformationItemFood();
 		Breadfruit=new InformationItemFood();
 		ElfBean=new InformationItemFood();
+		PoisonousApple=new InformationItemFood(InformationItemFood.defaultUseTime,1,1,false,false,
+				new Potion[]{Potion.poison},new int[]{160},new byte[]{0},new float[]{1f});
 
 		PotionMpLesser=new InformationItemFood()
 		{
@@ -90,6 +93,7 @@ public class Foods
 
 	public static class InformationItemFood extends ItemFood
 	{
+		public static final int defaultUseTime=32;
 		public final int UseDuration;
 		//public final String[] lines;
 		public final boolean isDrink;
@@ -101,7 +105,6 @@ public class Foods
 		{
 			this(32,0,0,false);
 		}
-
 		public InformationItemFood(int useTime,int amountHeal,int amountSaturation,boolean isWolfFood)
 		{
 			this(useTime,amountHeal,amountSaturation,isWolfFood,false);
@@ -111,7 +114,7 @@ public class Foods
 			this(useTime,amountHeal,amountSaturation,isWolfFood,isDrink,new Potion[0],new int[0],new byte[0],new float[0]);
 		}
 		public InformationItemFood(int useTime,int amountHeal,int amountSaturation,boolean isWolfFood,boolean isDrink,
-		                           Potion[] ps,int[] ds,byte[] ls,float[] prs)
+		                           Potion[] potions,int[] durations,byte[] levels,float[] properties)
 		{
 			super(amountHeal,amountSaturation,isWolfFood);
 
@@ -122,18 +125,18 @@ public class Foods
 //			else
 //				lines=new String[0];
 
-			if(ps.length>0 && ps.length==ds.length&& ds.length==ls.length && ls.length==prs.length)
+			if(potions.length>0 && potions.length==durations.length&& durations.length==levels.length && levels.length==properties.length)
 			{
-				potions=ps.clone();
-				durs=ds.clone();
-				levels=ls.clone();
-				props=prs.clone();
+				this.potions =potions.clone();
+				durs=durations.clone();
+				this.levels =levels.clone();
+				props=properties.clone();
 			}
 			else
 			{
-				potions=new Potion[0];
+				this.potions =new Potion[0];
 				durs=new int[0];
-				levels=new byte[0];
+				this.levels =new byte[0];
 				props=new float[0];
 			}
 		}

@@ -22,7 +22,7 @@ public class Irisia
 {
     public static final String MODID = "irisia";
     public static final String NAME = "The Irisia Continent";
-    public static final String VERSION = "0.12.94";
+    public static final String VERSION = "0.12.95";
     public static final boolean IN_DEV=true;
 
     @Instance(Irisia.MODID)
@@ -227,6 +227,7 @@ public class Irisia
         noAspect=Collections.unmodifiableList(new ArrayList<>());
 
         listPrimalAspect=Collections.unmodifiableList(Aspect.getPrimalAspects());
-        arrayPrimalAspect = (Aspect[])listPrimalAspect.toArray();
+        arrayPrimalAspect = new Aspect[listPrimalAspect.size()];
+        for(int i=0;i<listPrimalAspect.size();i++) arrayPrimalAspect[i]=listPrimalAspect.get(i);
     }
 }
