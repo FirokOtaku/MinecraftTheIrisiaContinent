@@ -24,6 +24,8 @@ public class ItemLoader
 	public ItemLoader(FMLPreInitializationEvent event)
     {
     	registerItems();
+
+    	register(null,InnerFunction.ITEM_TEXTURE,"INNER_FUNCTION","INNER_FUNCTION");
     }
 
 	private static void registerRawMaterials()

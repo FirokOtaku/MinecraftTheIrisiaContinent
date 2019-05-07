@@ -1,3 +1,7 @@
+0.12.96
+加入内部功能用物品
+added item for inner usage
+
 0.12.95
 加入毒苹果食物
 added PoisonousApple food
