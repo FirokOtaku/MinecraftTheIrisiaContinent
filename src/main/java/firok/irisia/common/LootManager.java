@@ -3,6 +3,7 @@ package firok.irisia.common;
 import firok.irisia.item.RawMaterials;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -16,6 +17,7 @@ public class LootManager
 	private static ArrayList<ItemStack> itemstacks;
 	private static ArrayList<Integer> maxdrop;
 	private static ArrayList<Integer> mindrop;
+	private static ArrayList<Float> ratedrop;
 
 	static
 	{
@@ -23,6 +25,7 @@ public class LootManager
 		itemstacks=new ArrayList<ItemStack>();
 		maxdrop=new ArrayList<Integer>();
 		mindrop=new ArrayList<Integer>();
+		ratedrop=new ArrayList<>();
 	}
 	public static void registerLoot(Class entityClass,Item itemDrop,boolean randomlyDrop)
 	{
@@ -38,15 +41,22 @@ public class LootManager
 	}
 	public static void registerLoot(Class entityClass,ItemStack itemStackDrop,int minDrop,int maxDrop)
 	{
+		registerLoot(entityClass,itemStackDrop,minDrop,maxDrop,1);
+	} // 注册掉落物
+	public static void registerLoot(Class entityClass,ItemStack itemStackDrop,int minDrop,int maxDrop,float rateDrop)
+	{
 		if(entityClass==null||itemStackDrop==null)
 			return;
 
+		if(rateDrop<=0)
+			return;
 		int _minDrop=minDrop>=0?minDrop:0;
 		int _maxDrop=maxDrop>=_minDrop?maxDrop:_minDrop;
 		entities.add(entityClass);
 		itemstacks.add(itemStackDrop);
 		maxdrop.add(_minDrop);
 		mindrop.add(_maxDrop);
+		ratedrop.add(rateDrop);
 	} // 注册掉落物
 
 
@@ -62,6 +72,8 @@ public class LootManager
 		{
 			if(entities.get(i).isInstance(entity))
 			{
+				if(rand.nextFloat()>ratedrop.get(i))
+					continue;
 				ItemStack itemStackDrop=itemstacks.get(i).copy();
 				int dropmin=mindrop.get(i);
 				int dropmax=maxdrop.get(i);
@@ -103,5 +115,6 @@ public class LootManager
 	static void init() // note 掉落物在这里注册
 	{
 		registerLoot(EntityCow.class,RawMaterials.Bezoar,0,2);
+		registerLoot(EntitySlime.class,new ItemStack(RawMaterials.SlimeCore),1,1,0.05f);
 	}
 }
