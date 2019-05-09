@@ -327,6 +327,8 @@ public class Tools
 	private static final String[] items=new String[]{"item1","item2","item3","item4"};
 	private static final String[] names=new String[]{"name1","name2","name3","name4"};
 	public final static Item ArmorStorageBox; // 装备收纳盒
+	public final static Item BaubleStorageBox; // 饰品收纳盒
+	public final static Item Bell; // 铃铛
 	static
 	{
 		ArmorStorageBox=new Item(){
@@ -418,9 +420,137 @@ public class Tools
 					}
 				}
 			}
+		};
+		BaubleStorageBox=new Item(){
+			{
+				this.setMaxDamage(0);
+				this.setMaxStackSize(1);
+			}
+			public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
+			{
+				if(world.isRemote) return itemStack;
+
+				try
+				{
+					IInventory inv=BaublesApi.getBaubles(player);
+					NBTTagCompound nbt=itemStack.hasTagCompound()?itemStack.getTagCompound():new NBTTagCompound();
+
+					int size=inv.getSizeInventory();
+//					Irisia.log("处理之前nbt:"+nbt.toString());
+
+					if(player.isSneaking()) // 潜行
+					{
+//						Irisia.log("潜行状态");
+//						Irisia.log("noTags? "+nbt.hasNoTags());
+						if(nbt.hasNoTags()) // 没东西 就从身上脱下装备装进去
+						{
+							for(int i=0;i<size;i++)
+							{
+								ItemStack stackInSlot=inv.getStackInSlot(i);
+								if(stackInSlot==null) continue;
+								NBTTagCompound stackInSlotNbt=stackInSlot.writeToNBT(new NBTTagCompound());
+								String stackInSlotName=stackInSlot.getDisplayName();
+
+//								Irisia.log(i+" : stackInSlotName : "+stackInSlotName);
+
+								nbt.setTag(items[i],stackInSlotNbt);
+								nbt.setString(names[i],stackInSlotName);
+
+								inv.setInventorySlotContents(i,null);
+							}
+						}
+						else // 有东西就取出来
+						{
+							for(int i=0;i<size;i++)
+							{
+								if(!nbt.hasKey(names[i]) || inv.getStackInSlot(i)!=null) continue;
+								NBTTagCompound stackInInvNbt=nbt.getCompoundTag(items[i]);
+//								Irisia.log(i+" : 取出的东西是 : "+stackInInvNbt.toString());
+								ItemStack stackInInvItem=ItemStack.loadItemStackFromNBT(stackInInvNbt);
+								inv.setInventorySlotContents(i,stackInInvItem);
+								nbt.removeTag(names[i]);
+								nbt.removeTag(items[i]);
+							}
+						}
+					}
+					else // 非潜行
+					{
+						for(int i=0;i<size;i++)
+						{
+							ItemStack stackInInv=inv.getStackInSlot(i);
+
+							boolean hasStackInInv=stackInInv!=null;
+							boolean hasStackInBox=nbt.hasKey(names[i]);
+//							Irisia.log("hasStackInInv: "+hasStackInInv+" , hasStackInBox: "+hasStackInBox);
+
+							if(!(hasStackInBox||hasStackInInv)) continue;
+
+							ItemStack stackInBoxItem=null;
+							if(hasStackInBox)
+							{
+								NBTTagCompound stackInBoxNbt=nbt.getCompoundTag(items[i]);
+								stackInBoxItem=ItemStack.loadItemStackFromNBT(stackInBoxNbt);
+//								Irisia.log(i+" : 盒子里的东西是: "+stackInBoxNbt.toString());
+								nbt.removeTag(names[i]);
+								nbt.removeTag(items[i]);
+							}
+
+							if(stackInInv!=null)
+							{
+								nbt.setTag(items[i],stackInInv.writeToNBT(new NBTTagCompound()));
+								nbt.setString(names[i],stackInInv.getDisplayName());
+//								Irisia.log(i+" : 物品栏里的东西是: "+stackInInv.getDisplayName());
+								inv.setInventorySlotContents(i,null);
+							}
+							if(stackInBoxItem!=null)
+							{
+								inv.setInventorySlotContents(i,stackInBoxItem);
+							}
+						}
+					}
+					inv.markDirty();
+					itemStack.setTagCompound(nbt);
+//					Irisia.log("处理之后nbt:"+nbt.toString());
+				}
+				catch (Exception e)
+				{
+					Irisia.log(e,player);
+					Irisia.log(e);
+				}
+				return itemStack;
+			}
+			@Override
+			@SideOnly(Side.CLIENT)
+			public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean flag)
+			{ // todo 以后改成使用方法 另外加上Util.那个接口
+				if(!itemStack.hasTagCompound())
+					return;
+				NBTTagCompound nbt=itemStack.getTagCompound();
+				if(nbt.hasNoTags()) return;
+				for(byte i=0;i<4;i++)
+				{
+					if(nbt.hasKey(names[i]))
+					{
+						info.add(nbt.getString(names[i]));
+					}
+				}
+			}
 
 		};
-		ArmorStorageBox.setMaxDamage(0);
-		ArmorStorageBox.setMaxStackSize(1);
+
+		Bell=new Item(){
+			public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
+			{
+				if(world.isRemote)
+					player.worldObj.playSoundAtEntity(player,Keys.SoundBell,1,1);
+				return itemStack;
+			}
+			@Override
+			@SideOnly(Side.CLIENT)
+			public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean flag)
+			{
+				; // todo 以后加上点什么东西
+			}
+		};
 	}
 }
