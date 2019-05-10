@@ -289,6 +289,8 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.irisia,Tools.ArmorStorageBox,"tool_armor_storage_box","ToolArmorStorageBox");
 		register(IrisiaCreativeTabs.irisia,Tools.BaubleStorageBox,"tool_bauble_storage_box","ToolBaubleStorageBox");
 		// register(IrisiaCreativeTabs.irisia,Tools.MagicBag,"tool_magic_bag","ToolMagicBag");
+		register(IrisiaCreativeTabs.irisia,Tools.OrienterThaumium,"tool_orienter_thaumium","ToolOrienterThaumium");
+		register(IrisiaCreativeTabs.irisia,Tools.OrienterStorm,"tool_orienter_storm","ToolOrienterStorm");
 	}
 //	private static void registerSeeds()
 //	{

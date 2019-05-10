@@ -1,3 +1,9 @@
+0.12.98
+加入定向金属注魔器机器
+added OrientedMetalInfusioner machine
+加入金属注魔定向器工具
+added MetalInfusionOrienter tools
+
 0.12.97
 加入铃铛、饰品收纳盒工具
 added Bell, BaubleStorageBox tools

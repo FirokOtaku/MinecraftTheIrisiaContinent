@@ -2,6 +2,7 @@ package firok.irisia.tileentity;
 
 import firok.irisia.Irisia;
 import firok.irisia.block.PavingStones;
+import firok.irisia.common.TasteManager;
 import firok.irisia.item.Foods;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -47,7 +48,7 @@ public class BerryMixerTE extends TileEntity implements ISidedInventory
 				else
 				{
 					this.mixerItemStacks[i] = null;
-					Irisia.log("null item at "+i);
+					Irisia.log("null item $ "+i);
 				}
 			}
 			catch (Exception e)
@@ -138,16 +139,27 @@ public class BerryMixerTE extends TileEntity implements ISidedInventory
 	@Override
 	public ItemStack getStackInSlot(int slot)
 	{
-		return this.mixerItemStacks[slot];
+		return slot>=0&&slot<this.mixerItemStacks.length?this.mixerItemStacks[slot]:null;
 	}
 	@Override
-	public ItemStack decrStackSize(int p_70298_1_, int p_70298_2_)
+	public ItemStack decrStackSize(int slot, int count)
 	{
-		return null;
+		if(slot<0||slot>=this.mixerItemStacks.length)return null;
+
+		ItemStack old=this.mixerItemStacks[slot];
+		if(old==null)return null;
+		if(count>old.stackSize)count=old.stackSize;
+		ItemStack ret=old.copy();ret.stackSize=count;
+		old.stackSize-=count;
+		if(old.stackSize==0)
+			this.mixerItemStacks[slot]=null;
+
+		return ret;
 	}
 	@Override // 还不知道这个方法有啥用
 	public ItemStack getStackInSlotOnClosing(int slot)
 	{
+		if(slot>=this.getSizeInventory()) return null;
 		if (this.mixerItemStacks[slot] != null)
 		{
 			ItemStack itemstack = this.mixerItemStacks[slot];
@@ -177,7 +189,7 @@ public class BerryMixerTE extends TileEntity implements ISidedInventory
 	@Override
 	public boolean hasCustomInventoryName()
 	{
-		return false;
+		return true;
 	}
 	@Override
 	public int getInventoryStackLimit()
@@ -210,7 +222,7 @@ public class BerryMixerTE extends TileEntity implements ISidedInventory
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack itemStack)
 	{
-		if(itemStack==null)
+		if(itemStack==null||slot>=this.mixerItemStacks.length)
 			return false;
 
 		Item item=itemStack.getItem();
@@ -229,6 +241,10 @@ public class BerryMixerTE extends TileEntity implements ISidedInventory
 	}
 
 	// berry mixer
+	public byte getMixerLevel()
+	{
+		return mixerLevel;
+	}
 	public boolean isProcessing()
 	{
 		return this.mixerProcess > 0;
@@ -303,109 +319,110 @@ public class BerryMixerTE extends TileEntity implements ISidedInventory
 
 	public ItemStack tryProcess()
 	{
-		ItemStack ret=new ItemStack(new Foods.MixedSweet(),1);
-		NBTTagCompound nbt=new NBTTagCompound();
-
-		byte[] tastes=new byte[5];
-		int antiD=0;
-		int antiP=0;
-		int exp=0;
-		int expl=0;
-		int[] mps=new int[6];
-		int mpl=0;
-
-		ArrayList<Integer> pids=new ArrayList<Integer>();
-		ArrayList<Integer> pts=new ArrayList<Integer>();
-		ArrayList<Integer> pls=new ArrayList<Integer>();
-		ArrayList<Integer> prs=new ArrayList<Integer>();
-
-		for(byte i=2;i<this.mixerItemStacks.length;i++)
-		{
-			Item item;
-			Foods.Berry berry;
-			if(mixerItemStacks[i]!=null && (item=mixerItemStacks[i].getItem()) instanceof Foods.Berry)
-			{
-				berry=(Foods.Berry)item;
-
-				antiD+=berry.antiD;
-				antiP+=berry.antiP;
-				exp+=berry.exp;
-				expl+=berry.expl;
-				if(berry.mpl>mpl) mpl=berry.mpl;
-
-				mps[5]+=berry.mps[5];
-				for(byte i1=0;i1<5;i1++)
-				{
-					tastes[i1]+=berry.tastes[i1];
-					mps[i1]+=berry.mps[i1];
-				}
-
-				for(byte i2=0;i2<berry.pids.length;i2++)
-				{
-					int pid_this_time=berry.pids[i2];
-					int pts_this_time=berry.pts[i2];
-					int pls_this_time=berry.pls[i2];
-					int prs_this_time=berry.prs[i2];
-					int pid_loc_found=-1;
-					if((pid_loc_found=pids.indexOf(pid_this_time))>=0)
-					{
-						if(pls.get(pid_loc_found)<pls_this_time)
-						{
-							pts.set(pid_loc_found,pts_this_time);
-							pls.set(pid_loc_found,pls_this_time);
-							prs.set(pid_loc_found,prs_this_time);
-						}
-						else if(pls.get(pid_loc_found)==pls_this_time)
-						{
-							int pts_found=pts.get(pid_loc_found);
-							int prs_found=prs.get(pid_loc_found);
-							pts.set(pid_loc_found,pts_found>pts_this_time?pts_found:pts_this_time);
-							prs.set(pid_loc_found,prs_found>prs_this_time?prs_found:prs_this_time);
-						}
-					}
-					else
-					{
-						pids.add(pid_this_time);
-						pts.add(pts_this_time);
-						prs.add(prs_this_time);
-						pls.add(pls_this_time);
-					}
-				}
-			}
-		}
-		if(!nbt.hasKey("tag"))
-		{
-			nbt.setTag("tag",new NBTTagCompound());
-		}
-		NBTTagCompound tag=(NBTTagCompound)nbt.getTag("tag");
-		tag.setInteger("exp",exp);
-		tag.setInteger("expl",expl);
-		tag.setByteArray("tastes",tastes);
-		tag.setInteger("antiD",antiD);
-		tag.setInteger("antiP",antiP);
-		tag.setInteger("mpl",mpl);
-		tag.setIntArray("mps",mps);
-
-		int pidSize=pids.size();
-		int[] pids_to_add=new int[pidSize];
-		int[] pls_to_add=new int[pidSize];
-		int[] prs_to_add=new int[pidSize];
-		int[] pts_to_add=new int[pidSize];
-		for(byte i3=0;i3<pidSize;i3++)
-		{
-			pids_to_add[i3]=pids.get(i3);
-			pls_to_add[i3]=pls.get(i3);
-			prs_to_add[i3]=prs.get(i3);
-			pts_to_add[i3]=pts.get(i3);
-		}
-		tag.setIntArray("pids",pids_to_add);
-		tag.setIntArray("pts",pts_to_add);
-		tag.setIntArray("pls",pls_to_add);
-		tag.setIntArray("prs",prs_to_add);
-
-		nbt.setTag("tag",tag);
-
-		ret.readFromNBT(nbt);
-		return ret;
+//		ItemStack ret=new ItemStack(new Foods.MixedSweet(),1);
+//		NBTTagCompound nbt=new NBTTagCompound();
+//
+//		byte[] tastes=new byte[5];
+//		int antiD=0;
+//		int antiP=0;
+//		int exp=0;
+//		int expl=0;
+//		int[] mps=new int[6];
+//		int mpl=0;
+//
+//		ArrayList<Integer> pids=new ArrayList<Integer>();
+//		ArrayList<Integer> pts=new ArrayList<Integer>();
+//		ArrayList<Integer> pls=new ArrayList<Integer>();
+//		ArrayList<Integer> prs=new ArrayList<Integer>();
+//
+//		for(byte i=2;i<this.mixerItemStacks.length;i++)
+//		{
+//			Item item;
+//			Foods.Berry berry;
+//			if(mixerItemStacks[i]!=null && (item=mixerItemStacks[i].getItem()) instanceof Foods.Berry)
+//			{
+//				berry=(Foods.Berry)item;
+//
+//				antiD+=TasteManager.getAntiD(berry);
+//				antiP+=TasteManager.getAntiP(berry);
+//				exp+=TasteManager.getExp(berry);
+//				expl+=berry.expl;
+//				if(berry.mpl>mpl) mpl=berry.mpl;
+//
+//				mps[5]+=berry.mps[5];
+//				for(byte i1=0;i1<5;i1++)
+//				{
+//					tastes[i1]+=berry.tastes[i1];
+//					mps[i1]+=berry.mps[i1];
+//				}
+//
+//				for(byte i2=0;i2<berry.pids.length;i2++)
+//				{
+//					int pid_this_time=berry.pids[i2];
+//					int pts_this_time=berry.pts[i2];
+//					int pls_this_time=berry.pls[i2];
+//					int prs_this_time=berry.prs[i2];
+//					int pid_loc_found=-1;
+//					if((pid_loc_found=pids.indexOf(pid_this_time))>=0)
+//					{
+//						if(pls.get(pid_loc_found)<pls_this_time)
+//						{
+//							pts.set(pid_loc_found,pts_this_time);
+//							pls.set(pid_loc_found,pls_this_time);
+//							prs.set(pid_loc_found,prs_this_time);
+//						}
+//						else if(pls.get(pid_loc_found)==pls_this_time)
+//						{
+//							int pts_found=pts.get(pid_loc_found);
+//							int prs_found=prs.get(pid_loc_found);
+//							pts.set(pid_loc_found,pts_found>pts_this_time?pts_found:pts_this_time);
+//							prs.set(pid_loc_found,prs_found>prs_this_time?prs_found:prs_this_time);
+//						}
+//					}
+//					else
+//					{
+//						pids.add(pid_this_time);
+//						pts.add(pts_this_time);
+//						prs.add(prs_this_time);
+//						pls.add(pls_this_time);
+//					}
+//				}
+//			}
+//		}
+//		if(!nbt.hasKey("tag"))
+//		{
+//			nbt.setTag("tag",new NBTTagCompound());
+//		}
+//		NBTTagCompound tag=(NBTTagCompound)nbt.getTag("tag");
+//		tag.setInteger("exp",exp);
+//		tag.setInteger("expl",expl);
+//		tag.setByteArray("tastes",tastes);
+//		tag.setInteger("antiD",antiD);
+//		tag.setInteger("antiP",antiP);
+//		tag.setInteger("mpl",mpl);
+//		tag.setIntArray("mps",mps);
+//
+//		int pidSize=pids.size();
+//		int[] pids_to_add=new int[pidSize];
+//		int[] pls_to_add=new int[pidSize];
+//		int[] prs_to_add=new int[pidSize];
+//		int[] pts_to_add=new int[pidSize];
+//		for(byte i3=0;i3<pidSize;i3++)
+//		{
+//			pids_to_add[i3]=pids.get(i3);
+//			pls_to_add[i3]=pls.get(i3);
+//			prs_to_add[i3]=prs.get(i3);
+//			pts_to_add[i3]=pts.get(i3);
+//		}
+//		tag.setIntArray("pids",pids_to_add);
+//		tag.setIntArray("pts",pts_to_add);
+//		tag.setIntArray("pls",pls_to_add);
+//		tag.setIntArray("prs",prs_to_add);
+//
+//		nbt.setTag("tag",tag);
+//
+//		ret.readFromNBT(nbt);
+//		return ret;
+		return new ItemStack(Foods.MixedSweet);
 	}
 }

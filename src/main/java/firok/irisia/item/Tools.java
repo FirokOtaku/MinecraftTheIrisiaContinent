@@ -14,6 +14,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -22,11 +23,38 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.WorldInfo;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
 
 import java.util.List;
 
 public class Tools
 {
+	public static final MetalInfusionOrienter OrienterThaumium;
+	public static final MetalInfusionOrienter OrienterStorm;
+	public static MetalInfusionOrienter OrienterDark;
+	static
+	{
+		OrienterThaumium=new MetalInfusionOrienter(new AspectList().add(Aspect.MAGIC,32), Blocks.obsidian,0);
+		OrienterStorm=new MetalInfusionOrienter(new AspectList().add(Aspect.EARTH,32),Blocks.iron_ore,0);
+	}
+	public static class MetalInfusionOrienter extends Item
+	{
+//		public int costTicks=40;
+		public AspectList costAspects;
+		public boolean need(Aspect aspect)
+		{
+			return costAspects !=null&& costAspects.getAmount(aspect)>0;
+		}
+		public Block productBlock=null;
+		public int productMeta=0;
+		public MetalInfusionOrienter(AspectList costAspects, Block productBlock, int productMeta)
+		{
+			this.costAspects=costAspects.copy();
+			this.productBlock=productBlock;
+			this.productMeta=productMeta;
+		}
+	}
 	public final static Item Debugger; // todo low 以后可能删掉
 	static
 	{

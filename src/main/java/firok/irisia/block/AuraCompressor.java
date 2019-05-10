@@ -20,9 +20,9 @@ import thaumcraft.common.tiles.*;
 
 import java.util.Random;
 
-public class AuraCompresser
+public class AuraCompressor
 {
-	public static final Block BlockCompresser=new CompresserBlock();
+	public static final Block BlockCompressor =new CompresserBlock();
 
 	public static class CompresserBlock extends BlockContainer
 	{
@@ -136,7 +136,7 @@ public class AuraCompresser
 					coreFound=true;
 				}
 			}
-			Irisia.log(String.format("cx=%d,cy=%d,cz=%d",cx,cy,cz));
+			// Irisia.log(String.format("cx=%d,cy=%d,cz=%d",cx,cy,cz));
 
 			if(coreFound)
 			{
@@ -148,8 +148,6 @@ public class AuraCompresser
 				}
 			}
 		}
-
-
 		@Override
 		public void registerBlockIcons(IIconRegister iir)
 		{
