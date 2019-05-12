@@ -22,7 +22,7 @@ public class Irisia
 {
     public static final String MODID = "irisia";
     public static final String NAME = "The Irisia Continent";
-    public static final String VERSION = "0.12.98";
+    public static final String VERSION = "0.12.99";
     public static final boolean IN_DEV=true;
 
     @Instance(Irisia.MODID)

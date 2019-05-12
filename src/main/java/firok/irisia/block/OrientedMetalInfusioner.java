@@ -6,7 +6,9 @@ import firok.irisia.tileentity.OrientedMetalInfusionerTE;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -15,7 +17,7 @@ import net.minecraft.world.World;
 
 public class OrientedMetalInfusioner
 {
-	public static Block OrientedMetalInfusioner=new OrientedMetalInfusionerBlock();
+	public static final Block OrientedMetalInfusioner=new OrientedMetalInfusionerBlock();
 	public static class OrientedMetalInfusionerBlock extends BlockContainer
 	{
 		public OrientedMetalInfusionerBlock()
@@ -23,6 +25,25 @@ public class OrientedMetalInfusioner
 			super(Material.iron);
 		}
 
+		public void breakBlock(World world, int x, int y, int z, Block block, int meta)
+		{
+			if(!world.isRemote)
+			{
+				TileEntity te=world.getTileEntity(x,y,z);
+				if(te!=null && te instanceof OrientedMetalInfusionerTE)
+				{
+					OrientedMetalInfusionerTE te2=(OrientedMetalInfusionerTE)te;
+					if(te2.hasOrienter())
+					{
+						ItemStack stack2drop=te2.getStackOrienter();
+						world.spawnEntityInWorld(new EntityItem(world,x,y,z,stack2drop));
+					}
+				}
+			}
+			super.breakBlock(world, x, y, z, block, meta);
+		}
+
+		@SuppressWarnings("deprecation")
 		@Override
 		public boolean hasTileEntity()
 		{
@@ -46,10 +67,8 @@ public class OrientedMetalInfusioner
 		{
 			if(world.isRemote) return false;
 
-
-
 //			return super.onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);
-			ItemStack itemStack=player.getHeldItem();
+			ItemStack heldStack=player.getHeldItem();
 			TileEntity te=world.getTileEntity(x,y,z);
 			if(te==null||!(te instanceof OrientedMetalInfusionerTE)) // 先进行数据检查 如果没有te就设定一个
 			{
@@ -58,36 +77,36 @@ public class OrientedMetalInfusioner
 			}
 			OrientedMetalInfusionerTE teOri=(OrientedMetalInfusionerTE)te;
 
-			if(player.isSneaking())
-			{
-				NBTTagCompound nbt=new NBTTagCompound();
-				teOri.writeToNBT(nbt);
-				Irisia.log(nbt.toString(),player);
-				return true;
-			}
-
 			boolean action=false;
 			ItemStack stack2drop=null;
-			if(teOri.hasOrienter()) // 如果机器里面有转换器 弹出转换器
-			{
-				stack2drop=teOri.getStackOrienter();
-				teOri.setStackOrienter(null);
-				action=true;
-			}
 
-			if(itemStack!=null) // 如果不是空手 且物品是转换器 尝试放入转换器 或者替换机器内的转换器
+			if(player.isSneaking())
 			{
-				Item item=itemStack.getItem();
-				if(item instanceof Tools.MetalInfusionOrienter)
+				if(teOri.hasOrienter()) // 如果机器里面有转换器 弹出转换器
 				{
-					if(!player.capabilities.isCreativeMode)
-						itemStack.stackSize--;
-
-					ItemStack stack2insert=new ItemStack(item);
-					teOri.setStackOrienter(stack2insert);
+					stack2drop=teOri.getStackOrienter();
+					teOri.setStackOrienter(null);
 					action=true;
 				}
+
+				if(heldStack!=null) // 如果不是空手 且物品是转换器 尝试放入转换器 或者替换机器内的转换器
+				{
+					Item item=heldStack.getItem();
+					if(item instanceof Tools.MetalInfusionOrienter)
+					{
+						if(!player.capabilities.isCreativeMode)
+							heldStack.stackSize--;
+
+						ItemStack stack2insert=new ItemStack(item);
+						teOri.setStackOrienter(stack2insert);
+						action=true;
+					}
+				}
 			}
+
+			NBTTagCompound nbt=new NBTTagCompound();
+			teOri.writeToNBT(nbt);
+			Irisia.log(nbt.toString(),player);
 
 			if(stack2drop!=null) player.entityDropItem(stack2drop,0.5f);
 

@@ -19,6 +19,9 @@ import java.awt.*;
 
 public class Util {
 	public static final byte[] Bits=new byte[]{1,2,4,8,16,32,64};
+	public static final byte BitSetBlockUpdate=1;
+	public static final byte BitSetBlockSendChangeToClients=2;
+	public static final byte BitSetBlockPreventRerender=4;
 
 	public static class BlockPos
 	{

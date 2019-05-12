@@ -291,6 +291,9 @@ public class ItemLoader
 		// register(IrisiaCreativeTabs.irisia,Tools.MagicBag,"tool_magic_bag","ToolMagicBag");
 		register(IrisiaCreativeTabs.irisia,Tools.OrienterThaumium,"tool_orienter_thaumium","ToolOrienterThaumium");
 		register(IrisiaCreativeTabs.irisia,Tools.OrienterStorm,"tool_orienter_storm","ToolOrienterStorm");
+		register(IrisiaCreativeTabs.irisia,Tools.OrienterDark,"tool_orienter_dark","ToolOrienterDark");
+		register(IrisiaCreativeTabs.irisia,Tools.OrienterPhotosynthesis,"tool_orienter_photosynthesis","ToolOrienterPhotosynthesis");
+		register(IrisiaCreativeTabs.irisia,Tools.OrienterVibrhythm,"tool_orienter_vibrhythm","ToolOrienterVibrhythm");
 	}
 //	private static void registerSeeds()
 //	{

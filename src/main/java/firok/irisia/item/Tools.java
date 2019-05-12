@@ -25,18 +25,27 @@ import net.minecraft.world.World;
 import net.minecraft.world.storage.WorldInfo;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
+import thaumcraft.common.config.ConfigBlocks;
 
 import java.util.List;
 
+@SuppressWarnings("unchecked")
 public class Tools
 {
 	public static final MetalInfusionOrienter OrienterThaumium;
 	public static final MetalInfusionOrienter OrienterStorm;
-	public static MetalInfusionOrienter OrienterDark;
+	public static final MetalInfusionOrienter OrienterDark;
+	public static final MetalInfusionOrienter OrienterPhotosynthesis;
+	public static final MetalInfusionOrienter OrienterVibrhythm;
+	public static final MetalInfusionOrienter OrienterLux;
 	static
 	{
-		OrienterThaumium=new MetalInfusionOrienter(new AspectList().add(Aspect.MAGIC,32), Blocks.obsidian,0);
-		OrienterStorm=new MetalInfusionOrienter(new AspectList().add(Aspect.EARTH,32),Blocks.iron_ore,0);
+		OrienterThaumium=new MetalInfusionOrienter(new AspectList().add(Aspect.MAGIC,32), ConfigBlocks.blockCosmeticSolid,4);
+		OrienterStorm=new MetalInfusionOrienter(new AspectList().add(Aspect.WEATHER,32),OresAndMetal.BlockStormMetal,0);
+		OrienterDark=new MetalInfusionOrienter(new AspectList().add(Aspect.DARKNESS,32),OresAndMetal.BlockDarkMetal,0);
+		OrienterPhotosynthesis=new MetalInfusionOrienter(new AspectList().add(Aspect.PLANT,32),OresAndMetal.BlockPhotosynthesisMetal,0);
+		OrienterVibrhythm=new MetalInfusionOrienter(new AspectList().add(Aspect.MOTION,32),OresAndMetal.BlockVibrhythmMetal,0);
+		OrienterLux=new MetalInfusionOrienter(new AspectList().add(Aspect.LIGHT,32),OresAndMetal.BlockLuxMetal,0);
 	}
 	public static class MetalInfusionOrienter extends Item
 	{

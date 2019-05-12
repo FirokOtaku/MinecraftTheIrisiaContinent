@@ -111,10 +111,10 @@ public class BlockLoader
 		register(IrisiaCreativeTabs.block,MachineBlocks.BerryMixer,"machineBerryMixer","machine_berry_mixer");
 		register(IrisiaCreativeTabs.block,MachineBlocks.LockedChest,"machineLockedChest","machine_locked_chest");
 
-		register(IrisiaCreativeTabs.block,EnderElevator.ElevatorController,"machine_ender_elevator_controller","MachineEnderElevatorController");
-		register(IrisiaCreativeTabs.block,EnderElevator.ElevatorPlatform,"machine_ender_elevator_platform","MachineEnderElevatorPlatform");
+		register(IrisiaCreativeTabs.block,EnderElevator.ElevatorController,"MachineEnderElevatorController","machine_ender_elevator_controller");
+		register(IrisiaCreativeTabs.block,EnderElevator.ElevatorPlatform,"MachineEnderElevatorPlatform","machine_ender_elevator_platform");
 
-		register(IrisiaCreativeTabs.block,AuraCompresser.BlockCompresser,"MachineAuraCompresser","machine_aura_compresser");
+		register(IrisiaCreativeTabs.block,AuraCompressor.BlockCompressor,"MachineAuraCompressor","machine_aura_compressor");
 	}
 
     public BlockLoader(FMLPreInitializationEvent event)

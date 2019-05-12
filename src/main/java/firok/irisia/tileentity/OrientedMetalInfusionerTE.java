@@ -11,6 +11,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
+//import thaumcraft.api.aspects.IAspectContainer;
 import thaumcraft.api.aspects.IEssentiaTransport;
 import static net.minecraftforge.common.util.ForgeDirection.*;
 
@@ -52,6 +53,55 @@ public class OrientedMetalInfusionerTE extends TileEntity implements IEssentiaTr
 
 	AspectList aspects=new AspectList(); // 机器里面所有的源质
 	public AspectList getAspects(){return aspects.copy();}
+
+//	@Override
+//	public void setAspects(AspectList aspectList)
+//	{
+//		this.aspects=aspectList;
+//	}
+//
+//	@Override
+//	public boolean doesContainerAccept(Aspect aspect)
+//	{
+//		return hasOrienter()?getOrienter().need(aspect):false;
+//	}
+//
+//	@Override
+//	public int addToContainer(Aspect aspect, int i)
+//	{
+//		return addEssentia(aspect,i,ForgeDirection.UNKNOWN);
+//	}
+//
+//	@Override
+//	public boolean takeFromContainer(Aspect aspect, int i)
+//	{
+//		return takeEssentia(aspect,i,UNKNOWN)>0;
+//	}
+//
+//	@Override
+//	public boolean takeFromContainer(AspectList aspectList)
+//	{
+//		return false;
+//	}
+//
+//	@Override
+//	public boolean doesContainerContainAmount(Aspect aspect, int i)
+//	{
+//		return false;
+//	}
+//
+//	@Override
+//	public boolean doesContainerContain(AspectList aspectList)
+//	{
+//		return false;
+//	}
+//
+//	@Override
+//	public int containerContains(Aspect aspect)
+//	{
+//		return aspects.getAmount(aspect);
+//	}
+
 	private boolean exist=true;
 	private int process=0; // 机器运转进度
 	private boolean isProcessing=false;
@@ -109,13 +159,16 @@ public class OrientedMetalInfusionerTE extends TileEntity implements IEssentiaTr
 			if(blockBelow==Blocks.iron_block)
 			{
 				Tools.MetalInfusionOrienter orienter=getOrienter();
-				worldObj.setBlock(xCoord,yCoord+1,zCoord,
-						orienter.productBlock,orienter.productMeta,2);
-				worldObj.markBlockForUpdate(this.xCoord,this.yCoord+1,this.zCoord);
+				if(orienter.productBlock!=null&&orienter.productMeta>=0&&orienter.productMeta<16)
+				{
+					worldObj.setBlock(xCoord,yCoord+1,zCoord,
+							orienter.productBlock,orienter.productMeta,2);
+					worldObj.markBlockForUpdate(this.xCoord,this.yCoord+1,this.zCoord);
+				}
 
 				for(Aspect aspectNeed:orienter.costAspects.getAspects())
 				{
-					this.aspects.add(aspectNeed,-orienter.costAspects.getAmount(aspectNeed));
+					this.aspects.remove(aspectNeed,orienter.costAspects.getAmount(aspectNeed));
 				}
 			}
 		}
@@ -199,7 +252,7 @@ public class OrientedMetalInfusionerTE extends TileEntity implements IEssentiaTr
 	{
 		if(aspects.getAmount(aspect)>0)
 		{
-			aspects.add(aspect,-1);
+			aspects.remove(aspect,1);
 			return 1;
 		}
 		return 0;
@@ -226,7 +279,7 @@ public class OrientedMetalInfusionerTE extends TileEntity implements IEssentiaTr
 	 * How much essentia this block contains
 	 */
 	public int getEssentiaAmount(ForgeDirection loc) {
-		return aspects.getAmount(getAspectNeed());
+		return 0;
 	}
 	/**
 	 * Essentia will not be drawn from this container unless the suction exceeds this amount.
