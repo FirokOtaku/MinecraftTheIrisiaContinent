@@ -1,3 +1,7 @@
+0.12.100
+加入制冰器、制岩浆器机器
+added BlockConverterIce, BlockConverterLava machines
+
 0.12.99
 加入更多种类的金属注魔定向器工具
 added more types of MetalInfusionOrienter tools

@@ -15,6 +15,7 @@ public class TileEntityLoader
 		registerTileEntity(VisNodeTE.class,"VisNode");
 		registerTileEntity(AirWallTE.class,"AirWall");
 		registerTileEntity(AuraCompresserTE.class,"AuraCompressor");
+		registerTileEntity(BlockConverterTE.class,"BlockConverter");
 	}
 
 	public void registerTileEntity(Class<? extends TileEntity> tileEntityClass, String id)

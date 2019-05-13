@@ -106,6 +106,8 @@ public class BlockLoader
 	private static void registerMachines()
 	{
 		register(IrisiaCreativeTabs.block,OrientedMetalInfusioner.OrientedMetalInfusioner,"MachineOrientedMetalInfusioner","machine_oriented_metal_infusioner");
+		register(IrisiaCreativeTabs.block,BlockConverter.ConverterLava,"MachineBlockConverterLava","machine_block_converter_lava");
+		register(IrisiaCreativeTabs.block,BlockConverter.ConverterIce,"MachineBlockConverterIce","machine_block_converter_ice");
 
 		register(IrisiaCreativeTabs.block,MachineBlocks.StormCollector,"machineStormCollector","machine_storm_collector");
 		register(IrisiaCreativeTabs.block,MachineBlocks.BerryMixer,"machineBerryMixer","machine_berry_mixer");

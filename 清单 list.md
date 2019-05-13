@@ -1,9 +1,10 @@
-# 最后更新于 19-05-12 10:30
+# 最后更新于 19-05-13 09:00
 
 ## 更新关键字
 
-* 工具-回归罗盘
-* 材料-光合金属
+* 方块-金属注魔定向器
+* 方块-制冰机
+* 方块-制岩浆机
 
 任何建议请提交至本项目[Issue页面](https://github.com/351768593/MinecraftTheIrisiaContinent/issues)
 
@@ -46,6 +47,8 @@
   * ❓ **虚化铺路石 Bluring Paving Stone** 类似于空气可穿过的铺路石 但是会提供对应效果
   * ✔ **风暴收集器 Storm Collector** 用来收集雷雨能量 将风暴球制成充能的风暴球
   * ✔ **金属注魔定向器 Metal Infusion Orienter** 用来生产特定类型的金属块
+  * ✔ **制冰机 Block Converter Ice** 消耗秩序源质把水方块转化成冰方块
+  * ✔ **制岩浆机 Block Converter Lava** 消耗火源质把石头方块转化成岩浆方块
 
 ## 材料
 
