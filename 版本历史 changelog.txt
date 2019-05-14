@@ -1,3 +1,7 @@
+0.12.101
+现在怨灵套装物品会在周围有生物死亡时恢复耐久
+now the item in Spectre equipment set will be repaired when nearby entity die
+
 0.12.100
 加入制冰器、制岩浆器机器
 added BlockConverterIce, BlockConverterLava machines

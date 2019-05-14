@@ -1417,6 +1417,27 @@ public class EquipmentSets
 				Belt=null;
 			}
 		}
+
+		public boolean inSet(Item item)
+		{
+			return inSetWeapon(item)||inSetTool(item)||inSetArmor(item)||inSetBauble(item);
+		}
+		public boolean inSetWeapon(Item item)
+		{
+			return item==this.Sword;
+		}
+		public boolean inSetTool(Item item)
+		{
+			return item==this.Pickaxe||item==this.Axe||item==this.Hoe||item==this.Spade;
+		}
+		public boolean inSetArmor(Item item)
+		{
+			return item==this.Helmet||item==this.Chestplate||item==this.Leggings||item==this.Boots;
+		}
+		public boolean inSetBauble(Item item)
+		{
+			return item==this.Ring||item==this.Amulet||item==this.Belt;
+		}
 	}
 
 	/**

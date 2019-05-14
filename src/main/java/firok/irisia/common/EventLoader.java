@@ -16,6 +16,7 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
@@ -28,6 +29,10 @@ import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.living.*;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.wands.WandRod;
+import thaumcraft.common.items.wands.ItemWandCasting;
+
 import static firok.irisia.item.EquipmentSets.EffectArmorSet.*;
 import static firok.irisia.item.EquipmentSets.*;
 
@@ -84,11 +89,65 @@ public class EventLoader
 	    World world=enlb.worldObj;
 	    if(world.isRemote || enlb instanceof EntityPlayer)
 	    	return;
+	    Random rand=world.rand;
+
+	    List<EntityPlayer> playersAround=world.getEntitiesWithinAABBExcludingEntity(
+	    		enlb,
+			    AxisAlignedBB.getBoundingBox(enlb.posX-10,enlb.posY-5,enlb.posZ-10,
+					    enlb.posX+10,enlb.posY+5,enlb.posZ+10),
+			    EntitySelectors.SelectPlayerAlive
+	    ); // 寻找周围的玩家
+	    for(EntityPlayer playerAround:playersAround)
+	    {
+	    	int sizeInv=playerAround.inventory.getSizeInventory();
+
+		    boolean hasRegenVis=false;
+	    	for(int i=0;i<sizeInv;i++) // 遍历物品栏
+		    {
+		    	ItemStack stack=playerAround.inventory.getStackInSlot(i);
+		    	if(stack==null) continue;
+		    	Item item=stack.getItem();
+			    int regen;
+
+		    	if(item instanceof ItemWandCasting) // 为周围持有怨灵法杖的玩家恢复魔力
+			    {
+			    	if(hasRegenVis) continue;
+
+			    	ItemWandCasting wandCasting=(ItemWandCasting)stack.getItem();
+			    	WandRod rod=wandCasting.getRod(stack);
+				    if(rod==Wands.SpectreSet.wandRod)
+				    {
+				    	// 找到法杖 开始恢复魔力
+
+				    	if(rand.nextFloat()<0.25&&(regen=rand.nextInt(6))>0)
+						    wandCasting.addVis(stack,Aspect.ORDER,regen,true);
+					    if(rand.nextFloat()<0.25&&(regen=rand.nextInt(6))>0)
+						    wandCasting.addVis(stack,Aspect.ENTROPY,regen,true);
+					    if(rand.nextFloat()<0.25&&(regen=rand.nextInt(6))>0)
+						    wandCasting.addVis(stack,Aspect.FIRE,regen,true);
+					    if(rand.nextFloat()<0.25&&(regen=rand.nextInt(6))>0)
+						    wandCasting.addVis(stack,Aspect.WATER,regen,true);
+					    if(rand.nextFloat()<0.25&&(regen=rand.nextInt(6))>0)
+						    wandCasting.addVis(stack,Aspect.EARTH,regen,true);
+					    if(rand.nextFloat()<0.25&&(regen=rand.nextInt(6))>0)
+						    wandCasting.addVis(stack,Aspect.AIR,regen,true);
+				    }
+
+				    hasRegenVis=true;
+			    }
+			    else if(EquipmentSets.SpectreSet.inSetWeapon(item)
+					    ||EquipmentSets.SpectreSet.inSetArmor(item)
+					    ||EquipmentSets.SpectreSet.inSetTool(item)) // 为怨灵套装提供耐久恢复
+			    {
+			    	if((regen=rand.nextInt(35))>0)
+			    	CauseRepairItem.To(stack,playerAround,regen);
+			    }
+		    }
+	    }
 
 	    PotionEffect midas=enlb.getActivePotionEffect(Potions.Midas);
 	    int factor=midas==null?0:midas.getAmplifier()+1; // 如果目标有迈达斯buff 掉钱更多
 
-	    Random rand=world.rand;
 	    if(rand.nextFloat()<0.01+enlb.getMaxHealth()/400) // 每10滴血上限+2.5%掉落几率
 	    {
 	    	enlb.entityDropItem(new ItemStack(RawMaterials.SoulCrystal),0);
