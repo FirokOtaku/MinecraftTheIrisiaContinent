@@ -1,4 +1,4 @@
-# 最后更新于 19-05-13 09:00
+# 最后更新于 19-05-20 21:30
 
 ## 更新关键字
 
@@ -255,7 +255,7 @@
 
 七把特殊装备 以北斗七星命名 原设定来自加速世界
 Alkaid, Mizar, Alioth, Megrez, Phecda, Dubhe,and Merak
-* 💭 **天枢 Alkaid**
+* 💭 **脉冲之剑-天枢 Alkaid - The Impulse** 击中目标后会在一定范围内造成闪电链
 * 💭 **天璇 Mizar**
 * 💭 **回音护符-天玑 Alioth - The Echo** 在危急时提供回音buff
 * 💭 **天权 Megrez**

@@ -1,3 +1,7 @@
+0.12.102
+雷神之锤变更为天枢-脉冲之剑
+changed Mjollnir to AlkaidTheImpulse
+
 0.12.101
 现在怨灵套装物品会在周围有生物死亡时恢复耐久
 now the item in Spectre equipment set will be repaired when nearby entity die

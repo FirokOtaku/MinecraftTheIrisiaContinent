@@ -144,7 +144,8 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.equi,WainItems.AliothTheInfinity,"wain_alioth","WainAlioth");
 		// 天玑-回音护符
 		register(IrisiaCreativeTabs.equi,WainItems.PhecdaTheEcho,"wain_phecda","WainPhecda");
-
+		// 天枢-脉冲之剑
+		register(IrisiaCreativeTabs.equi,WainItems.AlkaidTheImpulse,"wain_alkaid","WainAlkaid");
 	}
 	private static void registerWands()
 	{
@@ -278,7 +279,6 @@ public class ItemLoader
 		register(IrisiaCreativeTabs.equi,Weapons.LunarDagger,"weapon_lunar_dagger","WeaponLunarDagger");
 		register(IrisiaCreativeTabs.equi,Weapons.Radiance,"weapon_radiance","WeaponRadiance");
 		register(IrisiaCreativeTabs.equi,Weapons.BurningSpear,"weapon_buring_spear","WeaponBuringSpear");
-		register(IrisiaCreativeTabs.equi,Weapons.Mjollnir,"weapon_mjollnir","WeaponMjollnir");
 		register(IrisiaCreativeTabs.equi,Weapons.IcyRoseSword,"weapon_icy_rose_sword","IcyRoseSword");
 	}
 	private static void registerTools()

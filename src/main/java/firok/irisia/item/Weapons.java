@@ -71,7 +71,6 @@ public class Weapons
 //	public final static ItemSword RhythmicSword;
 	public final static ItemBow BurningSpear;
 	public final static ItemSword Radiance;
-	public final static ItemSword Mjollnir;
 	public final static ItemSword IcyRoseSword;
 	static
 	{
@@ -100,7 +99,6 @@ public class Weapons
 //		RhythmicSword=new RhythmicSwordWeapon();
 		BurningSpear=new BurningSpearWeapon();
 		Radiance=new RadianceWeapon();
-		Mjollnir=new MjollnirWeapon();
 		IcyRoseSword=new IcyRoseSwordWeapon();
 	}
 
@@ -827,58 +825,6 @@ public class Weapons
 				}
 
 			}
-		}
-	}
-	public static class MjollnirWeapon extends ItemSword
-	{
-		public MjollnirWeapon()
-		{
-			super(ToolMaterial.IRON);
-		}
-
-		@Override
-		public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase player)
-		{
-//			NBTTagCompound nbt=itemStack.hasTagCompound()?itemStack.getTagCompound():new NBTTagCompound();
-//
-//			long timeNow=target.worldObj.getTotalWorldTime();
-//			long timeLast=nbt.hasKey("timeLast")?nbt.getLong("timeLast"):-1;
-//			int keyLast=nbt.hasKey("keyLast")?nbt.getInteger("keyLast"):-1;
-//
-//			float damage=0;
-//			target.attackEntityFrom(DamageSource.generic,damage);
-//
-//			if(damage>=15)
-//				; // todo 以后播放一个音效
-//
-//			itemStack.damageItem(1, player);
-//			return true;
-			return super.hitEntity(itemStack, target, player);
-		}
-
-//		@Override
-//		public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
-//		{
-//			if(!world.isRemote && player.isSneaking())
-//			{
-//				NBTTagCompound tag=stack.hasTagCompound()?stack.getTagCompound():new NBTTagCompound();
-//				short mutex=tag.hasKey("mutex")?tag.getShort("mutex"):0;
-//				tag.setShort("mutex",mutex<MutexMax?(short)(mutex+1):0);
-//				stack.setTagCompound(tag);
-//			}
-//			return super.onItemRightClick(stack, world, player);
-//		}
-//		@Override
-//		public String getItemStackDisplayName(ItemStack itemStack)
-//		{
-//			int mutex=itemStack.hasTagCompound()?itemStack.getTagCompound().getInteger("mutex"):0x00;
-//
-//			return super.getItemStackDisplayName(itemStack)+(mutex);
-//		}
-		@Override
-		public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean p_77624_4_)
-		{
-			;
 		}
 	}
 }

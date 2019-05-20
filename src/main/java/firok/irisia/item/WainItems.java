@@ -2,25 +2,31 @@ package firok.irisia.item;
 
 import firok.irisia.DamageSources;
 import firok.irisia.Irisia;
+import firok.irisia.ability.CauseLightningChain;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
+import java.util.List;
+
 public class WainItems
 {
 	public final static ItemSword AliothTheInfinity;
 	public final static EquipmentSets.Amulet PhecdaTheEcho;
+	public final static ItemSword AlkaidTheImpulse;
 	static
 	{
 		AliothTheInfinity =new AliothTheInfinity();
 		PhecdaTheEcho =new PhecdaTheEcho();
+		AlkaidTheImpulse=new AlkaidTheImpulse();
 	}
 
 	// 无限之剑《玉衡》（The Infinity） Alioth
@@ -170,6 +176,60 @@ public class WainItems
 			Irisia.log("isOn:"+isOn+" cd:"+cd,player); // 这里以后去掉
 
 			return itemStack;
+		}
+	}
+	// 脉冲之剑《天枢》(The Impulse) Alkaid
+	public static class AlkaidTheImpulse extends ItemSword
+	{
+		public AlkaidTheImpulse()
+		{
+			super(ToolMaterial.IRON);
+		}
+
+		@Override
+		public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase player)
+		{
+//			NBTTagCompound nbt=itemStack.hasTagCompound()?itemStack.getTagCompound():new NBTTagCompound();
+//
+//			long timeNow=target.worldObj.getTotalWorldTime();
+//			long timeLast=nbt.hasKey("timeLast")?nbt.getLong("timeLast"):-1;
+//			int keyLast=nbt.hasKey("keyLast")?nbt.getInteger("keyLast"):-1;
+//
+//			float damage=0;
+//			target.attackEntityFrom(DamageSource.generic,damage);
+//
+//			if(damage>=15)
+//				; // todo 以后播放一个音效
+//
+//			itemStack.damageItem(1, player);
+//			return true;
+			CauseLightningChain.FromEntity(target,5,10,2,5,0.5f);
+			return super.hitEntity(itemStack, target, player);
+		}
+
+		//		@Override
+//		public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+//		{
+//			if(!world.isRemote && player.isSneaking())
+//			{
+//				NBTTagCompound tag=stack.hasTagCompound()?stack.getTagCompound():new NBTTagCompound();
+//				short mutex=tag.hasKey("mutex")?tag.getShort("mutex"):0;
+//				tag.setShort("mutex",mutex<MutexMax?(short)(mutex+1):0);
+//				stack.setTagCompound(tag);
+//			}
+//			return super.onItemRightClick(stack, world, player);
+//		}
+//		@Override
+//		public String getItemStackDisplayName(ItemStack itemStack)
+//		{
+//			int mutex=itemStack.hasTagCompound()?itemStack.getTagCompound().getInteger("mutex"):0x00;
+//
+//			return super.getItemStackDisplayName(itemStack)+(mutex);
+//		}
+		@Override
+		public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean p_77624_4_)
+		{
+			;
 		}
 	}
 }

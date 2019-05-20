@@ -9,6 +9,8 @@ import firok.irisia.thaum.IrisiaWandTriggerManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.*;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.Logger;
 import thaumcraft.api.aspects.Aspect;
 
 
@@ -22,7 +24,7 @@ public class Irisia
 {
     public static final String MODID = "irisia";
     public static final String NAME = "The Irisia Continent";
-    public static final String VERSION = "0.12.101";
+    public static final String VERSION = "0.12.102";
     public static final boolean IN_DEV=true;
 
     @Instance(Irisia.MODID)
@@ -178,7 +180,8 @@ public class Irisia
     {
         if(IN_DEV)
         {
-            System.out.println(str);
+            if(logger==null) System.out.println(str);
+            else logger.log(Level.INFO,str);
         }
     }
     public static void log(Exception e)
@@ -188,6 +191,7 @@ public class Irisia
             e.printStackTrace();
         }
     }
+    public static Logger logger=null;
 
     public static void STOP()
     {
