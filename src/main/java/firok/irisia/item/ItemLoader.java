@@ -14,6 +14,8 @@ import java.util.*;
 
 import firok.irisia.item.EquipmentSets.EquipmentSet;
 
+import static firok.irisia.common.IrisiaCreativeTabs.*;
+
 
 @SuppressWarnings({"unused","deprecation"})
 public class ItemLoader
@@ -30,275 +32,276 @@ public class ItemLoader
 
 	private static void registerRawMaterials()
 	{
-		register(IrisiaCreativeTabs.material,RawMaterials.ShardOfLove,"material_shard_of_love","ShardOfLove");
-		register(IrisiaCreativeTabs.material,RawMaterials.Bezoar,"material_bezoar","Bezoar");
-		register(IrisiaCreativeTabs.material,RawMaterials.IcyGel,"material_icy_gel","IcyGel");
-		register(IrisiaCreativeTabs.material,RawMaterials.WolfFur,"material_wolf_fur","WolfFur");
-		register(IrisiaCreativeTabs.material,RawMaterials.IcyWolfFur,"material_icy_wolf_fur","IcyWolfFur");
-		register(IrisiaCreativeTabs.material,RawMaterials.ScorchingWolfFur,"material_scorching_wolf_fur","ScorchingWolfFur");
-		register(IrisiaCreativeTabs.material,RawMaterials.HeavyCashmere,"material_heavy_cashmere","HeavyCashmere");
-		register(IrisiaCreativeTabs.material,RawMaterials.TortoiseShell,"material_tortoise_shell","TortoiseShell");
-		register(IrisiaCreativeTabs.material,RawMaterials.BoneShard,"material_bone_shard","BoneShard");
-		register(IrisiaCreativeTabs.material,RawMaterials.CasinosBadge,"material_casinos_badge","CasinosBadge");
-		register(IrisiaCreativeTabs.material,RawMaterials.UnicornHorn,"material_unicorn_horn","UnicornHorn");
-		register(IrisiaCreativeTabs.material,RawMaterials.UnicornBlood,"material_unicorn_blood","UnicornBlood");
-		register(IrisiaCreativeTabs.material,RawMaterials.SlimeCore,"material_slime_core","SlimeCore");
-		register(IrisiaCreativeTabs.material,RawMaterials.BrownWheat,"material_brown_wheat","BrownWheat");
-		register(IrisiaCreativeTabs.material,RawMaterials.SoulCrystal,"material_soul_crystal","SoulCrystal");
-		register(IrisiaCreativeTabs.material,RawMaterials.DwartCoal,"material_dwart_coal","DwartCoal");
-		register(IrisiaCreativeTabs.material,RawMaterials.HotStone,"material_hot_stone","HotStone");
-		register(IrisiaCreativeTabs.material,RawMaterials.TerrestrialDoveFeather,"material_terrestrial_dove_feather","TerrestrialDoveFeather");
-		register(IrisiaCreativeTabs.material,RawMaterials.MagicalPaper,"material_magical_paper","MagicalPaper");
-		register(IrisiaCreativeTabs.material,RawMaterials.Ink,"material_ink","Ink");
-		register(IrisiaCreativeTabs.material,RawMaterials.InkBottle,"material_ink_bottle","InkBottle");
-		register(IrisiaCreativeTabs.material,RawMaterials.PaperPile,"material_paper_pile","PaperPile");
-		register(IrisiaCreativeTabs.material,RawMaterials.PaperBigPile,"material_paper_big_pile","PaperBigPile");
-		register(IrisiaCreativeTabs.material,RawMaterials.Nugget,"material_nugget","Nugget");
-		register(IrisiaCreativeTabs.material,RawMaterials.StormBall,"material_storm_ball","StormBall");
-		register(IrisiaCreativeTabs.material,RawMaterials.ChargedStormBall,"material_charged_storm_ball","ChargedStormBall");
+		register(material,RawMaterials.ShardOfLove,"material_shard_of_love","ShardOfLove");
+		register(material,RawMaterials.Bezoar,"material_bezoar","Bezoar");
+		register(material,RawMaterials.IcyGel,"material_icy_gel","IcyGel");
+		register(material,RawMaterials.WolfFur,"material_wolf_fur","WolfFur");
+		register(material,RawMaterials.IcyWolfFur,"material_icy_wolf_fur","IcyWolfFur");
+		register(material,RawMaterials.ScorchingWolfFur,"material_scorching_wolf_fur","ScorchingWolfFur");
+		register(material,RawMaterials.HeavyCashmere,"material_heavy_cashmere","HeavyCashmere");
+		register(material,RawMaterials.TortoiseShell,"material_tortoise_shell","TortoiseShell");
+		register(material,RawMaterials.BoneShard,"material_bone_shard","BoneShard");
+		register(material,RawMaterials.CasinosBadge,"material_casinos_badge","CasinosBadge");
+		register(material,RawMaterials.UnicornHorn,"material_unicorn_horn","UnicornHorn");
+		register(material,RawMaterials.UnicornBlood,"material_unicorn_blood","UnicornBlood");
+		register(material,RawMaterials.SlimeCore,"material_slime_core","SlimeCore");
+		register(material,RawMaterials.BrownWheat,"material_brown_wheat","BrownWheat");
+		register(material,RawMaterials.SoulCrystal,"material_soul_crystal","SoulCrystal");
+		register(material,RawMaterials.DwartCoal,"material_dwart_coal","DwartCoal");
+		register(material,RawMaterials.HotStone,"material_hot_stone","HotStone");
+		register(material,RawMaterials.TerrestrialDoveFeather,"material_terrestrial_dove_feather","TerrestrialDoveFeather");
+		register(material,RawMaterials.MagicalPaper,"material_magical_paper","MagicalPaper");
+		register(material,RawMaterials.Ink,"material_ink","Ink");
+		register(material,RawMaterials.InkBottle,"material_ink_bottle","InkBottle");
+		register(material,RawMaterials.PaperPile,"material_paper_pile","PaperPile");
+		register(material,RawMaterials.PaperBigPile,"material_paper_big_pile","PaperBigPile");
+		register(material,RawMaterials.Nugget,"material_nugget","Nugget");
+		register(material,RawMaterials.StormBall,"material_storm_ball","StormBall");
+		register(material,RawMaterials.ChargedStormBall,"material_charged_storm_ball","ChargedStormBall");
 
-		register(IrisiaCreativeTabs.material,RawMaterials.DwartFlour,"material_dwart_flour","DwartFlour");
-		register(IrisiaCreativeTabs.material,RawMaterials.ElfStone,"material_elf_stone","ElfStone");
-		register(IrisiaCreativeTabs.material,RawMaterials.SolarCrystal,"material_solar_crystal","SolarCrystal");
-		register(IrisiaCreativeTabs.material,RawMaterials.LunarCrystal,"material_lunar_crystal","LunarCrystal");
-		register(IrisiaCreativeTabs.material,RawMaterials.GlitteringLunarCrystal,"material_glittering_solar_crystal","GlitteringSolarCrystal");
-		register(IrisiaCreativeTabs.material,RawMaterials.GlitteringSolarCrystal,"material_glittering_lunar_crystal","GlitteringLunarCrystal");
-		register(IrisiaCreativeTabs.material,RawMaterials.DarkMetalIngot,"material_dark_metal_ingot","DarkMetalIngot");
-		register(IrisiaCreativeTabs.material,RawMaterials.VibrhythmMetalIngot,"material_vibrhythm_metal_ingot","VibrhythmMetalIngot");
-		register(IrisiaCreativeTabs.material,RawMaterials.LuxMetalIngot,"material_lux_metal_ingot","LuxMetalIngot");
-		register(IrisiaCreativeTabs.material,RawMaterials.StormMetalIngot,"material_storm_metal_ingot","StormMetalIngot");
-		register(IrisiaCreativeTabs.material,RawMaterials.PhotosynthesisMetalIngot,"material_photosynthesis_metal_ingot","PhotosynthesisMetalIngot");
-		register(IrisiaCreativeTabs.material,RawMaterials.FlumetalIngot,"material_flumetal_ingot","FlumetalIngot");
-		register(IrisiaCreativeTabs.material,RawMaterials.SolitaIngot,"material_solita_ingot","SolitaIngot");
-		register(IrisiaCreativeTabs.material,RawMaterials.MogigaIngot,"material_mogiga_ingot","MogigaIngot");
-		register(IrisiaCreativeTabs.material,RawMaterials.DwartSteelIngot,"material_dwart_steel_ingot","DwartSteelIngot");
-		register(IrisiaCreativeTabs.material,RawMaterials.MithrilIngot,"material_mithril_ingot","MithrilIngot");
-		register(IrisiaCreativeTabs.material,RawMaterials.AdamantiumIngot,"material_adamantium_ingot","AdamantiumIngot");
-		register(IrisiaCreativeTabs.material,RawMaterials.SlimeIngot,"material_slime_ingot","SlimeIngot");
-		register(IrisiaCreativeTabs.material,RawMaterials.MagicalDust,"material_magical_dust","MagicalDust");
-		register(IrisiaCreativeTabs.material,RawMaterials.InvalidRunicRing,"material_invalid_runic_ring","InvalidRunicRing");
-		register(IrisiaCreativeTabs.material,RawMaterials.LostPage,"material_lost_page","LostPage");
-		register(IrisiaCreativeTabs.material,RawMaterials.GoldenSilk,"material_golden_silk","GoldenSilk");
-		register(IrisiaCreativeTabs.material,RawMaterials.DiamondSilk,"material_diamond_silk","DiamondSilk");
-		register(IrisiaCreativeTabs.material,RawMaterials.MultiCoreBrain,"material_multicore_brain","MultiCoreBrain");
-		register(IrisiaCreativeTabs.material,RawMaterials.AstrologicStone,"material_astrologic_stone","AstrologicStone");
+		register(material,RawMaterials.DwartFlour,"material_dwart_flour","DwartFlour");
+		register(material,RawMaterials.ElfStone,"material_elf_stone","ElfStone");
+		register(material,RawMaterials.SolarCrystal,"material_solar_crystal","SolarCrystal");
+		register(material,RawMaterials.LunarCrystal,"material_lunar_crystal","LunarCrystal");
+		register(material,RawMaterials.GlitteringLunarCrystal,"material_glittering_solar_crystal","GlitteringSolarCrystal");
+		register(material,RawMaterials.GlitteringSolarCrystal,"material_glittering_lunar_crystal","GlitteringLunarCrystal");
+		register(material,RawMaterials.DarkMetalIngot,"material_dark_metal_ingot","DarkMetalIngot");
+		register(material,RawMaterials.VibrhythmMetalIngot,"material_vibrhythm_metal_ingot","VibrhythmMetalIngot");
+		register(material,RawMaterials.LuxMetalIngot,"material_lux_metal_ingot","LuxMetalIngot");
+		register(material,RawMaterials.StormMetalIngot,"material_storm_metal_ingot","StormMetalIngot");
+		register(material,RawMaterials.PhotosynthesisMetalIngot,"material_photosynthesis_metal_ingot","PhotosynthesisMetalIngot");
+		register(material,RawMaterials.FlumetalIngot,"material_flumetal_ingot","FlumetalIngot");
+		register(material,RawMaterials.SolitaIngot,"material_solita_ingot","SolitaIngot");
+		register(material,RawMaterials.MogigaIngot,"material_mogiga_ingot","MogigaIngot");
+		register(material,RawMaterials.DwartSteelIngot,"material_dwart_steel_ingot","DwartSteelIngot");
+		register(material,RawMaterials.MithrilIngot,"material_mithril_ingot","MithrilIngot");
+		register(material,RawMaterials.AdamantiumIngot,"material_adamantium_ingot","AdamantiumIngot");
+		register(material,RawMaterials.SlimeIngot,"material_slime_ingot","SlimeIngot");
+		register(material,RawMaterials.MagicalDust,"material_magical_dust","MagicalDust");
+		register(material,RawMaterials.InvalidRunicRing,"material_invalid_runic_ring","InvalidRunicRing");
+		register(material,RawMaterials.LostPage,"material_lost_page","LostPage");
+		register(material,RawMaterials.GoldenSilk,"material_golden_silk","GoldenSilk");
+		register(material,RawMaterials.DiamondSilk,"material_diamond_silk","DiamondSilk");
+		register(material,RawMaterials.MultiCoreBrain,"material_multicore_brain","MultiCoreBrain");
+		register(material,RawMaterials.AstrologicStone,"material_astrologic_stone","AstrologicStone");
 
-		register(IrisiaCreativeTabs.irisia,RawMaterials.CoinCopper,"coin_copper","CoinCopper");
-		register(IrisiaCreativeTabs.irisia,RawMaterials.CoinCopperPile,"coin_copper_pile","CoinCopperPile");
-		register(IrisiaCreativeTabs.irisia,RawMaterials.CoinSilver,"coin_silver","CoinSilver");
-		register(IrisiaCreativeTabs.irisia,RawMaterials.CoinSilverPile,"coin_silver_pile","CoinSilverPile");
-		register(IrisiaCreativeTabs.irisia,RawMaterials.CoinGold,"coin_gold","CoinGold");
-		register(IrisiaCreativeTabs.irisia,RawMaterials.CoinGoldPile,"coin_gold_pile","CoinGoldPile");
-		register(IrisiaCreativeTabs.irisia,RawMaterials.CoinIrisia,"coin_irisia","CoinIrisia");
-		register(IrisiaCreativeTabs.irisia,RawMaterials.CoinIrisiaPile,"coin_irisia_pile","CoinIrisiaPile");
+		register(irisia,RawMaterials.CoinCopper,"coin_copper","CoinCopper");
+		register(irisia,RawMaterials.CoinCopperPile,"coin_copper_pile","CoinCopperPile");
+		register(irisia,RawMaterials.CoinSilver,"coin_silver","CoinSilver");
+		register(irisia,RawMaterials.CoinSilverPile,"coin_silver_pile","CoinSilverPile");
+		register(irisia,RawMaterials.CoinGold,"coin_gold","CoinGold");
+		register(irisia,RawMaterials.CoinGoldPile,"coin_gold_pile","CoinGoldPile");
+		register(irisia,RawMaterials.CoinIrisia,"coin_irisia","CoinIrisia");
+		register(irisia,RawMaterials.CoinIrisiaPile,"coin_irisia_pile","CoinIrisiaPile");
 
-		register(IrisiaCreativeTabs.material,RawMaterials.AncientMachinePart,"ancient_machine_part","AncientMachinePart");
-		register(IrisiaCreativeTabs.material,RawMaterials.AncientThaumicNote,"ancient_thaumic_note","AncientThaumicNote");
-		register(IrisiaCreativeTabs.material,RawMaterials.AncientFossilFragment,"ancient_fossil_fragment","AncientFossilFragment");
-		register(IrisiaCreativeTabs.material,RawMaterials.AncientBrokenSword,"ancient_broken_sword","AncientBrokenSword");
+		register(material,RawMaterials.AncientMachinePart,"ancient_machine_part","AncientMachinePart");
+		register(material,RawMaterials.AncientThaumicNote,"ancient_thaumic_note","AncientThaumicNote");
+		register(material,RawMaterials.AncientFossilFragment,"ancient_fossil_fragment","AncientFossilFragment");
+		register(material,RawMaterials.AncientBrokenSword,"ancient_broken_sword","AncientBrokenSword");
 
 	}
 	private static void registerEquipments()
 	{
-		register(IrisiaCreativeTabs.equi,EquipmentSets.AdamantiumSet);
-		register(IrisiaCreativeTabs.equi,EquipmentSets.MithrilSet);
-		register(IrisiaCreativeTabs.equi,EquipmentSets.BoneSet);
-		register(IrisiaCreativeTabs.equi,EquipmentSets.SpectreSet);
-		register(IrisiaCreativeTabs.equi,EquipmentSets.SolitaSet);
-		register(IrisiaCreativeTabs.equi,EquipmentSets.MogigaSet);
-		register(IrisiaCreativeTabs.equi,EquipmentSets.DwartSteelSet);
-		register(IrisiaCreativeTabs.equi,EquipmentSets.WindRangerSet);
-		register(IrisiaCreativeTabs.equi,EquipmentSets.DwartMinerSet);
-		register(IrisiaCreativeTabs.equi,EquipmentSets.StormSet);
-		register(IrisiaCreativeTabs.equi,EquipmentSets.PhoneixSet);
-		// registerLoot(IrisiaCreativeTabs.equi,EquipmentSets.LifeWoodSet); // 已经转移
-		register(IrisiaCreativeTabs.equi,EquipmentSets.FlumetalSet);
-		register(IrisiaCreativeTabs.equi,EquipmentSets.DarkIronArmorSet);
-		register(IrisiaCreativeTabs.equi,EquipmentSets.DarkIronToolSet);
-		register(IrisiaCreativeTabs.equi,EquipmentSets.VibrhythmToolSet);
-		register(IrisiaCreativeTabs.equi,EquipmentSets.LuxIronArmorSet);
-		register(IrisiaCreativeTabs.equi,EquipmentSets.LuxIronToolSet);
-		register(IrisiaCreativeTabs.equi,EquipmentSets.PhotosynthesisArmorSet);
-		register(IrisiaCreativeTabs.equi,EquipmentSets.PhotosynthesisToolSet);
-		register(IrisiaCreativeTabs.equi,EquipmentSets.GarrisonSet);
+		register(equi,EquipmentSets.AdamantiumSet);
+		register(equi,EquipmentSets.MithrilSet);
+		register(equi,EquipmentSets.BoneSet);
+		register(equi,EquipmentSets.SpectreSet);
+		register(equi,EquipmentSets.SolitaSet);
+		register(equi,EquipmentSets.MogigaSet);
+		register(equi,EquipmentSets.DwartSteelSet);
+		register(equi,EquipmentSets.WindRangerSet);
+		register(equi,EquipmentSets.DwartMinerSet);
+		register(equi,EquipmentSets.StormSet);
+		register(equi,EquipmentSets.PhoneixSet);
+		// registerLoot(equi,EquipmentSets.LifeWoodSet); // 已经转移
+		register(equi,EquipmentSets.FlumetalSet);
+		register(equi,EquipmentSets.DarkIronArmorSet);
+		register(equi,EquipmentSets.DarkIronToolSet);
+		register(equi,EquipmentSets.VibrhythmToolSet);
+		register(equi,EquipmentSets.LuxIronArmorSet);
+		register(equi,EquipmentSets.LuxIronToolSet);
+		register(equi,EquipmentSets.PhotosynthesisArmorSet);
+		register(equi,EquipmentSets.PhotosynthesisToolSet);
+		register(equi,EquipmentSets.GarrisonSet);
 		// 注册生命木套装
-		register(IrisiaCreativeTabs.equi,EquipmentAutoRepair.LifewoodSword,"sword_lifewood","LifewoodSword");
-		register(IrisiaCreativeTabs.equi,EquipmentAutoRepair.LifewoodHelmet,"helmet_lifewood","LifewoodHelmet");
-		register(IrisiaCreativeTabs.equi,EquipmentAutoRepair.LifewoodChestplate,"chestplate_lifewood","LifewoodChestplate");
-		register(IrisiaCreativeTabs.equi,EquipmentAutoRepair.LifewoodLeggings,"leggings_lifewood","LifewoodLeggings");
-		register(IrisiaCreativeTabs.equi,EquipmentAutoRepair.LifewoodBoots,"boots_lifewood","LifewoodBoots");
-		register(IrisiaCreativeTabs.equi,EquipmentAutoRepair.LifewoodAxe,"axe_lifewood","LifewoodAxe");
-		register(IrisiaCreativeTabs.equi,EquipmentAutoRepair.LifewoodPickaxe,"pickaxe_lifewood","LifewoodPickaxe");
-		register(IrisiaCreativeTabs.equi,EquipmentAutoRepair.LifewoodHoe,"hoe_lifewood","LifewoodHoe");
-		register(IrisiaCreativeTabs.equi,EquipmentAutoRepair.LifewoodSpade,"spade_lifewood","LifewoodSpade");
+		register(equi,EquipmentAutoRepair.LifewoodSword,"sword_lifewood","LifewoodSword");
+		register(equi,EquipmentAutoRepair.LifewoodHelmet,"helmet_lifewood","LifewoodHelmet");
+		register(equi,EquipmentAutoRepair.LifewoodChestplate,"chestplate_lifewood","LifewoodChestplate");
+		register(equi,EquipmentAutoRepair.LifewoodLeggings,"leggings_lifewood","LifewoodLeggings");
+		register(equi,EquipmentAutoRepair.LifewoodBoots,"boots_lifewood","LifewoodBoots");
+		register(equi,EquipmentAutoRepair.LifewoodAxe,"axe_lifewood","LifewoodAxe");
+		register(equi,EquipmentAutoRepair.LifewoodPickaxe,"pickaxe_lifewood","LifewoodPickaxe");
+		register(equi,EquipmentAutoRepair.LifewoodHoe,"hoe_lifewood","LifewoodHoe");
+		register(equi,EquipmentAutoRepair.LifewoodSpade,"spade_lifewood","LifewoodSpade");
 		// 注册史莱姆套装
-		register(IrisiaCreativeTabs.equi,EquipmentAutoRepair.SlimeHelmet,"helmet_slime","SlimeHelmet");
-		register(IrisiaCreativeTabs.equi,EquipmentAutoRepair.SlimeChestplate,"chestplate_slime","SlimeChestplate");
-		register(IrisiaCreativeTabs.equi,EquipmentAutoRepair.SlimeLeggings,"leggings_slime","SlimeLeggings");
-		register(IrisiaCreativeTabs.equi,EquipmentAutoRepair.SlimeBoots,"boots_slime","SlimeBoots");
+		register(equi,EquipmentAutoRepair.SlimeHelmet,"helmet_slime","SlimeHelmet");
+		register(equi,EquipmentAutoRepair.SlimeChestplate,"chestplate_slime","SlimeChestplate");
+		register(equi,EquipmentAutoRepair.SlimeLeggings,"leggings_slime","SlimeLeggings");
+		register(equi,EquipmentAutoRepair.SlimeBoots,"boots_slime","SlimeBoots");
 	}
 	private static void registerWains()
 	{
 		// 北斗
 		// 天权-无限之剑
-		register(IrisiaCreativeTabs.equi,WainItems.AliothTheInfinity,"wain_alioth","WainAlioth");
+		register(equi,WainItems.AliothTheInfinity,"wain_alioth","WainAlioth");
 		// 天玑-回音护符
-		register(IrisiaCreativeTabs.equi,WainItems.PhecdaTheEcho,"wain_phecda","WainPhecda");
+		register(equi,WainItems.PhecdaTheEcho,"wain_phecda","WainPhecda");
 		// 天枢-脉冲之剑
-		register(IrisiaCreativeTabs.equi,WainItems.AlkaidTheImpulse,"wain_alkaid","WainAlkaid");
+		register(equi,WainItems.AlkaidTheImpulse,"wain_alkaid","WainAlkaid");
 	}
 	private static void registerWands()
 	{
 		// 法杖套装
-		register(IrisiaCreativeTabs.tc,Wands.LifeWoodSet);
-		register(IrisiaCreativeTabs.tc,Wands.SpectreSet);
-		register(IrisiaCreativeTabs.tc,Wands.ItemNodeRod,"wand_rod_node","NodeRod");
-		register(IrisiaCreativeTabs.tc,Wands.ItemCreativeRod,"wand_rod_creative","CreativeRod");
-		register(IrisiaCreativeTabs.tc,Wands.AdamantiumSet);
-		register(IrisiaCreativeTabs.tc,Wands.MithrilSet);
-		register(IrisiaCreativeTabs.tc,Wands.SolitaSet);
-		register(IrisiaCreativeTabs.tc,Wands.MogigaSet);
+		register(tc,Wands.LifeWoodSet);
+		register(tc,Wands.SpectreSet);
+		register(tc,Wands.ItemNodeRod,"wand_rod_node","NodeRod");
+		register(tc,Wands.ItemCreativeRod,"wand_rod_creative","CreativeRod");
+		register(tc,Wands.AdamantiumSet);
+		register(tc,Wands.MithrilSet);
+		register(tc,Wands.SolitaSet);
+		register(tc,Wands.MogigaSet);
 
 		// 散件
-		register(IrisiaCreativeTabs.tc,Wands.ItemWhitebeardStaffRod,"staff_rod_whitebeard","WhitebeardStaffRod");
-		register(IrisiaCreativeTabs.tc,Wands.ItemBlackbeardStaffRod,"staff_rod_blackbeard","BlackbeardStaffRod");
-		register(IrisiaCreativeTabs.tc,Wands.ItemGraybeardStaffRod,"staff_rod_graybeard","GraybeardStaffRod");
+		register(tc,Wands.ItemWhitebeardStaffRod,"staff_rod_whitebeard","WhitebeardStaffRod");
+		register(tc,Wands.ItemBlackbeardStaffRod,"staff_rod_blackbeard","BlackbeardStaffRod");
+		register(tc,Wands.ItemGraybeardStaffRod,"staff_rod_graybeard","GraybeardStaffRod");
 
 		// 升级杖芯
-		register(IrisiaCreativeTabs.tc,Wands.ItemAdvancedRodObsidian,"wand_rod_advanced_obsidian","AdvancedRodObsidian");
-		register(IrisiaCreativeTabs.tc,Wands.ItemAdvancedRodBone,"wand_rod_advanced_bone","AdvancedRodBone");
-		register(IrisiaCreativeTabs.tc,Wands.ItemAdvancedRodBlaze,"wand_rod_advanced_blaze","AdvancedRodBlaze");
-		register(IrisiaCreativeTabs.tc,Wands.ItemAdvancedRodIce,"wand_rod_advanced_ice","AdvancedRodIce");
-		register(IrisiaCreativeTabs.tc,Wands.ItemAdvancedRodQuartz,"wand_rod_advanced_quartz","AdvancedRodQuartz");
-		register(IrisiaCreativeTabs.tc,Wands.ItemAdvancedRodReed,"wand_rod_advanced_reed","AdvancedRodReed");
+		register(tc,Wands.ItemAdvancedRodObsidian,"wand_rod_advanced_obsidian","AdvancedRodObsidian");
+		register(tc,Wands.ItemAdvancedRodBone,"wand_rod_advanced_bone","AdvancedRodBone");
+		register(tc,Wands.ItemAdvancedRodBlaze,"wand_rod_advanced_blaze","AdvancedRodBlaze");
+		register(tc,Wands.ItemAdvancedRodIce,"wand_rod_advanced_ice","AdvancedRodIce");
+		register(tc,Wands.ItemAdvancedRodQuartz,"wand_rod_advanced_quartz","AdvancedRodQuartz");
+		register(tc,Wands.ItemAdvancedRodReed,"wand_rod_advanced_reed","AdvancedRodReed");
 	}
 	private static void registerFocus()
 	{
-		register(IrisiaCreativeTabs.tc,Focus.Test,"focus_test","FocusTest");
-		register(IrisiaCreativeTabs.tc,Focus.SpiderQueen,"focus_spider_queen","FocusSpiderQueen");
-		register(IrisiaCreativeTabs.tc,Focus.Wither,"focus_wither","FocusWither");
-		register(IrisiaCreativeTabs.tc,Focus.MachineryAlchemy,"focus_machinery_alchemy","FocusMachineryAlchemy");
-		register(IrisiaCreativeTabs.tc,Focus.Supernova,"focus_supernova","FocusSupernova");
-		register(IrisiaCreativeTabs.tc,Focus.ArcaneShield,"focus_arcane_shield","FocusArcaneShield");
-		register(IrisiaCreativeTabs.tc,Focus.Bluring,"focus_bluring","FocusBluring");
+		register(tc,Focus.Test,"focus_test","FocusTest");
+		register(tc,Focus.SpiderQueen,"focus_spider_queen","FocusSpiderQueen");
+		register(tc,Focus.Wither,"focus_wither","FocusWither");
+		register(tc,Focus.MachineryAlchemy,"focus_machinery_alchemy","FocusMachineryAlchemy");
+		register(tc,Focus.Supernova,"focus_supernova","FocusSupernova");
+		register(tc,Focus.ArcaneShield,"focus_arcane_shield","FocusArcaneShield");
+		register(tc,Focus.Bluring,"focus_bluring","FocusBluring");
 	}
 	private static void registerFoods()
 	{
 		// 食物
-		register(IrisiaCreativeTabs.food,Foods.HealingSalve,"healing_salve","HealingSalve");
-		register(IrisiaCreativeTabs.food,Foods.VilligerFood,"villiger_food","VilligerFood");
-		register(IrisiaCreativeTabs.food,Foods.MixedSweet,"mixed_sweet","MixedSweet");
-		register(IrisiaCreativeTabs.food,Foods.PoisonousApple,"poisonous_apple","PoisonousApple");
+		register(food,Foods.HealingSalve,"healing_salve","HealingSalve");
+		register(food,Foods.VilligerFood,"villiger_food","VilligerFood");
+		register(food,Foods.MixedSweet,"mixed_sweet","MixedSweet");
+		register(food,Foods.PoisonousApple,"poisonous_apple","PoisonousApple");
 
-		register(IrisiaCreativeTabs.food,Foods.HuckTeaLeafBerry,"berry_huck_tea_leaf","BerryHuckTeaLeaf");
-		register(IrisiaCreativeTabs.food,Foods.MonaFruitBerry,"berry_mona_fruit","BerryMonaFruit");
-		register(IrisiaCreativeTabs.food,Foods.SpicyRootBerry,"berry_spicy_root","BerrySpicyRoot");
-		register(IrisiaCreativeTabs.food,Foods.StarousFruitBerry,"berry_starous_fruit","berryStarousFruit");
+		register(food,Foods.HuckTeaLeafBerry,"berry_huck_tea_leaf","BerryHuckTeaLeaf");
+		register(food,Foods.MonaFruitBerry,"berry_mona_fruit","BerryMonaFruit");
+		register(food,Foods.SpicyRootBerry,"berry_spicy_root","BerrySpicyRoot");
+		register(food,Foods.StarousFruitBerry,"berry_starous_fruit","berryStarousFruit");
 	}
 	private static void registerBaubles()
 	{
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.SylphBelt,"belt_sylph","SylphBelt");
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.MidasRelic,"ring_midas_relic","MidasRelicRing");
+		register(equi,EquipmentUniqueBaubles.SylphBelt,"belt_sylph","SylphBelt");
+		register(equi,EquipmentUniqueBaubles.MidasRelic,"ring_midas_relic","MidasRelicRing");
 
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.FrostyStone,"amulet_frosty_stone","FrostyStone");
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.RevealingGem,"amulet_revealing_gem","GemRevealing");
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.FortuneRing,"ring_fortune","FortuneRing");
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.MinersRing,"ring_miner","MinersRing");
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.ThrivingRing,"ring_thriving","ThrivingRing");
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.InsaneRing,"ring_insane","InsaneRing");
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.LucidRing,"ring_lucid","LucidRing");
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.LoveRing,"ring_love","LoveRing");
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.PlagueStone,"amulet_plague_stone","AmuletPlagueStone");
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.PhotosynthesisAmulet,"ring_photosynthesis","PhotosynthesisAmulet");
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.DwartTravellerBelt,"belt_dwart_traveller","DwartTravellerBelt");
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.MermaidBelt,"belt_mermaid","MermaidBelt");
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.TwelveMagicalPowerAmulet,"amulet_twelve_magical","TwelveMagicalAmulet");
+		register(equi,EquipmentUniqueBaubles.FrostyStone,"amulet_frosty_stone","FrostyStone");
+		register(equi,EquipmentUniqueBaubles.RevealingGem,"amulet_revealing_gem","GemRevealing");
+		register(equi,EquipmentUniqueBaubles.FortuneRing,"ring_fortune","FortuneRing");
+		register(equi,EquipmentUniqueBaubles.MinersRing,"ring_miner","MinersRing");
+		register(equi,EquipmentUniqueBaubles.ThrivingRing,"ring_thriving","ThrivingRing");
+		register(equi,EquipmentUniqueBaubles.InsaneRing,"ring_insane","InsaneRing");
+		register(equi,EquipmentUniqueBaubles.LucidRing,"ring_lucid","LucidRing");
+		register(equi,EquipmentUniqueBaubles.LoveRing,"ring_love","LoveRing");
+		register(equi,EquipmentUniqueBaubles.PlagueStone,"amulet_plague_stone","AmuletPlagueStone");
+		register(equi,EquipmentUniqueBaubles.PhotosynthesisAmulet,"ring_photosynthesis","PhotosynthesisAmulet");
+		register(equi,EquipmentUniqueBaubles.DwartTravellerBelt,"belt_dwart_traveller","DwartTravellerBelt");
+		register(equi,EquipmentUniqueBaubles.MermaidBelt,"belt_mermaid","MermaidBelt");
+		register(equi,EquipmentUniqueBaubles.TwelveMagicalPowerAmulet,"amulet_twelve_magical","TwelveMagicalAmulet");
 
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.DimVisRingEarth,"ring_visring_earth_dim","DimVisRingEarth");
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.DimVisRingFire,"ring_visring_fire_dim","DimVisRingFire");
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.DimVisRingWater,"ring_visring_water_dim","DimVisRingWater");
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.DimVisRingAir,"ring_visring_air_dim","DimVisRingAir");
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.DimVisRingOrder,"ring_visring_order_dim","DimVisRingOrder");
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.DimVisRingEntropy,"ring_visring_entropy_dim","DimVisRingEntropy");
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.VisRingEarth,"ring_visring_earth","VisRingEarth");
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.VisRingFire,"ring_visring_fire","VisRingFire");
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.VisRingWater,"ring_visring_water","VisRingWater");
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.VisRingAir,"ring_visring_air","VisRingAir");
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.VisRingOrder,"ring_visring_order","VisRingOrder");
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.VisRingEntropy,"ring_visring_entropy","VisRingEntropy");
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.GlowVisRingEarth,"ring_visring_earth_glow","GlowVisRingEarth");
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.GlowVisRingFire,"ring_visring_fire_glow","GlowVisRingFire");
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.GlowVisRingWater,"ring_visring_water_glow","GlowVisRingWater");
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.GlowVisRingAir,"ring_visring_air_glow","GlowVisRingAir");
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.GlowVisRingOrder,"ring_visring_order_glow","GlowVisRingOrder");
-		register(IrisiaCreativeTabs.equi,EquipmentUniqueBaubles.GlowVisRingEntropy,"ring_visring_entropy_glow","GlowVisRingEntropy");
+		register(equi,EquipmentUniqueBaubles.DimVisRingEarth,"ring_visring_earth_dim","DimVisRingEarth");
+		register(equi,EquipmentUniqueBaubles.DimVisRingFire,"ring_visring_fire_dim","DimVisRingFire");
+		register(equi,EquipmentUniqueBaubles.DimVisRingWater,"ring_visring_water_dim","DimVisRingWater");
+		register(equi,EquipmentUniqueBaubles.DimVisRingAir,"ring_visring_air_dim","DimVisRingAir");
+		register(equi,EquipmentUniqueBaubles.DimVisRingOrder,"ring_visring_order_dim","DimVisRingOrder");
+		register(equi,EquipmentUniqueBaubles.DimVisRingEntropy,"ring_visring_entropy_dim","DimVisRingEntropy");
+		register(equi,EquipmentUniqueBaubles.VisRingEarth,"ring_visring_earth","VisRingEarth");
+		register(equi,EquipmentUniqueBaubles.VisRingFire,"ring_visring_fire","VisRingFire");
+		register(equi,EquipmentUniqueBaubles.VisRingWater,"ring_visring_water","VisRingWater");
+		register(equi,EquipmentUniqueBaubles.VisRingAir,"ring_visring_air","VisRingAir");
+		register(equi,EquipmentUniqueBaubles.VisRingOrder,"ring_visring_order","VisRingOrder");
+		register(equi,EquipmentUniqueBaubles.VisRingEntropy,"ring_visring_entropy","VisRingEntropy");
+		register(equi,EquipmentUniqueBaubles.GlowVisRingEarth,"ring_visring_earth_glow","GlowVisRingEarth");
+		register(equi,EquipmentUniqueBaubles.GlowVisRingFire,"ring_visring_fire_glow","GlowVisRingFire");
+		register(equi,EquipmentUniqueBaubles.GlowVisRingWater,"ring_visring_water_glow","GlowVisRingWater");
+		register(equi,EquipmentUniqueBaubles.GlowVisRingAir,"ring_visring_air_glow","GlowVisRingAir");
+		register(equi,EquipmentUniqueBaubles.GlowVisRingOrder,"ring_visring_order_glow","GlowVisRingOrder");
+		register(equi,EquipmentUniqueBaubles.GlowVisRingEntropy,"ring_visring_entropy_glow","GlowVisRingEntropy");
 
-		register(IrisiaCreativeTabs.equi,EquipmentAntiBuffBaubles.AntiPoisonRing,"ring_ati_poison","AntiPoisonRing");
-		register(IrisiaCreativeTabs.equi,EquipmentAntiBuffBaubles.HolyCrossAmulet,"amulet_holy_cross","HolyCrossAmulet");
+		register(equi,EquipmentAntiBuffBaubles.AntiPoisonRing,"ring_ati_poison","AntiPoisonRing");
+		register(equi,EquipmentAntiBuffBaubles.HolyCrossAmulet,"amulet_holy_cross","HolyCrossAmulet");
 
-		register(IrisiaCreativeTabs.equi,EquipmentBuffBaubles.GeneralEmblem,"amulet_general_emblem","GeneralEmblem");
-		register(IrisiaCreativeTabs.equi,EquipmentBuffBaubles.GiantBelt,"belt_giant","GiantBelt");
-		register(IrisiaCreativeTabs.equi,EquipmentBuffBaubles.ManaBoostRing,"ring_mana_boost","ManaBoostRing");
-		register(IrisiaCreativeTabs.equi,EquipmentBuffBaubles.ManaInterferingRing,"ring_mana_interfering","ManaInterferingRing");
+		register(equi,EquipmentBuffBaubles.GeneralEmblem,"amulet_general_emblem","GeneralEmblem");
+		register(equi,EquipmentBuffBaubles.GiantBelt,"belt_giant","GiantBelt");
+		register(equi,EquipmentBuffBaubles.ManaBoostRing,"ring_mana_boost","ManaBoostRing");
+		register(equi,EquipmentBuffBaubles.ManaInterferingRing,"ring_mana_interfering","ManaInterferingRing");
 	}
 	private static void registerConsumables()
 	{
 		// 消耗品
-		register(IrisiaCreativeTabs.irisia,Consumables.Gashapon,"cons_gashapon","Gashapon");
-		register(IrisiaCreativeTabs.irisia,Consumables.ThaumicNote,"cons_thaumic_note","ThaumicNote");
-		register(IrisiaCreativeTabs.irisia,Consumables.DustOfAppearance,"cons_dust_of_appearance","DustOfAppearance");
+		register(irisia,Consumables.Gashapon,"cons_gashapon","Gashapon");
+		register(irisia,Consumables.ThaumicNote,"cons_thaumic_note","ThaumicNote");
+		register(irisia,Consumables.DustOfAppearance,"cons_dust_of_appearance","DustOfAppearance");
 	}
 	private static void registerConsumableWeapons()
 	{
-		register(IrisiaCreativeTabs.irisia,ConsumableWeapons.ThrowableWeapons,"consw_tws","ThrowableWeapons");
-		register(IrisiaCreativeTabs.irisia,ConsumableWeapons.SmokeBomb,"consw_smoke_bomb","SmokeBomb");
+		register(irisia,ConsumableWeapons.ThrowableWeapons,"consw_tws","ThrowableWeapons");
+		register(irisia,ConsumableWeapons.SmokeBomb,"consw_smoke_bomb","SmokeBomb");
 	}
 	private static void registerWeapons()
 	{
-		register(IrisiaCreativeTabs.equi,Weapons.FlailWood,"weapon_flail_wood","WeaponFlailWood");
-		register(IrisiaCreativeTabs.equi,Weapons.FlailIron,"weapon_flail_iron","WeaponFlailIron");
-		register(IrisiaCreativeTabs.equi,Weapons.FlailGold,"weapon_flail_gold","WeaponFlailGold");
-		register(IrisiaCreativeTabs.equi,Weapons.FlailDiamond,"weapon_flail_diamond","WeaponFlailDiamond");
-		register(IrisiaCreativeTabs.equi,Weapons.FlailVoidMetal,"weapon_flail_void_metal","WeaponFlailVoidMetal");
-		register(IrisiaCreativeTabs.equi,Weapons.FlailAdamantium,"weapon_flail_adamantium","WeaponFlailAdamantium");
-		register(IrisiaCreativeTabs.equi,Weapons.FlailMithril,"weapon_flail_mithril","WeaponFlailMithril");
-		register(IrisiaCreativeTabs.equi,Weapons.FlailSolita,"weapon_flail_solita","WeaponFlailSolita");
-		register(IrisiaCreativeTabs.equi,Weapons.FlailMogiga,"weapon_flail_mogiga","WeaponFlailMogiga");
-		register(IrisiaCreativeTabs.equi,Weapons.FlailBone,"weapon_flail_bone","WeaponFlailBone");
+		register(equi,Weapons.FlailWood,"weapon_flail_wood","WeaponFlailWood");
+		register(equi,Weapons.FlailIron,"weapon_flail_iron","WeaponFlailIron");
+		register(equi,Weapons.FlailGold,"weapon_flail_gold","WeaponFlailGold");
+		register(equi,Weapons.FlailDiamond,"weapon_flail_diamond","WeaponFlailDiamond");
+		register(equi,Weapons.FlailVoidMetal,"weapon_flail_void_metal","WeaponFlailVoidMetal");
+		register(equi,Weapons.FlailAdamantium,"weapon_flail_adamantium","WeaponFlailAdamantium");
+		register(equi,Weapons.FlailMithril,"weapon_flail_mithril","WeaponFlailMithril");
+		register(equi,Weapons.FlailSolita,"weapon_flail_solita","WeaponFlailSolita");
+		register(equi,Weapons.FlailMogiga,"weapon_flail_mogiga","WeaponFlailMogiga");
+		register(equi,Weapons.FlailBone,"weapon_flail_bone","WeaponFlailBone");
 
-		register(IrisiaCreativeTabs.equi,Weapons.BoneStick,"weapon_bone_stick","WeaponBoneStick");
-		register(IrisiaCreativeTabs.equi,Weapons.GuardianSword,"weapon_guardian_sword","WeaponGuardianSword");
-		register(IrisiaCreativeTabs.equi,Weapons.Maquahuitl,"weapon_maquahuitl","WeaponMaquahuitl");
-		register(IrisiaCreativeTabs.equi,Weapons.VoidRunicLongBow,"weapon_void_runic_long_bow","WeaponVoidRunicLongBow");
-		register(IrisiaCreativeTabs.equi,Weapons.MercurialBlade,"weapon_mercurial_blade","WeaponMercurialBlade");
-		register(IrisiaCreativeTabs.equi,Weapons.NightBlade,"weapon_night_blade","WeaponNightBlade");
-		register(IrisiaCreativeTabs.equi,Weapons.BerserkerSword,"weapon_berserker_sword","WeaponBerserkerSword");
-		register(IrisiaCreativeTabs.equi,Weapons.KineticBlade,"weapon_kinetic_blade","WeaponKineticBlade");
-		register(IrisiaCreativeTabs.equi,Weapons.WarpingBlade,"weapon_warping_blade","WeaponWarpingBlade");
-		register(IrisiaCreativeTabs.equi,Weapons.SoulEater,"weapon_soul_eater","WeaponSoulEater");
-		register(IrisiaCreativeTabs.equi,Weapons.LunarDagger,"weapon_lunar_dagger","WeaponLunarDagger");
-		register(IrisiaCreativeTabs.equi,Weapons.Radiance,"weapon_radiance","WeaponRadiance");
-		register(IrisiaCreativeTabs.equi,Weapons.BurningSpear,"weapon_buring_spear","WeaponBuringSpear");
-		register(IrisiaCreativeTabs.equi,Weapons.IcyRoseSword,"weapon_icy_rose_sword","IcyRoseSword");
+		register(equi,Weapons.BoneStick,"weapon_bone_stick","WeaponBoneStick");
+		register(equi,Weapons.GuardianSword,"weapon_guardian_sword","WeaponGuardianSword");
+		register(equi,Weapons.Maquahuitl,"weapon_maquahuitl","WeaponMaquahuitl");
+		register(equi,Weapons.VoidRunicLongBow,"weapon_void_runic_long_bow","WeaponVoidRunicLongBow");
+		register(equi,Weapons.MercurialBlade,"weapon_mercurial_blade","WeaponMercurialBlade");
+		register(equi,Weapons.NightBlade,"weapon_night_blade","WeaponNightBlade");
+		register(equi,Weapons.BerserkerSword,"weapon_berserker_sword","WeaponBerserkerSword");
+		register(equi,Weapons.KineticBlade,"weapon_kinetic_blade","WeaponKineticBlade");
+		register(equi,Weapons.WarpingBlade,"weapon_warping_blade","WeaponWarpingBlade");
+		register(equi,Weapons.SoulEater,"weapon_soul_eater","WeaponSoulEater");
+		register(equi,Weapons.LunarDagger,"weapon_lunar_dagger","WeaponLunarDagger");
+		register(equi,Weapons.Radiance,"weapon_radiance","WeaponRadiance");
+		register(equi,Weapons.BurningSpear,"weapon_buring_spear","WeaponBuringSpear");
+		register(equi,Weapons.IcyRoseSword,"weapon_icy_rose_sword","WeaponIcyRoseSword");
+		register(equi,Weapons.GreenCrystalSword,"weapon_green_crystal_sword","WeaponGreenCrystalSword");
 	}
 	private static void registerTools()
 	{
-		register(IrisiaCreativeTabs.irisia,Tools.ReturnCompass,"tool_return_compass","ToolReturnCompass");
-		register(IrisiaCreativeTabs.irisia,Tools.Debugger,"tool_debugger","ToolDebugger");
-		register(IrisiaCreativeTabs.irisia,Tools.Astrolabe,"tool_astrolabe","ToolAstrolabe");
-		register(IrisiaCreativeTabs.irisia,Tools.ArmorStorageBox,"tool_armor_storage_box","ToolArmorStorageBox");
-		register(IrisiaCreativeTabs.irisia,Tools.BaubleStorageBox,"tool_bauble_storage_box","ToolBaubleStorageBox");
-		// register(IrisiaCreativeTabs.irisia,Tools.MagicBag,"tool_magic_bag","ToolMagicBag");
-		register(IrisiaCreativeTabs.irisia,Tools.OrienterThaumium,"tool_orienter_thaumium","ToolOrienterThaumium");
-		register(IrisiaCreativeTabs.irisia,Tools.OrienterStorm,"tool_orienter_storm","ToolOrienterStorm");
-		register(IrisiaCreativeTabs.irisia,Tools.OrienterDark,"tool_orienter_dark","ToolOrienterDark");
-		register(IrisiaCreativeTabs.irisia,Tools.OrienterPhotosynthesis,"tool_orienter_photosynthesis","ToolOrienterPhotosynthesis");
-		register(IrisiaCreativeTabs.irisia,Tools.OrienterVibrhythm,"tool_orienter_vibrhythm","ToolOrienterVibrhythm");
+		register(irisia,Tools.ReturnCompass,"tool_return_compass","ToolReturnCompass");
+		register(irisia,Tools.Debugger,"tool_debugger","ToolDebugger");
+		register(irisia,Tools.Astrolabe,"tool_astrolabe","ToolAstrolabe");
+		register(irisia,Tools.ArmorStorageBox,"tool_armor_storage_box","ToolArmorStorageBox");
+		register(irisia,Tools.BaubleStorageBox,"tool_bauble_storage_box","ToolBaubleStorageBox");
+		// register(irisia,Tools.MagicBag,"tool_magic_bag","ToolMagicBag");
+		register(irisia,Tools.OrienterThaumium,"tool_orienter_thaumium","ToolOrienterThaumium");
+		register(irisia,Tools.OrienterStorm,"tool_orienter_storm","ToolOrienterStorm");
+		register(irisia,Tools.OrienterDark,"tool_orienter_dark","ToolOrienterDark");
+		register(irisia,Tools.OrienterPhotosynthesis,"tool_orienter_photosynthesis","ToolOrienterPhotosynthesis");
+		register(irisia,Tools.OrienterVibrhythm,"tool_orienter_vibrhythm","ToolOrienterVibrhythm");
 	}
 //	private static void registerSeeds()
 //	{
-//		register(IrisiaCreativeTabs.irisia, HerbSeeds.DeathGrassSeed,"seed_death_grass","DeathGrassSeed");
-//		register(IrisiaCreativeTabs.irisia, HerbSeeds.MoonGrassSeed,"seed_moon_grass","MoonGrassSeed");
+//		register(irisia, HerbSeeds.DeathGrassSeed,"seed_death_grass","DeathGrassSeed");
+//		register(irisia, HerbSeeds.MoonGrassSeed,"seed_moon_grass","MoonGrassSeed");
 //	}
 	protected static void registerItems()
     {

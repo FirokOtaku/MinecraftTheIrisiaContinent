@@ -72,6 +72,8 @@ public class Weapons
 	public final static ItemBow BurningSpear;
 	public final static ItemSword Radiance;
 	public final static ItemSword IcyRoseSword;
+	public final static ItemSword GreenCrystalSword;
+	public final static ItemSword TestSword;
 	static
 	{
 		FlailWood=new FlailWeapon(Item.ToolMaterial.WOOD);
@@ -100,6 +102,8 @@ public class Weapons
 		BurningSpear=new BurningSpearWeapon();
 		Radiance=new RadianceWeapon();
 		IcyRoseSword=new IcyRoseSwordWeapon();
+		GreenCrystalSword=new GreenCrystalSwordWeapon();
+		TestSword=new WeaponTestSword();
 	}
 
 	public static class BoneStickWeapon extends ItemSword
@@ -645,6 +649,30 @@ public class Weapons
 		{
 			return 6;
 		}
+	}
+	public static class GreenCrystalSwordWeapon extends ItemSword
+	{
+		public GreenCrystalSwordWeapon()
+		{
+			super(Materials.GreenCrystalMetalTool);
+		}
+
+		@Override
+		public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase player)
+		{
+			float damage= 8.5f; // todo high 改一下攻击力
+			target.attackEntityFrom(DamageSource.generic,damage);
+			itemStack.damageItem(1, player);
+			return true;
+		}
+	}
+	public static class WeaponTestSword extends ItemSword
+	{
+		public WeaponTestSword()
+		{
+			super(Materials.GreenCrystalMetalTool);
+		}
+
 	}
 
 	public static class BurningSpearWeapon extends ItemBow

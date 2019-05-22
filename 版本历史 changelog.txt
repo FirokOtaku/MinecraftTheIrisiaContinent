@@ -1,3 +1,7 @@
+0.12.103
+加入绿晶剑武器
+added GreenCrystalSword weapon
+
 0.12.102
 雷神之锤变更为天枢-脉冲之剑
 changed Mjollnir to AlkaidTheImpulse

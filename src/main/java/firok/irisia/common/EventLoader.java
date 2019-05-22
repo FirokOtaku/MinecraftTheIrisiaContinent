@@ -279,6 +279,7 @@ public class EventLoader
 	    float maxHp=enlb.getMaxHealth();
 	    float nowHp=enlb.getHealth();
 	    boolean isFireDamage=event.source.isFireDamage();
+	    boolean isMagicalDamage=event.source.isMagicDamage();
 	    // 如果是玩家 先判断身上的装备 提供一些装备效果
 	    if(enlb instanceof EntityPlayer)
 	    {
@@ -326,6 +327,13 @@ public class EventLoader
 		    	amount=0; // 取消伤害
 			    event.setCanceled(true);
 			    return;
+		    }
+
+		    // 绿晶剑判定
+		    ItemStack stackHeld;
+		    if((stackHeld=player.getHeldItem())!=null && stackHeld.getItem()==Weapons.GreenCrystalSword)
+		    {
+		    	event.ammount*=isMagicalDamage?0.7:0.85;
 		    }
 	    }
 

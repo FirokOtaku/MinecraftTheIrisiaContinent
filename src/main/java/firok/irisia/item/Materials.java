@@ -184,6 +184,10 @@ public class Materials
 					3,1200,12f,2,14)
 			.setRepairItem(new ItemStack(RawMaterials.LuxMetalIngot)); // todo low 改一下性能参数
 
+	public static final Item.ToolMaterial GreenCrystalMetalTool =
+			EnumHelper.addToolMaterial(Irisia.MODID+":GREENCRYSTAL",
+					3,1800,12f,2,14)
+					.setRepairItem(new ItemStack(Items.emerald)); // todo low 改一下性能参数
 
 	// 独有材料
 	public static final Item.ToolMaterial Alioth =
