@@ -7,6 +7,7 @@ import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import firok.irisia.Irisia;
+import firok.irisia.ability.CausePlantGrowth;
 import firok.irisia.ability.CauseTeleportation;
 import firok.irisia.common.EntitySelectors;
 import firok.irisia.entity.Pets;
@@ -125,23 +126,23 @@ public class EquipmentUniqueBaubles
 				if(!enlb.worldObj.isRemote && enlb instanceof EntityPlayer && enlb.ticksExisted % 80 ==0)
 				{
 					double x=enlb.posX,y=enlb.posY,z=enlb.posZ;
-					if(applyBonemeal(enlb.worldObj,(int)x,(int)y,(int)z,(EntityPlayer)enlb))
+					if(CausePlantGrowth.At(enlb.worldObj,(int)x,(int)y,(int)z))
 					{
 						enlb.worldObj.playAuxSFX(2005, (int)x, (int)y, (int)z, 0);
 					}
-					if(applyBonemeal(enlb.worldObj,(int)x-1,(int)y,(int)z,(EntityPlayer)enlb))
+					if(CausePlantGrowth.At(enlb.worldObj,(int)x-1,(int)y,(int)z))
 					{
 						enlb.worldObj.playAuxSFX(2005, (int)x-1, (int)y, (int)z, 0);
 					}
-					if(applyBonemeal(enlb.worldObj,(int)x+1,(int)y,(int)z,(EntityPlayer)enlb))
+					if(CausePlantGrowth.At(enlb.worldObj,(int)x+1,(int)y,(int)z))
 					{
 						enlb.worldObj.playAuxSFX(2005, (int)x+1, (int)y, (int)z, 0);
 					}
-					if(applyBonemeal(enlb.worldObj,(int)x,(int)y,(int)z-1,(EntityPlayer)enlb))
+					if(CausePlantGrowth.At(enlb.worldObj,(int)x,(int)y,(int)z-1))
 					{
 						enlb.worldObj.playAuxSFX(2005, (int)x, (int)y, (int)z-1, 0);
 					}
-					if(applyBonemeal(enlb.worldObj,(int)x,(int)y,(int)z+1,(EntityPlayer)enlb))
+					if(CausePlantGrowth.At(enlb.worldObj,(int)x,(int)y,(int)z+1))
 					{
 						enlb.worldObj.playAuxSFX(2005, (int)x, (int)y, (int)z+1, 0);
 					}
@@ -730,30 +731,5 @@ public class EquipmentUniqueBaubles
 	public static abstract class AbilityAmulet extends EquipmentSets.Amulet implements IBaubleAbility
 	{
 		;
-	}
-
-
-	public static boolean applyBonemeal( World world, int x, int y, int z, EntityPlayer player)
-	{
-		if(world.isRemote)
-			return false;
-
-		Block block = world.getBlock(x, y, z);
-
-		if (block instanceof IGrowable)
-		{
-			IGrowable igrowable = (IGrowable)block;
-
-			if (igrowable.func_149851_a(world, x, y, z, world.isRemote))
-			{
-				if (igrowable.func_149852_a(world, world.rand, x, y, z))
-				{
-					igrowable.func_149853_b(world, world.rand, x, y, z);
-				}
-				return true;
-			}
-		}
-
-		return false;
 	}
 }
