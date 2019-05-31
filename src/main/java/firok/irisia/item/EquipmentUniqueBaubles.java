@@ -37,6 +37,7 @@ import thaumcraft.common.lib.research.PlayerKnowledge;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unchecked")
 public class EquipmentUniqueBaubles
 {
 	// 本身没有什么特殊代码 靠Event驱动的饰品

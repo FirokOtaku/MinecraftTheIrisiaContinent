@@ -3,11 +3,14 @@ package firok.irisia.item;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import firok.irisia.Irisia;
+import firok.irisia.Util;
+import firok.irisia.ability.CauseAnvilRepair;
 import firok.irisia.common.EntitySelectors;
 import firok.irisia.common.GashaponManager;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
@@ -267,4 +270,17 @@ public class Consumables
 		}
 	};
 
+	// 铁砧修复材
+	@SuppressWarnings("unchecked")
+	public static final Item AnvilRepairMaterial=new Item()
+	{
+		@Override
+		public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int meta, float hitX, float hitY, float hitZ)
+		{
+			boolean ret=CauseAnvilRepair.At(world, x, y, z);
+			if(ret && !player.capabilities.isCreativeMode)
+				stack.stackSize--;
+			return ret;
+		}
+	};
 }

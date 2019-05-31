@@ -81,7 +81,7 @@ public class Tools
 			{
 				switch(mode)
 				{
-					case 1: return "物品调试(未添加)";
+					case 1: return "物品调试";
 					case 2: return "世界调试";
 					case 3: return "玩家调试";
 					case 4: return "矿物调试";
@@ -156,6 +156,23 @@ public class Tools
 					switch(mode)
 					{
 						case 1: // item
+							InventoryPlayer inv=player.inventory;
+							final int size=inv.getSizeInventory();
+							for(int i=0;i<size;i++)
+							{
+								ItemStack stackInSlot=inv.getStackInSlot(i);
+								if(i>=1&&stackInSlot!=null && stackInSlot.getItem()==Debugger)
+								{
+									ItemStack stackBehind=inv.getStackInSlot(i-1);
+									if(stackBehind!=null)
+									{
+										Irisia.tellPlayer(stackBehind.getUnlocalizedName(),player);
+										Irisia.tellPlayer("damage:"+stackBehind.getItemDamage(),player);
+										Irisia.tellPlayer("class:"+stackBehind.getItem().getClass().getTypeName(),player);
+										Irisia.tellPlayer("nbt:"+(stackBehind.hasTagCompound()?stackBehind.getTagCompound().toString():"null"),player);
+									}
+								}
+							}
 							break;
 						case 2: // world
 							WorldInfo info=world.getWorldInfo();

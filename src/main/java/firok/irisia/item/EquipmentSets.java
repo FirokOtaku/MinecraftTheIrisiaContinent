@@ -36,6 +36,7 @@ import java.util.List;
 import static firok.irisia.common.EventLoader.intervalEffectArmorTick;
 import static firok.irisia.Util.ItemType;
 
+@SuppressWarnings("unchecked")
 public class EquipmentSets
 {
 	public final static EquipmentSet BoneSet;

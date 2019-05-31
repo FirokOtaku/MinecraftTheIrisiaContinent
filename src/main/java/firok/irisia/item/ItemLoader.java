@@ -249,6 +249,7 @@ public class ItemLoader
 		register(irisia,Consumables.Gashapon,"cons_gashapon","Gashapon");
 		register(irisia,Consumables.ThaumicNote,"cons_thaumic_note","ThaumicNote");
 		register(irisia,Consumables.DustOfAppearance,"cons_dust_of_appearance","DustOfAppearance");
+		register(irisia,Consumables.AnvilRepairMaterial,"cons_anvil_repair_material","AnvilRepairMaterial");
 	}
 	private static void registerConsumableWeapons()
 	{
