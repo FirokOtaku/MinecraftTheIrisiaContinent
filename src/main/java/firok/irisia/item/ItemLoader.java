@@ -199,6 +199,11 @@ public class ItemLoader
 	}
 	private static void registerBaubles()
 	{
+//		register(equi,Tools.Item1,"item1","item1");
+		register(equi, EquipmentUniqueBaubles.MetalAmulet,"amulet_metal","MetalAmulet");
+		register(equi, EquipmentUniqueBaubles.MetalBelt,"belt_metal","MetalBelt");
+		register(equi, EquipmentUniqueBaubles.MetalRing,"ring_metal","MetalRing");
+
 		register(equi,EquipmentUniqueBaubles.SylphBelt,"belt_sylph","SylphBelt");
 		register(equi,EquipmentUniqueBaubles.MidasRelic,"ring_midas_relic","MidasRelicRing");
 

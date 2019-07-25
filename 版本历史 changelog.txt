@@ -1,3 +1,11 @@
+0.12.106
+加入金属戒指、金属腰带、金属护身符饰品
+added MetalRing, MetalBelt, MetalAmulet baubles
+加入富魔力土、富魔力草、荧光草方块
+added RichMagicDirt, RichMagicGrass, LuxGrass blocks
+加入矿脉方块
+added VeinBlock class
+
 0.12.105
 加入铁砧修复材物品
 added AnvilRepairMaterial item

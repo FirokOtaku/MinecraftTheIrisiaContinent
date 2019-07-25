@@ -3,373 +3,333 @@ package firok.irisia.block;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import firok.irisia.Irisia;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.world.ColorizerFoliage;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.IShearable;
+import net.minecraftforge.common.util.ForgeDirection;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class DecorationBlocks
 {
 	public final static Block CorrosedBlock; // 被腐蚀的方块
-	public final static Block Loess; // 黄土
-	public final static Block BlackDirt; // 黑土
-	public final static Block Stones;
-	public final static Block Bricks;
-	public final static Block Logs;
+//	public final static Block Loess; // 黄土
+
+	public final static Block RichMagicGrass; // 富魔力草
+	public final static Block RichMagicStone; // 富魔力石
+
+	public final static Block LuxGrass; // 荧光草
+
+
 	static
 	{
-		CorrosedBlock=new Block(Material.sand){};
-		Loess=new Block(Material.sand){};
-		BlackDirt=new Block(Material.ground){};
-		Stones=new BlockStones();
-		Bricks=new BlockBricks();
-		Logs=new BlockLogs();
+		CorrosedBlock=new CustomSand();
+		RichMagicGrass=new CustomDirt();
+		RichMagicStone=new CustomStone();
+		LuxGrass=new CustomDirt()
+				.setLightLevel(8);
 	}
-	// todo 以后尝试把这里再封装一层 把这几个类写成一个
-	public static class BlockStones extends BlockStone
+	public static class CustomSand extends Block
 	{
-		public BlockStones()
+		public CustomSand()
 		{
-			super();
-			this.setBlockTextureName("decor_stones");
-			this.setBlockName("DecorStones");
-		}
-
-		public static byte subTypes=4;
-		public static IIcon[] icons =new IIcon[subTypes];
-		public static String[] names =new String[]{
-				"irisia:decor_black_stone",
-				"irisia:decor_brown_stone",
-				"irisia:decor_blue_stone",
-				"irisia:decor_elf_stone"};
-		@Override
-		@SideOnly(Side.CLIENT)
-		public void registerBlockIcons(IIconRegister iir)
-		{
-			for(byte i=0;i<subTypes;i++)
-			{
-				icons[i]=iir.registerIcon(names[i]);
-			}
-		}
-		@Override
-		@SideOnly(Side.CLIENT)
-		public IIcon getIcon(int side, int meta)
-		{
-			return meta>=0&&meta<subTypes?icons[meta]:Blocks.stone.getIcon(side,meta);
-		}
-		@Override
-		@SideOnly(Side.CLIENT)
-		public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side)
-		{
-			return getIcon(side,world.getBlockMetadata(x, y, z));
-		}
-
-		/**
-		 * Determines the damage on the item the block drops. Used in cloth and wood.
-		 */
-		public int damageDropped(int meta)
-		{
-			return meta;
-		}
-
-		@Override // note 被itemBlock放置的时候执行的东西 用来给方块设置meta
-		public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemStack)
-		{
-			int meta=itemStack.getItemDamage();
-			if(meta<0) meta=0;
-			if(meta>=subTypes) meta=0;
-			world.setBlockMetadataWithNotify(x,y,z,meta,2);
-		}
-		@Override // note 这个方法暂时不知道干啥的 以后可能删掉 // low 也许可以研究一下楼梯stairs的实现
-		/**
-		 * Called when a block is placed using its ItemBlock. Args: World, X, Y, Z, side, hitX, hitY, hitZ, block metadata
-		 */
-		public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta)
-		{
-			// world.setBlockMetadataWithNotify(x,y,z,meta,2);
-			return meta;
-		}
-		/**
-		 * Returns an item stack containing a single instance of the current block type. 'i' is the block's subtype/damage
-		 * and is ignored for blocks which do not support subtypes. Blocks which cannot be harvested should return null.
-		 */
-		@Override
-		protected ItemStack createStackedBlock(int meta)
-		{
-			return new ItemStack(this,1,meta);
-		}
-		@Override
-		public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
-		{
-			if(Irisia.IN_DEV && player.isSneaking()) // note 这里以后删掉
-			{
-				int meta=world.getBlockMetadata(x,y,z);
-				if(meta<subTypes-1) meta++;
-				else meta=0;
-				world.setBlockMetadataWithNotify(x,y,z,meta,2);
-				return true;
-			}
-			return false;
-		}
-
-		@Override
-		@SideOnly(Side.CLIENT)
-		public void getSubBlocks(Item item, CreativeTabs tab, List list)
-		{
-			for(byte i=0;i<subTypes;i++)
-			{
-				list.add(new ItemStack(this,1,i));//BlockStairs
-			}
-		}
-		/**
-		 * Get the block's damage value (for use with pick block).
-		 */
-		@Override
-		public int getDamageValue(World world, int x, int y, int z)
-		{
-			return world.getBlockMetadata(x, y, z);
-		}
-		@Override
-		public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
-		{
-			return Item.getItemFromBlock(Stones);
+			super(Material.sand);
+			this.setHardness(0.5F);
+			this.setStepSound(soundTypeSand);
 		}
 	}
-	public static class BlockLogs extends BlockLog // fixme 这个类完全没写完
+	public static class CustomLog extends Block
 	{
-		public BlockLogs()
+		public CustomLog()
 		{
-			super();
-			this.setBlockTextureName("decor_woods");
-			this.setBlockName("DecorWoods");
-		}
-		public static byte subTypes=4;
-		public static IIcon[] iconTops =new IIcon[subTypes];
-		public static IIcon[] iconSides=new IIcon[subTypes];
-		public static String[] nameTops =new String[]{
-				"irisia:decor_black_stone",
-				"irisia:decor_brown_stone",
-				"irisia:decor_blue_stone",
-				"irisia:decor_elf_stone"};
-		public static String[] nameSides=new String[]{
-
-		};
-		@Override
-		@SideOnly(Side.CLIENT)
-		public void registerBlockIcons(IIconRegister iir)
-		{
-			for(byte i=0;i<subTypes;i++)
-			{
-				iconTops[i]=iir.registerIcon(nameTops[i]);
-				iconSides[i]=iir.registerIcon(nameSides[i]);
-			}
-		}
-		@Override
-		@SideOnly(Side.CLIENT)
-		public IIcon getIcon(int side, int meta)
-		{
-			return meta>=0&&meta<subTypes? iconTops[meta]:Blocks.stone.getIcon(side,meta);
-		}
-		@Override
-		@SideOnly(Side.CLIENT)
-		public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side)
-		{
-			return getIcon(side,world.getBlockMetadata(x, y, z));
-		}
-
-		/**
-		 * Determines the damage on the item the block drops. Used in cloth and wood.
-		 */
-		public int damageDropped(int meta)
-		{
-			return meta;
-		}
-
-		@Override // note 被itemBlock放置的时候执行的东西 用来给方块设置meta
-		public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemStack)
-		{
-			int meta=itemStack.getItemDamage();
-			if(meta<0) meta=0;
-			if(meta>=subTypes) meta=0;
-			world.setBlockMetadataWithNotify(x,y,z,meta,2);
-		}
-		@Override // note 这个方法暂时不知道干啥的 以后可能删掉 // low 也许可以研究一下楼梯stairs的实现
-		/**
-		 * Called when a block is placed using its ItemBlock. Args: World, X, Y, Z, side, hitX, hitY, hitZ, block metadata
-		 */
-		public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta)
-		{
-			// world.setBlockMetadataWithNotify(x,y,z,meta,2);
-			return meta;
-		}
-		/**
-		 * Returns an item stack containing a single instance of the current block type. 'i' is the block's subtype/damage
-		 * and is ignored for blocks which do not support subtypes. Blocks which cannot be harvested should return null.
-		 */
-		@Override
-		protected ItemStack createStackedBlock(int meta)
-		{
-			return new ItemStack(this,1,meta);
-		}
-		@Override
-		public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
-		{
-			if(Irisia.IN_DEV && player.isSneaking()) // note 这里以后删掉
-			{
-				int meta=world.getBlockMetadata(x,y,z);
-				if(meta<subTypes-1) meta++;
-				else meta=0;
-				world.setBlockMetadataWithNotify(x,y,z,meta,2);
-				return true;
-			}
-			return false;
-		}
-
-		@Override
-		@SideOnly(Side.CLIENT)
-		public void getSubBlocks(Item item, CreativeTabs tab, List list)
-		{
-			for(byte i=0;i<subTypes;i++)
-			{
-				list.add(new ItemStack(this,1,i));//BlockStairs
-			}
-		}
-		/**
-		 * Get the block's damage value (for use with pick block).
-		 */
-		@Override
-		public int getDamageValue(World world, int x, int y, int z)
-		{
-			return world.getBlockMetadata(x, y, z);
-		}
-		@Override
-		public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
-		{
-			return Item.getItemFromBlock(Stones);
+			super(Material.wood);
+			this.setHardness(2.0F);
+			this.setStepSound(soundTypeWood);
 		}
 	}
-	public static class BlockBricks extends Block
+	public static class CustomLeave extends Block implements IShearable
 	{
-		public BlockBricks()
+		int[] adjacentTreeBlocks;
+
+		public CustomLeave() {
+			super(Material.leaves);
+			this.setTickRandomly(true);
+			this.setHardness(0.2F);
+			this.setLightOpacity(1);
+			this.setStepSound(soundTypeGrass);
+		}
+
+//		@SideOnly(Side.CLIENT)
+//		public void registerBlockIcons(IIconRegister ir) {
+//		}
+//
+//		public IIcon getIcon(int par1, int par2) {
+//			int idx = !Blocks.leaves.isOpaqueCube() ? 0 : 1;
+//			return (par2 & 1) == 1 ? this.icon[idx + 2] : this.icon[idx];
+//		}
+
+
+		@SideOnly(Side.CLIENT)
+		public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side) {
+			Block block = world.getBlock(x, y, z);
+			return Blocks.leaves.isOpaqueCube() && block == this ? false : super.shouldSideBeRendered(world, x, y, z, side);
+		}
+
+		@SideOnly(Side.CLIENT)
+		public int getBlockColor() {
+			return ColorizerFoliage.getFoliageColor(0.5D, 1.0D);
+		}
+
+		@SideOnly(Side.CLIENT)
+		public int getRenderColor(int par1) {
+			return (par1 & 1) == 0 ? ColorizerFoliage.getFoliageColorBasic() : 8952234;
+		}
+
+		@SideOnly(Side.CLIENT)
+		public int colorMultiplier(IBlockAccess world, int x, int y, int z) {
+			int meta = world.getBlockMetadata(x, y, z);
+			if ((meta & 1) == 1) {
+				return 8952234;
+			} else {
+				int var6 = 0;
+				int var7 = 0;
+				int var8 = 0;
+
+				for(int var9 = -1; var9 <= 1; ++var9) {
+					for(int var10 = -1; var10 <= 1; ++var10) {
+						int biomeGen = world.getBiomeGenForCoords(x + var10, z + var9).getBiomeFoliageColor(x, y, z);
+						var6 += (biomeGen & 16711680) >> 16;
+						var7 += (biomeGen & '\uff00') >> 8;
+						var8 += biomeGen & 255;
+					}
+				}
+
+				return (var6 / 9 & 255) << 16 | (var7 / 9 & 255) << 8 | var8 / 9 & 255;
+			}
+		}
+
+		@Override
+		public int getLightValue(IBlockAccess world, int x, int y, int z)
+		{
+			return lightValue;
+		}
+
+		public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
+			byte offsetXs = 1;
+			int offsetXs2 = 2;
+			if (world.checkChunksExist(x - offsetXs2, y - offsetXs2, z - offsetXs2, x + offsetXs2, y + offsetXs2, z + offsetXs2)) {
+				for(int offsetX = -offsetXs; offsetX <= offsetXs; ++offsetX) {
+					for(int offsetY = -offsetXs; offsetY <= offsetXs; ++offsetY) {
+						for(int offsetZ = -offsetXs; offsetZ <= offsetXs; ++offsetZ) {
+							Block blockNearby = world.getBlock(x + offsetX, y + offsetY, z + offsetZ);
+							if (blockNearby != Blocks.air) {
+								blockNearby.beginLeavesDecay(world, x + offsetX, y + offsetY, z + offsetZ);
+							}
+						}
+					}
+				}
+			}
+
+		}
+
+		public void updateTick(World world, int x, int y, int z, Random rand) {
+			if (!world.isRemote) {
+				int meta = world.getBlockMetadata(x, y, z);
+				byte var7 = 4;
+				int var8 = 5;
+				byte var9 = 32;
+				int var10 = var9 * var9;
+				int var11 = var9 / 2;
+				if (this.adjacentTreeBlocks == null) {
+					this.adjacentTreeBlocks = new int[var9 * var9 * var9];
+				}
+
+				int var12;
+				if (world.checkChunksExist(x - var8, y - var8, z - var8, x + var8, y + var8, z + var8)) {
+					var12 = -var7;
+
+					label117:
+					while(true) {
+						int var13;
+						int var14;
+						if (var12 > var7) {
+							var12 = 1;
+
+							while(true) {
+								if (var12 > 4) {
+									break label117;
+								}
+
+								for(var13 = -var7; var13 <= var7; ++var13) {
+									for(var14 = -var7; var14 <= var7; ++var14) {
+										for(int var15 = -var7; var15 <= var7; ++var15) {
+											if (this.adjacentTreeBlocks[(var13 + var11) * var10 + (var14 + var11) * var9 + var15 + var11] == var12 - 1) {
+												if (this.adjacentTreeBlocks[(var13 + var11 - 1) * var10 + (var14 + var11) * var9 + var15 + var11] == -2) {
+													this.adjacentTreeBlocks[(var13 + var11 - 1) * var10 + (var14 + var11) * var9 + var15 + var11] = var12;
+												}
+
+												if (this.adjacentTreeBlocks[(var13 + var11 + 1) * var10 + (var14 + var11) * var9 + var15 + var11] == -2) {
+													this.adjacentTreeBlocks[(var13 + var11 + 1) * var10 + (var14 + var11) * var9 + var15 + var11] = var12;
+												}
+
+												if (this.adjacentTreeBlocks[(var13 + var11) * var10 + (var14 + var11 - 1) * var9 + var15 + var11] == -2) {
+													this.adjacentTreeBlocks[(var13 + var11) * var10 + (var14 + var11 - 1) * var9 + var15 + var11] = var12;
+												}
+
+												if (this.adjacentTreeBlocks[(var13 + var11) * var10 + (var14 + var11 + 1) * var9 + var15 + var11] == -2) {
+													this.adjacentTreeBlocks[(var13 + var11) * var10 + (var14 + var11 + 1) * var9 + var15 + var11] = var12;
+												}
+
+												if (this.adjacentTreeBlocks[(var13 + var11) * var10 + (var14 + var11) * var9 + (var15 + var11 - 1)] == -2) {
+													this.adjacentTreeBlocks[(var13 + var11) * var10 + (var14 + var11) * var9 + (var15 + var11 - 1)] = var12;
+												}
+
+												if (this.adjacentTreeBlocks[(var13 + var11) * var10 + (var14 + var11) * var9 + var15 + var11 + 1] == -2) {
+													this.adjacentTreeBlocks[(var13 + var11) * var10 + (var14 + var11) * var9 + var15 + var11 + 1] = var12;
+												}
+											}
+										}
+									}
+								}
+
+								++var12;
+							}
+						}
+
+						for(var13 = -var7; var13 <= var7; ++var13) {
+							for(var14 = -var7; var14 <= var7; ++var14) {
+								Block block = world.getBlock(x + var12, y + var13, z + var14);
+								if (block != null && block.canSustainLeaves(world, x + var12, y + var13, z + var14)) {
+									this.adjacentTreeBlocks[(var12 + var11) * var10 + (var13 + var11) * var9 + var14 + var11] = 0;
+								} else if (block != null && block.isLeaves(world, x + var12, y + var13, z + var14)) {
+									this.adjacentTreeBlocks[(var12 + var11) * var10 + (var13 + var11) * var9 + var14 + var11] = -2;
+								} else {
+									this.adjacentTreeBlocks[(var12 + var11) * var10 + (var13 + var11) * var9 + var14 + var11] = -1;
+								}
+							}
+						}
+
+						++var12;
+					}
+				}
+
+				var12 = this.adjacentTreeBlocks[var11 * var10 + var11 * var9 + var11];
+				if (var12 >= 0) {
+					world.setBlock(x, y, z, this, meta & -9, 3);
+				} else {
+					this.removeLeaves(world, x, y, z);
+				}
+			}
+
+		}
+
+		@SideOnly(Side.CLIENT)
+		public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random) {
+			if (par1World.canLightningStrikeAt(par2, par3 + 1, par4) && !World.doesBlockHaveSolidTopSurface(par1World, par2, par3 - 1, par4) && par5Random.nextInt(15) == 1) {
+				double var6 = (double)((float)par2 + par5Random.nextFloat());
+				double var8 = (double)par3 - 0.05D;
+				double var10 = (double)((float)par4 + par5Random.nextFloat());
+				par1World.spawnParticle("dripWater", var6, var8, var10, 0.0D, 0.0D, 0.0D);
+			}
+
+		}
+
+		private void removeLeaves(World par1World, int par2, int par3, int par4) {
+			this.dropBlockAsItem(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
+			par1World.setBlockToAir(par2, par3, par4);
+		}
+		private int dropRate=100;
+
+		public void dropBlockAsItemWithChance(World world, int x, int y, int z, int meta, float flag, int par7) {
+			if (!world.isRemote && world.rand.nextInt(dropRate) == 0) {
+				this.dropBlockAsItem(world, x, y, z, new ItemStack(this, 1, 0));
+			}
+
+		}
+
+		public void harvestBlock(World par1World, EntityPlayer par2EntityPlayer, int par3, int par4, int par5, int par6) {
+			super.harvestBlock(par1World, par2EntityPlayer, par3, par4, par5, par6);
+		}
+
+		public int damageDropped(int par1) {
+			return 0;
+		}
+
+		public int quantityDropped(Random par1Random) {
+			return 0;
+		}
+
+		public Item getItemDropped(int par1, Random par2Random, int par3) {
+			return Item.getItemById(0);
+		}
+
+		public boolean isOpaqueCube() {
+			return Blocks.leaves.isOpaqueCube();
+		}
+
+		public boolean isShearable(ItemStack item, IBlockAccess world, int x, int y, int z) {
+			return true;
+		}
+
+		public ArrayList<ItemStack> onSheared(ItemStack item, IBlockAccess world, int x, int y, int z, int fortune) {
+			ArrayList<ItemStack> ret = new ArrayList();
+			ret.add(new ItemStack(this, 1, world.getBlockMetadata(x, y, z) & 3));
+			return ret;
+		}
+
+		public void beginLeavesDecay(World world, int x, int y, int z) {
+			world.setBlockMetadataWithNotify(x, y, z, world.getBlockMetadata(x, y, z) | 8, 4);
+		}
+
+		public boolean isLeaves(IBlockAccess world, int x, int y, int z) {
+			return true;
+		}
+
+		@SuppressWarnings("deprecation")
+		public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
+			int md = world.getBlockMetadata(x, y, z);
+			return new ItemStack(this, 1, md & 1);
+		}
+
+		public int getFlammability(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
+			return 60;
+		}
+
+		public int getFireSpreadSpeed(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
+			return 30;
+		}
+	}
+	public static class CustomDirt extends Block
+	{
+		public CustomDirt()
+		{
+			super(Material.ground);
+			this.setHardness(0.5F);
+			this.setStepSound(soundTypeGravel);
+		}
+	}
+	public static class CustomStone extends Block
+	{
+		public CustomStone()
 		{
 			super(Material.rock);
-			setHardness(2.0F);setResistance(10.0F);setStepSound(soundTypePiston);
-			setBlockName("decor_bricks");
-			setBlockTextureName("DecorBricks");
-		}
-		public static byte subTypes=4;
-		public static IIcon[] icons =new IIcon[subTypes];
-		public static String[] names =new String[]{
-				"irisia:decor_black_brick",
-				"irisia:decor_brown_brick",
-				"irisia:decor_blue_brick",
-				"irisia:decor_elf_brick"};
-		@Override
-		@SideOnly(Side.CLIENT)
-		public void registerBlockIcons(IIconRegister iir)
-		{
-			for(byte i=0;i<subTypes;i++)
-			{
-				icons[i]=iir.registerIcon(names[i]);
-			}
-		}
-		@Override
-		@SideOnly(Side.CLIENT)
-		public IIcon getIcon(int side, int meta)
-		{
-			return meta>=0&&meta<subTypes?icons[meta]:Blocks.brick_block.getIcon(side,meta);
-		}
-		@Override
-		@SideOnly(Side.CLIENT)
-		public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side)
-		{
-			return getIcon(side,world.getBlockMetadata(x, y, z));
-		}
-
-		/**
-		 * Determines the damage on the item the block drops. Used in cloth and wood.
-		 */
-		public int damageDropped(int meta)
-		{
-			return meta;
-		}
-
-		@Override // note 被itemBlock放置的时候执行的东西 用来给方块设置meta
-		public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemStack)
-		{
-			int meta=itemStack.getItemDamage();
-			if(meta<0) meta=0;
-			if(meta>=subTypes) meta=0;
-			world.setBlockMetadataWithNotify(x,y,z,meta,2);
-		}
-		@Override // note 这个方法暂时不知道干啥的 以后可能删掉 // low 也许可以研究一下楼梯stairs的实现
-		/**
-		 * Called when a block is placed using its ItemBlock. Args: World, X, Y, Z, side, hitX, hitY, hitZ, block metadata
-		 */
-		public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta)
-		{
-			// world.setBlockMetadataWithNotify(x,y,z,meta,2);
-			return meta;
-		}
-		/**
-		 * Returns an item stack containing a single instance of the current block type. 'i' is the block's subtype/damage
-		 * and is ignored for blocks which do not support subtypes. Blocks which cannot be harvested should return null.
-		 */
-		@Override
-		protected ItemStack createStackedBlock(int meta)
-		{
-			return new ItemStack(this,1,meta);
-		}
-		@Override
-		public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
-		{
-			if(Irisia.IN_DEV && player.isSneaking()) // note 这里以后删掉
-			{
-				int meta=world.getBlockMetadata(x,y,z);
-				if(meta<subTypes-1) meta++;
-				else meta=0;
-				world.setBlockMetadataWithNotify(x,y,z,meta,2);
-				return true;
-			}
-			return false;
-		}
-
-		@Override
-		@SideOnly(Side.CLIENT)
-		public void getSubBlocks(Item item, CreativeTabs tab, List list)
-		{
-			for(byte i=0;i<subTypes;i++)
-			{
-				list.add(new ItemStack(this,1,i));//BlockStairs
-			}
-		}
-		/**
-		 * Get the block's damage value (for use with pick block).
-		 */
-		@Override
-		public int getDamageValue(World world, int x, int y, int z)
-		{
-			return world.getBlockMetadata(x, y, z);
-		}
-		@Override
-		public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
-		{
-			return Item.getItemFromBlock(Bricks);
 		}
 	}
+
+
+
 
 	public final static Block DeathDirt; // 亡者之壤
 	static

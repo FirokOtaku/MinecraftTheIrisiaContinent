@@ -25,6 +25,10 @@ public class BlockLoader
 		register(IrisiaCreativeTabs.block,DecorationBlocks.Bricks,DecorationItems.BrickClass.class,"decor_bricks");
 		register(IrisiaCreativeTabs.block,DecorationBlocks.DeathDirt,"DeathDirt","death_dirt");
 
+		register(IrisiaCreativeTabs.block,DecorationBlocks.LuxGrass,"LuxGrass","lux_grass");
+		register(IrisiaCreativeTabs.block,DecorationBlocks.RichMagicGrass,"RichMagicGrass","rich_magic_grass");
+		register(IrisiaCreativeTabs.block,DecorationBlocks.RichMagicStone,"RichMagicStone","rich_magic_stone");
+
 		register(IrisiaCreativeTabs.block,DecorationBlocks.MagicalDirt,"MagicalDirt","magical_dirt");
 
 		register(IrisiaCreativeTabs.block,VisNode.BlockVisNode,"VisNode","vis_node");
@@ -42,6 +46,13 @@ public class BlockLoader
 		register(IrisiaCreativeTabs.block,SpecialDecorations.MagicLight,"MagicLight","decor_magic_light");
 		register(IrisiaCreativeTabs.block,SpecialDecorations.AirWall,"AirWall","decor_air_wall");
 
+		register(IrisiaCreativeTabs.block,SpecialDecorations.Test,"Test","testBlock");
+	}
+	private static void registerVeins()
+	{
+		register(IrisiaCreativeTabs.block,Veins.VeinIron,"veinIron","vein_iron");
+		register(IrisiaCreativeTabs.block,Veins.VeinGold,"veinGold","vein_gold");
+		register(IrisiaCreativeTabs.block,Veins.VeinDiamond,"veinDiamond","vein_diamond");
 	}
 	private static void registerOres()
 	{
@@ -123,6 +134,8 @@ public class BlockLoader
     public BlockLoader(FMLPreInitializationEvent event)
     {
 	    registerDecorations();
+
+	    registerVeins();
 
         registerOres();
 

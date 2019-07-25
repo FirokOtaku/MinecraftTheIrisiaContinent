@@ -21,7 +21,7 @@ import java.awt.*;
 public class Util {
 	public static boolean canTick(World world,int tickInterval,int tickOffset)
 	{
-		return world==null?false:world.getTotalWorldTime()%tickInterval+tickOffset==0;
+		return world != null && world.getTotalWorldTime() % tickInterval - tickOffset == 0;
 	}
 
 	public static final byte[] Bits=new byte[]{1,2,4,8,16,32,64};
